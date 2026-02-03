@@ -1,0 +1,226 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum BuyerSizeBand {
+  EMP_20_200
+  EMP_50_500
+  EMP_100_1000
+}
+
+enum LeadStatus {
+  NEW
+  ASSIGNED
+  SENT
+  ACCEPTED
+  REJECTED
+  CONTACTED
+  WON
+  LOST
+}
+
+enum LeadDeliveryChannel {
+  EMAIL
+  DASHBOARD
+}
+
+enum ToolStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Vendor {
+  id           String  @id @default(cuid())
+  name         String
+  websiteUrl   String?
+  contactEmail String?
+
+  // ICP basics
+  supportedStates    String[]        @default([])
+  supportedSizeBands BuyerSizeBand[] @default([])
+  categories         Category[]      @relation("VendorCategories")
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tools           Tool[]
+  leadAssignments LeadAssignment[]
+  assignedLeads   Lead[]           @relation("LeadAssignedVendor")
+}
+
+model Category {
+  id        String @id @default(cuid())
+  slug      String @unique
+  name      String
+  sortOrder Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tools   ToolCategory[]
+  vendors Vendor[]       @relation("VendorCategories")
+}
+
+model Integration {
+  id   String @id @default(cuid())
+  slug String @unique
+  name String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tools ToolIntegration[]
+}
+
+model Tool {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  name        String
+  tagline     String?
+  description String?
+
+  vendorId String?
+  vendor   Vendor? @relation(fields: [vendorId], references: [id])
+
+  status         ToolStatus @default(DRAFT)
+  lastVerifiedAt DateTime?
+
+  // Facets
+  bestForSizeBands BuyerSizeBand[] @default([])
+  supportedStates  String[]        @default([])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  categories   ToolCategory[]
+  integrations ToolIntegration[]
+  pricingPlans PricingPlan[]
+}
+
+model ToolCategory {
+  toolId     String
+  categoryId String
+  tool       Tool     @relation(fields: [toolId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@id([toolId, categoryId])
+}
+
+model ToolIntegration {
+  toolId        String
+  integrationId String
+  tool          Tool        @relation(fields: [toolId], references: [id])
+  integration   Integration @relation(fields: [integrationId], references: [id])
+
+  @@id([toolId, integrationId])
+}
+
+model PricingPlan {
+  id     String @id @default(cuid())
+  toolId String
+  tool   Tool   @relation(fields: [toolId], references: [id])
+
+  name         String
+  priceNote    String? // e.g. "₹50/employee/month, min 50 employees"
+  setupFeeNote String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model QuestionnaireSubmission {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Raw answers
+  answers Json
+
+  // Derived
+  companyName          String?
+  buyerEmail           String?
+  buyerRole            String?
+  sizeBand             BuyerSizeBand?
+  states               String[]       @default([])
+  categoriesNeeded     String[]       @default([]) // category slugs
+  mustHaveIntegrations String[]       @default([]) // integration slugs
+  budgetNote           String?
+  timelineNote         String?
+
+  recommendationRuns RecommendationRun[]
+  leads              Lead[]
+}
+
+model RecommendationRun {
+  id           String                  @id @default(cuid())
+  submissionId String
+  submission   QuestionnaireSubmission @relation(fields: [submissionId], references: [id])
+  createdAt    DateTime                @default(now())
+
+  // JSON: per-category picks, scores, explanations
+  result Json
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  submissionId String?
+  submission   QuestionnaireSubmission? @relation(fields: [submissionId], references: [id])
+
+  companyName  String
+  contactName  String
+  contactEmail String
+  contactPhone String?
+  buyerRole    String?
+
+  sizeBand         BuyerSizeBand?
+  states           String[]       @default([])
+  categoriesNeeded String[]       @default([])
+  budgetNote       String?
+  timelineNote     String?
+
+  qualification String     @default("warm") // hot|warm|cold
+  status        LeadStatus @default(NEW)
+
+  assignedVendorId String?
+  assignedVendor   Vendor?   @relation("LeadAssignedVendor", fields: [assignedVendorId], references: [id])
+  assignedAt       DateTime?
+  nextActionAt     DateTime?
+
+  assignments LeadAssignment[]
+  deliveries  LeadDelivery[]
+}
+
+model LeadAssignment {
+  id        String   @id @default(cuid())
+  leadId    String
+  vendorId  String
+  createdAt DateTime @default(now())
+
+  lead   Lead   @relation(fields: [leadId], references: [id])
+  vendor Vendor @relation(fields: [vendorId], references: [id])
+
+  note String?
+
+  @@unique([leadId, vendorId])
+}
+
+model LeadDelivery {
+  id        String   @id @default(cuid())
+  leadId    String
+  createdAt DateTime @default(now())
+
+  channel     LeadDeliveryChannel
+  destination String // email address for v1
+  status      String              @default("queued") // queued|sent|failed
+  error       String?
+
+  lead Lead @relation(fields: [leadId], references: [id])
+}
