@@ -2,10 +2,68 @@ export const dynamic = "force-dynamic";
 
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { LeadSection } from "./LeadSection";
 
 export default async function ToolDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  if (!process.env.DATABASE_URL) return notFound();
+  // Fallback for local/demo when DB is not connected
+  if (!process.env.DATABASE_URL) {
+    const fallback = {
+      greythr: {
+        name: "greytHR",
+        tagline: "HRMS + payroll for Indian SMEs",
+        vendor: "greytHR",
+        categories: ["HRMS", "Payroll"],
+      },
+      keka: {
+        name: "Keka",
+        tagline: "Modern HRMS with payroll",
+        vendor: "Keka",
+        categories: ["HRMS", "Payroll", "Performance"],
+      },
+      "zoho-people": {
+        name: "Zoho People",
+        tagline: "HRMS with attendance/leave",
+        vendor: "Zoho",
+        categories: ["HRMS", "Attendance"],
+      },
+      freshteam: {
+        name: "Freshteam",
+        tagline: "ATS + onboarding for SMEs",
+        vendor: "Freshworks",
+        categories: ["ATS"],
+      },
+    } as const;
+
+    const f = (fallback as any)[slug];
+    if (!f) return notFound();
+
+    return (
+      <div className="min-h-screen bg-zinc-50">
+        <SiteHeader />
+        <main className="mx-auto max-w-4xl px-6 py-10">
+          <a className="text-sm underline" href="/tools">
+            Back to tools
+          </a>
+          <div className="mt-4 rounded-xl bg-white p-6 shadow">
+            <h1 className="text-2xl font-semibold">{f.name}</h1>
+            <p className="mt-1 text-sm text-zinc-600">by {f.vendor}</p>
+            <p className="mt-4 text-zinc-700">{f.tagline}</p>
+            <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Info title="Categories" value={f.categories.join(", ")} />
+              <Info title="Integrations" value="—" />
+            </div>
+            <div className="mt-8 rounded-xl bg-zinc-50 p-4 text-sm text-zinc-700">
+              Demo data shown (DB not connected). Connect DB + seed catalog for full details.
+            </div>
+          </div>
+        </main>
+        <SiteFooter />
+      </div>
+    );
+  }
 
   const tool = await prisma.tool.findUnique({
     where: { slug },
@@ -20,8 +78,9 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
   if (!tool || tool.status !== "PUBLISHED") return notFound();
 
   return (
-    <div className="min-h-screen bg-zinc-50 p-6">
-      <div className="mx-auto max-w-4xl">
+    <div className="min-h-screen bg-zinc-50">
+      <SiteHeader />
+      <main className="mx-auto max-w-4xl px-6 py-10">
         <a className="text-sm underline" href="/tools">
           Back to tools
         </a>
@@ -54,28 +113,28 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
             </div>
           ) : null}
 
-          <div className="mt-8 flex gap-3">
-            <a
-              className="rounded-md bg-black px-4 py-2 text-white"
-              href={`/stack-builder?prefill=${encodeURIComponent(tool.slug)}`}
-            >
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a className="rounded-md bg-black px-4 py-2 text-white" href={`/stack-builder?prefill=${encodeURIComponent(tool.slug)}`}>
               See if this fits my team
             </a>
-            <a className="rounded-md border border-zinc-300 bg-white px-4 py-2" href="#lead">
+            <a className="rounded-md border border-zinc-300 bg-white px-4 py-2" href={`/tools/${tool.slug}#lead`}>
               Request demo/pricing
             </a>
           </div>
 
-          <div id="lead" className="mt-10 rounded-xl bg-zinc-50 p-4">
+          <LeadSection>
+            <div className="mt-10 rounded-xl bg-zinc-50 p-4">
             <p className="text-sm text-zinc-700">
               Want an intro or pricing help? Use the Stack Builder—HRSignal will route you to the best-fit vendor.
             </p>
             <a className="mt-3 inline-block text-sm font-medium underline" href="/stack-builder">
               Open Stack Builder →
             </a>
-          </div>
+            </div>
+          </LeadSection>
         </div>
-      </div>
+      </main>
+      <SiteFooter />
     </div>
   );
 }

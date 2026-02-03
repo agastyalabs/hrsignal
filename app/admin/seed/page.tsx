@@ -1,17 +1,33 @@
-import { PrismaClient } from "@prisma/client";
+export const dynamic = "force-dynamic";
 
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/db";
 
-async function main() {
+export default async function AdminSeedPage() {
+  return (
+    <div className="min-h-screen bg-zinc-50 p-6">
+      <div className="mx-auto max-w-3xl rounded-xl bg-white p-6 shadow">
+        <h1 className="text-2xl font-semibold">Seed catalog</h1>
+        <p className="mt-2 text-sm text-zinc-600">
+          This is an internal helper for v1. It will insert a small starter catalog (categories, vendors, tools, integrations).
+        </p>
+
+        <form action={seedCatalog} className="mt-6">
+          <button className="rounded-md bg-black px-4 py-2 text-white">Run seed</button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+async function seedCatalog() {
+  "use server";
+
   const categories = [
     { slug: "hrms", name: "HRMS / Core HR", sortOrder: 10 },
     { slug: "payroll", name: "Payroll & Compliance", sortOrder: 20 },
-    { slug: "ats", name: "Recruitment / ATS", sortOrder: 30 },
-    { slug: "bgv", name: "Background Verification (BGV)", sortOrder: 40 },
-    { slug: "performance", name: "Performance & OKRs", sortOrder: 50 },
-    { slug: "engagement", name: "Engagement & Surveys", sortOrder: 60 },
-    { slug: "lms", name: "LMS / Training", sortOrder: 70 },
-    { slug: "attendance", name: "Time & Attendance", sortOrder: 80 },
+    { slug: "attendance", name: "Attendance/Leave/Time", sortOrder: 30 },
+    { slug: "ats", name: "ATS / Hiring", sortOrder: 40 },
+    { slug: "performance", name: "Performance/OKR", sortOrder: 50 },
   ];
 
   for (const c of categories) {
@@ -75,7 +91,7 @@ async function main() {
           data: {
             websiteUrl: v.websiteUrl,
             contactEmail: v.contactEmail,
-            supportedSizeBands: v.supportedSizeBands,
+            supportedSizeBands: v.supportedSizeBands as any,
             isActive: true,
           },
         })
@@ -84,7 +100,7 @@ async function main() {
             name: v.name,
             websiteUrl: v.websiteUrl,
             contactEmail: v.contactEmail,
-            supportedSizeBands: v.supportedSizeBands,
+            supportedSizeBands: v.supportedSizeBands as any,
             isActive: true,
           },
         });
@@ -136,7 +152,7 @@ async function main() {
       slug: "zoho-payroll",
       name: "Zoho Payroll",
       vendorName: "Zoho",
-      tagline: "India payroll compliance workflows",
+      tagline: "Payroll for India compliance",
       categories: ["payroll"],
       integrations: ["zoho-books"],
       bestFor: ["EMP_20_200", "EMP_50_500"],
@@ -161,7 +177,7 @@ async function main() {
         vendorId: vendor?.id,
         tagline: t.tagline,
         status: "PUBLISHED",
-        bestForSizeBands: t.bestFor,
+        bestForSizeBands: t.bestFor as any,
         lastVerifiedAt: new Date(),
       },
       create: {
@@ -170,7 +186,7 @@ async function main() {
         vendorId: vendor?.id,
         tagline: t.tagline,
         status: "PUBLISHED",
-        bestForSizeBands: t.bestFor,
+        bestForSizeBands: t.bestFor as any,
         lastVerifiedAt: new Date(),
       },
     });
@@ -190,15 +206,4 @@ async function main() {
       await prisma.toolIntegration.create({ data: { toolId: tool.id, integrationId: integ.id } });
     }
   }
-
-  console.log("Seed complete");
 }
-
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });

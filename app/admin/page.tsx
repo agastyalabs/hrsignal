@@ -34,12 +34,18 @@ export default async function AdminHome() {
           <Stat label="Vendors" value={vendorsCount} />
           <Stat label="Leads" value={leadsCount} />
         </div>
-        <div className="mt-8 flex gap-3">
+        <div className="mt-8 flex flex-wrap gap-3">
           <a className="rounded-md bg-black px-4 py-2 text-white" href="/admin/leads">
             Lead Ops
           </a>
           <a className="rounded-md border border-zinc-300 bg-white px-4 py-2" href="/admin/tools">
             Tools
+          </a>
+          <a className="rounded-md border border-zinc-300 bg-white px-4 py-2" href="/admin/vendors">
+            Vendors
+          </a>
+          <a className="rounded-md border border-zinc-300 bg-white px-4 py-2" href="/admin/seed">
+            Seed catalog
           </a>
         </div>
       </div>

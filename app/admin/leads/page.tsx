@@ -32,7 +32,13 @@ export default async function AdminLeadsPage() {
           </a>
         </div>
 
-        <div className="mt-6 overflow-x-auto rounded-xl bg-white shadow">
+        <div className="mt-6 flex justify-end">
+          <a className="rounded-md bg-black px-4 py-2 text-white" href="/admin/leads/new">
+            Add lead
+          </a>
+        </div>
+
+        <div className="mt-4 overflow-x-auto rounded-xl bg-white shadow">
           <table className="w-full text-sm">
             <thead className="border-b bg-zinc-50 text-left">
               <tr>
