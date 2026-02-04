@@ -1,65 +1,51 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
+import Image from "next/image";
+
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { Section } from "@/components/layout/Section";
+import { ButtonLink } from "@/components/ui/Button";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { FeatureGrid } from "@/components/marketing/FeatureGrid";
+import { TrustStrip } from "@/components/marketing/TrustStrip";
+import { TestimonialStrip } from "@/components/marketing/TestimonialStrip";
+import { CategoryCard } from "@/components/catalog/CategoryCard";
+import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
 import { prisma } from "@/lib/db";
 
-const CATEGORY_TILES = [
+const CATEGORIES = [
   {
     slug: "hrms",
     name: "Core HRMS",
-    desc: "Employee lifecycle, org, docs, workflows",
+    description: "Employee lifecycle, org, docs, workflows",
     indiaReady: false,
   },
   {
     slug: "payroll",
     name: "Payroll + Compliance",
-    desc: "India-first PF/ESI/PT/TDS fit",
+    description: "India-first PF/ESI/PT/TDS fit",
     indiaReady: true,
   },
   {
     slug: "attendance",
     name: "Attendance/Leave/Time",
-    desc: "Shifts, biometric, field staff",
+    description: "Shifts, biometric, field staff",
     indiaReady: true,
   },
   {
     slug: "ats",
     name: "ATS / Hiring",
-    desc: "Pipeline, interviews, offers",
+    description: "Pipeline, interviews, offers",
     indiaReady: false,
   },
   {
     slug: "performance",
     name: "Performance/OKR",
-    desc: "Reviews, goals, feedback",
+    description: "Reviews, goals, feedback",
     indiaReady: false,
   },
-] as const;
-
-const USE_CASES = [
-  {
-    title: "Set up payroll in 7 days",
-    desc: "Shortlist payroll tools that handle statutory basics and approvals.",
-    href: "/tools?category=payroll",
-  },
-  {
-    title: "Automate attendance & leave",
-    desc: "Biometric, shifts, WFH, field teams — pick what fits.",
-    href: "/tools?category=attendance",
-  },
-  {
-    title: "Hire 20 people / quarter",
-    desc: "ATS tools that keep pipeline, interviews, and offers organized.",
-    href: "/tools?category=ats",
-  },
-] as const;
-
-const COMPARISONS = [
-  { title: "Keka vs Zoho People", href: "/tools?q=keka" },
-  { title: "greytHR vs Keka", href: "/tools?q=greythr" },
-  { title: "Zoho Recruit vs Freshteam", href: "/tools?category=ats" },
 ] as const;
 
 export default async function Home() {
@@ -69,190 +55,209 @@ export default async function Home() {
     <div className="min-h-screen bg-zinc-50">
       <SiteHeader />
 
-      <main className="mx-auto max-w-6xl px-6 pb-16 pt-10">
-        {/* Hero */}
-        <section className="rounded-2xl bg-white p-8 shadow sm:p-10">
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-zinc-900">
-            Find the right HR software for your business — fast.
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-zinc-600">
-            HRSignal is a HR-only software discovery platform for India-first SMEs: HRMS, payroll & compliance, attendance, ATS, and
-            performance.
-          </p>
+      {/* Hero */}
+      <Section className="pt-10 sm:pt-14">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          <div>
+            <h1 className="text-4xl font-semibold leading-tight tracking-tight text-zinc-900 sm:text-5xl">
+              Find the right HR software for your business — fast.
+            </h1>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-600">
+              India-first recommendations for HRMS, payroll & compliance, attendance, ATS and performance tools.
+            </p>
 
-          {/* Search */}
-          <form
-            className="mt-6 flex flex-col gap-3 rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:flex-row"
-            action="/tools"
-          >
-            <input
-              className="input"
-              name="q"
-              placeholder="Search tools (e.g., Keka, payroll, attendance)"
-              aria-label="Search tools"
-            />
-            <select className="input" name="category" defaultValue="">
-              <option value="">All categories</option>
-              <option value="hrms">HRMS</option>
-              <option value="payroll">Payroll + Compliance</option>
-              <option value="attendance">Attendance/Leave</option>
-              <option value="ats">ATS/Hiring</option>
-              <option value="performance">Performance/OKR</option>
-            </select>
-            <button className="rounded-md bg-black px-4 py-2 font-medium text-white transition-transform hover:-translate-y-0.5">
-              Search
-            </button>
-          </form>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <ButtonLink href="/stack-builder" size="lg" variant="primary">
+                Get recommendations
+              </ButtonLink>
+              <ButtonLink href="/tools" size="lg" variant="secondary">
+                Browse tools
+              </ButtonLink>
+            </div>
 
-          <div className="mt-6 flex flex-wrap gap-2">
-            {CATEGORY_TILES.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-zinc-800 transition-colors hover:bg-zinc-50"
-              >
-                {c.name}
-              </Link>
-            ))}
-            <Link
-              href="/stack-builder"
-              className="rounded-full bg-black px-3 py-1 text-sm text-white transition-transform hover:-translate-y-0.5"
-            >
-              Get recommendations
-            </Link>
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <Card title="India-first compliance fit">PF/ESI/PT-ready options with clear notes and SME realities.</Card>
-            <Card title="Explainable recommendations">See “why this tool” with scoring factors — no black box.</Card>
-            <Card title="Qualified vendor intros">Share your requirements once. We route to one best-fit vendor.</Card>
-          </div>
-        </section>
-
-        {/* Categories */}
-        <section className="mt-10">
-          <div className="flex items-baseline justify-between">
-            <h2 className="text-xl font-semibold">Popular categories</h2>
-            <Link className="text-sm underline" href="/tools">
-              Browse all tools
-            </Link>
-          </div>
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {CATEGORY_TILES.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                className="rounded-xl bg-white p-5 shadow transition-all hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="text-lg font-semibold">{c.name}</div>
-                  {c.indiaReady ? (
-                    <span className="rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700">
-                      India-ready
-                    </span>
-                  ) : null}
-                </div>
-                <div className="mt-2 text-sm text-zinc-600">{c.desc}</div>
-                <div className="mt-4 text-sm font-medium underline">Explore →</div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* Trending */}
-        <section className="mt-10">
-          <h2 className="text-xl font-semibold">Trending tools</h2>
-          <p className="mt-1 text-sm text-zinc-600">Quick picks to start your shortlist.</p>
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {trending.map((t) => (
-              <Link
-                key={t.slug}
-                href={`/tools/${t.slug}`}
-                className="group rounded-xl bg-white p-5 shadow transition-all hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <div className="text-lg font-semibold">{t.name}</div>
-                {t.vendorName ? <div className="mt-1 text-sm text-zinc-600">by {t.vendorName}</div> : null}
-                {t.tagline ? <div className="mt-3 text-sm text-zinc-700">{t.tagline}</div> : null}
-                <div className="mt-4 text-sm font-medium underline opacity-0 transition-opacity group-hover:opacity-100">
-                  View details →
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* Use-cases + Comparisons */}
-        <section className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <div className="rounded-xl bg-white p-6 shadow">
-            <h2 className="text-xl font-semibold">Use-case collections</h2>
-            <div className="mt-4 space-y-4">
-              {USE_CASES.map((u) => (
+            <div className="mt-6 flex flex-wrap gap-2">
+              {CATEGORIES.map((c) => (
                 <Link
-                  key={u.title}
-                  href={u.href}
-                  className="block rounded-lg border border-zinc-200 p-4 transition-colors hover:bg-zinc-50"
+                  key={c.slug}
+                  href={`/tools?category=${encodeURIComponent(c.slug)}`}
+                  className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-zinc-700 hover:bg-zinc-50"
                 >
-                  <div className="font-semibold">{u.title}</div>
-                  <div className="mt-1 text-sm text-zinc-600">{u.desc}</div>
+                  {c.name}
                 </Link>
               ))}
             </div>
           </div>
-          <div className="rounded-xl bg-white p-6 shadow">
-            <h2 className="text-xl font-semibold">Comparison spotlight</h2>
-            <p className="mt-1 text-sm text-zinc-600">Fast shortcuts to common evaluations.</p>
-            <div className="mt-4 space-y-3">
-              {COMPARISONS.map((c) => (
-                <Link key={c.title} href={c.href} className="block text-sm font-medium underline">
-                  {c.title}
-                </Link>
-              ))}
+
+          {/* Search module */}
+          <div className="rounded-2xl border border-zinc-200 bg-white p-5 sm:p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="text-sm font-semibold text-zinc-900">Search tools</div>
+                <div className="mt-1 text-sm text-zinc-600">Start with a vendor, category, or use-case.</div>
+              </div>
+              <Image
+                src="/placeholders/tool.svg"
+                alt=""
+                width={48}
+                height={48}
+                className="opacity-80"
+                priority
+              />
             </div>
-            <div className="mt-6 rounded-lg bg-zinc-50 p-4">
-              <div className="text-sm font-semibold">Want a guided shortlist?</div>
-              <div className="mt-1 text-sm text-zinc-600">Answer a quick questionnaire and get explainable recommendations.</div>
-              <Link className="mt-3 inline-block rounded-md bg-black px-4 py-2 text-sm text-white" href="/stack-builder">
-                Start Stack Builder
-              </Link>
+
+            <form className="mt-4 flex flex-col gap-3 sm:flex-row" action="/tools">
+              <input
+                className="input"
+                name="q"
+                placeholder="Search tools (e.g., Keka, payroll, attendance)"
+                aria-label="Search tools"
+              />
+              <select className="input" name="category" defaultValue="">
+                <option value="">All categories</option>
+                <option value="hrms">HRMS</option>
+                <option value="payroll">Payroll + Compliance</option>
+                <option value="attendance">Attendance/Leave</option>
+                <option value="ats">ATS/Hiring</option>
+                <option value="performance">Performance/OKR</option>
+              </select>
+              <button className="h-10 rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white hover:bg-indigo-700">
+                Search
+              </button>
+            </form>
+
+            <div className="mt-4">
+              <div className="text-xs font-medium text-zinc-500">Popular categories</div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {CATEGORIES.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/tools?category=${encodeURIComponent(c.slug)}`}
+                    className="rounded-full bg-zinc-50 px-3 py-1 text-sm text-zinc-700 hover:bg-zinc-100"
+                  >
+                    {c.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
-        </section>
+        </div>
 
-        {/* Trust */}
-        <section className="mt-10 rounded-xl bg-white p-6 shadow">
-          <h2 className="text-xl font-semibold">How we rank tools</h2>
-          <p className="mt-2 text-sm text-zinc-600">
-            Recommendations are explainable and based on your company size, must-have modules, integrations, and India-first compliance fit.
-            We don’t blast your lead to multiple vendors.
-          </p>
-        </section>
+        <div className="mt-8">
+          <TrustStrip />
+        </div>
+      </Section>
 
-        {/* Vendor CTA */}
-        <section className="mt-10 rounded-2xl bg-black p-8 text-white shadow sm:p-10">
-          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+      {/* Categories */}
+      <Section>
+        <div className="flex items-end justify-between gap-6">
+          <SectionHeading
+            title="Browse by category"
+            subtitle="Start with the module you need. We keep categories simple in v1 so browsing stays fast."
+          />
+          <Link className="text-sm font-medium text-indigo-700" href="/tools">
+            View all tools →
+          </Link>
+        </div>
+
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CATEGORIES.map((c) => (
+            <CategoryCard
+              key={c.slug}
+              slug={c.slug}
+              name={c.name}
+              description={c.description}
+              indiaReady={c.indiaReady}
+            />
+          ))}
+        </div>
+      </Section>
+
+      {/* Trending */}
+      <Section className="bg-white">
+        <SectionHeading title="Trending tools" subtitle="Quick picks to start your shortlist." />
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {trending.map((t) => (
+            <ToolCard key={t.slug} tool={t} />
+          ))}
+        </div>
+      </Section>
+
+      {/* How it works */}
+      <Section>
+        <SectionHeading
+          title="How HRSignal helps"
+          subtitle="A simple workflow: discover, shortlist with reasons, and request demos/quotes when you’re ready."
+        />
+        <div className="mt-6">
+          <FeatureGrid
+            features={[
+              {
+                title: "Pick a category",
+                description: "Browse HRMS, payroll & compliance, attendance, ATS, or performance tools.",
+              },
+              {
+                title: "Get recommendations",
+                description: "Answer a short questionnaire and get 3–5 matches with explainable reasons.",
+              },
+              {
+                title: "Request demos/quotes",
+                description: "Share requirements once. We route your request to a best-fit vendor after review.",
+              },
+              {
+                title: "Stay in control",
+                description: "Privacy-first by default. No spammy blast to multiple vendors.",
+              },
+            ]}
+          />
+        </div>
+      </Section>
+
+      {/* Social proof */}
+      <Section className="bg-white">
+        <SectionHeading
+          title="Built for India-first SMEs"
+          subtitle="Original, representative testimonials (placeholder) until we add real customer stories."
+        />
+        <div className="mt-6">
+          <TestimonialStrip />
+        </div>
+        <div className="mt-10 rounded-2xl bg-zinc-50 p-6 sm:p-8">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
-              <h2 className="text-2xl font-semibold">Are you a vendor?</h2>
-              <p className="mt-2 max-w-xl text-sm text-zinc-200">
-                Get listed in HRSignal’s HR-only marketplace and receive qualified leads from Indian SMEs.
+              <div className="text-xl font-semibold text-zinc-900">Ready for a guided shortlist?</div>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
+                Get explainable recommendations based on company size, modules, integrations, and compliance needs.
               </p>
             </div>
-            <Link className="rounded-md bg-white px-5 py-3 text-sm font-semibold text-black" href="/admin">
-              Get listed (internal)
-            </Link>
+            <ButtonLink href="/stack-builder" size="lg">
+              Get recommendations
+            </ButtonLink>
           </div>
-        </section>
-      </main>
+        </div>
+      </Section>
 
       <SiteFooter />
     </div>
   );
 }
 
-async function getTrendingTools() {
-  const fallback = [
-    { slug: "keka", name: "Keka", vendorName: "Keka", tagline: "Modern HRMS with payroll" },
-    { slug: "greythr", name: "greytHR", vendorName: "greytHR", tagline: "HRMS + payroll for Indian SMEs" },
-    { slug: "zoho-people", name: "Zoho People", vendorName: "Zoho", tagline: "HRMS with attendance/leave" },
+async function getTrendingTools(): Promise<ToolCardModel[]> {
+  const fallback: ToolCardModel[] = [
+    { slug: "keka", name: "Keka", vendorName: "Keka", tagline: "Modern HRMS with payroll", categories: ["HRMS", "Payroll"] },
+    {
+      slug: "greythr",
+      name: "greytHR",
+      vendorName: "greytHR",
+      tagline: "HRMS + payroll for Indian SMEs",
+      categories: ["HRMS", "Payroll"],
+    },
+    {
+      slug: "zoho-people",
+      name: "Zoho People",
+      vendorName: "Zoho",
+      tagline: "HRMS with attendance/leave",
+      categories: ["HRMS", "Attendance"],
+    },
   ];
 
   if (!process.env.DATABASE_URL) return fallback;
@@ -261,26 +266,19 @@ async function getTrendingTools() {
     const rows = await prisma.tool.findMany({
       where: { status: "PUBLISHED" },
       orderBy: { lastVerifiedAt: "desc" },
-      include: { vendor: true },
+      include: { vendor: true, categories: { include: { category: true } } },
       take: 6,
     });
 
     return rows.map((t) => ({
       slug: t.slug,
       name: t.name,
-      vendorName: t.vendor?.name ?? "",
-      tagline: t.tagline ?? "",
+      vendorName: t.vendor?.name ?? undefined,
+      tagline: t.tagline ?? undefined,
+      categories: t.categories.map((c) => c.category.name),
+      verified: Boolean(t.lastVerifiedAt),
     }));
   } catch {
     return fallback;
   }
-}
-
-function Card({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div className="rounded-xl bg-white p-5 shadow">
-      <div className="text-base font-semibold text-zinc-900">{title}</div>
-      <div className="mt-2 text-sm leading-6 text-zinc-600">{children}</div>
-    </div>
-  );
 }
