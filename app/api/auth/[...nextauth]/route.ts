@@ -26,6 +26,8 @@ const handler = NextAuth({
       },
     }),
   ],
+  // Keep this aligned with middleware.ts (getToken secret)
+  secret: process.env.AUTH_SECRET,
   session: { strategy: "jwt" },
   pages: {
     signIn: "/admin/login",

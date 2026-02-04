@@ -1,7 +1,7 @@
+export const dynamic = "force-dynamic";
+
 import { prisma } from "@/lib/db";
 import { redirect } from "next/navigation";
-
-export const dynamic = "force-dynamic";
 
 export default function AdminNewVendorPage() {
   return (

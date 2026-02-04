@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: ["dev", "main"]
+  pull_request:
+
+jobs:
+  lint-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+        env:
+          # Needed for Prisma generate during install/build.
+          DATABASE_URL: postgresql://user:password@localhost:5432/hrsignal?schema=public
+          NEXT_TELEMETRY_DISABLED: "1"
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+        env:
+          DATABASE_URL: postgresql://user:password@localhost:5432/hrsignal?schema=public
+          NEXT_TELEMETRY_DISABLED: "1"
