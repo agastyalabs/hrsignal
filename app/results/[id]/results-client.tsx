@@ -1,6 +1,7 @@
 "use client";
 
 import type { BuyerSizeBand } from "@prisma/client";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 type Submission = {
@@ -16,6 +17,18 @@ type Submission = {
   timelineNote: string | null;
 };
 
+type RecommendationResult = {
+  picks: Array<{
+    category: string;
+    tool: {
+      slug: string;
+      name: string;
+      tagline?: string | null;
+    };
+    why: string;
+  }>;
+};
+
 export default function ResultsClient({
   runId,
   submission,
@@ -23,7 +36,7 @@ export default function ResultsClient({
 }: {
   runId: string;
   submission: Submission;
-  result: any;
+  result: RecommendationResult;
 }) {
   const [contactName, setContactName] = useState("");
   const [contactPhone, setContactPhone] = useState("");
@@ -32,7 +45,7 @@ export default function ResultsClient({
   const [error, setError] = useState<string | null>(null);
 
   const picks = useMemo(() => {
-    return (result?.picks as Array<{ category: string; tool: any; why: string }> | undefined) ?? [];
+    return result?.picks ?? [];
   }, [result]);
 
   return (
@@ -40,9 +53,9 @@ export default function ResultsClient({
       <div className="mx-auto max-w-4xl">
         <div className="flex items-baseline justify-between">
           <h1 className="text-2xl font-semibold">Your HR stack shortlist</h1>
-          <a className="text-sm underline" href="/stack-builder">
+          <Link className="text-sm font-medium text-indigo-700" href="/stack-builder">
             Start over
-          </a>
+          </Link>
         </div>
         <p className="mt-2 text-zinc-600">
           Based on your inputs, here are best-fit picks per category. Want pricing/demo help? Submit your details and we’ll route you to the
@@ -59,9 +72,9 @@ export default function ResultsClient({
                 <span className="font-medium">Why:</span> {p.why}
               </div>
               <div className="mt-3">
-                <a className="text-sm underline" href={`/tools/${p.tool.slug}`}>
+                <Link className="text-sm font-medium text-indigo-700" href={`/tools/${p.tool.slug}`}>
                   View details →
-                </a>
+                </Link>
               </div>
             </div>
           ))}

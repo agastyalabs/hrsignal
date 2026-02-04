@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { prisma } from "@/lib/db";
 import { redirect } from "next/navigation";
 
@@ -23,9 +25,9 @@ export default async function AdminNewToolPage() {
       <div className="mx-auto max-w-2xl">
         <div className="flex items-baseline justify-between">
           <h1 className="text-2xl font-semibold">Add tool</h1>
-          <a className="text-sm underline" href="/admin/tools">
+          <Link className="text-sm font-medium text-indigo-700" href="/admin/tools">
             Back
-          </a>
+          </Link>
         </div>
 
         <form action={createTool} className="mt-6 space-y-4 rounded-xl bg-white p-6 shadow">
@@ -89,7 +91,7 @@ async function createTool(formData: FormData) {
 
   if (!name || !slug || !categoryId) return;
 
-  const tool = await prisma.tool.create({
+  await prisma.tool.create({
     data: {
       name,
       slug,

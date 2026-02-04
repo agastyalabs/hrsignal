@@ -1,5 +1,7 @@
 export const dynamic = "force-dynamic";
 
+import Link from "next/link";
+
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -26,9 +28,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
     <div className="min-h-screen bg-zinc-50">
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-6 py-10">
-        <a className="text-sm underline" href="/vendors">
+        <Link className="text-sm font-medium text-indigo-700" href="/vendors">
           Back to vendors
-        </a>
+        </Link>
 
         <div className="mt-4 rounded-xl bg-white p-6 shadow">
           <h1 className="text-2xl font-semibold">{vendor.name}</h1>
@@ -47,13 +49,17 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
             ) : (
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {vendor.tools.map((t) => (
-                  <a key={t.id} href={`/tools/${t.slug}`} className="rounded-xl border border-zinc-200 bg-white p-4 hover:shadow">
+                  <Link
+                    key={t.id}
+                    href={`/tools/${t.slug}`}
+                    className="rounded-xl border border-zinc-200 bg-white p-4 hover:shadow"
+                  >
                     <div className="text-lg font-semibold">{t.name}</div>
                     {t.tagline ? <div className="mt-1 text-sm text-zinc-600">{t.tagline}</div> : null}
                     <div className="mt-3 text-sm text-zinc-700">
                       {t.categories.map((c) => c.category.name).join(" • ")}
                     </div>
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}

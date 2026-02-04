@@ -1,5 +1,7 @@
 export const dynamic = "force-dynamic";
 
+import Link from "next/link";
+
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -37,16 +39,16 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
       },
     } as const;
 
-    const f = (fallback as any)[slug];
+    const f = fallback[slug as keyof typeof fallback];
     if (!f) return notFound();
 
     return (
       <div className="min-h-screen bg-zinc-50">
         <SiteHeader />
         <main className="mx-auto max-w-4xl px-6 py-10">
-          <a className="text-sm underline" href="/tools">
+          <Link className="text-sm font-medium text-indigo-700" href="/tools">
             Back to tools
-          </a>
+          </Link>
           <div className="mt-4 rounded-xl bg-white p-6 shadow">
             <h1 className="text-2xl font-semibold">{f.name}</h1>
             <p className="mt-1 text-sm text-zinc-600">by {f.vendor}</p>
@@ -81,9 +83,9 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
     <div className="min-h-screen bg-zinc-50">
       <SiteHeader />
       <main className="mx-auto max-w-4xl px-6 py-10">
-        <a className="text-sm underline" href="/tools">
+        <Link className="text-sm font-medium text-indigo-700" href="/tools">
           Back to tools
-        </a>
+        </Link>
 
         <div className="mt-4 rounded-xl bg-white p-6 shadow">
           <h1 className="text-2xl font-semibold">{tool.name}</h1>
@@ -114,12 +116,15 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
           ) : null}
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a className="rounded-md bg-black px-4 py-2 text-white" href={`/stack-builder?prefill=${encodeURIComponent(tool.slug)}`}>
+            <Link
+              className="rounded-md bg-black px-4 py-2 text-white"
+              href={`/stack-builder?prefill=${encodeURIComponent(tool.slug)}`}
+            >
               See if this fits my team
-            </a>
-            <a className="rounded-md border border-zinc-300 bg-white px-4 py-2" href={`/tools/${tool.slug}#lead`}>
+            </Link>
+            <Link className="rounded-md border border-zinc-300 bg-white px-4 py-2" href={`/tools/${tool.slug}#lead`}>
               Request demo/pricing
-            </a>
+            </Link>
           </div>
 
           <LeadSection>
@@ -127,9 +132,9 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
             <p className="text-sm text-zinc-700">
               Want an intro or pricing help? Use the Stack Builder—HRSignal will route you to the best-fit vendor.
             </p>
-            <a className="mt-3 inline-block text-sm font-medium underline" href="/stack-builder">
+            <Link className="mt-3 inline-block text-sm font-medium text-indigo-700" href="/stack-builder">
               Open Stack Builder →
-            </a>
+            </Link>
             </div>
           </LeadSection>
         </div>

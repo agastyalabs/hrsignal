@@ -12,5 +12,18 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
   });
   if (!run) return notFound();
 
-  return <ResultsClient runId={run.id} submission={run.submission} result={run.result as any} />;
+  return <ResultsClient runId={run.id} submission={run.submission} result={run.result as unknown as RecommendationResult} />;
 }
+
+type RecommendationResult = {
+  picks: Array<{
+    category: string;
+    tool: {
+      slug: string;
+      name: string;
+      tagline?: string | null;
+    };
+    why: string;
+  }>;
+};
+

@@ -1,5 +1,7 @@
 export const dynamic = "force-dynamic";
 
+import Link from "next/link";
+
 import { prisma } from "@/lib/db";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -32,9 +34,9 @@ export default async function VendorsPage() {
       <main className="mx-auto max-w-6xl px-6 py-10">
         <div className="flex items-baseline justify-between">
           <h1 className="text-2xl font-semibold">Vendors</h1>
-          <a className="text-sm underline" href="/tools">
+          <Link className="text-sm font-medium text-indigo-700" href="/tools">
             Browse tools
-          </a>
+          </Link>
         </div>
 
         {!process.env.DATABASE_URL ? (
@@ -48,21 +50,21 @@ export default async function VendorsPage() {
           <div className="mt-6 rounded-xl bg-white p-6 shadow">
             <p className="text-zinc-700">No vendors yet.</p>
             <p className="mt-2 text-sm text-zinc-600">Seed the catalog from Admin → Seed catalog.</p>
-            <a className="mt-3 inline-block text-sm font-medium underline" href="/admin">
+            <Link className="mt-3 inline-block text-sm font-medium text-indigo-700" href="/admin">
               Go to Admin →
-            </a>
+            </Link>
           </div>
         ) : null}
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {vendors.map((v) => (
-            <a key={v.id} href={`/vendors/${v.id}`} className="rounded-xl bg-white p-4 shadow hover:shadow-md">
+            <Link key={v.id} href={`/vendors/${v.id}`} className="rounded-xl bg-white p-4 shadow hover:shadow-md">
               <div className="text-lg font-semibold">{v.name}</div>
               <div className="mt-1 text-sm text-zinc-600">{v.toolsCount} tools</div>
               {v.websiteUrl ? (
                 <div className="mt-3 text-sm text-zinc-700">{v.websiteUrl.replace(/^https?:\/\//, "")}</div>
               ) : null}
-            </a>
+            </Link>
           ))}
         </div>
       </main>

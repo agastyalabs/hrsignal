@@ -1,3 +1,4 @@
+import type { BuyerSizeBand } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -64,7 +65,7 @@ export async function POST(req: Request) {
 function qualify(submission: {
   timelineNote: string | null;
   budgetNote: string | null;
-  sizeBand: any;
+  sizeBand: BuyerSizeBand | null;
   categoriesNeeded: string[];
 }) {
   let score = 0;
@@ -80,7 +81,7 @@ function qualify(submission: {
 
 async function pickBestVendor(submission: {
   categoriesNeeded: string[];
-  sizeBand: any;
+  sizeBand: BuyerSizeBand | null;
   states: string[];
 }) {
   const vendors = await prisma.vendor.findMany({

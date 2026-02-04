@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useState } from "react";
 
@@ -36,7 +37,8 @@ function StackBuilderInner() {
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-  const [sizeBand, setSizeBand] = useState<"EMP_20_200" | "EMP_50_500" | "EMP_100_1000">("EMP_20_200");
+  type SizeBand = "EMP_20_200" | "EMP_50_500" | "EMP_100_1000";
+  const [sizeBand, setSizeBand] = useState<SizeBand>("EMP_20_200");
   const [states, setStates] = useState("Karnataka");
   const [categories, setCategories] = useState<string[]>(["hrms", "payroll"]);
   const [integrations, setIntegrations] = useState<string[]>(prefill ? [] : ["tally"]);
@@ -55,9 +57,9 @@ function StackBuilderInner() {
       <div className="mx-auto max-w-2xl">
         <div className="flex items-baseline justify-between">
           <h1 className="text-2xl font-semibold">Build your HR stack</h1>
-          <a className="text-sm underline" href="/tools">
+          <Link className="text-sm font-medium text-indigo-700" href="/tools">
             Browse tools
-          </a>
+          </Link>
         </div>
         <p className="mt-2 text-zinc-600">
           Answer a few questions. HRSignal will shortlist best-fit tools across HRMS, payroll, hiring, and more.
@@ -113,7 +115,7 @@ function StackBuilderInner() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label="Employee count band">
-              <select className="input" value={sizeBand} onChange={(e) => setSizeBand(e.target.value as any)}>
+              <select className="input" value={sizeBand} onChange={(e) => setSizeBand(e.target.value as SizeBand)}>
                 <option value="EMP_20_200">20–200</option>
                 <option value="EMP_50_500">50–500</option>
                 <option value="EMP_100_1000">100–1000</option>

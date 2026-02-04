@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import type { BuyerSizeBand } from "@prisma/client";
 import { prisma } from "@/lib/db";
 
 export default async function AdminSeedPage() {
@@ -52,7 +53,13 @@ async function seedCatalog() {
     });
   }
 
-  const vendors = [
+  const vendors: Array<{
+    name: string;
+    websiteUrl: string;
+    contactEmail: string;
+    supportedSizeBands: BuyerSizeBand[];
+    categories: string[];
+  }> = [
     {
       name: "greytHR",
       websiteUrl: "https://www.greythr.com",
@@ -91,7 +98,7 @@ async function seedCatalog() {
           data: {
             websiteUrl: v.websiteUrl,
             contactEmail: v.contactEmail,
-            supportedSizeBands: v.supportedSizeBands as any,
+            supportedSizeBands: v.supportedSizeBands,
             isActive: true,
           },
         })
@@ -100,7 +107,7 @@ async function seedCatalog() {
             name: v.name,
             websiteUrl: v.websiteUrl,
             contactEmail: v.contactEmail,
-            supportedSizeBands: v.supportedSizeBands as any,
+            supportedSizeBands: v.supportedSizeBands,
             isActive: true,
           },
         });
@@ -120,7 +127,15 @@ async function seedCatalog() {
     (await prisma.vendor.findMany()).map((v) => [v.name, v])
   );
 
-  const tools = [
+  const tools: Array<{
+    slug: string;
+    name: string;
+    vendorName: string;
+    tagline: string;
+    categories: string[];
+    integrations: string[];
+    bestFor: BuyerSizeBand[];
+  }> = [
     {
       slug: "greythr",
       name: "greytHR",
@@ -177,7 +192,7 @@ async function seedCatalog() {
         vendorId: vendor?.id,
         tagline: t.tagline,
         status: "PUBLISHED",
-        bestForSizeBands: t.bestFor as any,
+        bestForSizeBands: t.bestFor,
         lastVerifiedAt: new Date(),
       },
       create: {
@@ -186,7 +201,7 @@ async function seedCatalog() {
         vendorId: vendor?.id,
         tagline: t.tagline,
         status: "PUBLISHED",
-        bestForSizeBands: t.bestFor as any,
+        bestForSizeBands: t.bestFor,
         lastVerifiedAt: new Date(),
       },
     });
