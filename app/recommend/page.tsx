@@ -3,10 +3,10 @@
 import { Suspense } from "react";
 import RecommendInner from "@/components/recommend/RecommendInner";
 
-export default function StackBuilderPage() {
+export default function RecommendPage() {
   return (
     <Suspense>
-      <RecommendInner mode="stack-builder" />
+      <RecommendInner mode="recommend" />
     </Suspense>
   );
 }

@@ -16,14 +16,23 @@ export default async function ResultsPage({ params }: { params: Promise<{ id: st
 }
 
 type RecommendationResult = {
-  picks: Array<{
-    category: string;
+  version: number;
+  criteria: {
+    sizeBand: string;
+    categoriesNeeded: string[];
+    mustHaveIntegrations: string[];
+  };
+  tools: Array<{
     tool: {
       slug: string;
       name: string;
       tagline?: string | null;
+      vendorName?: string | null;
+      lastVerifiedAt?: string | Date | null;
     };
-    why: string;
+    score: number;
+    matchedCategories: string[];
+    why: string[];
   }>;
 };
 

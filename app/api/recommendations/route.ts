@@ -1,3 +1,4 @@
+import type { BuyerSizeBand } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -8,7 +9,7 @@ const Schema = z.object({
   buyerRole: z.string().optional().default(""),
   sizeBand: z.enum(["EMP_20_200", "EMP_50_500", "EMP_100_1000"]),
   states: z.array(z.string()).default([]),
-  categoriesNeeded: z.array(z.string()).min(1),
+  categoriesNeeded: z.array(z.string()).min(1).max(5),
   mustHaveIntegrations: z.array(z.string()).default([]),
   budgetNote: z.string().optional().nullable(),
   timelineNote: z.string().optional().nullable(),
@@ -60,78 +61,132 @@ async function buildRecommendations({
   categoriesNeeded,
   mustHaveIntegrations,
 }: {
-  sizeBand: "EMP_20_200" | "EMP_50_500" | "EMP_100_1000";
+  sizeBand: BuyerSizeBand;
   categoriesNeeded: string[];
   mustHaveIntegrations: string[];
 }) {
   const tools = await prisma.tool.findMany({
     where: {
       status: "PUBLISHED",
-      ...(sizeBand
-        ? {
-            OR: [
-              { bestForSizeBands: { has: sizeBand } },
-              { bestForSizeBands: { isEmpty: true } },
-            ],
-          }
-        : {}),
-      ...(mustHaveIntegrations.length
-        ? {
-            integrations: {
-              every: undefined,
-              some: { integration: { slug: { in: mustHaveIntegrations } } },
-            },
-          }
-        : {}),
     },
     include: {
+      vendor: true,
       categories: { include: { category: true } },
       integrations: { include: { integration: true } },
     },
     take: 500,
   });
 
-  const picks = categoriesNeeded.map((cat) => {
-    const eligible = tools.filter((t) => t.categories.some((c) => c.category.slug === cat));
-    const scored = eligible
-      .map((t) => ({
-        tool: { id: t.id, slug: t.slug, name: t.name, tagline: t.tagline },
-        score: scoreTool(t, { sizeBand, mustHaveIntegrations }),
-      }))
-      .sort((a, b) => b.score - a.score);
+  const wantedCategories = new Set(categoriesNeeded);
+  const requiredIntegrations = new Set(mustHaveIntegrations);
 
-    const top = scored[0];
-    return {
-      category: cat,
-      tool: top?.tool ?? null,
-      why: top
-        ? `Good fit for ${prettySizeBand(sizeBand)} teams${mustHaveIntegrations.length ? 
-            ` and supports ${mustHaveIntegrations.join(", ")}` : ""}.`
-        : "No matching tools in our catalog yet.",
-      score: top?.score ?? 0,
-    };
-  });
+  const eligible = tools
+    .map((t) => {
+      const toolCats = t.categories.map((c) => c.category.slug);
+      const matchedCategories = toolCats.filter((c) => wantedCategories.has(c));
+
+      const toolInts = t.integrations.map((i) => i.integration.slug);
+      const haveInts = new Set(toolInts);
+
+      const missingRequired = [...requiredIntegrations].filter((req) => !haveInts.has(req));
+
+      if (matchedCategories.length === 0) return null;
+      if (missingRequired.length > 0) return null; // hard constraint
+
+      const { score, reasons } = scoreTool(t, {
+        sizeBand,
+        matchedCategories,
+        mustHaveIntegrations,
+      });
+
+      return {
+        tool: {
+          slug: t.slug,
+          name: t.name,
+          tagline: t.tagline,
+          vendorName: t.vendor?.name ?? null,
+          lastVerifiedAt: t.lastVerifiedAt,
+        },
+        score,
+        matchedCategories,
+        reasons,
+      };
+    })
+    .filter((x): x is NonNullable<typeof x> => Boolean(x));
+
+  const top = eligible
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5)
+    .map((r) => ({
+      tool: r.tool,
+      score: r.score,
+      matchedCategories: r.matchedCategories,
+      why: r.reasons,
+    }));
 
   return {
-    version: 1,
-    picks,
+    version: 2,
+    criteria: {
+      sizeBand,
+      categoriesNeeded,
+      mustHaveIntegrations,
+    },
+    tools: top,
   };
 }
 
 function scoreTool(
-  tool: { bestForSizeBands: string[]; integrations: { integration: { slug: string } }[] },
-  ctx: { sizeBand: string; mustHaveIntegrations: string[] }
-) {
+  tool: {
+    bestForSizeBands: BuyerSizeBand[];
+    integrations: { integration: { slug: string } }[];
+    lastVerifiedAt: Date | null;
+  },
+  ctx: { sizeBand: BuyerSizeBand; matchedCategories: string[]; mustHaveIntegrations: string[] }
+): { score: number; reasons: string[] } {
   let score = 0;
-  if (!tool.bestForSizeBands.length || tool.bestForSizeBands.includes(ctx.sizeBand)) score += 5;
-  const have = new Set(tool.integrations.map((i) => i.integration.slug));
-  for (const req of ctx.mustHaveIntegrations) if (have.has(req)) score += 2;
-  return score;
+  const reasons: string[] = [];
+
+  // Category coverage
+  score += ctx.matchedCategories.length * 4;
+  reasons.push(`Matches: ${ctx.matchedCategories.map(prettyCategory).join(", ")}.`);
+
+  // Size fit
+  if (!tool.bestForSizeBands.length || tool.bestForSizeBands.includes(ctx.sizeBand)) {
+    score += 5;
+    reasons.push(`Good fit for ${prettySizeBand(ctx.sizeBand)} employee teams.`);
+  }
+
+  // Integrations
+  if (ctx.mustHaveIntegrations.length) {
+    const have = new Set(tool.integrations.map((i) => i.integration.slug));
+    const matched = ctx.mustHaveIntegrations.filter((req) => have.has(req));
+    score += matched.length * 2;
+    if (matched.length) reasons.push(`Supports integrations: ${matched.join(", ")}.`);
+  }
+
+  // Freshness (lightweight)
+  if (tool.lastVerifiedAt) {
+    score += 1;
+    reasons.push("Recently verified listing.");
+  }
+
+  return { score, reasons };
 }
 
-function prettySizeBand(band: string) {
+function prettySizeBand(band: BuyerSizeBand) {
   if (band === "EMP_20_200") return "20–200";
   if (band === "EMP_50_500") return "50–500";
   if (band === "EMP_100_1000") return "100–1000";
   return band;
+}
+
+function prettyCategory(slug: string) {
+  const map: Record<string, string> = {
+    hrms: "HRMS / Core HR",
+    payroll: "Payroll & Compliance",
+    attendance: "Attendance/Leave/Time",
+    ats: "ATS / Hiring",
+    performance: "Performance/OKR",
+  };
+  return map[slug] ?? slug;
 }
