@@ -1,18 +1,17 @@
 export const dynamic = "force-dynamic";
 
+import Link from "next/link";
+
 import { prisma } from "@/lib/db";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { Section } from "@/components/layout/Section";
+import { ButtonLink } from "@/components/ui/Button";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { TrustStrip } from "@/components/marketing/TrustStrip";
+import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
 
-type ToolCard = {
-  slug: string;
-  name: string;
-  vendorName?: string;
-  categories: string[];
-  tagline?: string;
-};
-
-const FALLBACK_TOOLS: ToolCard[] = [
+const FALLBACK_TOOLS: ToolCardModel[] = [
   {
     slug: "greythr",
     name: "greytHR",
@@ -46,13 +45,14 @@ const FALLBACK_TOOLS: ToolCard[] = [
 export default async function ToolsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; q?: string }>;
+  searchParams: Promise<{ category?: string; q?: string; sort?: string }>;
 }) {
   const sp = await searchParams;
   const category = sp.category?.trim();
   const q = sp.q?.trim();
+  const sort = sp.sort?.trim() === "recent" ? "recent" : "name";
 
-  let tools: ToolCard[] = [];
+  let tools: ToolCardModel[] = [];
   let mode: "live" | "empty" | "fallback" = "live";
 
   if (!process.env.DATABASE_URL) {
@@ -80,16 +80,18 @@ export default async function ToolsPage({
               }
             : {}),
         },
-        orderBy: { name: "asc" },
+        orderBy: sort === "recent" ? { lastVerifiedAt: "desc" } : { name: "asc" },
         include: { vendor: true, categories: { include: { category: true } } },
         take: 200,
       });
+
       tools = rows.map((t) => ({
         slug: t.slug,
         name: t.name,
         vendorName: t.vendor?.name ?? undefined,
         categories: t.categories.map((c) => c.category.name),
         tagline: t.tagline ?? undefined,
+        verified: Boolean(t.lastVerifiedAt),
       }));
       if (!tools.length) mode = "empty";
     } catch {
@@ -101,100 +103,104 @@ export default async function ToolsPage({
   return (
     <div className="min-h-screen bg-zinc-50">
       <SiteHeader />
-      <main className="mx-auto max-w-6xl px-6 py-10">
-        <div className="flex items-baseline justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold">Browse tools</h1>
-            <p className="mt-1 text-sm text-zinc-600">Only HR ecosystem: HRMS, payroll, attendance, ATS, performance.</p>
-          </div>
-          <a className="text-sm underline" href="/stack-builder">
+
+      <Section className="pt-10 sm:pt-14">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <SectionHeading
+            title="Tools directory"
+            subtitle="Browse HRMS, payroll & compliance, attendance, ATS and performance tools. Use filters to narrow quickly."
+          />
+          <ButtonLink href="/stack-builder" variant="primary" size="md">
             Get recommendations
-          </a>
+          </ButtonLink>
         </div>
 
-        <form className="mt-6 flex flex-col gap-3 rounded-xl bg-white p-4 shadow sm:flex-row">
-          <input
-            className="input"
-            name="q"
-            defaultValue={q}
-            placeholder="Search tools (e.g., Keka, payroll, attendance)"
-          />
-          <select className="input" name="category" defaultValue={category ?? ""}>
-            <option value="">All categories</option>
-            <option value="hrms">HRMS</option>
-            <option value="payroll">Payroll + Compliance</option>
-            <option value="attendance">Attendance/Leave</option>
-            <option value="ats">ATS/Hiring</option>
-            <option value="performance">Performance/OKR</option>
-          </select>
-          <button className="rounded-md bg-black px-4 py-2 text-white">Search</button>
+        <form className="mt-6 grid grid-cols-1 gap-3 rounded-2xl border border-zinc-200 bg-white p-4 sm:grid-cols-12">
+          <div className="sm:col-span-6">
+            <input
+              className="input"
+              name="q"
+              defaultValue={q}
+              placeholder="Search tools (e.g., Keka, payroll, attendance)"
+              aria-label="Search tools"
+            />
+          </div>
+          <div className="sm:col-span-3">
+            <select className="input" name="category" defaultValue={category ?? ""} aria-label="Category">
+              <option value="">All categories</option>
+              <option value="hrms">HRMS</option>
+              <option value="payroll">Payroll + Compliance</option>
+              <option value="attendance">Attendance/Leave</option>
+              <option value="ats">ATS/Hiring</option>
+              <option value="performance">Performance/OKR</option>
+            </select>
+          </div>
+          <div className="sm:col-span-2">
+            <select className="input" name="sort" defaultValue={sort} aria-label="Sort">
+              <option value="name">Sort: Name</option>
+              <option value="recent">Sort: Recently verified</option>
+            </select>
+          </div>
+          <div className="sm:col-span-1">
+            <button className="h-10 w-full rounded-lg bg-indigo-600 text-sm font-medium text-white hover:bg-indigo-700">
+              Go
+            </button>
+          </div>
+
+          {/* MVP filter placeholders (UI-only) */}
+          <div className="sm:col-span-12">
+            <div className="flex flex-wrap gap-2 pt-1">
+              <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
+                Company size (soon)
+              </span>
+              <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
+                Integrations (soon)
+              </span>
+              <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
+                Deployment (soon)
+              </span>
+            </div>
+          </div>
         </form>
 
-        {mode === "empty" ? (
-          <div className="mt-6 rounded-xl bg-white p-6 shadow">
-            <p className="text-zinc-700">No tools are published yet.</p>
-            <p className="mt-2 text-sm text-zinc-600">
-              Next step: seed the catalog (vendors/tools/categories) and publish tools.
+        {mode === "fallback" ? (
+          <div className="mt-6 rounded-2xl border border-zinc-200 bg-white p-5">
+            <div className="text-sm font-semibold text-zinc-900">Showing sample tools</div>
+            <p className="mt-1 text-sm leading-6 text-zinc-600">
+              The database/catalog is not connected. Connect DB + run migrations/seed to see the real marketplace catalog.
             </p>
-            <a className="mt-3 inline-block text-sm font-medium underline" href="/admin">
-              Go to Admin →
-            </a>
           </div>
         ) : null}
-
-        {mode === "fallback" ? (
-          <div className="mt-6 rounded-xl bg-white p-6 shadow">
-            <p className="text-zinc-700">Showing sample tools while the database/catalog is not connected.</p>
-            <p className="mt-2 text-sm text-zinc-600">Connect DB + run migrations/seed to see the real marketplace catalog.</p>
-          </div>
-        ) : null}
-
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {tools.map((t) => (
-            <a key={t.slug} href={`/tools/${t.slug}`} className="rounded-xl bg-white p-4 shadow hover:shadow-md">
-              <div className="text-lg font-semibold">{t.name}</div>
-              {t.vendorName ? <div className="mt-1 text-sm text-zinc-600">{t.vendorName}</div> : null}
-              <div className="mt-3 text-sm text-zinc-700">{t.categories.join(" • ")}</div>
-              {t.tagline ? <div className="mt-3 text-sm text-zinc-600">{t.tagline}</div> : null}
-            </a>
-          ))}
-        </div>
 
         {mode === "empty" ? (
-          <div className="mt-6 rounded-xl bg-white p-6 shadow">
-            <p className="text-zinc-700">No tools match your search yet.</p>
-            <p className="mt-2 text-sm text-zinc-600">Try removing filters, or seed/publish more tools from Admin.</p>
-            <a className="mt-3 inline-block text-sm font-medium underline" href="/admin">
+          <div className="mt-6 rounded-2xl border border-zinc-200 bg-white p-5">
+            <div className="text-sm font-semibold text-zinc-900">No tools match yet</div>
+            <p className="mt-1 text-sm leading-6 text-zinc-600">
+              Try removing filters, or seed/publish more tools from Admin.
+            </p>
+            <Link className="mt-3 inline-block text-sm font-medium text-indigo-700" href="/admin">
               Go to Admin →
-            </a>
-          </div>
-        ) : null}
-
-        {mode === "fallback" ? (
-          <div className="mt-6 rounded-xl bg-white p-6 shadow">
-            <p className="text-zinc-700">Showing sample tools (DB/catalog unavailable).</p>
-            <p className="mt-2 text-sm text-zinc-600">Connect DB + run migrations/seed for the full marketplace catalog.</p>
+            </Link>
           </div>
         ) : null}
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tools.map((t) => (
-            <a
-              key={t.slug}
-              href={`/tools/${t.slug}`}
-              className="group rounded-xl bg-white p-4 shadow transition-all hover:-translate-y-0.5 hover:shadow-md"
-            >
-              <div className="text-lg font-semibold">{t.name}</div>
-              {t.vendorName ? <div className="mt-1 text-sm text-zinc-600">by {t.vendorName}</div> : null}
-              <div className="mt-3 text-sm text-zinc-700">{t.categories.join(" • ")}</div>
-              {t.tagline ? <div className="mt-3 text-sm text-zinc-600">{t.tagline}</div> : null}
-              <div className="mt-4 text-sm font-medium text-zinc-900 underline opacity-0 transition-opacity group-hover:opacity-100">
-                View details →
-              </div>
-            </a>
+            <ToolCard key={t.slug} tool={t} />
           ))}
         </div>
-      </main>
+
+        <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6">
+          <SectionHeading
+            title="Why trust these listings?"
+            subtitle="We prioritize transparent metadata (categories, integrations, last verified) and keep recommendations explainable."
+          />
+          <div className="mt-6">
+            <TrustStrip />
+          </div>
+        </div>
+      </Section>
+
       <SiteFooter />
     </div>
   );
