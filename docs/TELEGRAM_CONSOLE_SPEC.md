@@ -20,7 +20,8 @@ Non-goals:
 - Any command from a non-allowlisted user is ignored (or returns a generic “unauthorized”).
 
 **Config concept:**
-- `TELEGRAM_ALLOWED_USER_IDS="123,456"`
+- `TELEGRAM_ALLOWED_USER_ID="123"` (single operator)
+- Optional multi-operator variant (if you choose to support it): `TELEGRAM_ALLOWED_USER_IDS="123,456"`
 
 ### 1.2 Optional shared secret (recommended)
 Support a second factor via a shared secret token.
