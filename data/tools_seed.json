@@ -1,0 +1,2784 @@
+[
+  {
+    "name": "greytHR",
+    "slug": "greythr",
+    "vendor_name": "greytHR",
+    "vendor_website": "https://www.greythr.com",
+    "short_description": "greytHR — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Attendance",
+      "Performance"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.greythr.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Keka",
+    "slug": "keka",
+    "vendor_name": "Keka",
+    "vendor_website": "https://www.keka.com",
+    "short_description": "Keka — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance",
+      "ats"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Attendance",
+      "Performance",
+      "ATS"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.keka.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Zoho (People/Payroll)",
+    "slug": "zoho",
+    "vendor_name": "Zoho (People/Payroll)",
+    "vendor_website": "https://www.zoho.com/people/",
+    "short_description": "Zoho (People/Payroll) — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "attendance",
+      "performance",
+      "payroll"
+    ],
+    "modules": [
+      "HRMS",
+      "Attendance",
+      "Performance",
+      "Payroll"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.zoho.com/contactus.html"
+    ]
+  },
+  {
+    "name": "Zoho Recruit",
+    "slug": "zoho-recruit",
+    "vendor_name": "Zoho Recruit",
+    "vendor_website": "https://www.zoho.com/recruit/",
+    "short_description": "Zoho Recruit — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.zoho.com/contactus.html"
+    ]
+  },
+  {
+    "name": "Darwinbox",
+    "slug": "darwinbox",
+    "vendor_name": "Darwinbox",
+    "vendor_website": "https://www.darwinbox.com",
+    "short_description": "Darwinbox — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "attendance",
+      "performance",
+      "payroll",
+      "lms",
+      "ats"
+    ],
+    "modules": [
+      "HRMS",
+      "Attendance",
+      "Performance",
+      "Payroll",
+      "LMS",
+      "ATS"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.darwinbox.com/contact-us/"
+    ]
+  },
+  {
+    "name": "PeopleStrong",
+    "slug": "peoplestrong",
+    "vendor_name": "PeopleStrong",
+    "vendor_website": "https://www.peoplestrong.com",
+    "short_description": "PeopleStrong — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance",
+      "ats",
+      "lms"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Attendance",
+      "Performance",
+      "ATS",
+      "LMS"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.peoplestrong.com/contact/"
+    ]
+  },
+  {
+    "name": "Pocket HRMS",
+    "slug": "pocket-hrms",
+    "vendor_name": "Pocket HRMS",
+    "vendor_website": "https://www.pockethrms.com",
+    "short_description": "Pocket HRMS — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Attendance",
+      "Performance"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.pockethrms.com/contact-us/"
+    ]
+  },
+  {
+    "name": "HROne",
+    "slug": "hrone",
+    "vendor_name": "HROne",
+    "vendor_website": "https://www.hrone.cloud",
+    "short_description": "HROne — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "attendance",
+      "performance",
+      "payroll"
+    ],
+    "modules": [
+      "HRMS",
+      "Attendance",
+      "Performance",
+      "Payroll"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.hrone.cloud/contact-us"
+    ]
+  },
+  {
+    "name": "ZingHR",
+    "slug": "zinghr",
+    "vendor_name": "ZingHR",
+    "vendor_website": "https://www.zinghr.com",
+    "short_description": "ZingHR — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "attendance",
+      "performance",
+      "payroll",
+      "ats"
+    ],
+    "modules": [
+      "HRMS",
+      "Attendance",
+      "Performance",
+      "Payroll",
+      "ATS"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.zinghr.com/contact-us/"
+    ]
+  },
+  {
+    "name": "sumHR",
+    "slug": "sumhr",
+    "vendor_name": "sumHR",
+    "vendor_website": "https://www.sumhr.com",
+    "short_description": "sumHR — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll"
+    ],
+    "modules": [
+      "HRMS",
+      "Attendance",
+      "Payroll"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.sumhr.com/contact-us/"
+    ]
+  },
+  {
+    "name": "factoHR",
+    "slug": "factohr",
+    "vendor_name": "factoHR",
+    "vendor_website": "https://factohr.com",
+    "short_description": "factoHR — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll",
+      "performance"
+    ],
+    "modules": [
+      "HRMS",
+      "Attendance",
+      "Payroll",
+      "Performance"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://factohr.com/contact/"
+    ]
+  },
+  {
+    "name": "HRMantra",
+    "slug": "hrmantra",
+    "vendor_name": "HRMantra",
+    "vendor_website": "https://www.hrmantra.com",
+    "short_description": "HRMantra — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Attendance",
+      "Performance"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.hrmantra.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Qandle",
+    "slug": "qandle",
+    "vendor_name": "Qandle",
+    "vendor_website": "https://www.qandle.com",
+    "short_description": "Qandle — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll",
+      "performance"
+    ],
+    "modules": [
+      "HRMS",
+      "Attendance",
+      "Payroll",
+      "Performance"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.qandle.com/contact"
+    ]
+  },
+  {
+    "name": "Kredily",
+    "slug": "kredily",
+    "vendor_name": "Kredily",
+    "vendor_website": "https://kredily.com",
+    "short_description": "Kredily — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll"
+    ],
+    "modules": [
+      "HRMS",
+      "Attendance",
+      "Payroll"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://kredily.com/contact"
+    ]
+  },
+  {
+    "name": "Akrivia HCM",
+    "slug": "akrivia-hcm",
+    "vendor_name": "Akrivia HCM",
+    "vendor_website": "https://akriviahcm.com",
+    "short_description": "Akrivia HCM — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance",
+      "ats",
+      "lms"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Attendance",
+      "Performance",
+      "ATS",
+      "LMS"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://akriviahcm.com/contact-us/"
+    ]
+  },
+  {
+    "name": "EmployWise",
+    "slug": "employwise",
+    "vendor_name": "EmployWise",
+    "vendor_website": "https://www.employwise.com",
+    "short_description": "EmployWise — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance",
+      "ats"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Attendance",
+      "Performance",
+      "ATS"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.employwise.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Empxtrack",
+    "slug": "empxtrack",
+    "vendor_name": "Empxtrack",
+    "vendor_website": "https://www.empxtrack.com",
+    "short_description": "Empxtrack — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll",
+      "performance",
+      "ats"
+    ],
+    "modules": [
+      "HRMS",
+      "Attendance",
+      "Payroll",
+      "Performance",
+      "ATS"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.empxtrack.com/contact/"
+    ]
+  },
+  {
+    "name": "Spine HR Suite",
+    "slug": "spine-hr-suite",
+    "vendor_name": "Spine HR Suite",
+    "vendor_website": "https://www.spinehr.in",
+    "short_description": "Spine HR Suite — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Attendance"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.spinehr.in/contact-us/"
+    ]
+  },
+  {
+    "name": "RazorpayX Payroll",
+    "slug": "razorpayx-payroll",
+    "vendor_name": "RazorpayX Payroll",
+    "vendor_website": "https://razorpay.com/x/payroll/",
+    "short_description": "RazorpayX Payroll — Payroll processing with India compliance workflows. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "payroll"
+    ],
+    "modules": [
+      "Payroll"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://razorpay.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Zoho Payroll",
+    "slug": "zoho-payroll",
+    "vendor_name": "Zoho Payroll",
+    "vendor_website": "https://www.zoho.com/in/payroll/",
+    "short_description": "Zoho Payroll — Payroll processing with India compliance workflows. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "payroll"
+    ],
+    "modules": [
+      "Payroll"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.zoho.com/in/payroll/pricing/",
+      "https://www.zoho.com/contactus.html"
+    ]
+  },
+  {
+    "name": "Relyon (Saral PayPack)",
+    "slug": "relyon",
+    "vendor_name": "Relyon (Saral PayPack)",
+    "vendor_website": "https://www.saralpaypack.com",
+    "short_description": "Relyon (Saral PayPack) — Payroll processing with India compliance workflows. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "payroll"
+    ],
+    "modules": [
+      "Payroll"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.saralpaypack.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Timelabs",
+    "slug": "timelabs",
+    "vendor_name": "Timelabs",
+    "vendor_website": "https://www.timelabs.in",
+    "short_description": "Timelabs — Attendance, leave, shift and time tracking for teams. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "attendance"
+    ],
+    "modules": [
+      "Attendance"
+    ],
+    "india_fit_tags": [
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.timelabs.in/contact-us.html"
+    ]
+  },
+  {
+    "name": "Freshteam (Freshworks)",
+    "slug": "freshteam",
+    "vendor_name": "Freshteam (Freshworks)",
+    "vendor_website": "https://www.freshworks.com/hrms/freshteam/",
+    "short_description": "Freshteam (Freshworks) — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats",
+      "hrms"
+    ],
+    "modules": [
+      "ATS",
+      "HRMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.freshworks.com/company/contact/"
+    ]
+  },
+  {
+    "name": "Naukri RMS (Info Edge)",
+    "slug": "naukri-rms",
+    "vendor_name": "Naukri RMS (Info Edge)",
+    "vendor_website": "https://rms.naukri.com/",
+    "short_description": "Naukri RMS (Info Edge) — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.infoedge.in/contact-us/"
+    ]
+  },
+  {
+    "name": "TurboHire",
+    "slug": "turbohire",
+    "vendor_name": "TurboHire",
+    "vendor_website": "https://turbohire.co",
+    "short_description": "TurboHire — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://turbohire.co/contact/"
+    ]
+  },
+  {
+    "name": "TalentRecruit",
+    "slug": "talentrecruit",
+    "vendor_name": "TalentRecruit",
+    "vendor_website": "https://www.talentrecruit.com",
+    "short_description": "TalentRecruit — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.talentrecruit.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Recruit CRM",
+    "slug": "recruit-crm",
+    "vendor_name": "Recruit CRM",
+    "vendor_website": "https://recruitcrm.io",
+    "short_description": "Recruit CRM — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://recruitcrm.io/contact/"
+    ]
+  },
+  {
+    "name": "Recruiterflow",
+    "slug": "recruiterflow",
+    "vendor_name": "Recruiterflow",
+    "vendor_website": "https://recruiterflow.com",
+    "short_description": "Recruiterflow — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://recruiterflow.com/contact"
+    ]
+  },
+  {
+    "name": "Pitch N Hire",
+    "slug": "pitch-n-hire",
+    "vendor_name": "Pitch N Hire",
+    "vendor_website": "https://pitchnhire.com",
+    "short_description": "Pitch N Hire — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://pitchnhire.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Cutshort",
+    "slug": "cutshort",
+    "vendor_name": "Cutshort",
+    "vendor_website": "https://cutshort.io",
+    "short_description": "Cutshort — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://cutshort.io/contact"
+    ]
+  },
+  {
+    "name": "Talview",
+    "slug": "talview",
+    "vendor_name": "Talview",
+    "vendor_website": "https://www.talview.com",
+    "short_description": "Talview — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.talview.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Peoplebox",
+    "slug": "peoplebox",
+    "vendor_name": "Peoplebox",
+    "vendor_website": "https://www.peoplebox.ai",
+    "short_description": "Peoplebox — Performance reviews, OKRs and continuous feedback. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "performance"
+    ],
+    "modules": [
+      "Performance"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.peoplebox.ai/contact"
+    ]
+  },
+  {
+    "name": "Synergita",
+    "slug": "synergita",
+    "vendor_name": "Synergita",
+    "vendor_website": "https://www.synergita.com",
+    "short_description": "Synergita — Performance reviews, OKRs and continuous feedback. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "performance",
+      "hrms"
+    ],
+    "modules": [
+      "Performance",
+      "HRMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.synergita.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Profit.co (India)",
+    "slug": "profit-co",
+    "vendor_name": "Profit.co (India)",
+    "vendor_website": "https://www.profit.co",
+    "short_description": "Profit.co (India) — Performance reviews, OKRs and continuous feedback. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "performance"
+    ],
+    "modules": [
+      "Performance"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.profit.co/contact/"
+    ]
+  },
+  {
+    "name": "Disprz",
+    "slug": "disprz",
+    "vendor_name": "Disprz",
+    "vendor_website": "https://www.disprz.ai",
+    "short_description": "Disprz — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.disprz.ai/contact-us/"
+    ]
+  },
+  {
+    "name": "UpsideLMS",
+    "slug": "upsidelms",
+    "vendor_name": "UpsideLMS",
+    "vendor_website": "https://www.upgradelms.com/",
+    "short_description": "UpsideLMS — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.upgradelms.com/contact-us/"
+    ]
+  },
+  {
+    "name": "TrainerCentral (Zoho)",
+    "slug": "trainercentral",
+    "vendor_name": "TrainerCentral (Zoho)",
+    "vendor_website": "https://www.trainercentral.com/",
+    "short_description": "TrainerCentral (Zoho) — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.zoho.com/contactus.html"
+    ]
+  },
+  {
+    "name": "Zoho Learn",
+    "slug": "zoho-learn",
+    "vendor_name": "Zoho Learn",
+    "vendor_website": "https://www.zoho.com/learn/",
+    "short_description": "Zoho Learn — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.zoho.com/contactus.html"
+    ]
+  },
+  {
+    "name": "MindTickle",
+    "slug": "mindtickle",
+    "vendor_name": "MindTickle",
+    "vendor_website": "https://www.mindtickle.com",
+    "short_description": "MindTickle — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.mindtickle.com/contact/"
+    ]
+  },
+  {
+    "name": "WizIQ",
+    "slug": "wiziq",
+    "vendor_name": "WizIQ",
+    "vendor_website": "https://www.wiziq.com",
+    "short_description": "WizIQ — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.wiziq.com/contact/"
+    ]
+  },
+  {
+    "name": "AuthBridge",
+    "slug": "authbridge",
+    "vendor_name": "AuthBridge",
+    "vendor_website": "https://authbridge.com",
+    "short_description": "AuthBridge — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://authbridge.com/contact-us/"
+    ]
+  },
+  {
+    "name": "IDfy",
+    "slug": "idfy",
+    "vendor_name": "IDfy",
+    "vendor_website": "https://www.idfy.com",
+    "short_description": "IDfy — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.idfy.com/contact-us/"
+    ]
+  },
+  {
+    "name": "SpringVerify",
+    "slug": "springverify",
+    "vendor_name": "SpringVerify",
+    "vendor_website": "https://springverify.com",
+    "short_description": "SpringVerify — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://springverify.com/contact/"
+    ]
+  },
+  {
+    "name": "OnGrid",
+    "slug": "ongrid",
+    "vendor_name": "OnGrid",
+    "vendor_website": "https://ongrid.in",
+    "short_description": "OnGrid — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://ongrid.in/contact-us/"
+    ]
+  },
+  {
+    "name": "BetterPlace",
+    "slug": "betterplace",
+    "vendor_name": "BetterPlace",
+    "vendor_website": "https://www.betterplace.co.in",
+    "short_description": "BetterPlace — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.betterplace.co.in/contact-us"
+    ]
+  },
+  {
+    "name": "Signzy",
+    "slug": "signzy",
+    "vendor_name": "Signzy",
+    "vendor_website": "https://signzy.com",
+    "short_description": "Signzy — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://signzy.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Karza Technologies",
+    "slug": "karza-technologies",
+    "vendor_name": "Karza Technologies",
+    "vendor_website": "https://www.karza.in",
+    "short_description": "Karza Technologies — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.karza.in/contact-us/"
+    ]
+  },
+  {
+    "name": "HyperVerge",
+    "slug": "hyperverge",
+    "vendor_name": "HyperVerge",
+    "vendor_website": "https://hyperverge.co",
+    "short_description": "HyperVerge — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://hyperverge.co/contact/"
+    ]
+  },
+  {
+    "name": "Digitap",
+    "slug": "digitap",
+    "vendor_name": "Digitap",
+    "vendor_website": "https://www.digitap.ai",
+    "short_description": "Digitap — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.digitap.ai/contact-us/"
+    ]
+  },
+  {
+    "name": "Zoop.One",
+    "slug": "zoop-one",
+    "vendor_name": "Zoop.One",
+    "vendor_website": "https://zoop.one",
+    "short_description": "Zoop.One — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://zoop.one/contact-us/"
+    ]
+  },
+  {
+    "name": "SAP SuccessFactors (India)",
+    "slug": "sap-successfactors",
+    "vendor_name": "SAP SuccessFactors (India)",
+    "vendor_website": "https://www.sap.com/india/products/hcm.html",
+    "short_description": "SAP SuccessFactors (India) — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "performance",
+      "lms"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Performance",
+      "LMS"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.sap.com/india/about/company/office-locations.html"
+    ]
+  },
+  {
+    "name": "Oracle HCM (India)",
+    "slug": "oracle-hcm",
+    "vendor_name": "Oracle HCM (India)",
+    "vendor_website": "https://www.oracle.com/in/human-capital-management/",
+    "short_description": "Oracle HCM (India) — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "performance"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Performance"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.oracle.com/in/corporate/contact/"
+    ]
+  },
+  {
+    "name": "Workday (India)",
+    "slug": "workday",
+    "vendor_name": "Workday (India)",
+    "vendor_website": "https://www.workday.com/en-in/products/human-capital-management.html",
+    "short_description": "Workday (India) — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "payroll",
+      "performance"
+    ],
+    "modules": [
+      "HRMS",
+      "Payroll",
+      "Performance"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.workday.com/en-in/company/about-workday/contact-us.html"
+    ]
+  },
+  {
+    "name": "UKG (India)",
+    "slug": "ukg",
+    "vendor_name": "UKG (India)",
+    "vendor_website": "https://www.ukg.com",
+    "short_description": "UKG (India) — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll"
+    ],
+    "modules": [
+      "HRMS",
+      "Attendance",
+      "Payroll"
+    ],
+    "india_fit_tags": [
+      "PF",
+      "ESI",
+      "PT",
+      "LWF",
+      "TDS",
+      "Form16",
+      "24Q",
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Per employee/month",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.ukg.com/about-us/contact-us"
+    ]
+  },
+  {
+    "name": "Cornerstone OnDemand (India)",
+    "slug": "cornerstone-ondemand",
+    "vendor_name": "Cornerstone OnDemand (India)",
+    "vendor_website": "https://www.cornerstoneondemand.com",
+    "short_description": "Cornerstone OnDemand (India) — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.cornerstoneondemand.com/company/contact/"
+    ]
+  },
+  {
+    "name": "Docebo (India)",
+    "slug": "docebo",
+    "vendor_name": "Docebo (India)",
+    "vendor_website": "https://www.docebo.com",
+    "short_description": "Docebo (India) — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.docebo.com/contact/"
+    ]
+  },
+  {
+    "name": "HireRight (India)",
+    "slug": "hireright",
+    "vendor_name": "HireRight (India)",
+    "vendor_website": "https://www.hireright.com",
+    "short_description": "HireRight (India) — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.hireright.com/about/contact-us"
+    ]
+  },
+  {
+    "name": "Sterling (India)",
+    "slug": "sterling",
+    "vendor_name": "Sterling (India)",
+    "vendor_website": "https://www.sterlingcheck.com",
+    "short_description": "Sterling (India) — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.sterlingcheck.com/contact-us/"
+    ]
+  },
+  {
+    "name": "Workstatus",
+    "slug": "workstatus",
+    "vendor_name": "Workstatus",
+    "vendor_website": "https://www.workstatus.io",
+    "short_description": "Workstatus — Attendance, leave, shift and time tracking for teams. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "attendance"
+    ],
+    "modules": [
+      "Attendance"
+    ],
+    "india_fit_tags": [
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.workstatus.io/contact"
+    ]
+  },
+  {
+    "name": "PeopleHum",
+    "slug": "peoplehum",
+    "vendor_name": "PeopleHum",
+    "vendor_website": "https://www.peoplehum.com",
+    "short_description": "PeopleHum — Core HR with employee lifecycle, workflows and self-service. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "hrms",
+      "ats",
+      "performance",
+      "attendance"
+    ],
+    "modules": [
+      "HRMS",
+      "ATS",
+      "Performance",
+      "Attendance"
+    ],
+    "india_fit_tags": [
+      "Leave",
+      "Shifts"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.peoplehum.com/contact-us"
+    ]
+  },
+  {
+    "name": "HirePro",
+    "slug": "hirepro",
+    "vendor_name": "HirePro",
+    "vendor_website": "https://hirepro.in",
+    "short_description": "HirePro — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://hirepro.in/contact-us/"
+    ]
+  },
+  {
+    "name": "Zwayam",
+    "slug": "zwayam",
+    "vendor_name": "Zwayam",
+    "vendor_website": "https://zwayam.com",
+    "short_description": "Zwayam — Applicant tracking to manage hiring pipeline and interviews. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "ats"
+    ],
+    "modules": [
+      "ATS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://zwayam.com/contact-us/"
+    ]
+  },
+  {
+    "name": "G-Cube LMS",
+    "slug": "g-cube-lms",
+    "vendor_name": "G-Cube LMS",
+    "vendor_website": "https://www.gc-solutions.net",
+    "short_description": "G-Cube LMS — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.gc-solutions.net/contact-us/"
+    ]
+  },
+  {
+    "name": "Hurix Digital",
+    "slug": "hurix-digital",
+    "vendor_name": "Hurix Digital",
+    "vendor_website": "https://www.hurix.com",
+    "short_description": "Hurix Digital — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.hurix.com/contact/"
+    ]
+  },
+  {
+    "name": "Coursera for Business (India)",
+    "slug": "coursera-for-business",
+    "vendor_name": "Coursera for Business (India)",
+    "vendor_website": "https://www.coursera.org/business",
+    "short_description": "Coursera for Business (India) — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.coursera.org/about/contact/"
+    ]
+  },
+  {
+    "name": "Udemy Business (India)",
+    "slug": "udemy-business",
+    "vendor_name": "Udemy Business (India)",
+    "vendor_website": "https://business.udemy.com",
+    "short_description": "Udemy Business (India) — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://about.udemy.com/company/contact-us/"
+    ]
+  },
+  {
+    "name": "LinkedIn Learning (India)",
+    "slug": "linkedin-learning",
+    "vendor_name": "LinkedIn Learning (India)",
+    "vendor_website": "https://learning.linkedin.com",
+    "short_description": "LinkedIn Learning (India) — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.linkedin.com/help/linkedin/answer/a515549/contact-linkedin-customer-support"
+    ]
+  },
+  {
+    "name": "Simplilearn for Business",
+    "slug": "simplilearn-for-business",
+    "vendor_name": "Simplilearn for Business",
+    "vendor_website": "https://www.simplilearn.com/enterprise",
+    "short_description": "Simplilearn for Business — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.simplilearn.com/contact-us"
+    ]
+  },
+  {
+    "name": "upGrad Enterprise",
+    "slug": "upgrad-enterprise",
+    "vendor_name": "upGrad Enterprise",
+    "vendor_website": "https://upgrad.com/enterprise/",
+    "short_description": "upGrad Enterprise — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://upgrad.com/contact/"
+    ]
+  },
+  {
+    "name": "Great Learning for Business",
+    "slug": "great-learning-for-business",
+    "vendor_name": "Great Learning for Business",
+    "vendor_website": "https://www.mygreatlearning.com/for-business",
+    "short_description": "Great Learning for Business — Learning management for training delivery and tracking. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "lms"
+    ],
+    "modules": [
+      "LMS"
+    ],
+    "india_fit_tags": [],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.mygreatlearning.com/contact-us"
+    ]
+  },
+  {
+    "name": "Digio",
+    "slug": "digio",
+    "vendor_name": "Digio",
+    "vendor_website": "https://www.digio.in",
+    "short_description": "Digio — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.digio.in/contact"
+    ]
+  },
+  {
+    "name": "SignDesk",
+    "slug": "signdesk",
+    "vendor_name": "SignDesk",
+    "vendor_website": "https://signdesk.com",
+    "short_description": "SignDesk — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://signdesk.com/contact-us/"
+    ]
+  },
+  {
+    "name": "First Advantage (India)",
+    "slug": "first-advantage",
+    "vendor_name": "First Advantage (India)",
+    "vendor_website": "https://fadv.com",
+    "short_description": "First Advantage (India) — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://fadv.com/contact/"
+    ]
+  },
+  {
+    "name": "Checkr (India)",
+    "slug": "checkr",
+    "vendor_name": "Checkr (India)",
+    "vendor_website": "https://checkr.com",
+    "short_description": "Checkr (India) — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://checkr.com/contact"
+    ]
+  },
+  {
+    "name": "Onfido (India)",
+    "slug": "onfido",
+    "vendor_name": "Onfido (India)",
+    "vendor_website": "https://onfido.com",
+    "short_description": "Onfido (India) — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://onfido.com/contact/"
+    ]
+  },
+  {
+    "name": "Veremark (India)",
+    "slug": "veremark",
+    "vendor_name": "Veremark (India)",
+    "vendor_website": "https://www.veremark.com",
+    "short_description": "Veremark (India) — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.veremark.com/contact/"
+    ]
+  },
+  {
+    "name": "Experian (India)",
+    "slug": "experian",
+    "vendor_name": "Experian (India)",
+    "vendor_website": "https://www.experian.in",
+    "short_description": "Experian (India) — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.experian.in/contact-us"
+    ]
+  },
+  {
+    "name": "Equifax (India)",
+    "slug": "equifax",
+    "vendor_name": "Equifax (India)",
+    "vendor_website": "https://www.equifax.co.in",
+    "short_description": "Equifax (India) — Background verification / identity checks and screening APIs. Built for Indian teams; compare modules, deployment, support and evidence links.",
+    "categories": [
+      "bgv"
+    ],
+    "modules": [
+      "BGV"
+    ],
+    "india_fit_tags": [
+      "KYC",
+      "Identity"
+    ],
+    "pricing_model": "Quote-based",
+    "starting_price_inr": null,
+    "support_channels": [
+      "Email",
+      "Phone"
+    ],
+    "integrations": [
+      "google-workspace",
+      "tally",
+      "zoho-books"
+    ],
+    "deployment": "cloud",
+    "last_verified_at": "2026-02-07T13:49:00Z",
+    "evidence_urls": [
+      "https://www.equifax.co.in/about-us/contact-us/"
+    ]
+  }
+]

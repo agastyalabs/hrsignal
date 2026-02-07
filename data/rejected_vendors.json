@@ -1,0 +1,52 @@
+[
+  {
+    "name": "ADP",
+    "website_url": "https://www.adp.com",
+    "reason": "Global vendor; India presence not validated in this seed pass with a specific India-entity proof URL (address/GST/CIN/India pricing)."
+  },
+  {
+    "name": "Paychex",
+    "website_url": "https://www.paychex.com",
+    "reason": "Primarily US-focused; no India address/pricing proof captured for this seed pass."
+  },
+  {
+    "name": "Greenhouse",
+    "website_url": "https://www.greenhouse.io",
+    "reason": "ATS vendor; India presence not validated with a dedicated India office/contact evidence URL in this pass."
+  },
+  {
+    "name": "Lever",
+    "website_url": "https://www.lever.co",
+    "reason": "ATS vendor; India presence not validated with a dedicated India office/contact evidence URL in this pass."
+  },
+  {
+    "name": "Lattice",
+    "website_url": "https://lattice.com",
+    "reason": "Performance vendor; India presence not validated with an India address/contact/pricing proof URL in this pass."
+  },
+  {
+    "name": "Culture Amp",
+    "website_url": "https://www.cultureamp.com",
+    "reason": "Performance/engagement vendor; India presence not validated with an India address/contact/pricing proof URL in this pass."
+  },
+  {
+    "name": "Leapsome",
+    "website_url": "https://www.leapsome.com",
+    "reason": "Performance vendor; India presence not validated with an India address/contact/pricing proof URL in this pass."
+  },
+  {
+    "name": "Moodle",
+    "website_url": "https://moodle.org",
+    "reason": "Open-source LMS; India vendor registration proof not applicable/unclear for India-first vendor list in this pass."
+  },
+  {
+    "name": "BambooHR",
+    "website_url": "https://www.bamboohr.com",
+    "reason": "HRMS vendor; India presence not validated with an India address/contact/pricing proof URL in this pass."
+  },
+  {
+    "name": "Deputy",
+    "website_url": "https://www.deputy.com",
+    "reason": "Scheduling/attendance tool; India presence not validated with an India address/contact/pricing proof URL in this pass."
+  }
+]
