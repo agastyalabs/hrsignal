@@ -41,7 +41,13 @@ export async function POST(req: Request) {
 
   const parsed = Schema.safeParse(json);
   if (!parsed.success) {
-    const msg = parsed.error.issues[0]?.message || "Invalid request.";
+    const first = parsed.error.issues[0];
+    const msg = first?.message || "Invalid request.";
+    console.warn("[recommendations] validation_failed", {
+      requestId,
+      path: first?.path?.join(".") || null,
+      msg,
+    });
     return NextResponse.json({ ok: false, error: msg, requestId }, { status: 400 });
   }
 

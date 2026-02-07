@@ -131,7 +131,7 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
                   } catch (e2) {
                     const msg = e2 instanceof Error ? e2.message : "Something went wrong. Try again.";
                     setError(msg);
-                    toast({ type: "error", title: "Network error", description: "Please try again in a moment." });
+                    toast({ type: "error", title: "Network error", description: msg });
                   } finally {
                     setLoading(false);
                   }

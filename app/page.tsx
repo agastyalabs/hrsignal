@@ -67,7 +67,7 @@ export default async function Home() {
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <ButtonLink href="/stack-builder" size="lg" variant="primary">
+              <ButtonLink href="/recommend" size="lg" variant="primary">
                 Get recommendations
               </ButtonLink>
               <ButtonLink href="/tools" size="lg" variant="secondary">
@@ -252,7 +252,7 @@ export default async function Home() {
                 Get explainable recommendations based on company size, modules, integrations, and compliance needs.
               </p>
             </div>
-            <ButtonLink href="/stack-builder" size="lg">
+            <ButtonLink href="/recommend" size="lg">
               Get recommendations
             </ButtonLink>
           </div>
@@ -277,7 +277,7 @@ export default async function Home() {
               <li>• Request pricing/vendor intro</li>
             </ul>
             <div className="mt-5">
-              <ButtonLink href="/stack-builder" size="lg" className="w-full justify-center">
+              <ButtonLink href="/recommend" size="lg" className="w-full justify-center">
                 Get started
               </ButtonLink>
             </div>
@@ -293,7 +293,7 @@ export default async function Home() {
               <li>• Priority support</li>
             </ul>
             <div className="mt-5">
-              <ButtonLink href="/stack-builder" size="lg" variant="primary" className="w-full justify-center">
+              <ButtonLink href="/recommend" size="lg" variant="primary" className="w-full justify-center">
                 Request early access
               </ButtonLink>
             </div>
@@ -309,7 +309,7 @@ export default async function Home() {
               <li>• SLA + reporting</li>
             </ul>
             <div className="mt-5">
-              <ButtonLink href="/stack-builder" size="lg" variant="secondary" className="w-full justify-center">
+              <ButtonLink href="/recommend" size="lg" variant="secondary" className="w-full justify-center">
                 Contact sales
               </ButtonLink>
             </div>

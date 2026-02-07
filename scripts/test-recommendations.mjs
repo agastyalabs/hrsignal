@@ -1,40 +1,48 @@
-// Usage: node scripts/test-recommendations.mjs [baseUrl]
-// Example: node scripts/test-recommendations.mjs http://127.0.0.1:3000
+#!/usr/bin/env node
+/**
+ * Recommendations endpoint smoke test.
+ *
+ * Usage:
+ *   BASE_URL=http://localhost:3000 node scripts/test-recommendations.mjs
+ */
 
-const base = process.argv[2] || "http://127.0.0.1:3000";
-const url = base.replace(/\/$/, "") + "/api/recommendations";
+const baseUrl = process.env.BASE_URL || "http://localhost:3000";
 
-async function main() {
-  const payload = {
-    companyName: "Infira",
-    buyerEmail: "test@example.com",
-    buyerRole: "Founder",
-    sizeBand: "EMP_20_200",
-    states: ["KA"],
-    categoriesNeeded: ["hrms", "payroll", "attendance"],
-    mustHaveIntegrations: ["tally"],
-    budgetNote: "~₹50/employee/month",
-    timelineNote: "30 days",
-  };
+const payload = {
+  companyName: "Acme India Pvt Ltd",
+  buyerEmail: "test@example.com",
+  buyerRole: "Founder",
+  sizeBand: "EMP_20_200",
+  states: ["KA", "MH"],
+  categoriesNeeded: ["hrms", "payroll", "attendance"],
+  mustHaveIntegrations: ["tally"],
+  budgetNote: "~₹60/employee/month",
+  timelineNote: "30 days",
+};
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+const url = new URL("/api/recommendations", baseUrl).toString();
 
-  const text = await res.text();
-  let json;
-  try {
-    json = JSON.parse(text);
-  } catch {
-    json = { raw: text };
-  }
+console.log("POST", url);
 
-  console.log(JSON.stringify({ status: res.status, response: json }, null, 2));
+const res = await fetch(url, {
+  method: "POST",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify(payload),
+});
+
+const text = await res.text();
+let json;
+try {
+  json = JSON.parse(text);
+} catch {
+  json = { parseError: true, raw: text.slice(0, 500) };
 }
 
-main().catch((e) => {
-  console.error("Error:", e?.message || e);
-  process.exit(1);
-});
+console.log("status", res.status);
+console.log(JSON.stringify(json, null, 2));
+
+if (res.ok && json?.resultId) {
+  console.log("results page:", new URL(`/results/${json.resultId}`, baseUrl).toString());
+}
+
+process.exit(res.ok ? 0 : 1);

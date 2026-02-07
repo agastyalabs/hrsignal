@@ -110,7 +110,7 @@ export default async function ToolsPage({
             title="Tools directory"
             subtitle="Browse HRMS, payroll & compliance, attendance, ATS and performance tools. Use filters to narrow quickly."
           />
-          <ButtonLink href="/stack-builder" variant="primary" size="md">
+          <ButtonLink href="/recommend" variant="primary" size="md">
             Get recommendations
           </ButtonLink>
         </div>

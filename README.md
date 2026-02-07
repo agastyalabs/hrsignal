@@ -1,5 +1,8 @@
 # HRSignal
 
+## Go-live env vars
+See `docs/ENV_VARS.md`.
+
 India-first HR software discovery: explainable recommendations + shortlist + vendor intro.
 
 ## Environment variables

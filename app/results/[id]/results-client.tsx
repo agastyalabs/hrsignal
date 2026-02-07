@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { ToastViewport, type ToastModel } from "@/components/ui/Toast";
 
 type Submission = {
   id: string;
@@ -67,19 +68,24 @@ export default function ResultsClient({
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [toasts, setToasts] = useState<ToastModel[]>([]);
 
-  const picks = useMemo(() => {
-    return result?.tools ?? [];
-  }, [result]);
+  function toast(t: Omit<ToastModel, "id">) {
+    setToasts((prev) => [{ id: crypto.randomUUID(), ...t }, ...prev].slice(0, 3));
+  }
+
+  const picks = useMemo(() => result?.tools ?? [], [result]);
 
   return (
     <div className="min-h-screen bg-zinc-50">
       <SiteHeader />
+      <ToastViewport toasts={toasts} dismiss={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))} />
+
       <main className="py-10 sm:py-14">
         <Container className="max-w-5xl">
         <div className="flex items-baseline justify-between">
           <h1 className="text-2xl font-semibold">Your HR stack shortlist</h1>
-          <Link className="text-sm font-medium text-indigo-700" href="/stack-builder">
+          <Link className="text-sm font-medium text-indigo-700" href="/recommend">
             Start over
           </Link>
         </div>
@@ -102,6 +108,24 @@ export default function ResultsClient({
         </div>
 
         <div className="mt-8 space-y-4">
+          {picks.length === 0 ? (
+            <Card className="shadow-sm">
+              <div className="text-base font-semibold text-zinc-900">No matches yet</div>
+              <p className="mt-2 text-sm leading-6 text-zinc-600">
+                We couldn’t find published tools that match your selected categories/integrations.
+                Try removing an integration requirement, or browse the directory.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <Link className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white" href="/recommend">
+                  Update answers
+                </Link>
+                <Link className="rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm font-medium" href="/tools">
+                  Browse tools
+                </Link>
+              </div>
+            </Card>
+          ) : null}
+
           {picks.map((p) => (
             <Card key={p.tool.slug} className="shadow-sm">
               <div className="flex items-baseline justify-between gap-4">
@@ -176,13 +200,25 @@ export default function ResultsClient({
 
                 const data = await res.json().catch(() => null);
                 if (!res.ok) {
-                  setError(data?.error || "Please check the form and try again.");
+                  const msg = data?.error || "Please check the form and try again.";
+                  setError(msg);
+                  toast({ type: "error", title: "Couldn’t submit", description: msg });
+                  return;
+                }
+
+                if (!data?.ok) {
+                  const msg = data?.error || "Please check the form and try again.";
+                  setError(msg);
+                  toast({ type: "error", title: "Couldn’t submit", description: msg });
                   return;
                 }
 
                 setSent(true);
+                toast({ type: "success", title: "Request received", description: "We’ll share one best-fit vendor shortly." });
               } catch {
-                setError("Something went wrong on our side. Please try again in a minute.");
+                const msg = "Something went wrong on our side. Please try again in a minute.";
+                setError(msg);
+                toast({ type: "error", title: "Network error", description: "Please try again in a moment." });
               } finally {
                 setSending(false);
               }
@@ -226,7 +262,7 @@ export default function ResultsClient({
             </div>
 
             {error ? <p className="text-sm text-red-600">{error}</p> : null}
-            {sent ? <p className="text-sm text-green-700">Thanks — we’ll reach out soon.</p> : null}
+            {sent ? <p className="text-sm text-green-700">Thanks — we’ll share one best-fit vendor shortly.</p> : null}
 
             <Button disabled={sending || sent}>
               {sent ? "Submitted" : sending ? "Submitting…" : "Submit"}

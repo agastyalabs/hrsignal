@@ -16,7 +16,7 @@ export function SiteHeader() {
           <Link className="rounded-md px-2 py-1 text-zinc-700 hover:bg-zinc-50" href="/vendors">
             Vendors
           </Link>
-          <ButtonLink href="/stack-builder" variant="primary" size="sm">
+          <ButtonLink href="/recommend" variant="primary" size="sm">
             Get recommendations
           </ButtonLink>
         </nav>

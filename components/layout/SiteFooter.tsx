@@ -22,7 +22,7 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/stack-builder">
+                <Link className="text-zinc-600 hover:text-zinc-900" href="/recommend">
                   Get recommendations
                 </Link>
               </li>

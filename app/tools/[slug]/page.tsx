@@ -118,7 +118,7 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               className="rounded-md bg-black px-4 py-2 text-white"
-              href={`/stack-builder?prefill=${encodeURIComponent(tool.slug)}`}
+              href={`/recommend?prefill=${encodeURIComponent(tool.slug)}`}
             >
               See if this fits my team
             </Link>
@@ -132,8 +132,8 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
             <p className="text-sm text-zinc-700">
               Want an intro or pricing help? Use the Stack Builder—HRSignal will route you to the best-fit vendor.
             </p>
-            <Link className="mt-3 inline-block text-sm font-medium text-indigo-700" href="/stack-builder">
-              Open Stack Builder →
+            <Link className="mt-3 inline-block text-sm font-medium text-indigo-700" href="/recommend">
+              Open recommendations →
             </Link>
             </div>
           </LeadSection>
