@@ -21,6 +21,15 @@ export function setCompareSlugs(slugs: string[]) {
   window.dispatchEvent(new Event("hrsignal_compare_change"));
 }
 
+function maxCompareItems() {
+  if (typeof window === "undefined") return 5;
+  try {
+    return window.matchMedia("(max-width: 640px)").matches ? 4 : 5;
+  } catch {
+    return 5;
+  }
+}
+
 export function toggleCompareSlug(slug: string): { slugs: string[]; added: boolean } {
   const slugs = getCompareSlugs();
   const exists = slugs.includes(slug);
@@ -29,7 +38,12 @@ export function toggleCompareSlug(slug: string): { slugs: string[]; added: boole
     setCompareSlugs(next);
     return { slugs: next, added: false };
   }
-  const next = [...slugs, slug].slice(0, 5);
+
+  const max = maxCompareItems();
+  if (slugs.length >= max) {
+    return { slugs, added: false };
+  }
+  const next = [...slugs, slug];
   setCompareSlugs(next);
   return { slugs: next, added: true };
 }

@@ -12,10 +12,10 @@ export function CompareHydrate() {
   const sp = useSearchParams();
 
   useEffect(() => {
-    const existing = sp.get("slugs");
+    const existing = sp.get("tools") || sp.get("slugs");
     if (existing) return;
     if (!slugs.length) return;
-    router.replace(`/compare?slugs=${encodeURIComponent(slugs.join(","))}`);
+    router.replace(`/compare?tools=${encodeURIComponent(slugs.join(","))}`);
   }, [router, slugs, sp]);
 
   return null;

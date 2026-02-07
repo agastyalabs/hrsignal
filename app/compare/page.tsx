@@ -8,6 +8,7 @@ import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { CompareHydrate } from "@/components/compare/CompareHydrate";
 import { prisma } from "@/lib/db";
+import { CompareActions } from "./CompareActions";
 
 function parseSlugs(raw: string | null | undefined): string[] {
   if (!raw) return [];
@@ -105,27 +106,111 @@ export default async function ComparePage({
       name: t.name,
       tagline: t.tagline,
       vendorName: t.vendor?.name ?? null,
-      categories: t.categories.map((c) => c.category.name),
+      supportedStates: t.supportedStates,
+      categories: t.categories.map((c) => ({ slug: c.category.slug, name: c.category.name })),
       integrations: t.integrations.map((i) => i.integration.name),
       pricing: t.pricingPlans.length
         ? t.pricingPlans
-            .slice(0, 2)
-            .map((p) => `${p.name}${p.priceNote ? `: ${p.priceNote}` : ""}`)
+            .slice(0, 3)
+            .map((p) => `${p.name}${p.priceNote ? `: ${p.priceNote}` : ""}${p.setupFeeNote ? ` (Setup: ${p.setupFeeNote})` : ""}`)
             .join("\n")
         : "Pricing on request",
     }));
 
   const diffOnly = sp.diff === "1";
 
-  const tableRows = [
-    { key: "categories", label: "Categories", value: (t: (typeof tools)[number]) => t.categories.join(", ") || "—" },
-    { key: "integrations", label: "Integrations", value: (t: (typeof tools)[number]) => t.integrations.join(", ") || "—" },
-    { key: "pricing", label: "Pricing", value: (t: (typeof tools)[number]) => t.pricing },
-  ].filter((r) => {
-    if (!diffOnly) return true;
-    const values = tools.map((t) => r.value(t));
-    return new Set(values).size > 1;
-  });
+  const sections: Array<{
+    id: string;
+    label: string;
+    rows: Array<{ key: string; label: string; value: (t: (typeof tools)[number]) => string }>;
+  }> = [
+    {
+      id: "pricing",
+      label: "Pricing",
+      rows: [
+        { key: "pricing", label: "Plans", value: (t) => t.pricing || "—" },
+        {
+          key: "pricing_note",
+          label: "Notes",
+          value: () => "Pricing is indicative; confirm latest on vendor site.",
+        },
+      ],
+    },
+    {
+      id: "features",
+      label: "Core features",
+      rows: [
+        {
+          key: "categories",
+          label: "Modules",
+          value: (t) => t.categories.map((c) => c.name).join(", ") || "—",
+        },
+        {
+          key: "tagline",
+          label: "Summary",
+          value: (t) => t.tagline || "—",
+        },
+      ],
+    },
+    {
+      id: "compliance",
+      label: "India compliance",
+      rows: [
+        {
+          key: "states",
+          label: "Supported states",
+          value: (t) => (t.supportedStates?.length ? t.supportedStates.join(", ") : "Not specified"),
+        },
+        {
+          key: "compliance_hint",
+          label: "Common compliance",
+          value: (t) => {
+            const catSlugs = new Set(t.categories.map((c) => c.slug));
+            if (catSlugs.has("payroll")) return "PF/ESI/PT/TDS support (verify scope with vendor).";
+            if (catSlugs.has("hrms")) return "Policies + document workflows (verify compliance add-ons).";
+            return "Not specified";
+          },
+        },
+      ],
+    },
+    {
+      id: "integrations",
+      label: "Integrations",
+      rows: [
+        {
+          key: "integrations",
+          label: "Native / listed",
+          value: (t) => (t.integrations.length ? t.integrations.join(", ") : "Not listed"),
+        },
+      ],
+    },
+    {
+      id: "support",
+      label: "Support",
+      rows: [
+        { key: "support", label: "Channels", value: () => "Not listed" },
+        { key: "sla", label: "SLA", value: () => "Not listed" },
+      ],
+    },
+    {
+      id: "deployment",
+      label: "Deployment",
+      rows: [
+        { key: "deployment", label: "Type", value: () => "Not listed" },
+      ],
+    },
+  ];
+
+  const sectionsFiltered = sections
+    .map((s) => ({
+      ...s,
+      rows: s.rows.filter((r) => {
+        if (!diffOnly) return true;
+        const values = tools.map((t) => r.value(t));
+        return new Set(values).size > 1;
+      }),
+    }))
+    .filter((s) => s.rows.length > 0);
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -144,22 +229,17 @@ export default async function ComparePage({
             </Link>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <Link
-              className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50"
-              href={`/compare?slugs=${encodeURIComponent(slugs.join(","))}&diff=${diffOnly ? "0" : "1"}`}
-            >
-              {diffOnly ? "Show all rows" : "Show differences only"}
-            </Link>
-          </div>
+          <CompareActions tools={slugs} />
 
           <div className="mt-6 overflow-x-auto rounded-2xl border border-zinc-200 bg-white">
-            <table className="min-w-[720px] w-full text-sm">
-              <thead className="sticky top-[64px] bg-white">
+            <table className="min-w-[880px] w-full text-sm">
+              <thead className="sticky top-[64px] z-10 bg-white">
                 <tr className="border-b border-zinc-200">
-                  <th className="w-48 p-4 text-left text-xs font-semibold text-zinc-500">Attribute</th>
+                  <th className="sticky left-0 w-56 bg-white p-4 text-left text-xs font-semibold text-zinc-500">
+                    Attribute
+                  </th>
                   {tools.map((t) => (
-                    <th key={t.slug} className="p-4 text-left">
+                    <th key={t.slug} className="p-4 text-left align-top">
                       <div className="text-sm font-semibold text-zinc-900">{t.name}</div>
                       {t.vendorName ? <div className="mt-1 text-xs text-zinc-500">by {t.vendorName}</div> : null}
                       <div className="mt-3">
@@ -172,16 +252,33 @@ export default async function ComparePage({
                 </tr>
               </thead>
               <tbody>
-                {tableRows.map((r) => (
-                  <tr key={r.key} className="border-b border-zinc-200 last:border-0">
-                    <td className="p-4 align-top text-xs font-semibold text-zinc-500">{r.label}</td>
-                    {tools.map((t) => (
-                      <td key={t.slug} className="p-4 align-top text-zinc-700">
-                        <pre className="whitespace-pre-wrap font-sans text-sm">{r.value(t)}</pre>
+                {sectionsFiltered.flatMap((section) => {
+                  const header = (
+                    <tr key={section.id} className="border-b border-zinc-200">
+                      <td
+                        colSpan={tools.length + 1}
+                        className="bg-zinc-50 px-4 py-2 text-xs font-semibold text-zinc-700"
+                      >
+                        {section.label}
                       </td>
-                    ))}
-                  </tr>
-                ))}
+                    </tr>
+                  );
+
+                  const rows = section.rows.map((r) => (
+                    <tr key={`${section.id}:${r.key}`} className="border-b border-zinc-200 last:border-0">
+                      <td className="sticky left-0 bg-white p-4 align-top text-xs font-semibold text-zinc-500">
+                        {r.label}
+                      </td>
+                      {tools.map((t) => (
+                        <td key={t.slug} className="p-4 align-top text-zinc-700">
+                          <pre className="whitespace-pre-wrap font-sans text-sm">{r.value(t)}</pre>
+                        </td>
+                      ))}
+                    </tr>
+                  ));
+
+                  return [header, ...rows];
+                })}
               </tbody>
             </table>
           </div>
