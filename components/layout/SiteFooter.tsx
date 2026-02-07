@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { CompareTray } from "@/components/compare/CompareTray";
@@ -10,7 +11,10 @@ export function SiteFooter() {
       <Container className="py-12">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="text-base font-semibold text-gray-900">HRSignal</div>
+            <div className="flex items-center gap-2">
+              <Image src="/logos/hrsignal-mark.svg" alt="HRSignal" width={18} height={18} />
+              <div className="text-base font-semibold text-gray-900">HRSignal</div>
+            </div>
             <p className="mt-2 text-sm leading-relaxed text-gray-600">
               India-first HR software discovery for SMEs — compare tools, get explainable recommendations, and request demos.
             </p>
@@ -43,6 +47,11 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link className="text-gray-600 hover:text-gray-900" href="/resources">
+                  Resources
+                </Link>
+              </li>
+              <li>
                 <Link className="text-gray-600 hover:text-gray-900" href="/recommend">
                   Get recommendations
                 </Link>
@@ -54,18 +63,18 @@ export function SiteFooter() {
             <div className="text-sm font-semibold text-gray-900">Resources</div>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <Link className="text-gray-600 hover:text-gray-900" href="/resources">
-                  Buyer guides
+                <Link className="text-gray-600 hover:text-gray-900" href="/resources/hrms-selection-india-sme">
+                  HRMS buyer guide
+                </Link>
+              </li>
+              <li>
+                <Link className="text-gray-600 hover:text-gray-900" href="/resources/payroll-compliance-checklist">
+                  Payroll checklist
                 </Link>
               </li>
               <li>
                 <Link className="text-gray-600 hover:text-gray-900" href="/resources">
-                  Checklists
-                </Link>
-              </li>
-              <li>
-                <Link className="text-gray-600 hover:text-gray-900" href="/resources">
-                  FAQs
+                  Browse all resources
                 </Link>
               </li>
             </ul>

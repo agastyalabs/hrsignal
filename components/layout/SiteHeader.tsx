@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -74,9 +75,9 @@ export function SiteHeader() {
       }`}
     >
       <Container className="flex items-center justify-between gap-4 py-4">
-        <Link href="/" className="shrink-0 text-lg font-semibold tracking-tight text-[#F9FAFB]">
-          <span className="mr-1 inline-block h-2 w-2 rounded-full bg-[#8B5CF6] align-middle" aria-hidden="true" />
-          HRSignal
+        <Link href="/" className="flex shrink-0 items-center gap-2 text-lg font-semibold tracking-tight text-[#F9FAFB]">
+          <Image src="/logos/hrsignal-mark.svg" alt="HRSignal" width={22} height={22} priority />
+          <span>HRSignal</span>
         </Link>
 
         {/* Header search (UI-only for now; forwards to /tools query) */}

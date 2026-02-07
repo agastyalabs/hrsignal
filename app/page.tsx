@@ -9,6 +9,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FeatureGrid } from "@/components/marketing/FeatureGrid";
 import { TrustStrip } from "@/components/marketing/TrustStrip";
+import { LogoStrip } from "@/components/marketing/LogoStrip";
 import { TestimonialStrip } from "@/components/marketing/TestimonialStrip";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
@@ -198,8 +199,9 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-10 space-y-6">
           <TrustStrip />
+          <LogoStrip title="Popular HR vendors (placeholders)" />
         </div>
       </Section>
 

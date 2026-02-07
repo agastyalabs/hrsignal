@@ -3,41 +3,80 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
-import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ButtonLink } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { listResourceArticles } from "@/lib/resources/articles";
+
+function formatDate(date: string) {
+  try {
+    return new Date(date + "T00:00:00Z").toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    });
+  } catch {
+    return date;
+  }
+}
 
 export default function ResourcesPage() {
+  const articles = listResourceArticles();
+
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-[#0B1220]">
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
-        <SectionHeading
-          title="Resources"
-          subtitle="Buyer guides and checklists (early access). We’ll expand this into a full library."
-        />
-
-        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <Card className="shadow-sm">
-            <div className="text-base font-semibold text-zinc-900">How to pick HRMS for an Indian SME</div>
-            <p className="mt-2 text-sm leading-6 text-zinc-600">
-              A fast framework: size band, onboarding flows, document management, and compliance basics.
-            </p>
-            <div className="mt-4 text-sm font-medium text-indigo-700">Coming soon</div>
-          </Card>
-
-          <Card className="shadow-sm">
-            <div className="text-base font-semibold text-zinc-900">Payroll + compliance checklist</div>
-            <p className="mt-2 text-sm leading-6 text-zinc-600">
-              PF/ESI/PT/TDS readiness, approvals, bank integrations, and month-end accuracy checks.
-            </p>
-            <div className="mt-4 text-sm font-medium text-indigo-700">Coming soon</div>
-          </Card>
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <SectionHeading
+            title="Resources"
+            subtitle="Buyer guides, checklists and playbooks for Indian SME HR teams."
+          />
+          <ButtonLink href="/recommend" variant="primary" size="md">
+            Get recommendations
+          </ButtonLink>
         </div>
 
-        <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-          <div className="text-lg font-semibold text-zinc-900">Want a guided shortlist instead?</div>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
+        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {articles.map((a) => (
+            <Card key={a.slug} className="shadow-sm">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="text-sm font-medium text-[#94A3B8]">{formatDate(a.date)}</div>
+                  <div className="mt-2 text-lg font-semibold text-[#F9FAFB]">
+                    <Link href={`/resources/${a.slug}`} className="hover:underline">
+                      {a.title}
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <p className="mt-3 text-sm leading-6 text-[#CBD5E1]">{a.summary}</p>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {a.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-[#1F2937] bg-[#0F172A] px-3 py-1 text-xs font-medium text-[#CBD5E1]"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-5">
+                <ButtonLink href={`/resources/${a.slug}`} variant="secondary" size="sm">
+                  Read →
+                </ButtonLink>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        <div className="mt-10 rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
+          <div className="text-lg font-semibold text-[#F9FAFB]">Want a guided shortlist instead?</div>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-[#CBD5E1]">
             Answer a short questionnaire and get 3–5 tools with explainable match reasons.
           </p>
           <Link
