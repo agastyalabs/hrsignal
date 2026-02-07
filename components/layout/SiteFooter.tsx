@@ -6,16 +6,16 @@ export function SiteFooter() {
   return (
     <>
       <CompareTray />
-      <footer className="border-t border-zinc-200 bg-white">
+      <footer className="border-t border-gray-200 bg-white">
       <Container className="py-12">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="text-base font-semibold text-zinc-900">HRSignal</div>
-            <p className="mt-2 text-sm leading-6 text-zinc-600">
+            <div className="text-base font-semibold text-gray-900">HRSignal</div>
+            <p className="mt-2 text-sm leading-relaxed text-gray-600">
               India-first HR software discovery for SMEs — compare tools, get explainable recommendations, and request demos.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
-              <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-700">
+              <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-700">
                 Privacy-first
               </span>
               <span className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
@@ -25,25 +25,25 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <div className="text-sm font-semibold text-zinc-900">Product</div>
+            <div className="text-sm font-semibold text-gray-900">Product</div>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/tools">
+                <Link className="text-gray-600 hover:text-gray-900" href="/tools">
                   Tools
                 </Link>
               </li>
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/vendors">
+                <Link className="text-gray-600 hover:text-gray-900" href="/vendors">
                   Vendors
                 </Link>
               </li>
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/categories">
+                <Link className="text-gray-600 hover:text-gray-900" href="/categories">
                   Categories
                 </Link>
               </li>
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/recommend">
+                <Link className="text-gray-600 hover:text-gray-900" href="/recommend">
                   Get recommendations
                 </Link>
               </li>
@@ -51,20 +51,20 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <div className="text-sm font-semibold text-zinc-900">Resources</div>
+            <div className="text-sm font-semibold text-gray-900">Resources</div>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/resources">
+                <Link className="text-gray-600 hover:text-gray-900" href="/resources">
                   Buyer guides
                 </Link>
               </li>
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/resources">
+                <Link className="text-gray-600 hover:text-gray-900" href="/resources">
                   Checklists
                 </Link>
               </li>
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/resources">
+                <Link className="text-gray-600 hover:text-gray-900" href="/resources">
                   FAQs
                 </Link>
               </li>
@@ -72,30 +72,30 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <div className="text-sm font-semibold text-zinc-900">Legal</div>
+            <div className="text-sm font-semibold text-gray-900">Legal</div>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/privacy">
+                <Link className="text-gray-600 hover:text-gray-900" href="/privacy">
                   Privacy
                 </Link>
               </li>
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/terms">
+                <Link className="text-gray-600 hover:text-gray-900" href="/terms">
                   Terms
                 </Link>
               </li>
             </ul>
-            <p className="mt-4 text-xs leading-5 text-zinc-500">
+            <p className="mt-4 text-xs leading-relaxed text-gray-500">
               Privacy-first: we don’t share your details without consent.
             </p>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-zinc-200 pt-6 text-xs text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-2 border-t border-gray-200 pt-6 text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between">
           <div>© {new Date().getFullYear()} HRSignal</div>
           <div>
             Questions? Email{" "}
-            <a className="text-zinc-700 underline" href="mailto:hello@hrsignal.in">
+            <a className="text-gray-700 underline decoration-gray-300" href="mailto:hello@hrsignal.in">
               hello@hrsignal.in
             </a>
           </div>

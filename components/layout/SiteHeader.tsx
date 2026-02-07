@@ -9,10 +9,10 @@ import { ButtonLink } from "@/components/ui/Button";
 import { useCompare } from "@/lib/compare/useCompare";
 
 function navItemClass(active: boolean) {
-  return `relative rounded-md px-2 py-1 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-4 focus:ring-indigo-500/20 ${
+  return `relative rounded-md px-2 py-1 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-indigo-600/20 ${
     active
-      ? "bg-indigo-50 text-indigo-700"
-      : "text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900"
+      ? "bg-indigo-50 text-indigo-800"
+      : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
   }`;
 }
 
@@ -69,24 +69,24 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-zinc-200 bg-white/90 backdrop-blur transition-shadow motion-reduce:transition-none ${
+      className={`sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur transition-shadow motion-reduce:transition-none ${
         scrolled ? "shadow-sm" : "shadow-none"
       }`}
     >
       <Container className="flex items-center justify-between gap-4 py-4">
-        <Link href="/" className="shrink-0 text-lg font-semibold tracking-tight text-zinc-900">
+        <Link href="/" className="shrink-0 text-lg font-semibold tracking-tight text-gray-900">
           HRSignal
         </Link>
 
         {/* Header search (UI-only for now; forwards to /tools query) */}
         <form action="/tools" className="hidden w-full max-w-md items-center gap-2 lg:flex">
           <input
-            className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-4 focus:ring-indigo-500/20"
+            className="h-10 w-full rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
             name="q"
             placeholder="Search tools (e.g., payroll, attendance, Keka…)"
             aria-label="Search tools"
           />
-          <button className="h-10 rounded-lg bg-zinc-900 px-3 text-sm font-medium text-white hover:bg-zinc-800">
+          <button className="h-10 rounded-lg bg-gray-900 px-3 text-sm font-medium text-white hover:bg-gray-800">
             Search
           </button>
         </form>
