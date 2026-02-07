@@ -431,7 +431,10 @@ async function getTrendingTools(): Promise<ToolCardModel[]> {
 
   try {
     const rows = await prisma.tool.findMany({
-      where: { status: "PUBLISHED" },
+      where: {
+        status: "PUBLISHED",
+        vendor: { registeredCountry: "IN", verifiedInIndia: true },
+      },
       orderBy: { lastVerifiedAt: "desc" },
       include: { vendor: true, categories: { include: { category: true } } },
       take: 6,

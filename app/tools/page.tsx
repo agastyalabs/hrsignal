@@ -42,15 +42,34 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
   },
 ];
 
+import { clampCsv, indiaOnlyFromSearchParams } from "@/lib/india/mode";
+
 export default async function ToolsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; q?: string; sort?: string }>;
+  searchParams: Promise<{
+    category?: string;
+    q?: string;
+    sort?: string;
+    india?: string;
+    size?: string;
+    deployment?: string;
+    modules?: string;
+    compliance?: string;
+    region?: string;
+  }>;
 }) {
   const sp = await searchParams;
+  const indiaOnly = indiaOnlyFromSearchParams(sp);
   const category = sp.category?.trim();
   const q = sp.q?.trim();
   const sort = sp.sort?.trim() === "recent" ? "recent" : "name";
+
+  const sizeBands = clampCsv(sp.size, 5);
+  const deployment = sp.deployment?.trim() || "";
+  const modules = clampCsv(sp.modules, 10);
+  const compliance = clampCsv(sp.compliance, 20);
+  const region = sp.region?.trim() || "";
 
   let tools: ToolCardModel[] = [];
   let mode: "live" | "empty" | "fallback" = "live";
@@ -63,6 +82,14 @@ export default async function ToolsPage({
       const rows = await prisma.tool.findMany({
         where: {
           status: "PUBLISHED",
+          ...(indiaOnly
+            ? {
+                vendor: {
+                  registeredCountry: "IN",
+                  verifiedInIndia: true,
+                },
+              }
+            : {}),
           ...(q
             ? {
                 OR: [
@@ -76,6 +103,39 @@ export default async function ToolsPage({
             ? {
                 categories: {
                   some: { category: { slug: category } },
+                },
+              }
+            : {}),
+          ...(modules.length
+            ? {
+                categories: {
+                  some: { category: { slug: { in: modules } } },
+                },
+              }
+            : {}),
+          ...(sizeBands.length
+            ? {
+                OR: [
+                  { bestForSizeBands: { hasSome: sizeBands as never } },
+                  { bestForSizeBands: { equals: [] } },
+                ],
+              }
+            : {}),
+          ...(deployment
+            ? {
+                deployment: deployment as never,
+              }
+            : {}),
+          ...(compliance.length
+            ? {
+                indiaComplianceTags: { hasSome: compliance },
+              }
+            : {}),
+          ...(region === "multi"
+            ? {
+                vendor: {
+                  ...(indiaOnly ? { registeredCountry: "IN", verifiedInIndia: true } : {}),
+                  multiStateSupport: true,
                 },
               }
             : {}),
@@ -121,10 +181,18 @@ export default async function ToolsPage({
             <div className="rounded-2xl border border-zinc-200 bg-white p-4">
               <div className="text-sm font-semibold text-zinc-900">Search & filters</div>
               <p className="mt-1 text-sm leading-6 text-zinc-600">
-                Keep it simple in v1: search + category + sort. More filters coming soon.
+                India-first mode is ON by default. Turn it off to browse all listings.
               </p>
 
-              <form className="mt-4 space-y-3">
+              <form className="mt-4 space-y-4" method="get" action="/tools">
+                <div>
+                  <label className="text-xs font-medium text-zinc-600">India-first mode</label>
+                  <select className="input mt-1" name="india" defaultValue={indiaOnly ? "1" : "0"} aria-label="India-first mode">
+                    <option value="1">On (India-verified vendors only)</option>
+                    <option value="0">Off (show all vendors)</option>
+                  </select>
+                </div>
+
                 <div>
                   <label className="text-xs font-medium text-zinc-600">Search</label>
                   <input
@@ -137,6 +205,63 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
+                  <label className="text-xs font-medium text-zinc-600">Company size</label>
+                  <select className="input mt-1" name="size" defaultValue={sizeBands.join(",")} aria-label="Company size">
+                    <option value="">Any</option>
+                    <option value="EMP_20_200">20–200 employees</option>
+                    <option value="EMP_50_500">50–500 employees</option>
+                    <option value="EMP_100_1000">100–1000 employees</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-zinc-600">Deployment</label>
+                  <select className="input mt-1" name="deployment" defaultValue={deployment} aria-label="Deployment">
+                    <option value="">Any</option>
+                    <option value="CLOUD">Cloud</option>
+                    <option value="ONPREM">On-prem</option>
+                    <option value="HYBRID">Hybrid</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-zinc-600">Modules</label>
+                  <select className="input mt-1" name="modules" defaultValue={modules.join(",")} aria-label="Modules">
+                    <option value="">Any</option>
+                    <option value="hrms">HRMS</option>
+                    <option value="payroll">Payroll + Compliance</option>
+                    <option value="attendance">Attendance/Leave</option>
+                    <option value="ats">ATS/Hiring</option>
+                    <option value="performance">Performance/OKR</option>
+                    <option value="lms">LMS</option>
+                    <option value="bgv">BGV</option>
+                  </select>
+                  <div className="mt-1 text-xs text-zinc-500">Tip: choose the primary module in v1.</div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-zinc-600">India compliance</label>
+                  <select className="input mt-1" name="compliance" defaultValue={compliance.join(",")} aria-label="India compliance">
+                    <option value="">Any</option>
+                    <option value="PF">PF</option>
+                    <option value="ESI">ESI</option>
+                    <option value="PT">PT</option>
+                    <option value="LWF">LWF</option>
+                    <option value="TDS">TDS</option>
+                    <option value="Form16">Form 16</option>
+                    <option value="24Q">24Q</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-zinc-600">Region fit</label>
+                  <select className="input mt-1" name="region" defaultValue={region} aria-label="Region fit">
+                    <option value="">Any</option>
+                    <option value="multi">Multi-state support</option>
+                  </select>
+                </div>
+
+                <div>
                   <label className="text-xs font-medium text-zinc-600">Category</label>
                   <select className="input mt-1" name="category" defaultValue={category ?? ""} aria-label="Category">
                     <option value="">All categories</option>
@@ -145,6 +270,8 @@ export default async function ToolsPage({
                     <option value="attendance">Attendance/Leave</option>
                     <option value="ats">ATS/Hiring</option>
                     <option value="performance">Performance/OKR</option>
+                    <option value="lms">LMS</option>
+                    <option value="bgv">BGV</option>
                   </select>
                 </div>
 
@@ -160,20 +287,12 @@ export default async function ToolsPage({
                   Apply
                 </button>
 
-                <div className="pt-1">
-                  <div className="text-xs font-medium text-zinc-500">Coming soon</div>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
-                      Company size
-                    </span>
-                    <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
-                      Integrations
-                    </span>
-                    <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
-                      Deployment
-                    </span>
-                  </div>
-                </div>
+                <Link
+                  className="block text-center text-sm font-medium text-zinc-600 hover:text-zinc-900"
+                  href="/tools"
+                >
+                  Reset filters
+                </Link>
               </form>
             </div>
           </aside>

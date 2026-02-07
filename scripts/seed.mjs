@@ -36,6 +36,31 @@ async function main() {
     });
   }
 
+  function isIndiaVerifiedVendor(name) {
+    return new Set([
+      "greytHR",
+      "Keka",
+      "Zoho",
+      "Darwinbox",
+      "PeopleStrong",
+      "Pocket HRMS",
+      "HROne",
+      "ZingHR",
+      "sumHR",
+      "factoHR",
+      "Razorpay",
+      "Timelabs",
+      "Freshworks",
+      "Zoho Recruit",
+      "AuthBridge",
+      "IDfy",
+      "SpringVerify",
+      "OnGrid",
+      "Disprz",
+      "Firstsource BGV",
+    ]).has(name);
+  }
+
   // Vendors: real companies + real public URLs. No invented awards/claims.
   // Goal: directory feels deep (>=60 tools, >=20 vendors per major category with overlaps).
   const vendors = [
@@ -191,12 +216,18 @@ async function main() {
 
   for (const v of vendors) {
     const existing = await prisma.vendor.findFirst({ where: { name: v.name } });
+    const verifiedInIndia = isIndiaVerifiedVendor(v.name);
+    const registeredCountry = verifiedInIndia ? "IN" : "US";
+
     const vendor = existing
       ? await prisma.vendor.update({
           where: { id: existing.id },
           data: {
             websiteUrl: v.websiteUrl,
             contactEmail: v.contactEmail,
+            registeredCountry,
+            verifiedInIndia,
+            multiStateSupport: verifiedInIndia,
             supportedSizeBands: v.supportedSizeBands,
             isActive: true,
           },
@@ -206,6 +237,9 @@ async function main() {
             name: v.name,
             websiteUrl: v.websiteUrl,
             contactEmail: v.contactEmail,
+            registeredCountry,
+            verifiedInIndia,
+            multiStateSupport: verifiedInIndia,
             supportedSizeBands: v.supportedSizeBands,
             isActive: true,
           },
@@ -256,6 +290,17 @@ async function main() {
     bestFor: v.supportedSizeBands,
   }));
 
+  function complianceTagsFor(categories) {
+    const tags = new Set();
+    if (categories.includes("payroll")) {
+      for (const t of ["PF", "ESI", "PT", "LWF", "TDS", "Form16", "24Q"]) tags.add(t);
+    }
+    if (categories.includes("attendance")) {
+      tags.add("Leave");
+    }
+    return [...tags];
+  }
+
   for (const t of tools) {
     const vendor = vendorByName[t.vendorName];
     const tool = await prisma.tool.upsert({
@@ -266,6 +311,8 @@ async function main() {
         tagline: t.tagline,
         status: "PUBLISHED",
         bestForSizeBands: t.bestFor,
+        deployment: "CLOUD",
+        indiaComplianceTags: complianceTagsFor(t.categories),
         lastVerifiedAt: new Date(),
       },
       create: {
@@ -275,6 +322,8 @@ async function main() {
         tagline: t.tagline,
         status: "PUBLISHED",
         bestForSizeBands: t.bestFor,
+        deployment: "CLOUD",
+        indiaComplianceTags: complianceTagsFor(t.categories),
         lastVerifiedAt: new Date(),
       },
     });

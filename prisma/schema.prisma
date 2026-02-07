@@ -34,11 +34,22 @@ enum ToolStatus {
   PUBLISHED
 }
 
+enum ToolDeployment {
+  CLOUD
+  ONPREM
+  HYBRID
+}
+
 model Vendor {
   id           String  @id @default(cuid())
   name         String
   websiteUrl   String?
   contactEmail String?
+
+  // India-first
+  registeredCountry String  @default("IN")
+  verifiedInIndia   Boolean @default(false)
+  multiStateSupport Boolean @default(false)
 
   // ICP basics
   supportedStates    String[]        @default([])
@@ -92,8 +103,10 @@ model Tool {
   lastVerifiedAt DateTime?
 
   // Facets
-  bestForSizeBands BuyerSizeBand[] @default([])
-  supportedStates  String[]        @default([])
+  bestForSizeBands     BuyerSizeBand[] @default([])
+  supportedStates      String[]        @default([])
+  deployment           ToolDeployment?
+  indiaComplianceTags  String[]        @default([]) // e.g. PF, ESI, PT, LWF, TDS, Form16, 24Q
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

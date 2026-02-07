@@ -9,7 +9,16 @@ import { Section } from "@/components/layout/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 
-export default async function VendorsPage() {
+import { indiaOnlyFromSearchParams } from "@/lib/india/mode";
+
+export default async function VendorsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ india?: string }>;
+}) {
+  const sp = await searchParams;
+  const indiaOnly = indiaOnlyFromSearchParams(sp);
+
   let vendors: Array<{
     id: string;
     name: string;
@@ -22,7 +31,10 @@ export default async function VendorsPage() {
   if (process.env.DATABASE_URL) {
     try {
       const rows = await prisma.vendor.findMany({
-        where: { isActive: true },
+        where: {
+          isActive: true,
+          ...(indiaOnly ? { registeredCountry: "IN", verifiedInIndia: true } : {}),
+        },
         orderBy: { name: "asc" },
         include: {
           _count: { select: { tools: true } },
@@ -54,9 +66,29 @@ export default async function VendorsPage() {
             title="Vendors"
             subtitle="Browse companies behind the tools. Vendor pages show their published listings."
           />
-          <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/tools">
-            Browse tools
-          </Link>
+          <div className="flex flex-wrap items-center gap-3">
+            <form method="get" action="/vendors" className="flex items-center gap-2">
+              <label className="text-xs font-medium text-zinc-600" htmlFor="india-mode">
+                India-first
+              </label>
+              <select
+                id="india-mode"
+                name="india"
+                defaultValue={indiaOnly ? "1" : "0"}
+                className="h-9 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-800"
+                aria-label="India-first mode"
+              >
+                <option value="1">On</option>
+                <option value="0">Off</option>
+              </select>
+              <button className="h-9 rounded-lg bg-zinc-900 px-3 text-sm font-medium text-white hover:bg-zinc-800">
+                Apply
+              </button>
+            </form>
+            <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/tools">
+              Browse tools
+            </Link>
+          </div>
         </div>
 
         {!process.env.DATABASE_URL ? (
