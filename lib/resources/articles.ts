@@ -65,6 +65,28 @@ const ARTICLES: ResourceArticle[] = [
     category: "Playbook",
     content: `## Keep it simple\n\n- Quarterly goals\n- Monthly check-ins\n- Lightweight reviews\n\n## What to look for in tools\n\n- Goal visibility\n- Review templates\n- Manager nudges\n`,
   },
+  {
+    slug: "payroll-compliance-checklist-2026",
+    title: "Payroll & compliance checklist for 2026 (PF/ESI/PT/TDS)",
+    summary:
+      "A tight list of what to verify in payroll tools for 2026 — filings, validations, state coverage, and audit-ready reporting.",
+    date: "2026-02-07",
+    tags: ["Payroll", "Compliance", "2026"],
+    readingTime: "5 min",
+    category: "Checklist",
+    content: `## The 2026 checks\n\n- PF/ESI rules & exceptions\n- PT + multi-state complexity\n- TDS / Form 16 / 24Q outputs\n- Reversals, arrears, final settlement\n\n## Ask for examples\n\n- Sample payslip\n- Statutory reports\n- Month-end reconciliation flow\n`,
+  },
+  {
+    slug: "labour-codes-2026-hr-prep",
+    title: "Labour codes in India: what HR teams should prepare for (2026)",
+    summary:
+      "A non-legal overview for HR ops: policy changes to watch, data you should clean up, and questions to ask vendors.",
+    date: "2026-02-07",
+    tags: ["Compliance", "Policy", "2026"],
+    readingTime: "6 min",
+    category: "Explainer",
+    content: `## Practical preparation\n\n- Centralize employee master data\n- Document policy assumptions\n- Ensure exports + audit trails\n\n## Vendor questions\n\n- How do updates roll out?\n- What is configurable vs hard-coded?\n- What reporting changes are planned?\n`,
+  },
 ];
 
 export function listResourceArticles(): ResourceArticle[] {

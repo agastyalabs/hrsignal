@@ -2,7 +2,8 @@ import Link from "next/link";
 import * as React from "react";
 
 import { Card } from "@/components/ui/Card";
-import { LogoImage } from "@/components/brand/LogoImage";
+import { ResolvedLogo } from "@/components/brand/ResolvedLogo";
+import { vendorLogoCandidates } from "@/lib/brand/logo";
 
 export type VendorCardModel = {
   id: string;
@@ -20,11 +21,11 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
       <Card className="h-full transition-all duration-200 hover:-translate-y-0.5 hover:border-[#334155] hover:shadow-md motion-reduce:transition-none">
         <div className="flex items-start gap-3">
           <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0F172A] ring-1 ring-[#1F2937]">
-            <LogoImage
-              src={`/logos/vendors/${vendor.slug}.svg`}
+            <ResolvedLogo
+              sources={vendorLogoCandidates({ slug: vendor.slug, websiteUrl: vendor.websiteUrl })}
               fallbackSrc="/placeholders/vendor.svg"
               alt=""
-              className="h-6 w-6 opacity-90"
+              className="h-8 w-8 rounded-md"
             />
           </div>
           <div className="min-w-0">

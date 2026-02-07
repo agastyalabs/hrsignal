@@ -145,10 +145,21 @@ export default async function ToolsPage({
         take: 200,
       });
 
+      function slugify(name: string) {
+        return String(name)
+          .toLowerCase()
+          .replace(/&/g, "and")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "")
+          .slice(0, 60);
+      }
+
       tools = rows.map((t) => ({
         slug: t.slug,
         name: t.name,
         vendorName: t.vendor?.name ?? undefined,
+        vendorWebsiteUrl: t.vendor?.websiteUrl ?? undefined,
+        vendorSlug: t.vendor?.name ? slugify(t.vendor.name) : undefined,
         categories: t.categories.map((c) => c.category.name),
         tagline: t.tagline ?? undefined,
         verified: Boolean(t.lastVerifiedAt),

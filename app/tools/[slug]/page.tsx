@@ -8,7 +8,8 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { LeadSection } from "./LeadSection";
 import { CompareToggle } from "@/components/compare/CompareToggle";
-import { LogoImage } from "@/components/brand/LogoImage";
+import { ResolvedLogo } from "@/components/brand/ResolvedLogo";
+import { vendorLogoCandidates } from "@/lib/brand/logo";
 
 export default async function ToolDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -54,7 +55,12 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
           <div className="mt-4 rounded-xl bg-[#111827] p-6 shadow-sm border border-[#1F2937]">
             <div className="flex items-start gap-4">
               <div className="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0F172A] ring-1 ring-[#1F2937]">
-                <LogoImage src={`/logos/vendors/${slug}.svg`} fallbackSrc="/placeholders/tool.svg" alt="" className="h-7 w-7 opacity-90" />
+                <ResolvedLogo
+                  sources={vendorLogoCandidates({ slug, websiteUrl: null })}
+                  fallbackSrc="/placeholders/tool.svg"
+                  alt=""
+                  className="h-9 w-9 rounded-md"
+                />
               </div>
               <div className="min-w-0">
                 <h1 className="text-2xl font-semibold text-[#F9FAFB]">{f.name}</h1>
@@ -99,7 +105,15 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
         <div className="mt-4 rounded-xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
           <div className="flex items-start gap-4">
             <div className="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0F172A] ring-1 ring-[#1F2937]">
-              <LogoImage src={`/logos/vendors/${tool.slug}.svg`} fallbackSrc="/placeholders/tool.svg" alt="" className="h-7 w-7 opacity-90" />
+              <ResolvedLogo
+                sources={vendorLogoCandidates({
+                  slug: tool.slug,
+                  websiteUrl: tool.vendor?.websiteUrl,
+                })}
+                fallbackSrc="/placeholders/tool.svg"
+                alt=""
+                className="h-9 w-9 rounded-md"
+              />
             </div>
             <div className="min-w-0">
               <h1 className="text-2xl font-semibold text-[#F9FAFB]">{tool.name}</h1>
