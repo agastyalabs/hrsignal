@@ -5,6 +5,9 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { Section } from "@/components/layout/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Card } from "@/components/ui/Card";
 
 export default async function VendorsPage() {
   let vendors: Array<{ id: string; name: string; websiteUrl: string | null; toolsCount: number }> = [];
@@ -31,43 +34,53 @@ export default async function VendorsPage() {
   return (
     <div className="min-h-screen bg-zinc-50">
       <SiteHeader />
-      <main className="mx-auto max-w-6xl px-6 py-10">
-        <div className="flex items-baseline justify-between">
-          <h1 className="text-2xl font-semibold">Vendors</h1>
-          <Link className="text-sm font-medium text-indigo-700" href="/tools">
+
+      <Section className="pt-10 sm:pt-14">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <SectionHeading
+            title="Vendors"
+            subtitle="Browse companies behind the tools. Vendor pages show their published listings."
+          />
+          <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/tools">
             Browse tools
           </Link>
         </div>
 
         {!process.env.DATABASE_URL ? (
-          <div className="mt-6 rounded-xl bg-white p-6 shadow">
-            <p className="text-zinc-700">Vendor directory requires DB connection.</p>
-            <p className="mt-2 text-sm text-zinc-600">Set <code>DATABASE_URL</code> and seed catalog.</p>
-          </div>
+          <Card className="mt-6 shadow-sm">
+            <div className="text-sm font-semibold text-zinc-900">Connect the catalog database</div>
+            <p className="mt-1 text-sm leading-6 text-zinc-600">
+              Vendor directory requires a DB connection. Set <code>DATABASE_URL</code> and seed the catalog.
+            </p>
+          </Card>
         ) : null}
 
         {process.env.DATABASE_URL && vendors.length === 0 ? (
-          <div className="mt-6 rounded-xl bg-white p-6 shadow">
-            <p className="text-zinc-700">No vendors yet.</p>
-            <p className="mt-2 text-sm text-zinc-600">Seed the catalog from Admin → Seed catalog.</p>
-            <Link className="mt-3 inline-block text-sm font-medium text-indigo-700" href="/admin">
+          <Card className="mt-6 shadow-sm">
+            <div className="text-sm font-semibold text-zinc-900">No vendors yet</div>
+            <p className="mt-1 text-sm leading-6 text-zinc-600">Seed the catalog from Admin → Seed catalog.</p>
+            <Link className="mt-3 inline-block text-sm font-medium text-indigo-700 hover:underline" href="/admin">
               Go to Admin →
             </Link>
-          </div>
+          </Card>
         ) : null}
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {vendors.map((v) => (
-            <Link key={v.id} href={`/vendors/${v.id}`} className="rounded-xl bg-white p-4 shadow hover:shadow-md">
-              <div className="text-lg font-semibold">{v.name}</div>
-              <div className="mt-1 text-sm text-zinc-600">{v.toolsCount} tools</div>
-              {v.websiteUrl ? (
-                <div className="mt-3 text-sm text-zinc-700">{v.websiteUrl.replace(/^https?:\/\//, "")}</div>
-              ) : null}
+            <Link key={v.id} href={`/vendors/${v.id}`} className="block">
+              <Card className="h-full shadow-sm transition-all hover:-translate-y-0.5 hover:shadow">
+                <div className="text-base font-semibold text-zinc-900">{v.name}</div>
+                <div className="mt-1 text-sm text-zinc-600">{v.toolsCount} tools</div>
+                {v.websiteUrl ? (
+                  <div className="mt-3 text-sm text-zinc-700">{v.websiteUrl.replace(/^https?:\/\//, "")}</div>
+                ) : null}
+                <div className="mt-4 text-sm font-medium text-indigo-700">View vendor →</div>
+              </Card>
             </Link>
           ))}
         </div>
-      </main>
+      </Section>
+
       <SiteFooter />
     </div>
   );

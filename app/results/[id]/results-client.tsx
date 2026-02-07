@@ -85,7 +85,7 @@ export default function ResultsClient({
         <Container className="max-w-5xl">
         <div className="flex items-baseline justify-between">
           <h1 className="text-2xl font-semibold">Your HR stack shortlist</h1>
-          <Link className="text-sm font-medium text-indigo-700" href="/recommend">
+          <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/recommend">
             Start over
           </Link>
         </div>

@@ -115,80 +115,110 @@ export default async function ToolsPage({
           </ButtonLink>
         </div>
 
-        <form className="mt-6 grid grid-cols-1 gap-3 rounded-2xl border border-zinc-200 bg-white p-4 sm:grid-cols-12">
-          <div className="sm:col-span-6">
-            <input
-              className="input"
-              name="q"
-              defaultValue={q}
-              placeholder="Search tools (e.g., Keka, payroll, attendance)"
-              aria-label="Search tools"
-            />
-          </div>
-          <div className="sm:col-span-3">
-            <select className="input" name="category" defaultValue={category ?? ""} aria-label="Category">
-              <option value="">All categories</option>
-              <option value="hrms">HRMS</option>
-              <option value="payroll">Payroll + Compliance</option>
-              <option value="attendance">Attendance/Leave</option>
-              <option value="ats">ATS/Hiring</option>
-              <option value="performance">Performance/OKR</option>
-            </select>
-          </div>
-          <div className="sm:col-span-2">
-            <select className="input" name="sort" defaultValue={sort} aria-label="Sort">
-              <option value="name">Sort: Name</option>
-              <option value="recent">Sort: Recently verified</option>
-            </select>
-          </div>
-          <div className="sm:col-span-1">
-            <button className="h-10 w-full rounded-lg bg-indigo-600 text-sm font-medium text-white hover:bg-indigo-700">
-              Go
-            </button>
-          </div>
+        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
+          {/* Filters */}
+          <aside className="lg:col-span-4">
+            <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+              <div className="text-sm font-semibold text-zinc-900">Search & filters</div>
+              <p className="mt-1 text-sm leading-6 text-zinc-600">
+                Keep it simple in v1: search + category + sort. More filters coming soon.
+              </p>
 
-          {/* MVP filter placeholders (UI-only) */}
-          <div className="sm:col-span-12">
-            <div className="flex flex-wrap gap-2 pt-1">
-              <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
-                Company size (soon)
-              </span>
-              <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
-                Integrations (soon)
-              </span>
-              <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
-                Deployment (soon)
-              </span>
+              <form className="mt-4 space-y-3">
+                <div>
+                  <label className="text-xs font-medium text-zinc-600">Search</label>
+                  <input
+                    className="input mt-1"
+                    name="q"
+                    defaultValue={q}
+                    placeholder="e.g., Keka, payroll, attendance"
+                    aria-label="Search tools"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-zinc-600">Category</label>
+                  <select className="input mt-1" name="category" defaultValue={category ?? ""} aria-label="Category">
+                    <option value="">All categories</option>
+                    <option value="hrms">HRMS</option>
+                    <option value="payroll">Payroll + Compliance</option>
+                    <option value="attendance">Attendance/Leave</option>
+                    <option value="ats">ATS/Hiring</option>
+                    <option value="performance">Performance/OKR</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-zinc-600">Sort</label>
+                  <select className="input mt-1" name="sort" defaultValue={sort} aria-label="Sort">
+                    <option value="name">Name</option>
+                    <option value="recent">Recently verified</option>
+                  </select>
+                </div>
+
+                <button className="h-10 w-full rounded-lg bg-indigo-600 text-sm font-medium text-white hover:bg-indigo-700">
+                  Apply
+                </button>
+
+                <div className="pt-1">
+                  <div className="text-xs font-medium text-zinc-500">Coming soon</div>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
+                      Company size
+                    </span>
+                    <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
+                      Integrations
+                    </span>
+                    <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-sm text-zinc-700">
+                      Deployment
+                    </span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </aside>
+
+          {/* Results */}
+          <div className="min-w-0 lg:col-span-8">
+            <div className="flex items-center justify-between gap-4">
+              <div className="text-sm text-zinc-600">
+                Showing <span className="font-medium text-zinc-900">{tools.length}</span> tools
+              </div>
+              <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/recommend">
+                Prefer a guided shortlist? →
+              </Link>
+            </div>
+
+            {mode === "fallback" ? (
+              <div className="mt-4 rounded-2xl border border-zinc-200 bg-white p-5">
+                <div className="text-sm font-semibold text-zinc-900">Showing sample tools</div>
+                <p className="mt-1 text-sm leading-6 text-zinc-600">
+                  The database/catalog is not connected. Connect DB + run migrations/seed to see the real marketplace catalog.
+                </p>
+              </div>
+            ) : null}
+
+            {mode === "empty" ? (
+              <div className="mt-4 rounded-2xl border border-zinc-200 bg-white p-5">
+                <div className="text-sm font-semibold text-zinc-900">No tools match yet</div>
+                <p className="mt-1 text-sm leading-6 text-zinc-600">
+                  Try removing filters, or seed/publish more tools from Admin.
+                </p>
+                <Link className="mt-3 inline-block text-sm font-medium text-indigo-700" href="/admin">
+                  Go to Admin →
+                </Link>
+              </div>
+            ) : null}
+
+            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {tools.map((t) => (
+                <ToolCard key={t.slug} tool={t} />
+              ))}
             </div>
           </div>
-        </form>
-
-        {mode === "fallback" ? (
-          <div className="mt-6 rounded-2xl border border-zinc-200 bg-white p-5">
-            <div className="text-sm font-semibold text-zinc-900">Showing sample tools</div>
-            <p className="mt-1 text-sm leading-6 text-zinc-600">
-              The database/catalog is not connected. Connect DB + run migrations/seed to see the real marketplace catalog.
-            </p>
-          </div>
-        ) : null}
-
-        {mode === "empty" ? (
-          <div className="mt-6 rounded-2xl border border-zinc-200 bg-white p-5">
-            <div className="text-sm font-semibold text-zinc-900">No tools match yet</div>
-            <p className="mt-1 text-sm leading-6 text-zinc-600">
-              Try removing filters, or seed/publish more tools from Admin.
-            </p>
-            <Link className="mt-3 inline-block text-sm font-medium text-indigo-700" href="/admin">
-              Go to Admin →
-            </Link>
-          </div>
-        ) : null}
-
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {tools.map((t) => (
-            <ToolCard key={t.slug} tool={t} />
-          ))}
         </div>
+
+        {/* Results + empty/fallback states are rendered in the right column above. */}
 
         <div className="mt-10 rounded-2xl border border-zinc-200 bg-white p-6">
           <SectionHeading
