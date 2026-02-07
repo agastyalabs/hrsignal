@@ -21,9 +21,15 @@ export function vendorLogoCandidates({
   if (explicitLogoUrl) out.push(explicitLogoUrl);
 
   const domain = domainFromUrl(websiteUrl);
-  if (domain) out.push(`https://logo.clearbit.com/${domain}`);
+  if (domain) {
+    out.push(`https://logo.clearbit.com/${domain}`);
+    out.push(`https://icons.duckduckgo.com/ip2/${domain}.ico`);
+  }
 
   if (slug) {
+    // cached assets (either flat or under /vendors)
+    out.push(`/logos/${slug}.png`);
+    out.push(`/logos/${slug}.svg`);
     out.push(`/logos/vendors/${slug}.png`);
     out.push(`/logos/vendors/${slug}.svg`);
   }

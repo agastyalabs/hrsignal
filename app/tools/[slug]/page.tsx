@@ -57,7 +57,7 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
               <div className="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0F172A] ring-1 ring-[#1F2937]">
                 <ResolvedLogo
                   sources={vendorLogoCandidates({ slug, websiteUrl: null })}
-                  fallbackSrc="/placeholders/tool.svg"
+                  fallbackSrc="/placeholders/tool.png"
                   alt=""
                   className="h-9 w-9 rounded-md"
                 />
@@ -110,7 +110,7 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
                   slug: tool.slug,
                   websiteUrl: tool.vendor?.websiteUrl,
                 })}
-                fallbackSrc="/placeholders/tool.svg"
+                fallbackSrc="/placeholders/tool.png"
                 alt=""
                 className="h-9 w-9 rounded-md"
               />

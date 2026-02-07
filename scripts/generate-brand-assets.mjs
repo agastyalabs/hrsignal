@@ -6,7 +6,9 @@ const root = process.cwd();
 
 async function main() {
   const brandDir = path.join(root, "public", "brand");
+  const placeholdersDir = path.join(root, "public", "placeholders");
   fs.mkdirSync(brandDir, { recursive: true });
+  fs.mkdirSync(placeholdersDir, { recursive: true });
 
   const svgPath = path.join(brandDir, "hrsignal-logo.svg");
   if (!fs.existsSync(svgPath)) {
@@ -16,6 +18,8 @@ async function main() {
   const logoPngPath = path.join(brandDir, "logo.png");
   const ogPngPath = path.join(root, "public", "og.png");
   const faviconPath = path.join(root, "public", "favicon.ico");
+  const vendorPlaceholderPngPath = path.join(placeholdersDir, "vendor.png");
+  const toolPlaceholderPngPath = path.join(placeholdersDir, "tool.png");
 
   const svg = fs.readFileSync(svgPath);
 
@@ -58,10 +62,29 @@ async function main() {
     fs.writeFileSync(faviconPath, buf);
   }
 
+  // Placeholder PNGs (some browsers + certain image layouts behave better than SVG)
+  const vendorSvgPath = path.join(placeholdersDir, "vendor.svg");
+  if (fs.existsSync(vendorSvgPath)) {
+    await sharp(fs.readFileSync(vendorSvgPath), { density: 300 })
+      .resize({ width: 96, height: 96, fit: "contain", background: "#0B0E23" })
+      .png({ quality: 90 })
+      .toFile(vendorPlaceholderPngPath);
+  }
+
+  const toolSvgPath = path.join(placeholdersDir, "tool.svg");
+  if (fs.existsSync(toolSvgPath)) {
+    await sharp(fs.readFileSync(toolSvgPath), { density: 300 })
+      .resize({ width: 96, height: 96, fit: "contain", background: "#0B0E23" })
+      .png({ quality: 90 })
+      .toFile(toolPlaceholderPngPath);
+  }
+
   console.log("Generated:", {
     logoPngPath,
     ogPngPath,
     faviconPath,
+    vendorPlaceholderPngPath,
+    toolPlaceholderPngPath,
   });
 }
 

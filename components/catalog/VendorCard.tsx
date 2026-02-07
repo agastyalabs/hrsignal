@@ -23,7 +23,7 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
           <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0F172A] ring-1 ring-[#1F2937]">
             <ResolvedLogo
               sources={vendorLogoCandidates({ slug: vendor.slug, websiteUrl: vendor.websiteUrl })}
-              fallbackSrc="/placeholders/vendor.svg"
+              fallbackSrc="/placeholders/vendor.png"
               alt=""
               className="h-8 w-8 rounded-md"
             />

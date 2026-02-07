@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { CompareTray } from "@/components/compare/CompareTray";
@@ -11,8 +12,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/logo.png" alt="HRSignal" className="h-6 w-auto" />
+              <Image src="/brand/logo.png" alt="HRSignal" width={126} height={28} className="h-6 w-auto" />
               <div className="text-base font-semibold text-[#F9FAFB]">HRSignal</div>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-[#CBD5E1]">

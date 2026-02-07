@@ -32,7 +32,7 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
                   slug: tool.vendorSlug ?? tool.slug,
                   websiteUrl: tool.vendorWebsiteUrl,
                 })}
-                fallbackSrc="/placeholders/tool.svg"
+                fallbackSrc="/placeholders/tool.png"
                 alt=""
                 className="h-7 w-7 rounded-md"
               />

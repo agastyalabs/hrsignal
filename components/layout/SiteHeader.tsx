@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -75,8 +76,7 @@ export function SiteHeader() {
     >
       <Container className="flex items-center justify-between gap-4 py-4">
         <Link href="/" className="shrink-0" aria-label="HRSignal home">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/logo.png" alt="HRSignal" className="h-8 w-auto" />
+          <Image src="/brand/logo.png" alt="HRSignal" width={140} height={32} priority className="h-8 w-auto" />
         </Link>
 
         {/* Header search (UI-only for now; forwards to /tools query) */}
