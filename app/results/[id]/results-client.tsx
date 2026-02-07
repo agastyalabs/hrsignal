@@ -47,7 +47,17 @@ export default function ResultsClient({
   result: RecommendationResult;
 }) {
   const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState(submission.buyerEmail ?? "");
   const [contactPhone, setContactPhone] = useState("");
+  const [useCase, setUseCase] = useState(() => {
+    const parts: string[] = [];
+    if (submission.categoriesNeeded?.length) parts.push(`Need: ${submission.categoriesNeeded.map(prettyCategory).join(", ")}`);
+    if (submission.mustHaveIntegrations?.length) parts.push(`Integrations: ${submission.mustHaveIntegrations.join(", ")}`);
+    if (submission.states?.length) parts.push(`States: ${submission.states.join(", ")}`);
+    if (submission.budgetNote) parts.push(`Budget: ${submission.budgetNote}`);
+    if (submission.timelineNote) parts.push(`Timeline: ${submission.timelineNote}`);
+    return parts.join("\n");
+  });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -139,17 +149,31 @@ export default function ResultsClient({
                   body: JSON.stringify({
                     submissionId: submission.id,
                     runId,
+                    source: "results-cta",
                     companyName: submission.companyName,
-                    contactName,
-                    contactEmail: submission.buyerEmail,
-                    contactPhone,
+                    name: contactName,
+                    email: contactEmail,
+                    phone: contactPhone,
+                    useCase,
                     buyerRole: submission.buyerRole,
+                    sizeBand: submission.sizeBand,
+                    states: submission.states,
+                    categoriesNeeded: submission.categoriesNeeded,
+                    mustHaveIntegrations: submission.mustHaveIntegrations,
+                    budgetNote: submission.budgetNote,
+                    timelineNote: submission.timelineNote,
                   }),
                 });
-                if (!res.ok) throw new Error("Failed");
+
+                const data = await res.json().catch(() => null);
+                if (!res.ok) {
+                  setError(data?.error || "Please check the form and try again.");
+                  return;
+                }
+
                 setSent(true);
               } catch {
-                setError("Could not submit. Try again.");
+                setError("Something went wrong on our side. Please try again in a minute.");
               } finally {
                 setSending(false);
               }
@@ -161,13 +185,37 @@ export default function ResultsClient({
                 <input className="input mt-1" value={contactName} onChange={(e) => setContactName(e.target.value)} required />
               </div>
               <div>
+                <label className="text-sm font-medium">Work email</label>
+                <input
+                  className="input mt-1"
+                  type="email"
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
+                  placeholder="you@company.com"
+                  required={!contactPhone}
+                />
+                <p className="mt-1 text-xs text-zinc-500">Email preferred (or share a phone number below).</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
                 <label className="text-sm font-medium">Phone (optional)</label>
                 <input className="input mt-1" value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} />
+              </div>
+              <div>
+                <label className="text-sm font-medium">What do you need? (optional)</label>
+                <textarea
+                  className="input mt-1 min-h-[44px]"
+                  value={useCase}
+                  onChange={(e) => setUseCase(e.target.value)}
+                  placeholder="Eg: Need payroll + attendance, demo next week"
+                />
               </div>
             </div>
 
             {error ? <p className="text-sm text-red-600">{error}</p> : null}
-            {sent ? <p className="text-sm text-green-700">Submitted. We’ll reach out shortly.</p> : null}
+            {sent ? <p className="text-sm text-green-700">Thanks — we’ll share one best-fit vendor shortly.</p> : null}
 
             <button className="rounded-md bg-black px-4 py-2 text-white disabled:opacity-60" disabled={sending || sent}>
               {sent ? "Submitted" : sending ? "Submitting…" : "Submit"}
