@@ -9,11 +9,37 @@ import { ButtonLink } from "@/components/ui/Button";
 import { useCompare } from "@/lib/compare/useCompare";
 
 function navItemClass(active: boolean) {
-  return `rounded-md px-2 py-1 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-4 focus:ring-indigo-500/20 ${
+  return `relative rounded-md px-2 py-1 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-4 focus:ring-indigo-500/20 ${
     active
       ? "bg-indigo-50 text-indigo-700"
       : "text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900"
   }`;
+}
+
+function activeUnderline(active: boolean) {
+  return active
+    ? "after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:bg-indigo-600"
+    : "";
+}
+
+function NavLink({
+  href,
+  active,
+  children,
+}: {
+  href: string;
+  active: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      className={`${navItemClass(active)} ${activeUnderline(active)}`}
+      href={href}
+      aria-current={active ? "page" : undefined}
+    >
+      {children}
+    </Link>
+  );
 }
 
 export function SiteHeader() {
@@ -66,23 +92,24 @@ export function SiteHeader() {
         </form>
 
         <nav className="flex shrink-0 items-center gap-1 text-sm">
-          <Link className={navItemClass(active.tools)} href="/tools">
+          <NavLink href="/tools" active={active.tools}>
             Tools
-          </Link>
-          <Link className={navItemClass(active.vendors)} href="/vendors">
+          </NavLink>
+          <NavLink href="/vendors" active={active.vendors}>
             Vendors
-          </Link>
-          <Link className={navItemClass(active.categories)} href="/categories">
+          </NavLink>
+          <NavLink href="/categories" active={active.categories}>
             Categories
-          </Link>
-          <Link className={navItemClass(active.resources)} href="/resources">
+          </NavLink>
+          <NavLink href="/resources" active={active.resources}>
             Resources
-          </Link>
+          </NavLink>
 
           {count ? (
             <Link
-              className={navItemClass(active.compare)}
-              href={`/compare?slugs=${encodeURIComponent(slugs.join(","))}`}
+              className={`${navItemClass(active.compare)} ${activeUnderline(active.compare)}`}
+              href={`/compare?tools=${encodeURIComponent(slugs.join(","))}`}
+              aria-current={active.compare ? "page" : undefined}
             >
               Compare
               <span className="ml-2 rounded-full bg-indigo-600 px-2 py-0.5 text-xs font-semibold text-white">

@@ -21,10 +21,10 @@ function parseSlugs(raw: string | null | undefined): string[] {
 export default async function ComparePage({
   searchParams,
 }: {
-  searchParams: Promise<{ slugs?: string; diff?: string }>;
+  searchParams: Promise<{ slugs?: string; tools?: string; diff?: string }>;
 }) {
   const sp = await searchParams;
-  const slugs = parseSlugs(sp.slugs);
+  const slugs = parseSlugs(sp.tools || sp.slugs);
 
   // Hydrate URL from localStorage if user navigates to /compare directly.
   // (Client-only; does not affect SSR output.)

@@ -1,5 +1,6 @@
 import type { BuyerSizeBand } from "@prisma/client";
 import { prisma } from "@/lib/db";
+import { buildRecommendationsV2 } from "@/lib/recommendations/engine";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -72,7 +73,7 @@ export async function POST(req: Request) {
       },
     });
 
-    const result = await buildRecommendations({
+    const result = await buildRecommendationsV2({
       sizeBand: input.sizeBand,
       categoriesNeeded: input.categoriesNeeded,
       mustHaveIntegrations: input.mustHaveIntegrations,
@@ -100,6 +101,8 @@ export async function POST(req: Request) {
   }
 }
 
+// Legacy implementation kept temporarily during refactor; do not use.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function buildRecommendations({
   sizeBand,
   categoriesNeeded,
