@@ -217,7 +217,7 @@ export default function ResultsClient({
             </div>
 
             {error ? <p className="text-sm text-red-600">{error}</p> : null}
-            {sent ? <p className="text-sm text-green-700">Thanks — we’ll share one best-fit vendor shortly.</p> : null}
+            {sent ? <p className="text-sm text-green-700">Thanks — we’ll reach out soon.</p> : null}
 
             <button className="rounded-md bg-black px-4 py-2 text-white disabled:opacity-60" disabled={sending || sent}>
               {sent ? "Submitted" : sending ? "Submitting…" : "Submit"}

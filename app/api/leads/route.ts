@@ -95,8 +95,16 @@ async function tryResend(to: string[], subject: string, html: string) {
 
     if (!resp.ok) {
       const text = await resp.text().catch(() => "");
-      console.error("[leads] Resend failed (non-fatal):", resp.status, text.slice(0, 500));
-      return { ok: false as const, error: `resend_http_${resp.status}` };
+      const msg = text.slice(0, 500) || resp.statusText || "Resend error";
+
+      // Testing mode often returns 403; treat as non-fatal.
+      console.error("[leads] Resend failed (non-fatal):", resp.status, msg);
+
+      return {
+        ok: false as const,
+        statusCode: resp.status,
+        error: msg,
+      };
     }
 
     const json = (await resp.json().catch(() => null)) as { id?: string } | null;
@@ -187,6 +195,7 @@ export async function POST(req: Request) {
 
   // 2) Notify (non-blocking)
   let emailSent = false;
+  let emailError: string | undefined;
   try {
     const subject = `HRsignal Lead (${source}) — ${name || companyName || email || phone || "New lead"}`;
 
@@ -214,6 +223,11 @@ export async function POST(req: Request) {
 
     const r = await tryResend(recipients, subject, html);
     emailSent = r.ok;
+
+    if (!r.ok && !("skipped" in r)) {
+      // Include for client visibility (e.g., Resend testing mode 403)
+      emailError = "statusCode" in r && r.statusCode ? `resend_${r.statusCode}` : "resend_failed";
+    }
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
     console.error("[leads] Email notify failed (non-fatal):", msg);
@@ -226,6 +240,7 @@ export async function POST(req: Request) {
       ok: true,
       leadId,
       emailSent,
+      ...(emailError ? { emailError } : null),
     },
     { status: 200 }
   );
