@@ -161,7 +161,7 @@ export default async function ToolsPage({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#0B1220]">
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
@@ -178,15 +178,15 @@ export default async function ToolsPage({
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
           {/* Filters */}
           <aside className="lg:col-span-4">
-            <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-              <div className="text-sm font-semibold text-gray-900">Search & filters</div>
-              <p className="mt-1 text-sm leading-relaxed text-gray-600">
+            <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-4 shadow-sm">
+              <div className="text-sm font-semibold text-[#F9FAFB]">Search & filters</div>
+              <p className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">
                 India-first mode is ON by default. Turn it off to browse all listings.
               </p>
 
               <form className="mt-4 space-y-4" method="get" action="/tools">
                 <div>
-                  <label className="text-xs font-medium text-gray-600">India-first mode</label>
+                  <label className="text-xs font-medium text-[#CBD5E1]">India-first mode</label>
                   <select className="input mt-1" name="india" defaultValue={indiaOnly ? "1" : "0"} aria-label="India-first mode">
                     <option value="1">On (India-verified vendors only)</option>
                     <option value="0">Off (show all vendors)</option>
@@ -194,7 +194,7 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-gray-600">Search</label>
+                  <label className="text-xs font-medium text-[#CBD5E1]">Search</label>
                   <input
                     className="input mt-1"
                     name="q"
@@ -205,7 +205,7 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-gray-600">Company size</label>
+                  <label className="text-xs font-medium text-[#CBD5E1]">Company size</label>
                   <select className="input mt-1" name="size" defaultValue={sizeBands.join(",")} aria-label="Company size">
                     <option value="">Any</option>
                     <option value="EMP_20_200">20–200 employees</option>
@@ -215,7 +215,7 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-gray-600">Deployment</label>
+                  <label className="text-xs font-medium text-[#CBD5E1]">Deployment</label>
                   <select className="input mt-1" name="deployment" defaultValue={deployment} aria-label="Deployment">
                     <option value="">Any</option>
                     <option value="CLOUD">Cloud</option>
@@ -225,7 +225,7 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-gray-600">Modules</label>
+                  <label className="text-xs font-medium text-[#CBD5E1]">Modules</label>
                   <select className="input mt-1" name="modules" defaultValue={modules.join(",")} aria-label="Modules">
                     <option value="">Any</option>
                     <option value="hrms">HRMS</option>
@@ -236,11 +236,11 @@ export default async function ToolsPage({
                     <option value="lms">LMS</option>
                     <option value="bgv">BGV</option>
                   </select>
-                  <div className="mt-1 text-xs text-gray-500">Tip: choose the primary module in v1.</div>
+                  <div className="mt-1 text-xs text-[#94A3B8]">Tip: choose the primary module in v1.</div>
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-gray-600">India compliance</label>
+                  <label className="text-xs font-medium text-[#CBD5E1]">India compliance</label>
                   <select className="input mt-1" name="compliance" defaultValue={compliance.join(",")} aria-label="India compliance">
                     <option value="">Any</option>
                     <option value="PF">PF</option>
@@ -254,7 +254,7 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-gray-600">Region fit</label>
+                  <label className="text-xs font-medium text-[#CBD5E1]">Region fit</label>
                   <select className="input mt-1" name="region" defaultValue={region} aria-label="Region fit">
                     <option value="">Any</option>
                     <option value="multi">Multi-state support</option>
@@ -262,7 +262,7 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-gray-600">Category</label>
+                  <label className="text-xs font-medium text-[#CBD5E1]">Category</label>
                   <select className="input mt-1" name="category" defaultValue={category ?? ""} aria-label="Category">
                     <option value="">All categories</option>
                     <option value="hrms">HRMS</option>
@@ -276,19 +276,19 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-gray-600">Sort</label>
+                  <label className="text-xs font-medium text-[#CBD5E1]">Sort</label>
                   <select className="input mt-1" name="sort" defaultValue={sort} aria-label="Sort">
                     <option value="name">Name</option>
                     <option value="recent">Recently verified</option>
                   </select>
                 </div>
 
-                <button className="h-10 w-full rounded-lg bg-indigo-600 text-sm font-medium text-white hover:bg-indigo-700">
+                <button className="h-11 w-full rounded-lg bg-[#8B5CF6] text-sm font-medium text-[#0B1220] hover:bg-[#7C3AED]">
                   Apply
                 </button>
 
                 <Link
-                  className="block text-center text-sm font-medium text-gray-600 hover:text-gray-900"
+                  className="block text-center text-sm font-medium text-[#CBD5E1] hover:text-[#F9FAFB]"
                   href="/tools"
                 >
                   Reset filters
@@ -300,30 +300,30 @@ export default async function ToolsPage({
           {/* Results */}
           <div className="min-w-0 lg:col-span-8">
             <div className="flex items-center justify-between gap-4">
-              <div className="text-sm text-gray-600">
-                Showing <span className="font-medium text-gray-900">{tools.length}</span> tools
+              <div className="text-sm text-[#CBD5E1]">
+                Showing <span className="font-medium text-[#F9FAFB]">{tools.length}</span> tools
               </div>
-              <Link className="text-sm font-medium text-indigo-700 hover:text-indigo-800 hover:underline" href="/recommend">
+              <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED] hover:underline" href="/recommend">
                 Prefer a guided shortlist? →
               </Link>
             </div>
 
             {mode === "fallback" ? (
-              <div className="mt-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="text-sm font-semibold text-gray-900">Showing sample tools</div>
-                <p className="mt-1 text-sm leading-relaxed text-gray-600">
+              <div className="mt-4 rounded-2xl border border-[#1F2937] bg-[#111827] p-5 shadow-sm">
+                <div className="text-sm font-semibold text-[#F9FAFB]">Showing sample tools</div>
+                <p className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">
                   The database/catalog is not connected. Connect DB + run migrations/seed to see the real marketplace catalog.
                 </p>
               </div>
             ) : null}
 
             {mode === "empty" ? (
-              <div className="mt-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                <div className="text-sm font-semibold text-gray-900">No tools match yet</div>
-                <p className="mt-1 text-sm leading-relaxed text-gray-600">
+              <div className="mt-4 rounded-2xl border border-[#1F2937] bg-[#111827] p-5 shadow-sm">
+                <div className="text-sm font-semibold text-[#F9FAFB]">No tools match yet</div>
+                <p className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">
                   Try removing filters, or seed/publish more tools from Admin.
                 </p>
-                <Link className="mt-3 inline-block text-sm font-medium text-indigo-700 hover:text-indigo-800" href="/admin">
+                <Link className="mt-3 inline-block text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED]" href="/admin">
                   Go to Admin →
                 </Link>
               </div>
@@ -339,7 +339,7 @@ export default async function ToolsPage({
 
         {/* Results + empty/fallback states are rendered in the right column above. */}
 
-        <div className="mt-10 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className="mt-10 rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
           <SectionHeading
             title="Why trust these listings?"
             subtitle="We prioritize transparent metadata (categories, integrations, last verified) and keep recommendations explainable."

@@ -5,21 +5,21 @@ type Variant = "primary" | "secondary" | "tertiary";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-600/25 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none";
+  "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/35 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800 motion-reduce:transform-none",
+    "bg-[#8B5CF6] text-[#0B1220] hover:bg-[#7C3AED] active:bg-[#6D28D9]",
   secondary:
-    "border border-gray-200 bg-white text-gray-900 hover:bg-gray-50 active:bg-gray-100 motion-reduce:transform-none",
+    "border border-[#1F2937] bg-transparent text-[#F9FAFB] hover:bg-[#0F172A] active:bg-[#111827]",
   tertiary:
-    "text-gray-900 hover:bg-gray-50 active:bg-gray-100 motion-reduce:transform-none",
+    "text-[#CBD5E1] hover:bg-[#0F172A] hover:text-[#F9FAFB] active:bg-[#111827]",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-9 px-3 text-sm",
-  md: "h-10 px-4 text-sm",
-  lg: "h-11 px-5 text-base",
+  sm: "h-10 px-3 text-sm",
+  md: "h-11 px-4 text-sm",
+  lg: "h-12 px-5 text-base",
 };
 
 export function Button({

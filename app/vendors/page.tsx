@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
+import { VendorCard } from "@/components/catalog/VendorCard";
 
 import { indiaOnlyFromSearchParams } from "@/lib/india/mode";
 
@@ -57,7 +58,7 @@ export default async function VendorsPage({
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-[#0B1220]">
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
@@ -68,24 +69,24 @@ export default async function VendorsPage({
           />
           <div className="flex flex-wrap items-center gap-3">
             <form method="get" action="/vendors" className="flex items-center gap-2">
-              <label className="text-xs font-medium text-zinc-600" htmlFor="india-mode">
+              <label className="text-xs font-medium text-[#CBD5E1]" htmlFor="india-mode">
                 India-first
               </label>
               <select
                 id="india-mode"
                 name="india"
                 defaultValue={indiaOnly ? "1" : "0"}
-                className="h-9 rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-800"
+                className="h-11 rounded-lg border border-[#1F2937] bg-[#111827] px-3 text-sm text-[#F9FAFB]"
                 aria-label="India-first mode"
               >
                 <option value="1">On</option>
                 <option value="0">Off</option>
               </select>
-              <button className="h-9 rounded-lg bg-zinc-900 px-3 text-sm font-medium text-white hover:bg-zinc-800">
+              <button className="h-11 rounded-lg bg-[#8B5CF6] px-3 text-sm font-medium text-[#0B1220] hover:bg-[#7C3AED]">
                 Apply
               </button>
             </form>
-            <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/tools">
+            <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED] hover:underline" href="/tools">
               Browse tools
             </Link>
           </div>
@@ -93,8 +94,8 @@ export default async function VendorsPage({
 
         {!process.env.DATABASE_URL ? (
           <Card className="mt-6 shadow-sm">
-            <div className="text-sm font-semibold text-zinc-900">Connect the catalog database</div>
-            <p className="mt-1 text-sm leading-6 text-zinc-600">
+            <div className="text-sm font-semibold text-[#F9FAFB]">Connect the catalog database</div>
+            <p className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">
               Vendor directory requires a DB connection. Set <code>DATABASE_URL</code> and seed the catalog.
             </p>
           </Card>
@@ -102,9 +103,9 @@ export default async function VendorsPage({
 
         {process.env.DATABASE_URL && vendors.length === 0 ? (
           <Card className="mt-6 shadow-sm">
-            <div className="text-sm font-semibold text-zinc-900">No vendors yet</div>
-            <p className="mt-1 text-sm leading-6 text-zinc-600">Seed the catalog from Admin → Seed catalog.</p>
-            <Link className="mt-3 inline-block text-sm font-medium text-indigo-700 hover:underline" href="/admin">
+            <div className="text-sm font-semibold text-[#F9FAFB]">No vendors yet</div>
+            <p className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">Seed the catalog from Admin → Seed catalog.</p>
+            <Link className="mt-3 inline-block text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED] hover:underline" href="/admin">
               Go to Admin →
             </Link>
           </Card>
@@ -112,34 +113,7 @@ export default async function VendorsPage({
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {vendors.map((v) => (
-            <Link key={v.id} href={`/vendors/${v.id}`} className="block">
-              <Card className="h-full shadow-sm transition-all hover:-translate-y-0.5 hover:shadow">
-                <div className="text-base font-semibold text-zinc-900">{v.name}</div>
-                {v.tagline ? <div className="mt-1 text-sm text-zinc-600">{v.tagline}</div> : null}
-                <div className="mt-3 text-sm text-zinc-600">{v.toolsCount} tools</div>
-                {v.categories.length ? (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {v.categories.slice(0, 2).map((c) => (
-                      <span
-                        key={c}
-                        className="rounded-full border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-700"
-                      >
-                        {c}
-                      </span>
-                    ))}
-                    {v.categories.length > 2 ? (
-                      <span className="rounded-full border border-zinc-200 bg-white px-2 py-0.5 text-xs text-zinc-500">
-                        +{v.categories.length - 2}
-                      </span>
-                    ) : null}
-                  </div>
-                ) : null}
-                {v.websiteUrl ? (
-                  <div className="mt-3 text-sm text-zinc-700">{v.websiteUrl.replace(/^https?:\/\//, "")}</div>
-                ) : null}
-                <div className="mt-4 text-sm font-medium text-indigo-700">View vendor →</div>
-              </Card>
-            </Link>
+            <VendorCard key={v.id} vendor={v} />
           ))}
         </div>
       </Section>

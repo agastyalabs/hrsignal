@@ -9,16 +9,16 @@ import { ButtonLink } from "@/components/ui/Button";
 import { useCompare } from "@/lib/compare/useCompare";
 
 function navItemClass(active: boolean) {
-  return `relative rounded-md px-2 py-1 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-indigo-600/20 ${
+  return `relative rounded-md px-2 py-1 transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/35 ${
     active
-      ? "bg-indigo-50 text-indigo-800"
-      : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+      ? "text-[#F9FAFB]"
+      : "text-[#CBD5E1] hover:bg-[#0F172A] hover:text-[#F9FAFB]"
   }`;
 }
 
 function activeUnderline(active: boolean) {
   return active
-    ? "after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:bg-indigo-600"
+    ? "after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:bg-[#8B5CF6]"
     : "";
 }
 
@@ -69,24 +69,25 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur transition-shadow motion-reduce:transition-none ${
+      className={`sticky top-0 z-50 border-b border-[#1F2937] bg-[#0B1220]/90 backdrop-blur transition-shadow motion-reduce:transition-none ${
         scrolled ? "shadow-sm" : "shadow-none"
       }`}
     >
       <Container className="flex items-center justify-between gap-4 py-4">
-        <Link href="/" className="shrink-0 text-lg font-semibold tracking-tight text-gray-900">
+        <Link href="/" className="shrink-0 text-lg font-semibold tracking-tight text-[#F9FAFB]">
+          <span className="mr-1 inline-block h-2 w-2 rounded-full bg-[#8B5CF6] align-middle" aria-hidden="true" />
           HRSignal
         </Link>
 
         {/* Header search (UI-only for now; forwards to /tools query) */}
         <form action="/tools" className="hidden w-full max-w-md items-center gap-2 lg:flex">
           <input
-            className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500/30"
+            className="h-11 w-full rounded-lg border border-[#1F2937] bg-[#111827] px-3 text-sm text-[#F9FAFB] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/35"
             name="q"
             placeholder="Search tools (e.g., payroll, attendance, Keka…)"
             aria-label="Search tools"
           />
-          <button className="h-10 rounded-lg bg-gray-900 px-3 text-sm font-medium text-white hover:bg-gray-800">
+          <button className="h-11 rounded-lg border border-[#1F2937] bg-[#0F172A] px-3 text-sm font-medium text-[#F9FAFB] hover:bg-[#111827]">
             Search
           </button>
         </form>
@@ -112,7 +113,7 @@ export function SiteHeader() {
               aria-current={active.compare ? "page" : undefined}
             >
               Compare
-              <span className="ml-2 rounded-full bg-indigo-600 px-2 py-0.5 text-xs font-semibold text-white">
+              <span className="ml-2 rounded-full bg-[#8B5CF6] px-2 py-0.5 text-xs font-semibold text-[#0B1220]">
                 {count}
               </span>
             </Link>

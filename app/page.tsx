@@ -51,27 +51,27 @@ export default async function Home() {
   const trending = await getTrendingTools();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#0B1220]">
       <SiteHeader />
 
       {/* Hero */}
       <Section className="pt-10 sm:pt-14">
-        <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
+        <div className="relative overflow-hidden rounded-3xl border border-[#1F2937] bg-[#111827] shadow-sm">
           {/* Background wash (subtle) */}
-          <div className="pointer-events-none absolute -top-28 right-[-140px] h-[420px] w-[420px] rounded-full bg-indigo-500/10 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-28 left-[-140px] h-[420px] w-[420px] rounded-full bg-slate-500/5 blur-3xl" />
+          <div className="pointer-events-none absolute -top-28 right-[-140px] h-[420px] w-[420px] rounded-full bg-[#8B5CF6]/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-28 left-[-140px] h-[420px] w-[420px] rounded-full bg-[#0F172A] blur-3xl" />
 
           <div className="grid grid-cols-1 gap-10 p-6 sm:p-10 lg:grid-cols-2 lg:items-center">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-800">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#1F2937] bg-[#0F172A] px-3 py-1 text-xs font-semibold text-[#CBD5E1]">
                 Built for Indian SMEs • HR-only directory
               </div>
 
-              <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-gray-900 sm:text-5xl">
+              <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-[#F9FAFB] sm:text-5xl">
                 Stop guessing HR tools.
-                <span className="block text-indigo-800">Get a shortlist that fits your team.</span>
+                <span className="block text-[#8B5CF6]">Get a shortlist that fits your team.</span>
               </h1>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-gray-600">
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#CBD5E1]">
                 HRSignal helps Indian SMEs quickly find the right HRMS, payroll & compliance, attendance, ATS and performance tools — with
                 explainable match reasons.
               </p>
@@ -90,7 +90,7 @@ export default async function Home() {
                   <Link
                     key={c.slug}
                     href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                    className="rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-700 transition-all duration-200 hover:border-gray-300 hover:shadow-sm motion-reduce:transition-none"
+                    className="rounded-full border border-[#1F2937] bg-[#111827] px-3 py-1 text-sm text-[#CBD5E1] transition-all duration-200 hover:bg-[#0F172A] hover:text-[#F9FAFB] hover:border-[#334155] hover:shadow-sm motion-reduce:transition-none"
                   >
                     {c.name}
                   </Link>
@@ -99,28 +99,28 @@ export default async function Home() {
 
               {/* Trust strip below hero copy */}
               <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-gray-900">Trusted by Indian SMEs</div>
-                  <div className="mt-1 text-sm text-gray-600">Early access — built with operators.</div>
+                <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-4 shadow-sm">
+                  <div className="text-sm font-semibold text-[#F9FAFB]">Trusted by Indian SMEs</div>
+                  <div className="mt-1 text-sm text-[#CBD5E1]">Early access — built with operators.</div>
                 </div>
-                <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-gray-900">Verified listings</div>
-                  <div className="mt-1 text-sm text-gray-600">Freshness cues + clear metadata.</div>
+                <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-4 shadow-sm">
+                  <div className="text-sm font-semibold text-[#F9FAFB]">Verified listings</div>
+                  <div className="mt-1 text-sm text-[#CBD5E1]">Freshness cues + clear metadata.</div>
                 </div>
-                <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-gray-900">Privacy-first</div>
-                  <div className="mt-1 text-sm text-gray-600">We don’t share details without consent.</div>
+                <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-4 shadow-sm">
+                  <div className="text-sm font-semibold text-[#F9FAFB]">Privacy-first</div>
+                  <div className="mt-1 text-sm text-[#CBD5E1]">We don’t share details without consent.</div>
                 </div>
               </div>
             </div>
 
             {/* Right visual + search */}
             <div>
-              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 shadow-sm sm:p-6">
+              <div className="rounded-2xl border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm sm:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="text-sm font-semibold text-gray-900">Search tools</div>
-                    <div className="mt-1 text-sm text-gray-600">Start with a vendor, category, or use-case.</div>
+                    <div className="text-sm font-semibold text-[#F9FAFB]">Search tools</div>
+                    <div className="mt-1 text-sm text-[#CBD5E1]">Start with a vendor, category, or use-case.</div>
                   </div>
 
                   {/* Inline SVG illustration (no external asset dependency) */}
@@ -167,13 +167,13 @@ export default async function Home() {
                 </form>
 
                 <div className="mt-4">
-                  <div className="text-xs font-medium text-gray-500">Popular categories</div>
+                  <div className="text-xs font-medium text-[#94A3B8]">Popular categories</div>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {CATEGORIES.map((c) => (
                       <Link
                         key={c.slug}
                         href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                        className="rounded-full border border-transparent bg-white px-3 py-1 text-sm text-gray-700 ring-1 ring-gray-200 transition-all duration-200 hover:border-gray-300 hover:shadow-sm motion-reduce:transition-none"
+                        className="rounded-full border border-[#1F2937] bg-[#111827] px-3 py-1 text-sm text-[#CBD5E1] transition-all duration-200 hover:bg-[#0F172A] hover:text-[#F9FAFB] hover:border-[#334155] hover:shadow-sm motion-reduce:transition-none"
                       >
                         {c.name}
                       </Link>
@@ -187,9 +187,9 @@ export default async function Home() {
                     { k: "SME focus", v: "India" },
                     { k: "Method", v: "Explainable" },
                   ].map((m) => (
-                    <div key={m.k} className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm">
-                      <div className="text-xs font-medium text-gray-500">{m.k}</div>
-                      <div className="mt-1 text-sm font-semibold text-gray-900">{m.v}</div>
+                    <div key={m.k} className="rounded-xl border border-[#1F2937] bg-[#111827] p-3 shadow-sm">
+                      <div className="text-xs font-medium text-[#94A3B8]">{m.k}</div>
+                      <div className="mt-1 text-sm font-semibold text-[#F9FAFB]">{m.v}</div>
                     </div>
                   ))}
                 </div>
@@ -229,7 +229,7 @@ export default async function Home() {
       </Section>
 
       {/* Trending */}
-      <Section className="bg-white">
+      <Section className="bg-transparent">
         <SectionHeading title="Trending tools" subtitle="Quick picks to start your shortlist." />
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {trending.map((t) => (
@@ -269,7 +269,7 @@ export default async function Home() {
       </Section>
 
       {/* Social proof */}
-      <Section className="bg-white">
+      <Section className="bg-transparent">
         <SectionHeading title="Trusted by modern teams" subtitle="Logos are placeholders until we add real customers." />
 
         <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
@@ -283,7 +283,7 @@ export default async function Home() {
           ].map((x) => (
             <div
               key={x}
-              className="flex h-12 items-center justify-center rounded-xl border border-gray-200 bg-white text-sm font-semibold text-gray-500 shadow-sm"
+              className="flex h-12 items-center justify-center rounded-xl border border-[#1F2937] bg-[#111827] text-sm font-semibold text-[#94A3B8] shadow-sm"
             >
               {x}
             </div>
@@ -300,11 +300,11 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="mt-10 rounded-2xl bg-gray-50 p-6 sm:p-8">
+        <div className="mt-10 rounded-2xl border border-[#1F2937] bg-[#0F172A] p-6 shadow-sm sm:p-8">
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
-              <div className="text-xl font-semibold text-gray-900">Ready for a guided shortlist?</div>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-gray-600">
+              <div className="text-xl font-semibold text-[#F9FAFB]">Ready for a guided shortlist?</div>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#CBD5E1]">
                 Get explainable recommendations based on company size, modules, integrations, and compliance needs.
               </p>
             </div>
@@ -323,11 +323,11 @@ export default async function Home() {
         />
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div className="text-sm font-semibold text-gray-900">Starter</div>
+          <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
+            <div className="text-sm font-semibold text-[#F9FAFB]">Starter</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight">Free</div>
-            <p className="mt-2 text-sm text-gray-600">Get recommendations + shortlist with reasons.</p>
-            <ul className="mt-4 space-y-2 text-sm text-gray-700">
+            <p className="mt-2 text-sm text-[#CBD5E1]">Get recommendations + shortlist with reasons.</p>
+            <ul className="mt-4 space-y-2 text-sm text-[#CBD5E1]">
               <li>• 3–5 recommendations</li>
               <li>• Explainable match reasons</li>
               <li>• Request pricing/vendor intro</li>
@@ -355,11 +355,11 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div className="text-sm font-semibold text-gray-900">Enterprise</div>
+          <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
+            <div className="text-sm font-semibold text-[#F9FAFB]">Enterprise</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight">Talk to us</div>
-            <p className="mt-2 text-sm text-gray-600">For larger teams and multi-entity compliance needs.</p>
-            <ul className="mt-4 space-y-2 text-sm text-gray-700">
+            <p className="mt-2 text-sm text-[#CBD5E1]">For larger teams and multi-entity compliance needs.</p>
+            <ul className="mt-4 space-y-2 text-sm text-[#CBD5E1]">
               <li>• Custom scoring rules</li>
               <li>• Assisted evaluation</li>
               <li>• SLA + reporting</li>
@@ -374,7 +374,7 @@ export default async function Home() {
       </Section>
 
       {/* FAQs */}
-      <Section className="bg-white">
+      <Section className="bg-transparent">
         <SectionHeading title="FAQs" subtitle="Straight answers so you can move fast." />
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
           {[
@@ -395,9 +395,9 @@ export default async function Home() {
               a: "Add details in the note and we’ll refine the shortlist manually before making an intro.",
             },
           ].map((f) => (
-            <div key={f.q} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <div className="text-sm font-semibold text-gray-900">{f.q}</div>
-              <div className="mt-2 text-sm leading-relaxed text-gray-600">{f.a}</div>
+            <div key={f.q} className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
+              <div className="text-sm font-semibold text-[#F9FAFB]">{f.q}</div>
+              <div className="mt-2 text-sm leading-relaxed text-[#CBD5E1]">{f.a}</div>
             </div>
           ))}
         </div>
