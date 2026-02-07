@@ -11,6 +11,14 @@ export function SiteFooter() {
             <p className="mt-2 text-sm leading-6 text-zinc-600">
               India-first HR software discovery for SMEs — compare tools, get explainable recommendations, and request demos.
             </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-700">
+                Privacy-first
+              </span>
+              <span className="rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
+                India-first SME fit
+              </span>
+            </div>
           </div>
 
           <div>
@@ -22,6 +30,16 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link className="text-zinc-600 hover:text-zinc-900" href="/vendors">
+                  Vendors
+                </Link>
+              </li>
+              <li>
+                <Link className="text-zinc-600 hover:text-zinc-900" href="/categories">
+                  Categories
+                </Link>
+              </li>
+              <li>
                 <Link className="text-zinc-600 hover:text-zinc-900" href="/recommend">
                   Get recommendations
                 </Link>
@@ -30,16 +48,21 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <div className="text-sm font-semibold text-zinc-900">Company</div>
+            <div className="text-sm font-semibold text-zinc-900">Resources</div>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/about">
-                  About
+                <Link className="text-zinc-600 hover:text-zinc-900" href="/resources">
+                  Buyer guides
                 </Link>
               </li>
               <li>
-                <Link className="text-zinc-600 hover:text-zinc-900" href="/contact">
-                  Contact
+                <Link className="text-zinc-600 hover:text-zinc-900" href="/resources">
+                  Checklists
+                </Link>
+              </li>
+              <li>
+                <Link className="text-zinc-600 hover:text-zinc-900" href="/resources">
+                  FAQs
                 </Link>
               </li>
             </ul>

@@ -1,7 +1,6 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
-import Image from "next/image";
 
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -57,92 +56,149 @@ export default async function Home() {
 
       {/* Hero */}
       <Section className="pt-10 sm:pt-14">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          <div>
-            <h1 className="text-4xl font-semibold leading-tight tracking-tight text-zinc-900 sm:text-5xl">
-              Find the right HR software for your business — fast.
-            </h1>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-600">
-              India-first recommendations for HRMS, payroll & compliance, attendance, ATS and performance tools.
-            </p>
+        <div className="relative overflow-hidden rounded-3xl border border-zinc-200 bg-white">
+          {/* Background glow */}
+          <div className="pointer-events-none absolute -top-24 right-[-120px] h-[380px] w-[380px] rounded-full bg-indigo-500/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 left-[-120px] h-[380px] w-[380px] rounded-full bg-fuchsia-500/10 blur-3xl" />
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <ButtonLink href="/recommend" size="lg" variant="primary">
-                Get recommendations
-              </ButtonLink>
-              <ButtonLink href="/tools" size="lg" variant="secondary">
-                Browse tools
-              </ButtonLink>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-2">
-              {CATEGORIES.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                  className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-zinc-700 hover:bg-zinc-50"
-                >
-                  {c.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Search module */}
-          <div className="rounded-2xl border border-zinc-200 bg-white p-5 sm:p-6">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="text-sm font-semibold text-zinc-900">Search tools</div>
-                <div className="mt-1 text-sm text-zinc-600">Start with a vendor, category, or use-case.</div>
+          <div className="grid grid-cols-1 gap-10 p-6 sm:p-10 lg:grid-cols-2 lg:items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">
+                Built for Indian SMEs • HR-only directory
               </div>
-              <Image
-                src="/placeholders/tool.svg"
-                alt=""
-                width={48}
-                height={48}
-                className="opacity-80"
-                priority
-              />
-            </div>
 
-            <form className="mt-4 flex flex-col gap-3 sm:flex-row" action="/tools">
-              <input
-                className="input"
-                name="q"
-                placeholder="Search tools (e.g., Keka, payroll, attendance)"
-                aria-label="Search tools"
-              />
-              <select className="input" name="category" defaultValue="">
-                <option value="">All categories</option>
-                <option value="hrms">HRMS</option>
-                <option value="payroll">Payroll + Compliance</option>
-                <option value="attendance">Attendance/Leave</option>
-                <option value="ats">ATS/Hiring</option>
-                <option value="performance">Performance/OKR</option>
-              </select>
-              <button className="h-10 rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white hover:bg-indigo-700">
-                Search
-              </button>
-            </form>
+              <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-zinc-900 sm:text-5xl">
+                Stop guessing HR tools.
+                <span className="block text-indigo-700">Get a shortlist that fits your team.</span>
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-600">
+                HRSignal helps Indian SMEs quickly find the right HRMS, payroll & compliance, attendance, ATS and performance tools — with
+                explainable match reasons.
+              </p>
 
-            <div className="mt-4">
-              <div className="text-xs font-medium text-zinc-500">Popular categories</div>
-              <div className="mt-2 flex flex-wrap gap-2">
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <ButtonLink href="/recommend" size="lg" variant="primary">
+                  Get recommendations
+                </ButtonLink>
+                <ButtonLink href="/tools" size="lg" variant="secondary">
+                  Browse tools
+                </ButtonLink>
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-2">
                 {CATEGORIES.map((c) => (
                   <Link
                     key={c.slug}
                     href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                    className="rounded-full bg-zinc-50 px-3 py-1 text-sm text-zinc-700 hover:bg-zinc-100"
+                    className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-zinc-700 hover:bg-zinc-50"
                   >
                     {c.name}
                   </Link>
                 ))}
               </div>
+
+              {/* Trust strip below hero copy */}
+              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+                  <div className="text-sm font-semibold text-zinc-900">Trusted by Indian SMEs</div>
+                  <div className="mt-1 text-sm text-zinc-600">Early access — built with operators.</div>
+                </div>
+                <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+                  <div className="text-sm font-semibold text-zinc-900">Verified listings</div>
+                  <div className="mt-1 text-sm text-zinc-600">Freshness cues + clear metadata.</div>
+                </div>
+                <div className="rounded-2xl border border-zinc-200 bg-white p-4">
+                  <div className="text-sm font-semibold text-zinc-900">Privacy-first</div>
+                  <div className="mt-1 text-sm text-zinc-600">We don’t share details without consent.</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right visual + search */}
+            <div>
+              <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5 sm:p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="text-sm font-semibold text-zinc-900">Search tools</div>
+                    <div className="mt-1 text-sm text-zinc-600">Start with a vendor, category, or use-case.</div>
+                  </div>
+
+                  {/* Inline SVG illustration (no external asset dependency) */}
+                  <svg
+                    width="56"
+                    height="56"
+                    viewBox="0 0 56 56"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    className="opacity-90"
+                  >
+                    <rect x="8" y="10" width="40" height="36" rx="12" fill="#E0E7FF" />
+                    <rect x="16" y="19" width="24" height="6" rx="3" fill="#4F46E5" opacity="0.85" />
+                    <rect x="16" y="29" width="18" height="5" rx="2.5" fill="#111827" opacity="0.25" />
+                    <circle cx="40" cy="33" r="6" fill="#F5F3FF" />
+                    <path
+                      d="M41.8 35.8L45 39"
+                      stroke="#4F46E5"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+
+                <form className="mt-4 flex flex-col gap-3 sm:flex-row" action="/tools">
+                  <input
+                    className="input"
+                    name="q"
+                    placeholder="Search tools (e.g., Keka, payroll, attendance)"
+                    aria-label="Search tools"
+                  />
+                  <select className="input" name="category" defaultValue="">
+                    <option value="">All categories</option>
+                    <option value="hrms">HRMS</option>
+                    <option value="payroll">Payroll + Compliance</option>
+                    <option value="attendance">Attendance/Leave</option>
+                    <option value="ats">ATS/Hiring</option>
+                    <option value="performance">Performance/OKR</option>
+                  </select>
+                  <button className="h-10 rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white hover:bg-indigo-700">
+                    Search
+                  </button>
+                </form>
+
+                <div className="mt-4">
+                  <div className="text-xs font-medium text-zinc-500">Popular categories</div>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {CATEGORIES.map((c) => (
+                      <Link
+                        key={c.slug}
+                        href={`/tools?category=${encodeURIComponent(c.slug)}`}
+                        className="rounded-full bg-white px-3 py-1 text-sm text-zinc-700 ring-1 ring-zinc-200 hover:bg-zinc-50"
+                      >
+                        {c.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-6 grid grid-cols-3 gap-3">
+                  {[
+                    { k: "Listings", v: "200+" },
+                    { k: "SME focus", v: "India" },
+                    { k: "Method", v: "Explainable" },
+                  ].map((m) => (
+                    <div key={m.k} className="rounded-xl border border-zinc-200 bg-white p-3">
+                      <div className="text-xs font-medium text-zinc-500">{m.k}</div>
+                      <div className="mt-1 text-sm font-semibold text-zinc-900">{m.v}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-10">
           <TrustStrip />
         </div>
       </Section>
