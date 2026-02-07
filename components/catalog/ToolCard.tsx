@@ -20,15 +20,15 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
 
   return (
     <Link href={`/tools/${tool.slug}`} className="block">
-      <Card className="h-full border-zinc-200 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow">
+      <Card className="h-full border-gray-200 shadow-sm transition-all duration-200 hover:border-gray-300 hover:shadow-md motion-reduce:transition-none">
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 items-start gap-3">
-            <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-zinc-50">
+            <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-50 ring-1 ring-gray-200">
               <Image src="/placeholders/tool.svg" alt="" width={24} height={24} className="opacity-70" />
             </div>
             <div className="min-w-0">
-              <div className="truncate text-base font-semibold text-zinc-900">{tool.name}</div>
-              {tool.vendorName ? <div className="mt-1 truncate text-sm text-zinc-600">by {tool.vendorName}</div> : null}
+              <div className="truncate text-base font-semibold text-gray-900">{tool.name}</div>
+              {tool.vendorName ? <div className="mt-1 truncate text-sm text-gray-600">by {tool.vendorName}</div> : null}
             </div>
           </div>
           {tool.verified ? <Badge variant="verified">Verified</Badge> : null}
@@ -36,21 +36,21 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
 
         <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
           <Stars value={rating} />
-          <span className="font-medium text-zinc-900">{rating.toFixed(1)}</span>
-          <span className="text-zinc-500">({reviews} reviews)</span>
+          <span className="font-medium text-gray-900">{rating.toFixed(1)}</span>
+          <span className="text-gray-500">({reviews} reviews)</span>
         </div>
 
-        {tool.tagline ? <div className="mt-3 text-sm leading-6 text-zinc-700">{tool.tagline}</div> : null}
+        {tool.tagline ? <div className="mt-3 text-sm leading-relaxed text-gray-700">{tool.tagline}</div> : null}
 
         {tool.categories?.length ? (
           <div className="mt-4 flex flex-wrap gap-2">
             {tool.categories.slice(0, 3).map((c) => (
-              <span key={c} className="rounded-full border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-700">
+              <span key={c} className="rounded-full border border-gray-200 bg-gray-50 px-2 py-0.5 text-xs text-gray-700">
                 {c}
               </span>
             ))}
             {tool.categories.length > 3 ? (
-              <span className="rounded-full border border-zinc-200 bg-white px-2 py-0.5 text-xs text-zinc-500">
+              <span className="rounded-full border border-gray-200 bg-white px-2 py-0.5 text-xs text-gray-500">
                 +{tool.categories.length - 3}
               </span>
             ) : null}

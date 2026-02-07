@@ -81,7 +81,7 @@ export function SiteHeader() {
         {/* Header search (UI-only for now; forwards to /tools query) */}
         <form action="/tools" className="hidden w-full max-w-md items-center gap-2 lg:flex">
           <input
-            className="h-10 w-full rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600/20"
+            className="h-10 w-full rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:border-gray-300 focus:ring-2 focus:ring-gray-200"
             name="q"
             placeholder="Search tools (e.g., payroll, attendance, Keka…)"
             aria-label="Search tools"
