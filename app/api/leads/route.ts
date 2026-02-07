@@ -35,6 +35,7 @@ type LeadPayload = {
 };
 
 const FALLBACK_NOTIFY = "nk@infira.in,pcst.ecrocks@gmail.com";
+const ALLOWED_NOTIFY = new Set(["nk@infira.in", "pcst.ecrocks@gmail.com"]);
 
 function s(v: unknown) {
   return typeof v === "string" ? v.trim() : "";
@@ -53,12 +54,15 @@ function splitEmails(v: string) {
 }
 
 function getNotifyRecipients(): string[] {
-  const raw =
-    s(process.env.LEAD_NOTIFY_EMAILS) ||
-    s(process.env.LEAD_EMAIL_TO) ||
-    FALLBACK_NOTIFY;
-  const emails = splitEmails(raw);
-  return emails.length ? emails : splitEmails(FALLBACK_NOTIFY);
+  const raw = s(process.env.LEAD_NOTIFY_EMAILS) || s(process.env.LEAD_EMAIL_TO) || "";
+  const requested = splitEmails(raw);
+
+  // Safety: recipients must be exactly the two intended inboxes.
+  // If env vars contain anything else, ignore it.
+  const filtered = requested.filter((e) => ALLOWED_NOTIFY.has(e));
+  if (filtered.length) return filtered;
+
+  return splitEmails(FALLBACK_NOTIFY);
 }
 
 function parseSizeBand(v: unknown): BuyerSizeBand | null {
@@ -80,11 +84,23 @@ async function tryResend(to: string[], subject: string, html: string) {
   }
 
   try {
-    const { Resend } = await import("resend");
-    const resend = new Resend(apiKey);
-    const resp = await resend.emails.send({ from, to, subject, html });
-    const id = (resp as unknown as { data?: { id?: string } })?.data?.id;
-    console.log("[leads] Resend OK:", id || resp);
+    const resp = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${apiKey}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ from, to, subject, html }),
+    });
+
+    if (!resp.ok) {
+      const text = await resp.text().catch(() => "");
+      console.error("[leads] Resend failed (non-fatal):", resp.status, text.slice(0, 500));
+      return { ok: false as const, error: `resend_http_${resp.status}` };
+    }
+
+    const json = (await resp.json().catch(() => null)) as { id?: string } | null;
+    console.log("[leads] Resend OK:", json?.id ?? "(no id)");
     return { ok: true as const };
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);

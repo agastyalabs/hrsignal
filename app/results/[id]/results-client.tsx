@@ -204,13 +204,15 @@ export default function ResultsClient({
                 <input className="input mt-1" value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} />
               </div>
               <div>
-                <label className="text-sm font-medium">What do you need? (optional)</label>
+                <label className="text-sm font-medium">What do you need?</label>
                 <textarea
                   className="input mt-1 min-h-[44px]"
                   value={useCase}
                   onChange={(e) => setUseCase(e.target.value)}
                   placeholder="Eg: Need payroll + attendance, demo next week"
+                  required
                 />
+                <p className="mt-1 text-xs text-zinc-500">A short note helps us pick one best-fit vendor.</p>
               </div>
             </div>
 

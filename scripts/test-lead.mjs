@@ -1,36 +1,41 @@
-// Usage: node scripts/test-lead.mjs [baseUrl]
-// Example: node scripts/test-lead.mjs http://127.0.0.1:3000
+#!/usr/bin/env node
+/**
+ * Simple lead submission smoke test.
+ *
+ * Usage:
+ *   BASE_URL=http://localhost:3000 node scripts/test-lead.mjs
+ */
 
-const base = process.argv[2] || "http://127.0.0.1:3000";
-const url = base.replace(/\/$/, "") + "/api/leads";
+const baseUrl = process.env.BASE_URL || "http://localhost:3000";
 
-async function main() {
-  const payload = {
-    name: "Script Test",
-    email: "script-test@example.com",
-    phone: "",
-    companyName: "Infira",
-    useCase: "Testing lead submission from scripts/test-lead.mjs",
-    source: "script-test",
-  };
+const payload = {
+  source: "script:test-lead",
+  company: "Acme Inc",
+  name: "Test User",
+  email: "test@example.com",
+  // phone: "+91-9999999999",
+  message: "Need payroll + attendance; demo next week.",
+};
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+const url = new URL("/api/leads", baseUrl).toString();
 
-  let data;
-  try {
-    data = await res.json();
-  } catch {
-    data = { raw: await res.text() };
-  }
+console.log("POST", url);
 
-  console.log(JSON.stringify({ status: res.status, response: data }, null, 2));
+const res = await fetch(url, {
+  method: "POST",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify(payload),
+});
+
+const text = await res.text();
+let json;
+try {
+  json = JSON.parse(text);
+} catch {
+  json = { parseError: true, raw: text.slice(0, 500) };
 }
 
-main().catch((e) => {
-  console.error("Error:", e?.message || e);
-  process.exit(1);
-});
+console.log("status", res.status);
+console.log(JSON.stringify(json, null, 2));
+
+process.exit(res.ok ? 0 : 1);
