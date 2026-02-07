@@ -10,14 +10,25 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 
 export default async function VendorsPage() {
-  let vendors: Array<{ id: string; name: string; websiteUrl: string | null; toolsCount: number }> = [];
+  let vendors: Array<{
+    id: string;
+    name: string;
+    websiteUrl: string | null;
+    toolsCount: number;
+    categories: string[];
+    tagline: string | null;
+  }> = [];
 
   if (process.env.DATABASE_URL) {
     try {
       const rows = await prisma.vendor.findMany({
         where: { isActive: true },
         orderBy: { name: "asc" },
-        include: { _count: { select: { tools: true } } },
+        include: {
+          _count: { select: { tools: true } },
+          categories: true,
+          tools: { where: { status: "PUBLISHED" }, select: { tagline: true }, take: 1 },
+        },
         take: 200,
       });
       vendors = rows.map((v) => ({
@@ -25,6 +36,8 @@ export default async function VendorsPage() {
         name: v.name,
         websiteUrl: v.websiteUrl ?? null,
         toolsCount: v._count.tools,
+        categories: v.categories.map((c) => c.name),
+        tagline: v.tools[0]?.tagline ?? null,
       }));
     } catch {
       vendors = [];
@@ -70,7 +83,25 @@ export default async function VendorsPage() {
             <Link key={v.id} href={`/vendors/${v.id}`} className="block">
               <Card className="h-full shadow-sm transition-all hover:-translate-y-0.5 hover:shadow">
                 <div className="text-base font-semibold text-zinc-900">{v.name}</div>
-                <div className="mt-1 text-sm text-zinc-600">{v.toolsCount} tools</div>
+                {v.tagline ? <div className="mt-1 text-sm text-zinc-600">{v.tagline}</div> : null}
+                <div className="mt-3 text-sm text-zinc-600">{v.toolsCount} tools</div>
+                {v.categories.length ? (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {v.categories.slice(0, 2).map((c) => (
+                      <span
+                        key={c}
+                        className="rounded-full border border-zinc-200 bg-zinc-50 px-2 py-0.5 text-xs text-zinc-700"
+                      >
+                        {c}
+                      </span>
+                    ))}
+                    {v.categories.length > 2 ? (
+                      <span className="rounded-full border border-zinc-200 bg-white px-2 py-0.5 text-xs text-zinc-500">
+                        +{v.categories.length - 2}
+                      </span>
+                    ) : null}
+                  </div>
+                ) : null}
                 {v.websiteUrl ? (
                   <div className="mt-3 text-sm text-zinc-700">{v.websiteUrl.replace(/^https?:\/\//, "")}</div>
                 ) : null}

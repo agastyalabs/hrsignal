@@ -17,7 +17,8 @@ function navItemClass(active: boolean) {
 }
 
 export function SiteHeader() {
-  const pathname = usePathname() || "/";
+  const rawPathname = usePathname() || "/";
+  const pathname = rawPathname !== "/" ? rawPathname.replace(/\/+$/, "") : rawPathname;
   const { count, slugs } = useCompare();
 
   const active = useMemo(() => {
@@ -27,6 +28,7 @@ export function SiteHeader() {
       vendors: is("/vendors"),
       categories: is("/categories"),
       resources: is("/resources"),
+      recommend: is("/recommend"),
       compare: is("/compare"),
     };
   }, [pathname]);

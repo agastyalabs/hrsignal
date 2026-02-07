@@ -44,7 +44,7 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
 
   const [states, setStates] = useState("");
   const [categories, setCategories] = useState<string[]>(["hrms", "payroll", "attendance"]);
-  const [integrations, setIntegrations] = useState<string[]>(prefill ? [] : ["tally"]);
+  const [integrations, setIntegrations] = useState<string[]>([]);
   const [budgetNote, setBudgetNote] = useState("");
   const [timelineNote, setTimelineNote] = useState("30 days");
 
