@@ -22,6 +22,7 @@ export default async function VendorsPage({
 
   let vendors: Array<{
     id: string;
+    slug: string;
     name: string;
     websiteUrl: string | null;
     toolsCount: number;
@@ -44,8 +45,18 @@ export default async function VendorsPage({
         },
         take: 200,
       });
+      function slugify(name: string) {
+        return String(name)
+          .toLowerCase()
+          .replace(/&/g, "and")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "")
+          .slice(0, 60);
+      }
+
       vendors = rows.map((v) => ({
         id: v.id,
+        slug: slugify(v.name),
         name: v.name,
         websiteUrl: v.websiteUrl ?? null,
         toolsCount: v._count.tools,

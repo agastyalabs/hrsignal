@@ -2,9 +2,11 @@ import Link from "next/link";
 import * as React from "react";
 
 import { Card } from "@/components/ui/Card";
+import { LogoImage } from "@/components/brand/LogoImage";
 
 export type VendorCardModel = {
   id: string;
+  slug: string;
   name: string;
   websiteUrl: string | null;
   toolsCount: number;
@@ -16,8 +18,20 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
   return (
     <Link href={`/vendors/${vendor.id}`} className="block">
       <Card className="h-full transition-all duration-200 hover:-translate-y-0.5 hover:border-[#334155] hover:shadow-md motion-reduce:transition-none">
-        <div className="text-base font-semibold text-[#F9FAFB]">{vendor.name}</div>
-        {vendor.tagline ? <div className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">{vendor.tagline}</div> : null}
+        <div className="flex items-start gap-3">
+          <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0F172A] ring-1 ring-[#1F2937]">
+            <LogoImage
+              src={`/logos/vendors/${vendor.slug}.svg`}
+              fallbackSrc="/placeholders/vendor.svg"
+              alt=""
+              className="h-6 w-6 opacity-90"
+            />
+          </div>
+          <div className="min-w-0">
+            <div className="truncate text-base font-semibold text-[#F9FAFB]">{vendor.name}</div>
+            {vendor.tagline ? <div className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">{vendor.tagline}</div> : null}
+          </div>
+        </div>
 
         <div className="mt-3 text-sm text-[#CBD5E1]">{vendor.toolsCount} tools</div>
 

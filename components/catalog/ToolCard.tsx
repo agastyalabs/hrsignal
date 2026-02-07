@@ -1,10 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 import * as React from "react";
 
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { CompareToggle } from "@/components/compare/CompareToggle";
+import { LogoImage } from "@/components/brand/LogoImage";
 
 export type ToolCardModel = {
   slug: string;
@@ -24,7 +24,12 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 items-start gap-3">
             <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0F172A] ring-1 ring-[#1F2937]">
-              <Image src="/placeholders/tool.svg" alt="" width={24} height={24} className="opacity-70" />
+              <LogoImage
+                src={`/logos/vendors/${tool.slug}.svg`}
+                fallbackSrc="/placeholders/tool.svg"
+                alt=""
+                className="h-6 w-6 opacity-90"
+              />
             </div>
             <div className="min-w-0">
               <div className="truncate text-base font-semibold text-[#F9FAFB]">{tool.name}</div>

@@ -40,7 +40,7 @@ export default function ResourcesPage() {
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
           {articles.map((a) => (
-            <Card key={a.slug} className="shadow-sm">
+            <Card key={a.slug} className="shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#334155] hover:shadow-md motion-reduce:transition-none">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="text-sm font-medium text-[#94A3B8]">{formatDate(a.date)}</div>
@@ -52,7 +52,14 @@ export default function ResourcesPage() {
                 </div>
               </div>
 
-              <p className="mt-3 text-sm leading-6 text-[#CBD5E1]">{a.summary}</p>
+              <p className="mt-3 text-sm leading-relaxed text-[#CBD5E1]">{a.summary}</p>
+
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="rounded-full border border-[#1F2937] bg-[#0F172A] px-3 py-1 text-xs font-medium text-[#CBD5E1]">
+                  {a.category}
+                </span>
+                <span className="text-xs font-medium text-[#94A3B8]">{a.readingTime}</span>
+              </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
                 {a.tags.map((t) => (
@@ -81,7 +88,7 @@ export default function ResourcesPage() {
           </p>
           <Link
             href="/recommend"
-            className="mt-4 inline-flex h-10 items-center rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white hover:bg-indigo-700"
+            className="mt-4 inline-flex h-11 items-center rounded-lg bg-[#8B5CF6] px-4 text-sm font-medium text-[#0B1220] hover:bg-[#7C3AED]"
           >
             Get recommendations
           </Link>
