@@ -214,13 +214,36 @@ export default async function Home() {
 
       {/* Social proof */}
       <Section className="bg-white">
-        <SectionHeading
-          title="Built for India-first SMEs"
-          subtitle="Original, representative testimonials (placeholder) until we add real customer stories."
-        />
-        <div className="mt-6">
-          <TestimonialStrip />
+        <SectionHeading title="Trusted by modern teams" subtitle="Logos are placeholders until we add real customers." />
+
+        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+          {[
+            "Acme",
+            "ZenHR",
+            "Northwind",
+            "Atlas",
+            "Bluepeak",
+            "River",
+          ].map((x) => (
+            <div
+              key={x}
+              className="flex h-12 items-center justify-center rounded-xl border border-zinc-200 bg-white text-sm font-semibold text-zinc-500"
+            >
+              {x}
+            </div>
+          ))}
         </div>
+
+        <div className="mt-10">
+          <SectionHeading
+            title="Built for India-first SMEs"
+            subtitle="Representative testimonials (placeholder) until we add real customer stories."
+          />
+          <div className="mt-6">
+            <TestimonialStrip />
+          </div>
+        </div>
+
         <div className="mt-10 rounded-2xl bg-zinc-50 p-6 sm:p-8">
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
@@ -233,6 +256,94 @@ export default async function Home() {
               Get recommendations
             </ButtonLink>
           </div>
+        </div>
+      </Section>
+
+      {/* Pricing */}
+      <Section>
+        <SectionHeading
+          title="Pricing"
+          subtitle="Free while we’re in early access. We’ll add a paid plan once benchmarks + advanced insights land."
+        />
+
+        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+            <div className="text-sm font-semibold text-zinc-900">Starter</div>
+            <div className="mt-2 text-3xl font-semibold tracking-tight">Free</div>
+            <p className="mt-2 text-sm text-zinc-600">Get recommendations + shortlist with reasons.</p>
+            <ul className="mt-4 space-y-2 text-sm text-zinc-700">
+              <li>• 3–5 recommendations</li>
+              <li>• Explainable match reasons</li>
+              <li>• Request pricing/vendor intro</li>
+            </ul>
+            <div className="mt-5">
+              <ButtonLink href="/stack-builder" size="lg" className="w-full justify-center">
+                Get started
+              </ButtonLink>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-6 shadow-sm">
+            <div className="text-sm font-semibold text-indigo-900">Teams</div>
+            <div className="mt-2 text-3xl font-semibold tracking-tight text-indigo-900">Early access</div>
+            <p className="mt-2 text-sm text-indigo-800/80">We’ll set this up with you (white-glove).</p>
+            <ul className="mt-4 space-y-2 text-sm text-indigo-900">
+              <li>• Custom filters (states, compliance, integrations)</li>
+              <li>• Vendor screening and intro</li>
+              <li>• Priority support</li>
+            </ul>
+            <div className="mt-5">
+              <ButtonLink href="/stack-builder" size="lg" variant="primary" className="w-full justify-center">
+                Request early access
+              </ButtonLink>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+            <div className="text-sm font-semibold text-zinc-900">Enterprise</div>
+            <div className="mt-2 text-3xl font-semibold tracking-tight">Talk to us</div>
+            <p className="mt-2 text-sm text-zinc-600">For larger teams and multi-entity compliance needs.</p>
+            <ul className="mt-4 space-y-2 text-sm text-zinc-700">
+              <li>• Custom scoring rules</li>
+              <li>• Assisted evaluation</li>
+              <li>• SLA + reporting</li>
+            </ul>
+            <div className="mt-5">
+              <ButtonLink href="/stack-builder" size="lg" variant="secondary" className="w-full justify-center">
+                Contact sales
+              </ButtonLink>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* FAQs */}
+      <Section className="bg-white">
+        <SectionHeading title="FAQs" subtitle="Straight answers so you can move fast." />
+        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {[
+            {
+              q: "Do you share my details with multiple vendors?",
+              a: "No. We only share your requirement with one best-fit vendor after review.",
+            },
+            {
+              q: "Is this only for India?",
+              a: "The catalog is India-first (PF/ESI/PT, state coverage), but you can still browse globally.",
+            },
+            {
+              q: "How are recommendations generated?",
+              a: "We score tools by category coverage, size fit, and required integrations. You can see why each tool fits.",
+            },
+            {
+              q: "What if my requirements are unique?",
+              a: "Add details in the note and we’ll refine the shortlist manually before making an intro.",
+            },
+          ].map((f) => (
+            <div key={f.q} className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+              <div className="text-sm font-semibold text-zinc-900">{f.q}</div>
+              <div className="mt-2 text-sm leading-6 text-zinc-600">{f.a}</div>
+            </div>
+          ))}
         </div>
       </Section>
 

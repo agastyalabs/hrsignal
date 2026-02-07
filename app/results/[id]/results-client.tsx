@@ -4,6 +4,12 @@ import type { BuyerSizeBand } from "@prisma/client";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { Container } from "@/components/layout/Container";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+
 type Submission = {
   id: string;
   companyName: string | null;
@@ -67,8 +73,10 @@ export default function ResultsClient({
   }, [result]);
 
   return (
-    <div className="min-h-screen bg-zinc-50 p-6">
-      <div className="mx-auto max-w-4xl">
+    <div className="min-h-screen bg-zinc-50">
+      <SiteHeader />
+      <main className="py-10 sm:py-14">
+        <Container className="max-w-5xl">
         <div className="flex items-baseline justify-between">
           <h1 className="text-2xl font-semibold">Your HR stack shortlist</h1>
           <Link className="text-sm font-medium text-indigo-700" href="/stack-builder">
@@ -93,9 +101,9 @@ export default function ResultsClient({
           ) : null}
         </div>
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-8 space-y-4">
           {picks.map((p) => (
-            <div key={p.tool.slug} className="rounded-xl bg-white p-5 shadow">
+            <Card key={p.tool.slug} className="shadow-sm">
               <div className="flex items-baseline justify-between gap-4">
                 <div>
                   <div className="text-xl font-semibold">{p.tool.name}</div>
@@ -126,18 +134,19 @@ export default function ResultsClient({
                   View details →
                 </Link>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
 
-        <div className="mt-10 rounded-xl bg-white p-6 shadow">
-          <h2 className="text-lg font-semibold">Get pricing & vendor intro</h2>
+        <div className="mt-10">
+          <Card className="shadow-sm">
+          <h2 className="text-lg font-semibold text-zinc-900">Get pricing & vendor intro</h2>
           <p className="mt-1 text-sm text-zinc-600">
             We’ll review and share your requirement with one best-fit vendor (not blasted to everyone).
           </p>
 
           <form
-            className="mt-4 space-y-4"
+            className="mt-5 space-y-4"
             onSubmit={async (e) => {
               e.preventDefault();
               setError(null);
@@ -219,13 +228,17 @@ export default function ResultsClient({
             {error ? <p className="text-sm text-red-600">{error}</p> : null}
             {sent ? <p className="text-sm text-green-700">Thanks — we’ll reach out soon.</p> : null}
 
-            <button className="rounded-md bg-black px-4 py-2 text-white disabled:opacity-60" disabled={sending || sent}>
+            <Button disabled={sending || sent}>
               {sent ? "Submitted" : sending ? "Submitting…" : "Submit"}
-            </button>
+            </Button>
           </form>
+          </Card>
         </div>
-      </div>
-    </div>
+      </Container>
+    </main>
+
+    <SiteFooter />
+  </div>
   );
 }
 

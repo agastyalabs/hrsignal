@@ -16,44 +16,79 @@ const Schema = z.object({
 });
 
 export async function POST(req: Request) {
+  const requestId = crypto.randomUUID();
+
   if (!process.env.DATABASE_URL) {
     return NextResponse.json(
-      { error: "Catalog not configured (missing DATABASE_URL)." },
+      {
+        ok: false,
+        error: "Service is not configured (missing DATABASE_URL).",
+        requestId,
+      },
       { status: 503 }
     );
   }
-  const json = await req.json();
-  const input = Schema.parse(json);
 
-  const submission = await prisma.questionnaireSubmission.create({
-    data: {
-      answers: input,
-      companyName: input.companyName,
-      buyerEmail: input.buyerEmail,
-      buyerRole: input.buyerRole || null,
+  let json: unknown;
+  try {
+    json = await req.json();
+  } catch {
+    return NextResponse.json(
+      { ok: false, error: "Invalid JSON payload.", requestId },
+      { status: 400 }
+    );
+  }
+
+  const parsed = Schema.safeParse(json);
+  if (!parsed.success) {
+    const msg = parsed.error.issues[0]?.message || "Invalid request.";
+    return NextResponse.json({ ok: false, error: msg, requestId }, { status: 400 });
+  }
+
+  try {
+    const input = parsed.data;
+
+    const submission = await prisma.questionnaireSubmission.create({
+      data: {
+        answers: input,
+        companyName: input.companyName,
+        buyerEmail: input.buyerEmail,
+        buyerRole: input.buyerRole || null,
+        sizeBand: input.sizeBand,
+        states: input.states,
+        categoriesNeeded: input.categoriesNeeded,
+        mustHaveIntegrations: input.mustHaveIntegrations,
+        budgetNote: input.budgetNote ?? null,
+        timelineNote: input.timelineNote ?? null,
+      },
+    });
+
+    const result = await buildRecommendations({
       sizeBand: input.sizeBand,
-      states: input.states,
       categoriesNeeded: input.categoriesNeeded,
       mustHaveIntegrations: input.mustHaveIntegrations,
-      budgetNote: input.budgetNote ?? null,
-      timelineNote: input.timelineNote ?? null,
-    },
-  });
+    });
 
-  const result = await buildRecommendations({
-    sizeBand: input.sizeBand,
-    categoriesNeeded: input.categoriesNeeded,
-    mustHaveIntegrations: input.mustHaveIntegrations,
-  });
+    const run = await prisma.recommendationRun.create({
+      data: {
+        submissionId: submission.id,
+        result,
+      },
+    });
 
-  const run = await prisma.recommendationRun.create({
-    data: {
-      submissionId: submission.id,
-      result,
-    },
-  });
-
-  return NextResponse.json({ resultId: run.id });
+    return NextResponse.json({ ok: true, resultId: run.id, requestId });
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error("[recommendations] POST failed", { requestId, error: msg });
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "Failed to generate recommendations. Please try again.",
+        requestId,
+      },
+      { status: 500 }
+    );
+  }
 }
 
 async function buildRecommendations({
