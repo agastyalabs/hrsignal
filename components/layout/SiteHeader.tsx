@@ -76,7 +76,7 @@ export function SiteHeader() {
       <Container className="flex items-center justify-between gap-4 py-4">
         <Link href="/" className="shrink-0" aria-label="HRSignal home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/hrsignal-logo.svg" alt="HRSignal" className="h-8 w-auto" />
+          <img src="/brand/logo.png" alt="HRSignal" className="h-8 w-auto" />
         </Link>
 
         {/* Header search (UI-only for now; forwards to /tools query) */}

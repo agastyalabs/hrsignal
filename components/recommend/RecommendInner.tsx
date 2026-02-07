@@ -29,7 +29,13 @@ type SizeBand = "EMP_20_200" | "EMP_50_500" | "EMP_100_1000";
 
 type Mode = "recommend" | "stack-builder";
 
-export default function RecommendInner({ mode }: { mode: Mode }) {
+export default function RecommendInner({
+  mode,
+  embedded = false,
+}: {
+  mode: Mode;
+  embedded?: boolean;
+}) {
   const router = useRouter();
   const search = useSearchParams();
   const prefill = search.get("prefill");
@@ -63,19 +69,18 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
     return `You came from tool: ${prefill}`;
   }, [prefill]);
 
-  return (
-    <div className="min-h-screen bg-zinc-50">
-      <SiteHeader />
+  const content = (
+    <>
       <ToastViewport toasts={toasts} dismiss={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))} />
 
-      <main className="py-10 sm:py-14">
+      <main className={embedded ? "" : "py-10 sm:py-14"}>
         <Container>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
+              <h1 className="text-3xl font-semibold tracking-tight text-[#F9FAFB]">
                 {mode === "recommend" ? "Get recommendations" : "Build your HR stack"}
               </h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#CBD5E1]">
                 Answer a few questions. HRSignal will recommend 3–5 best-fit tools and explain why each fits.
               </p>
               {prefillHint ? <p className="mt-2 text-sm text-zinc-500">{prefillHint}</p> : null}
@@ -292,7 +297,15 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
           </div>
         </Container>
       </main>
+    </>
+  );
 
+  if (embedded) return <div className="bg-transparent">{content}</div>;
+
+  return (
+    <div className="min-h-screen bg-[#0B0E23]">
+      <SiteHeader />
+      {content}
       <SiteFooter />
     </div>
   );

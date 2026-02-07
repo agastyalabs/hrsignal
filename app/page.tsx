@@ -147,25 +147,11 @@ export default async function Home() {
                   </svg>
                 </div>
 
-                <form className="mt-4 flex flex-col gap-3 sm:flex-row" action="/tools">
-                  <input
-                    className="input"
-                    name="q"
-                    placeholder="Search tools (e.g., Keka, payroll, attendance)"
-                    aria-label="Search tools"
-                  />
-                  <select className="input" name="category" defaultValue="">
-                    <option value="">All categories</option>
-                    <option value="hrms">HRMS</option>
-                    <option value="payroll">Payroll + Compliance</option>
-                    <option value="attendance">Attendance/Leave</option>
-                    <option value="ats">ATS/Hiring</option>
-                    <option value="performance">Performance/OKR</option>
-                  </select>
-                  <button className="h-10 rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white hover:bg-indigo-700">
-                    Search
-                  </button>
-                </form>
+                <div className="mt-4 rounded-xl border border-[#1F2937] bg-[#111827] p-4">
+                  <div className="text-sm font-medium text-[#CBD5E1]">
+                    Use the search bar in the header to find tools, vendors, and categories.
+                  </div>
+                </div>
 
                 <div className="mt-4">
                   <div className="text-xs font-medium text-[#94A3B8]">Popular categories</div>
@@ -212,7 +198,7 @@ export default async function Home() {
             title="Browse by category"
             subtitle="Start with the module you need. We keep categories simple in v1 so browsing stays fast."
           />
-          <Link className="text-sm font-medium text-indigo-700" href="/tools">
+          <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/tools">
             View all tools →
           </Link>
         </div>
@@ -341,11 +327,11 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-6 shadow-sm">
-            <div className="text-sm font-semibold text-indigo-900">Teams</div>
-            <div className="mt-2 text-3xl font-semibold tracking-tight text-indigo-900">Early access</div>
-            <p className="mt-2 text-sm text-indigo-800/80">We’ll set this up with you (white-glove).</p>
-            <ul className="mt-4 space-y-2 text-sm text-indigo-900">
+          <div className="rounded-2xl border border-[var(--primary)]/30 bg-[#0F172A] p-6 shadow-sm">
+            <div className="text-sm font-semibold text-[#F9FAFB]">Teams</div>
+            <div className="mt-2 text-3xl font-semibold tracking-tight text-[#F9FAFB]">Early access</div>
+            <p className="mt-2 text-sm text-[#CBD5E1]">We’ll set this up with you (white-glove).</p>
+            <ul className="mt-4 space-y-2 text-sm text-[#CBD5E1]">
               <li>• Custom filters (states, compliance, integrations)</li>
               <li>• Vendor screening and intro</li>
               <li>• Priority support</li>

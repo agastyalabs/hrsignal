@@ -12,7 +12,7 @@ export function SiteFooter() {
           <div>
             <div className="flex items-center gap-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/brand/hrsignal-mark.svg" alt="HRSignal" className="h-5 w-5" />
+              <img src="/brand/logo.png" alt="HRSignal" className="h-6 w-auto" />
               <div className="text-base font-semibold text-[#F9FAFB]">HRSignal</div>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-[#CBD5E1]">
