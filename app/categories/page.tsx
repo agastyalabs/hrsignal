@@ -21,10 +21,10 @@ const FALLBACK = [
 
 export default async function CategoriesPage() {
   const categories = await getCategories();
-  const topToolsByCategory = await getTopToolsByCategory(categories.map((c) => c.slug));
+  const topToolsByCategory = await getTopToolsByCategorySafe(categories.map((c) => c.slug));
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-gray-50">
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
@@ -129,37 +129,77 @@ async function getCategories(): Promise<Array<{ slug: string; name: string; desc
   }
 }
 
-async function getTopToolsByCategory(categorySlugs: string[]) {
-  const map = new Map<string, Array<{ slug: string; name: string; tagline: string | null; vendorName: string | null }>>();
-  if (!process.env.DATABASE_URL) {
-    for (const c of categorySlugs) map.set(c, []);
-    return map;
+async function getTopToolsByCategorySafe(categorySlugs: string[]) {
+  const empty = new Map<string, Array<{ slug: string; name: string; tagline: string | null; vendorName: string | null }>>();
+  for (const c of categorySlugs) empty.set(c, []);
+
+  // Try DB, but never crash if schema is behind or DB is unreachable.
+  if (process.env.DATABASE_URL) {
+    try {
+      const map = new Map<string, Array<{ slug: string; name: string; tagline: string | null; vendorName: string | null }>>();
+
+      await Promise.all(
+        categorySlugs.map(async (slug) => {
+          const rows = await prisma.tool.findMany({
+            where: {
+              status: "PUBLISHED",
+              categories: { some: { category: { slug } } },
+            },
+            // IMPORTANT: select only stable columns so missing DB columns (e.g. Tool.deployment) won't crash.
+            select: {
+              slug: true,
+              name: true,
+              tagline: true,
+              vendor: { select: { name: true } },
+            },
+            orderBy: [{ lastVerifiedAt: "desc" }, { name: "asc" }],
+            take: 5,
+          });
+
+          map.set(
+            slug,
+            rows.map((t) => ({
+              slug: t.slug,
+              name: t.name,
+              tagline: t.tagline,
+              vendorName: t.vendor?.name ?? null,
+            }))
+          );
+        })
+      );
+
+      return map;
+    } catch {
+      // fall through to JSON seed
+    }
   }
 
-  // Simple approach: for each category, fetch a few recent tools.
-  await Promise.all(
-    categorySlugs.map(async (slug) => {
-      const rows = await prisma.tool.findMany({
-        where: {
-          status: "PUBLISHED",
-          categories: { some: { category: { slug } } },
-        },
-        include: { vendor: true },
-        orderBy: [{ lastVerifiedAt: "desc" }, { name: "asc" }],
-        take: 5,
-      });
+  try {
+    const mod = await import("@/data/tools_seed.json");
+    const tools = (mod.default ?? []) as Array<{
+      slug: string;
+      name: string;
+      vendor_name?: string;
+      short_description?: string;
+      categories?: string[];
+    }>;
 
-      map.set(
-        slug,
-        rows.map((t) => ({
+    const map = new Map<string, Array<{ slug: string; name: string; tagline: string | null; vendorName: string | null }>>();
+    for (const c of categorySlugs) {
+      const top = tools
+        .filter((t) => (t.categories ?? []).includes(c))
+        .slice(0, 5)
+        .map((t) => ({
           slug: t.slug,
           name: t.name,
-          tagline: t.tagline,
-          vendorName: t.vendor?.name ?? null,
-        }))
-      );
-    })
-  );
+          tagline: t.short_description ?? null,
+          vendorName: t.vendor_name ?? null,
+        }));
+      map.set(c, top);
+    }
 
-  return map;
+    return map;
+  } catch {
+    return empty;
+  }
 }

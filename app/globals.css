@@ -35,16 +35,21 @@ body {
   width: 100%;
   height: 2.75rem;
   border-radius: 0.75rem;
-  border: 1px solid var(--border);
+  border: 1px solid rgb(228 228 231); /* zinc-200 */
   background: #fff;
   padding: 0.5rem 0.875rem;
   font-size: 0.95rem;
+  color: #111827;
   outline: none;
 }
 
+.input::placeholder {
+  color: #6B7280;
+}
+
 .input:focus {
-  border-color: rgb(79 70 229); /* indigo-600 */
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.18);
+  border-color: rgb(168 85 247); /* purple-500 */
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.22);
 }
 
 textarea.input {
