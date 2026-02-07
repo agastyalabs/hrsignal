@@ -4,7 +4,7 @@
   color-scheme: dark;
 
   /* HRSignal launch palette (locked) */
-  --background: #0B0E23;
+  --bg: #0B0E23;
   --surface-1: #121634;
   --surface-2: #171C3F;
 
@@ -12,21 +12,24 @@
   --primary-hover: #825AE0;
 
   --text: #F5F7FF;
-  --text-secondary: #B6B9D8;
-  --text-muted: rgba(245, 247, 255, 0.62);
+  --text-muted: #B6B9D8;
   --border: rgba(255, 255, 255, 0.08);
+
+  /* Back-compat aliases (avoid breaking older usage) */
+  --background: var(--bg);
+  --text-secondary: var(--text-muted);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
   --font-sans: var(--font-inter);
 }
 
 /* Palette is locked for launch (dark UI). */
 
 body {
-  background: var(--background);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji";
@@ -63,4 +66,3 @@ textarea.input {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
-
