@@ -3,7 +3,7 @@ HRSignal Final Pre-Launch UI/UX & Content Fixes
 This document summarises the issues still present on hrsignal.vercel.app after the latest updates and outlines the final set of tasks required to achieve a polished, credible launch. It builds on the recommendations from previous rounds and reflects your feedback from 8 Feb 2026.
 
 Why It’s Not Launch-Ready Yet
-	1.	Branding still shows PICHS in the header and footer – A legacy placeholder remains in the code. It undermines the brand and confuses visitors.
+	1.	Branding still shows HRSignal in the header and footer – A legacy placeholder remains in the code. It undermines the brand and confuses visitors.
 	2.	Vendor logos are missing across all pages – Cards and “Popular vendors” sections still display generic initials or placeholders. This is a critical trust signal and must be fixed.
 	3.	Resources content is limited – There are only 6–7 articles. For launch credibility, you should aim for at least 10–12 posts (600–1,200 words each) covering payroll, compliance, HRMS selection, ATS, attendance & leave, performance/OKR and other relevant topics . A well-structured resources library helps nurture prospects and signals expertise .
 	4.	Residual placeholders – Several sections still use placeholder logos (Acme, ZenHR, Northwind, etc.) and “representative testimonials.” These must be replaced or removed.
@@ -12,9 +12,9 @@ Why It’s Not Launch-Ready Yet
 
 Final Tasks for Launch
 
-1. Branding: Replace PICHS with HRSignal
+1. Branding: Replace HRSignal with HRSignal
 	•	Logo: Ensure the correct logo file is stored in public/brand/logo.png and imported via a central constant (e.g., BRAND.logo). Delete the mis-named file (Logo.png.PNG) and update all imports. Bust the cache by renaming if necessary.
-	•	Name: Replace all occurrences of PICHS with HRSignal in header, footer, metadata, SEO tags and hero section.
+	•	Name: Replace all occurrences of HRSignal with HRSignal in header, footer, metadata, SEO tags and hero section.
 	•	Favicon & Social images: Add a favicon (favicon.ico), an apple-touch-icon, and an Open Graph image featuring the HRSignal branding for social sharing.
 
 2. Vendor logos: Implement deterministic logo rendering

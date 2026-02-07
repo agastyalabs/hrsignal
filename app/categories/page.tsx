@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
+import { CategoryCard } from "@/components/catalog/CategoryCard";
 
 const FALLBACK = [
   { slug: "hrms", name: "Core HRMS", desc: "Employee lifecycle, org, docs, workflows" },
@@ -24,7 +25,7 @@ export default async function CategoriesPage() {
   const topToolsByCategory = await getTopToolsByCategorySafe(categories.map((c) => c.slug));
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#0B0E23]">
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
@@ -33,20 +34,20 @@ export default async function CategoriesPage() {
             title="Categories"
             subtitle="Start with the module you need. Each category opens a directory view you can filter and compare."
           />
-          <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/tools">
+          <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED]" href="/tools">
             Browse all tools
           </Link>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((c) => (
-            <Link key={c.slug} href={`/tools?category=${encodeURIComponent(c.slug)}`} className="block">
-              <Card className="h-full shadow-sm transition-all hover:-translate-y-0.5 hover:shadow">
-                <div className="text-base font-semibold text-zinc-900">{c.name}</div>
-                {c.desc ? <div className="mt-2 text-sm leading-6 text-zinc-600">{c.desc}</div> : null}
-                <div className="mt-4 text-sm font-medium text-indigo-700">Explore →</div>
-              </Card>
-            </Link>
+            <CategoryCard
+              key={c.slug}
+              slug={c.slug as any}
+              name={c.name}
+              description={c.desc ?? ""}
+              toolCount={(topToolsByCategory.get(c.slug) ?? []).length || undefined}
+            />
           ))}
         </div>
 
@@ -63,19 +64,22 @@ export default async function CategoriesPage() {
               const compareSlugs = tools.map((t) => t.slug).slice(0, 5);
 
               return (
-                <div key={c.slug} className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+                <div
+                  key={c.slug}
+                  className="rounded-2xl border border-[rgba(255,255,255,0.08)] bg-[#121634] p-6 shadow-sm"
+                >
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                     <div>
-                      <div className="text-lg font-semibold text-zinc-900">{c.name}</div>
-                      {c.desc ? <div className="mt-1 text-sm text-zinc-600">{c.desc}</div> : null}
+                      <div className="text-lg font-semibold text-[#F5F7FF]">{c.name}</div>
+                      {c.desc ? <div className="mt-1 text-sm text-[#B6B9D8]">{c.desc}</div> : null}
                     </div>
                     <div className="flex flex-wrap gap-3">
-                      <Link className="text-sm font-medium text-indigo-700 hover:underline" href={`/tools?category=${c.slug}`}>
+                      <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED]" href={`/tools?category=${c.slug}`}>
                         Browse →
                       </Link>
                       {compareSlugs.length >= 2 ? (
                         <Link
-                          className="inline-flex h-9 items-center rounded-lg bg-indigo-600 px-3 text-sm font-medium text-white hover:bg-indigo-700"
+                          className="inline-flex h-9 items-center rounded-lg bg-[#7441F2] px-3 text-sm font-medium text-[#F5F7FF] hover:bg-[#825AE0]"
                           href={`/compare?tools=${encodeURIComponent(compareSlugs.join(","))}`}
                         >
                           Compare top tools
@@ -88,17 +92,17 @@ export default async function CategoriesPage() {
                     <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       {tools.map((t) => (
                         <Link key={t.slug} href={`/tools/${t.slug}`} className="block">
-                          <Card className="h-full shadow-sm transition-all hover:-translate-y-0.5 hover:shadow">
-                            <div className="text-base font-semibold text-zinc-900">{t.name}</div>
-                            {t.vendorName ? <div className="mt-1 text-sm text-zinc-600">by {t.vendorName}</div> : null}
-                            {t.tagline ? <div className="mt-2 text-sm leading-6 text-zinc-700">{t.tagline}</div> : null}
-                            <div className="mt-4 text-sm font-medium text-indigo-700">View details →</div>
+                          <Card className="h-full border border-[rgba(255,255,255,0.08)] bg-[#171C3F] shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.14)] hover:shadow-md">
+                            <div className="text-base font-semibold text-[#F5F7FF]">{t.name}</div>
+                            {t.vendorName ? <div className="mt-1 text-sm text-[#B6B9D8]">by {t.vendorName}</div> : null}
+                            {t.tagline ? <div className="mt-2 text-sm leading-relaxed text-[#B6B9D8]">{t.tagline}</div> : null}
+                            <div className="mt-4 text-sm font-medium text-[#8B5CF6]">View details →</div>
                           </Card>
                         </Link>
                       ))}
                     </div>
                   ) : (
-                    <div className="mt-5 text-sm text-zinc-600">No published tools yet for this category.</div>
+                    <div className="mt-5 text-sm text-[#B6B9D8]">No published tools yet for this category.</div>
                   )}
                 </div>
               );

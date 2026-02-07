@@ -51,7 +51,7 @@ export function RecommendTabs() {
             <form className="space-y-4" action="/recommend/submit" method="post">
               <div>
                 <label className="text-sm font-medium text-[#CBD5E1]">Company name</label>
-                <input className="input mt-1" name="companyName" required placeholder="Acme Pvt Ltd" />
+                <input className="input mt-1" name="companyName" required placeholder="Your company" />
               </div>
               <div>
                 <label className="text-sm font-medium text-[#CBD5E1]">Work email</label>

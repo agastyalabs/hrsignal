@@ -87,6 +87,61 @@ const ARTICLES: ResourceArticle[] = [
     category: "Explainer",
     content: `## Practical preparation\n\n- Centralize employee master data\n- Document policy assumptions\n- Ensure exports + audit trails\n\n## Vendor questions\n\n- How do updates roll out?\n- What is configurable vs hard-coded?\n- What reporting changes are planned?\n`,
   },
+  {
+    slug: "onboarding-document-workflows",
+    title: "Onboarding & document workflows: a practical setup for Indian SMEs",
+    summary:
+      "Offer → joining → KYC → policy acknowledgements: how to design a clean onboarding flow and what to verify in HR tools.",
+    date: "2026-02-08",
+    tags: ["Onboarding", "Documents", "HRMS"],
+    readingTime: "8 min",
+    category: "Playbook",
+    content: `## Why onboarding breaks in practice\n\nMost onboarding issues are not about the UI — they’re about *handoffs* and *missing ownership*. The goal is to remove ambiguity.\n\n### A simple onboarding map\n\n1) **Offer & acceptance** (template, approvals, version history)\n2) **Joining details** (joining date, location, manager, cost center)\n3) **KYC & statutory docs** (PAN, Aadhaar, bank, previous employment docs where needed)\n4) **Policy acknowledgements** (POSH, IT/security, leave policy, code of conduct)\n5) **Access provisioning** (email, payroll access, attendance device enrollment)\n\n## What to check in tools (demo script)\n\n- Can HR send an onboarding checklist per role/location?\n- Is there an **audit trail** for uploaded docs and acknowledgements?\n- Can employees upload from mobile without issues?\n- Can you export all docs for an employee in one click?\n\n## Common India-specific requirements\n\n- Multiple locations + different policy variants\n- Contractor onboarding\n- Document retention policies\n\n## Recommended next step\n\nIf you’re comparing HRMS tools, shortlist 3–5 and run this onboarding demo script end-to-end.\n\n**CTA:** Want a shortlist? Use **Get recommendations** and tell us your onboarding complexity.\n`,
+  },
+  {
+    slug: "data-security-privacy-hr-software",
+    title: "Data security & privacy checklist for HR software (India-first)",
+    summary:
+      "A buyer checklist: access controls, audit logs, exports, vendor support processes, and what questions to ask before signing.",
+    date: "2026-02-08",
+    tags: ["Security", "Privacy", "Buying"],
+    readingTime: "9 min",
+    category: "Checklist",
+    content: `## What HR data includes\n\nHR systems store highly sensitive data: identity docs, salary, addresses, medical leaves, performance notes. Treat vendor security as a first-class requirement.\n\n## Minimum checklist (ask for evidence)\n\n### Access & identity\n\n- Role-based access controls (RBAC)\n- 2FA / SSO options\n- Admin action logs\n\n### Auditability\n\n- Audit log for employee record edits\n- Exportability (CSV/Excel)\n- Data retention controls\n\n### Vendor processes\n\n- Incident response policy\n- Support access controls (can support agents view salary?)\n- Backup + restore expectations\n\n## Red flags\n\n- “We can’t export your data”\n- No audit log\n- Shared admin accounts\n\n**CTA:** If security is a priority, choose the Detailed mode on the recommendation flow and add security requirements in notes.\n`,
+  },
+  {
+    slug: "shift-management-field-staff",
+    title: "Shift management & field staff attendance: what to validate",
+    summary:
+      "If you have shifts, overtime, field staff or multiple locations, these are the workflows that make or break adoption.",
+    date: "2026-02-08",
+    tags: ["Attendance", "Shifts", "Field staff"],
+    readingTime: "8 min",
+    category: "Buyer guide",
+    content: `## The reality\n\nShift + field attendance is not a single feature — it’s a bundle of edge cases: late rules, overtime policies, device downtime, location spoofing, and approvals.\n\n## Validate these workflows\n\n1) **Shift roster**: can managers publish schedules weekly/monthly?\n2) **Grace + penalties**: configurable by location/role?\n3) **Overtime**: policy + approvals + payroll export\n4) **Device flows**: biometric sync, missed punches, offline mode\n5) **Field staff**: geo-fence, selfie check-in, travel days\n\n## Reports that matter\n\n- Attendance exceptions (late/early/missed punch)\n- Overtime totals and approvals\n- Per-location compliance export\n\n**CTA:** Compare tools that handle shifts well using the Compare tray — you’ll spot missing features quickly.\n`,
+  },
+  {
+    slug: "accounting-integrations-tally-zoho",
+    title: "Integrations with accounting (Tally/Zoho Books): how to avoid month-end chaos",
+    summary:
+      "What to check so payroll data flows cleanly into finance: mapping, exports, revisions, and audit trails.",
+    date: "2026-02-08",
+    tags: ["Integrations", "Payroll", "Finance"],
+    readingTime: "9 min",
+    category: "Playbook",
+    content: `## Why integrations fail\n\nMost integration failures are about inconsistent master data (cost centers, departments) and unclear ownership of reconciliation.\n\n## A practical approach\n\n- Define a single chart-of-accounts mapping\n- Decide who owns corrections (HR vs Finance)\n- Keep a month-end checklist\n\n## What to validate in demos\n\n- Export formats supported\n- Can you re-export a corrected month?\n- Does the system keep an audit trail of changes?\n\n## Suggested rollout\n\n1) First month: export only (manual import)\n2) Second month: automated mapping\n3) Third month: lock policy + exception handling\n\n**CTA:** If finance integration is critical, mention Tally/Zoho Books in the recommendation flow so we prioritize tools with proven workflows.\n`,
+  },
+  {
+    slug: "hrms-rollout-30-days",
+    title: "HRMS rollout in 30 days: a simple plan for India-first SMEs",
+    summary:
+      "A realistic rollout plan: scope, owners, data cleanup, training, and how to prevent launch-day chaos.",
+    date: "2026-02-08",
+    tags: ["HRMS", "Implementation", "SME"],
+    readingTime: "8 min",
+    category: "Playbook",
+    content: `## The goal\n\nA good HRMS rollout is boring. Employees can log in, HR can run month-end, and managers know what to approve.\n\n## Week-by-week plan\n\n### Week 1: Scope + owners\n\n- Pick the **minimum modules**: Core HR + Attendance + Payroll (if applicable)\n- Assign a single owner in HR + a backup\n- Decide “source of truth” for employee master data\n\n### Week 2: Data cleanup\n\n- Employee list, locations, departments\n- Leave balances\n- Payroll identifiers\n\n### Week 3: Pilot\n\n- Run a pilot with one location/team\n- Capture exceptions and decide policies\n\n### Week 4: Go-live + support\n\n- Manager training (approvals)\n- Employee onboarding (self-service)\n- Month-end dry run\n\n## What to ask vendors\n\n- Implementation timeline and dependencies\n- Who handles statutory configuration?\n- What’s the support SLA during month-end?\n\n**CTA:** If you’re planning a fast rollout, use the recommendation form and choose Detailed mode so we prioritize tools with proven onboarding and support.\n`,
+  },
 ];
 
 export function listResourceArticles(): ResourceArticle[] {

@@ -63,5 +63,5 @@ export async function POST(req: Request) {
     select: { id: true },
   });
 
-  return NextResponse.redirect(new URL(`/results/${run.id}`, req.url));
+  return NextResponse.redirect(new URL(`/recommend/success?run=${encodeURIComponent(run.id)}`, req.url));
 }

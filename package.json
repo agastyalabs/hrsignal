@@ -16,7 +16,7 @@
     "prisma:migrate:deploy": "prisma migrate deploy",
     "db:seed": "node scripts/seed.mjs",
     "brand:assets": "node scripts/generate-brand-assets.mjs",
-    "logos:fetch": "node scripts/fetch-vendor-logos.mjs"
+    "logos:fetch": "node scripts/fetch-logos.mjs"
   },
   "dependencies": {
     "@auth/core": "^0.34.3",

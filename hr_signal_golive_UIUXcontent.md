@@ -3,7 +3,7 @@ HR Signal Final UI/UX Adjustments for Production Launch
 This document offers a final QA checklist and design specification for the HR Signal platform before going live.  It builds on previous recommendations and addresses outstanding issues observed on the latest deployment (as of 07 Feb 2026).
 
 1. Branding & Logo
-	•	Replace “PICHS” with HR Signal – The current navigation bar still shows an old brand name (PICHS).  Update all instances of this string across the layout components (Header.tsx, Layout.tsx) to display “HR Signal”.  Use the new logo image (provided earlier) as the brand symbol and wordmark.  Ensure the logo file resides in /public/brand/logo.png (or .svg) and is imported into the header.  Remove any fallback icon that appears as a blank square.
+	•	Replace “HRSignal” with HR Signal – The current navigation bar still shows an old brand name (HRSignal).  Update all instances of this string across the layout components (Header.tsx, Layout.tsx) to display “HR Signal”.  Use the new logo image (provided earlier) as the brand symbol and wordmark.  Ensure the logo file resides in /public/brand/logo.png (or .svg) and is imported into the header.  Remove any fallback icon that appears as a blank square.
 	•	Favicons & social images – Provide proper favicon.ico and og:image using the new logo.  This improves recognition when the site is shared or added to bookmarks.
 
 2. Colours, Fonts & Spacing
@@ -48,6 +48,6 @@ This document offers a final QA checklist and design specification for the HR Si
 	•	Static asset management – Ensure all images and logos are optimised (WebP or PNG, <100 KB) and served via CDN.  Preload fonts and critical CSS for faster first contentful paint.  Implement lazy loading for off-screen images and infinite lists where appropriate.
 	•	Cross-device testing – Test on multiple breakpoints (desktop, tablet, mobile).  Confirm that navigation collapses properly on mobile (hamburger menu) and that cards wrap gracefully.  Check that clickable areas are large enough for touch.
 	•	Automated tests – Use Playwright or Cypress to simulate typical flows: navigating between pages, searching and filtering, comparing tools, submitting recommendations and reading resources.  Test that vendor logos appear correctly and that there are no broken image links.  Run Lighthouse audits to catch performance or accessibility issues.
-	•	Staging to production – After implementing the above, deploy to a staging environment and do a final visual review.  Once satisfied, promote to production.  Confirm there are no leftover placeholders (e.g., PICHS) and that the new branding appears uniformly across pages.
+	•	Staging to production – After implementing the above, deploy to a staging environment and do a final visual review.  Once satisfied, promote to production.  Confirm there are no leftover placeholders (e.g., HRSignal) and that the new branding appears uniformly across pages.
 
 By following this checklist, HR Signal will deliver a cohesive, trust-building experience that feels ready for the public launch.  The site will reflect its India-first mission, showcase the full vendor ecosystem with proper logos, and provide valuable content to help SMEs choose the right HR tools.;

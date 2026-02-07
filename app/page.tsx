@@ -69,21 +69,27 @@ export default async function Home() {
               </div>
 
               <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-[#F9FAFB] sm:text-5xl">
-                Stop guessing HR tools.
-                <span className="block text-[#8B5CF6]">Get a shortlist that fits your team.</span>
+                Stop guessing HR software.
               </h1>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#8B5CF6] sm:text-3xl">
+                Get a shortlist that actually fits your team.
+              </h2>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#CBD5E1]">
-                HRSignal helps Indian SMEs quickly find the right HRMS, payroll & compliance, attendance, ATS and performance tools — with
-                explainable match reasons.
+                HRSignal helps Indian SMEs compare HRMS, payroll, compliance, attendance, ATS and performance tools — with clear match reasons,
+                not sales fluff.
               </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <ButtonLink href="/recommend" size="lg" variant="primary">
-                  Get recommendations
+                  Get personalised recommendations
                 </ButtonLink>
                 <ButtonLink href="/tools" size="lg" variant="secondary">
-                  Browse tools
+                  Browse verified tools
                 </ButtonLink>
+              </div>
+
+              <div className="mt-4 text-sm font-medium text-[#94A3B8]">
+                200+ India-ready tools · Verified vendors · Privacy-first
               </div>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -187,7 +193,7 @@ export default async function Home() {
 
         <div className="mt-10 space-y-6">
           <TrustStrip />
-          <LogoStrip title="Popular HR vendors (placeholders)" />
+          <LogoStrip title="Early access teams" />
         </div>
       </Section>
 
@@ -258,34 +264,10 @@ export default async function Home() {
 
       {/* Social proof */}
       <Section className="bg-transparent">
-        <SectionHeading title="Trusted by modern teams" subtitle="Logos are placeholders until we add real customers." />
+        <SectionHeading title="Built for India-first SMEs" subtitle="Practical, explainable shortlists—built to reduce vendor spam." />
 
-        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {[
-            "Acme",
-            "ZenHR",
-            "Northwind",
-            "Atlas",
-            "Bluepeak",
-            "River",
-          ].map((x) => (
-            <div
-              key={x}
-              className="flex h-12 items-center justify-center rounded-xl border border-[#1F2937] bg-[#111827] text-sm font-semibold text-[#94A3B8] shadow-sm"
-            >
-              {x}
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-10">
-          <SectionHeading
-            title="Built for India-first SMEs"
-            subtitle="Representative testimonials (placeholder) until we add real customer stories."
-          />
-          <div className="mt-6">
-            <TestimonialStrip />
-          </div>
+        <div className="mt-6">
+          <TestimonialStrip />
         </div>
 
         <div className="mt-10 rounded-2xl border border-[#1F2937] bg-[#0F172A] p-6 shadow-sm sm:p-8">

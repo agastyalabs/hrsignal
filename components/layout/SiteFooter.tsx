@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+
+import { BRAND } from "@/config/brand";
 import { Container } from "@/components/layout/Container";
 import { CompareTray } from "@/components/compare/CompareTray";
 
@@ -12,8 +14,8 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              <Image src="/brand/logo.png" alt="HRSignal" width={126} height={28} className="h-6 w-auto" />
-              <div className="text-base font-semibold text-[#F9FAFB]">HRSignal</div>
+              <Image src={BRAND.logoPng} alt={BRAND.name} width={126} height={28} className="h-6 w-auto" />
+              <div className="text-base font-semibold text-[#F9FAFB]">{BRAND.name}</div>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-[#CBD5E1]">
               India-first HR software discovery for SMEs — compare tools, get explainable recommendations, and request demos.
@@ -101,7 +103,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-[#1F2937] pt-6 text-xs text-[#94A3B8] sm:flex-row sm:items-center sm:justify-between">
-          <div>© {new Date().getFullYear()} HRSignal</div>
+          <div>© {new Date().getFullYear()} {BRAND.name}</div>
           <div>
             Questions? Email{" "}
             <a className="text-[#CBD5E1] underline decoration-[#1F2937]" href="mailto:hello@hrsignal.in">

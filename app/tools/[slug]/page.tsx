@@ -8,8 +8,8 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { LeadSection } from "./LeadSection";
 import { CompareToggle } from "@/components/compare/CompareToggle";
-import { ResolvedLogo } from "@/components/brand/ResolvedLogo";
-import { vendorLogoCandidates } from "@/lib/brand/logo";
+import { VendorLogo } from "@/components/VendorLogo";
+import { domainFromUrl } from "@/lib/brand/logo";
 
 export default async function ToolDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -55,12 +55,7 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
           <div className="mt-4 rounded-xl bg-[#111827] p-6 shadow-sm border border-[#1F2937]">
             <div className="flex items-start gap-4">
               <div className="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0F172A] ring-1 ring-[#1F2937]">
-                <ResolvedLogo
-                  sources={vendorLogoCandidates({ slug, websiteUrl: null })}
-                  fallbackSrc="/placeholders/tool.png"
-                  alt=""
-                  className="h-9 w-9 rounded-md"
-                />
+                <VendorLogo slug={slug} name={f.name} domain={null} className="h-9 w-9 rounded-md" size={36} />
               </div>
               <div className="min-w-0">
                 <h1 className="text-2xl font-semibold text-[#F9FAFB]">{f.name}</h1>
@@ -73,7 +68,7 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
               <Info title="Integrations" value="—" />
             </div>
             <div className="mt-8 rounded-xl border border-[#1F2937] bg-[#0F172A] p-4 text-sm text-[#CBD5E1]">
-              Demo data shown (DB not connected). Connect DB + seed catalog for full details.
+This page is available in read-only mode until the catalog database is connected.
             </div>
           </div>
         </main>
@@ -105,14 +100,12 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
         <div className="mt-4 rounded-xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
           <div className="flex items-start gap-4">
             <div className="mt-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0F172A] ring-1 ring-[#1F2937]">
-              <ResolvedLogo
-                sources={vendorLogoCandidates({
-                  slug: tool.slug,
-                  websiteUrl: tool.vendor?.websiteUrl,
-                })}
-                fallbackSrc="/placeholders/tool.png"
-                alt=""
+              <VendorLogo
+                slug={tool.vendor?.id ?? tool.slug}
+                name={tool.vendor?.name ?? tool.name}
+                domain={domainFromUrl(tool.vendor?.websiteUrl)}
                 className="h-9 w-9 rounded-md"
+                size={36}
               />
             </div>
             <div className="min-w-0">
