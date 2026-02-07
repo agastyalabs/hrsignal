@@ -38,11 +38,17 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [sizeBand, setSizeBand] = useState<SizeBand>("EMP_20_200");
+  const [industry, setIndustry] = useState("");
+  const [deployment, setDeployment] = useState<"cloud" | "on-prem" | "hybrid" | "">("");
+  const [budgetBand, setBudgetBand] = useState<"lt_50" | "50_100" | "100_200" | "quote" | "unknown" | "">("");
+
   const [states, setStates] = useState("");
   const [categories, setCategories] = useState<string[]>(["hrms", "payroll", "attendance"]);
   const [integrations, setIntegrations] = useState<string[]>(prefill ? [] : ["tally"]);
   const [budgetNote, setBudgetNote] = useState("");
   const [timelineNote, setTimelineNote] = useState("30 days");
+
+  const [step, setStep] = useState(1);
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -88,6 +94,13 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
                 onSubmit={async (e) => {
                   e.preventDefault();
                   setError(null);
+
+                  // Client-side step guard
+                  if (step !== 3) {
+                    setStep((s) => Math.min(3, s + 1));
+                    return;
+                  }
+
                   setLoading(true);
                   try {
                     const payload = {
@@ -95,6 +108,9 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
                       buyerEmail: email,
                       buyerRole: role,
                       sizeBand,
+                      industry: industry || null,
+                      deployment: deployment || null,
+                      budgetBand: budgetBand || null,
                       states: states
                         .split(",")
                         .map((s) => s.trim())
@@ -137,62 +153,115 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
                   }
                 }}
               >
-                <Field label="Company name">
-                  <input className="input" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
-                </Field>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <Field label="Work email">
-                    <input className="input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                  </Field>
-                  <Field label="Your role (optional)">
-                    <input
-                      className="input"
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                      placeholder="Founder / HR / Ops"
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-xs font-semibold text-zinc-500">Step {step} of 3</div>
+                  <div className="h-2 w-full max-w-[260px] overflow-hidden rounded-full bg-zinc-100">
+                    <div
+                      className="h-full bg-indigo-600 transition-[width] motion-reduce:transition-none"
+                      style={{ width: `${(step / 3) * 100}%` }}
                     />
-                  </Field>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <Field label="Employee count band">
-                    <select className="input" value={sizeBand} onChange={(e) => setSizeBand(e.target.value as SizeBand)}>
-                      <option value="EMP_20_200">20–200</option>
-                      <option value="EMP_50_500">50–500</option>
-                      <option value="EMP_100_1000">100–1000</option>
-                    </select>
-                  </Field>
-                  <Field label="States (optional, comma separated)">
-                    <input className="input" value={states} onChange={(e) => setStates(e.target.value)} />
-                  </Field>
-                </div>
+                {step === 1 ? (
+                  <>
+                    <Field label="Company name">
+                      <input className="input" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
+                    </Field>
 
-                <Field label="What do you need? (pick 1–5 categories)">
-                  <MultiSelect options={CATEGORY_OPTIONS} value={categories} onChange={setCategories} max={5} min={1} />
-                </Field>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <Field label="Work email">
+                        <input className="input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                      </Field>
+                      <Field label="Your role (optional)">
+                        <input
+                          className="input"
+                          value={role}
+                          onChange={(e) => setRole(e.target.value)}
+                          placeholder="Founder / HR / Ops"
+                        />
+                      </Field>
+                    </div>
+                  </>
+                ) : null}
 
-                <Field label="Must-have integrations">
-                  <MultiSelect options={INTEGRATION_OPTIONS} value={integrations} onChange={setIntegrations} max={3} />
-                </Field>
+                {step === 2 ? (
+                  <>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <Field label="Employee count band">
+                        <select className="input" value={sizeBand} onChange={(e) => setSizeBand(e.target.value as SizeBand)}>
+                          <option value="EMP_20_200">20–200</option>
+                          <option value="EMP_50_500">50–500</option>
+                          <option value="EMP_100_1000">100–1000</option>
+                        </select>
+                      </Field>
+                      <Field label="States (optional, comma separated)">
+                        <input className="input" value={states} onChange={(e) => setStates(e.target.value)} />
+                      </Field>
+                    </div>
 
-                <Field label="Budget notes (optional)">
-                  <input
-                    className="input"
-                    value={budgetNote}
-                    onChange={(e) => setBudgetNote(e.target.value)}
-                    placeholder="e.g., ₹50/employee/month"
-                  />
-                </Field>
+                    <Field label="What do you need? (pick 1–5 categories)">
+                      <MultiSelect options={CATEGORY_OPTIONS} value={categories} onChange={setCategories} max={5} min={1} />
+                    </Field>
 
-                <Field label="Timeline (optional)">
-                  <input
-                    className="input"
-                    value={timelineNote}
-                    onChange={(e) => setTimelineNote(e.target.value)}
-                    placeholder="e.g., 30 days"
-                  />
-                </Field>
+                    <Field label="Must-have integrations">
+                      <MultiSelect options={INTEGRATION_OPTIONS} value={integrations} onChange={setIntegrations} max={3} />
+                    </Field>
+                  </>
+                ) : null}
+
+                {step === 3 ? (
+                  <>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <Field label="Industry (optional)">
+                        <input
+                          className="input"
+                          value={industry}
+                          onChange={(e) => setIndustry(e.target.value)}
+                          placeholder="e.g., Manufacturing, Services, Retail"
+                        />
+                      </Field>
+                      <Field label="Deployment (optional)">
+                        <select className="input" value={deployment} onChange={(e) => setDeployment(e.target.value as typeof deployment)}>
+                          <option value="">No preference</option>
+                          <option value="cloud">Cloud</option>
+                          <option value="on-prem">On-prem</option>
+                          <option value="hybrid">Hybrid</option>
+                        </select>
+                      </Field>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <Field label="Budget band (optional)">
+                        <select className="input" value={budgetBand} onChange={(e) => setBudgetBand(e.target.value as typeof budgetBand)}>
+                          <option value="">Not sure</option>
+                          <option value="lt_50">&lt; ₹50/employee/month</option>
+                          <option value="50_100">₹50–₹100/employee/month</option>
+                          <option value="100_200">₹100–₹200/employee/month</option>
+                          <option value="quote">Quote-based</option>
+                          <option value="unknown">Unknown</option>
+                        </select>
+                      </Field>
+                      <Field label="Timeline (optional)">
+                        <input
+                          className="input"
+                          value={timelineNote}
+                          onChange={(e) => setTimelineNote(e.target.value)}
+                          placeholder="e.g., 30 days"
+                        />
+                      </Field>
+                    </div>
+
+                    <Field label="Budget notes (optional)">
+                      <input
+                        className="input"
+                        value={budgetNote}
+                        onChange={(e) => setBudgetNote(e.target.value)}
+                        placeholder="e.g., we need implementation + payroll + attendance"
+                      />
+                    </Field>
+                  </>
+                ) : null}
 
                 {error ? (
                   <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900">
@@ -200,9 +269,20 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
                   </div>
                 ) : null}
 
-                <Button className="w-full" disabled={loading}>
-                  {loading ? "Getting your shortlist…" : "Get recommendations"}
-                </Button>
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <button
+                    type="button"
+                    className="h-10 rounded-lg border border-zinc-200 bg-white px-4 text-sm font-medium text-zinc-900 hover:bg-zinc-50 disabled:opacity-50"
+                    disabled={loading || step === 1}
+                    onClick={() => setStep((s) => Math.max(1, s - 1))}
+                  >
+                    Back
+                  </button>
+
+                  <Button className="w-full" disabled={loading}>
+                    {loading ? "Getting your shortlist…" : step === 3 ? "Get recommendations" : "Next"}
+                  </Button>
+                </div>
 
                 <p className="text-center text-xs leading-5 text-zinc-500">
                   Privacy-first: we don’t blast your details to vendors.

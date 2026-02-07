@@ -4,6 +4,7 @@ import * as React from "react";
 
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { CompareToggle } from "@/components/compare/CompareToggle";
 
 export type ToolCardModel = {
   slug: string;
@@ -56,7 +57,8 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
           </div>
         ) : null}
 
-        <div className="mt-5">
+        <div className="mt-5 flex items-center justify-between gap-3">
+          <CompareToggle slug={tool.slug} />
           <div className="inline-flex h-10 items-center rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white hover:bg-indigo-700">
             View details
           </div>

@@ -8,6 +8,9 @@ const Schema = z.object({
   buyerEmail: z.string().email(),
   buyerRole: z.string().optional().default(""),
   sizeBand: z.enum(["EMP_20_200", "EMP_50_500", "EMP_100_1000"]),
+  industry: z.string().optional().nullable(),
+  deployment: z.enum(["cloud", "on-prem", "hybrid"]).optional().nullable(),
+  budgetBand: z.enum(["lt_50", "50_100", "100_200", "quote", "unknown"]).optional().nullable(),
   states: z.array(z.string()).default([]),
   categoriesNeeded: z.array(z.string()).min(1).max(5),
   mustHaveIntegrations: z.array(z.string()).default([]),
@@ -64,7 +67,7 @@ export async function POST(req: Request) {
         states: input.states,
         categoriesNeeded: input.categoriesNeeded,
         mustHaveIntegrations: input.mustHaveIntegrations,
-        budgetNote: input.budgetNote ?? null,
+        budgetNote: normalizeBudgetNote(input.budgetBand, input.budgetNote),
         timelineNote: input.timelineNote ?? null,
       },
     });
@@ -230,4 +233,21 @@ function prettyCategory(slug: string) {
     performance: "Performance/OKR",
   };
   return map[slug] ?? slug;
+}
+
+function normalizeBudgetNote(
+  budgetBand: "lt_50" | "50_100" | "100_200" | "quote" | "unknown" | null | undefined,
+  budgetNote: string | null | undefined
+) {
+  const note = (budgetNote ?? "").trim();
+  if (note) return note;
+  if (!budgetBand) return null;
+  const map: Record<string, string> = {
+    lt_50: "< ₹50/employee/month",
+    "50_100": "₹50–₹100/employee/month",
+    "100_200": "₹100–₹200/employee/month",
+    quote: "Quote-based",
+    unknown: "Not sure",
+  };
+  return map[budgetBand] ?? null;
 }

@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { LeadSection } from "./LeadSection";
+import { CompareToggle } from "@/components/compare/CompareToggle";
 
 export default async function ToolDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -115,7 +116,7 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
             </div>
           ) : null}
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
               className="rounded-md bg-black px-4 py-2 text-white"
               href={`/recommend?prefill=${encodeURIComponent(tool.slug)}`}
@@ -125,6 +126,7 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
             <Link className="rounded-md border border-zinc-300 bg-white px-4 py-2" href={`/tools/${tool.slug}#lead`}>
               Request demo/pricing
             </Link>
+            <CompareToggle slug={tool.slug} />
           </div>
 
           <LeadSection>

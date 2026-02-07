@@ -1,11 +1,50 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { ButtonLink } from "@/components/ui/Button";
+import { useCompare } from "@/lib/compare/useCompare";
+
+function navItemClass(active: boolean) {
+  return `rounded-md px-2 py-1 transition-colors motion-reduce:transition-none focus:outline-none focus:ring-4 focus:ring-indigo-500/20 ${
+    active
+      ? "bg-indigo-50 text-indigo-700"
+      : "text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900"
+  }`;
+}
 
 export function SiteHeader() {
+  const pathname = usePathname() || "/";
+  const { count, slugs } = useCompare();
+
+  const active = useMemo(() => {
+    const is = (prefix: string) => pathname === prefix || pathname.startsWith(prefix + "/");
+    return {
+      tools: is("/tools"),
+      vendors: is("/vendors"),
+      categories: is("/categories"),
+      resources: is("/resources"),
+      compare: is("/compare"),
+    };
+  }, [pathname]);
+
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 4);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/90 backdrop-blur">
+    <header
+      className={`sticky top-0 z-50 border-b border-zinc-200 bg-white/90 backdrop-blur transition-shadow motion-reduce:transition-none ${
+        scrolled ? "shadow-sm" : "shadow-none"
+      }`}
+    >
       <Container className="flex items-center justify-between gap-4 py-4">
         <Link href="/" className="shrink-0 text-lg font-semibold tracking-tight text-zinc-900">
           HRSignal
@@ -25,18 +64,31 @@ export function SiteHeader() {
         </form>
 
         <nav className="flex shrink-0 items-center gap-1 text-sm">
-          <Link className="rounded-md px-2 py-1 text-zinc-700 hover:bg-zinc-50" href="/tools">
+          <Link className={navItemClass(active.tools)} href="/tools">
             Tools
           </Link>
-          <Link className="rounded-md px-2 py-1 text-zinc-700 hover:bg-zinc-50" href="/vendors">
+          <Link className={navItemClass(active.vendors)} href="/vendors">
             Vendors
           </Link>
-          <Link className="rounded-md px-2 py-1 text-zinc-700 hover:bg-zinc-50" href="/categories">
+          <Link className={navItemClass(active.categories)} href="/categories">
             Categories
           </Link>
-          <Link className="rounded-md px-2 py-1 text-zinc-700 hover:bg-zinc-50" href="/resources">
+          <Link className={navItemClass(active.resources)} href="/resources">
             Resources
           </Link>
+
+          {count ? (
+            <Link
+              className={navItemClass(active.compare)}
+              href={`/compare?slugs=${encodeURIComponent(slugs.join(","))}`}
+            >
+              Compare
+              <span className="ml-2 rounded-full bg-indigo-600 px-2 py-0.5 text-xs font-semibold text-white">
+                {count}
+              </span>
+            </Link>
+          ) : null}
+
           <div className="ml-2">
             <ButtonLink href="/recommend" variant="primary" size="sm">
               Get recommendations
