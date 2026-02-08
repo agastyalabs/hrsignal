@@ -38,7 +38,13 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
       <Section className="pt-10 sm:pt-14">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div>
-            <div className="text-sm font-medium text-[#94A3B8]">{formatDate(article.date)}</div>
+            <div className="flex flex-wrap items-center gap-2 text-sm font-medium text-[#94A3B8]">
+              <span>{formatDate(article.date)}</span>
+              <span className="text-[#334155]">•</span>
+              <span>{article.category}</span>
+              <span className="text-[#334155]">•</span>
+              <span>{article.readingTime}</span>
+            </div>
             <div className="mt-2 text-2xl font-semibold tracking-tight text-[#F9FAFB]">{article.title}</div>
             <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[#CBD5E1]">{article.summary}</p>
 

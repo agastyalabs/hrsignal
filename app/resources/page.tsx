@@ -22,6 +22,8 @@ function formatDate(date: string) {
 
 export default function ResourcesPage() {
   const articles = listResourceArticles();
+  const featured = articles.find((a) => a.featured);
+  const rest = featured ? articles.filter((a) => a.slug !== featured.slug) : articles;
 
   return (
     <div className="min-h-screen bg-[#0B1220]">
@@ -38,9 +40,71 @@ export default function ResourcesPage() {
           </ButtonLink>
         </div>
 
+        {featured ? (
+          <Card className="mt-6 overflow-hidden shadow-sm">
+            <div className="flex flex-col gap-6 md:flex-row">
+              <div className="flex-1 p-6">
+                <div className="inline-flex items-center gap-2 rounded-full border border-[#1F2937] bg-[#0F172A] px-3 py-1 text-xs font-semibold text-[#CBD5E1]">
+                  Featured
+                  <span className="h-1 w-1 rounded-full bg-[#334155]" />
+                  {featured.category}
+                  <span className="h-1 w-1 rounded-full bg-[#334155]" />
+                  {featured.readingTime}
+                </div>
+
+                <div className="mt-3 text-2xl font-semibold tracking-tight text-[#F9FAFB]">
+                  <Link href={`/resources/${featured.slug}`} className="hover:underline">
+                    {featured.title}
+                  </Link>
+                </div>
+
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#CBD5E1]">{featured.summary}</p>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {featured.tags.slice(0, 6).map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-[#1F2937] bg-[#0F172A] px-3 py-1 text-xs font-medium text-[#CBD5E1]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-5 flex items-center gap-3">
+                  <ButtonLink href={`/resources/${featured.slug}`} variant="primary" size="md">
+                    Read featured →
+                  </ButtonLink>
+                  <span className="text-xs font-medium text-[#94A3B8]">Published {formatDate(featured.date)}</span>
+                </div>
+              </div>
+
+              <div className="border-t border-[#1F2937] bg-[#0F172A] p-6 md:w-[360px] md:border-l md:border-t-0">
+                <div className="text-sm font-semibold text-[#F9FAFB]">Popular topics</div>
+                <p className="mt-2 text-xs leading-relaxed text-[#94A3B8]">
+                  These are quick starting points—use them to narrow down your shortlist questions.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {["HRMS", "Payroll", "Implementation", "ATS", "Budget", "AI"].map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-[#1F2937] bg-[#111827] px-3 py-1 text-xs font-medium text-[#CBD5E1]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Card>
+        ) : null}
+
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {articles.map((a) => (
-            <Card key={a.slug} className="shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#334155] hover:shadow-md motion-reduce:transition-none">
+          {rest.map((a) => (
+            <Card
+              key={a.slug}
+              className="shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#334155] hover:shadow-md motion-reduce:transition-none"
+            >
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <div className="text-sm font-medium text-[#94A3B8]">{formatDate(a.date)}</div>
