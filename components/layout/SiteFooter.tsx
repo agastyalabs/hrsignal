@@ -14,7 +14,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2">
-              <Image src={BRAND.logoPng} alt={BRAND.name} width={126} height={28} className="h-6 w-auto" />
+              <Image src={BRAND.logo} alt={BRAND.name} width={150} height={28} className="h-6 w-auto" />
               <div className="text-base font-semibold text-[#F9FAFB]">{BRAND.name}</div>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-[#CBD5E1]">
