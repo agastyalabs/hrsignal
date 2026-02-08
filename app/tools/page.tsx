@@ -18,6 +18,10 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     vendorName: "greytHR",
     categories: ["HRMS", "Payroll"],
     tagline: "HRMS + payroll for Indian SMEs",
+    bestFor: ["20–500 employees"],
+    keyFeatures: ["Payroll compliance", "Leave & attendance", "Employee self-serve"],
+    implementationTime: "2–4 weeks",
+    pricingHint: "SME-friendly, quote-based",
   },
   {
     slug: "keka",
@@ -25,6 +29,10 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     vendorName: "Keka",
     categories: ["HRMS", "Payroll", "Performance"],
     tagline: "Modern HRMS with payroll",
+    bestFor: ["50–1000 employees"],
+    keyFeatures: ["Core HR", "Payroll", "Performance"],
+    implementationTime: "2–6 weeks",
+    pricingHint: "Per-employee pricing",
   },
   {
     slug: "zoho-people",
@@ -32,6 +40,10 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     vendorName: "Zoho",
     categories: ["HRMS", "Attendance"],
     tagline: "HRMS with attendance/leave",
+    bestFor: ["20–500 employees"],
+    keyFeatures: ["Attendance", "Leave policies", "Workflows"],
+    implementationTime: "1–3 weeks",
+    pricingHint: "Plan-based",
   },
   {
     slug: "freshteam",
@@ -39,6 +51,10 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     vendorName: "Freshworks",
     categories: ["ATS"],
     tagline: "ATS + onboarding for SMEs",
+    bestFor: ["Hiring teams"],
+    keyFeatures: ["Pipeline", "Scorecards", "Offer workflow"],
+    implementationTime: "1–2 weeks",
+    pricingHint: "Plan-based",
   },
 ];
 
@@ -141,7 +157,11 @@ export default async function ToolsPage({
             : {}),
         },
         orderBy: sort === "recent" ? { lastVerifiedAt: "desc" } : { name: "asc" },
-        include: { vendor: true, categories: { include: { category: true } } },
+        include: {
+          vendor: true,
+          categories: { include: { category: true } },
+          pricingPlans: { select: { name: true, priceNote: true } },
+        },
         take: 200,
       });
 
@@ -154,16 +174,61 @@ export default async function ToolsPage({
           .slice(0, 60);
       }
 
-      tools = rows.map((t) => ({
-        slug: t.slug,
-        name: t.name,
-        vendorName: t.vendor?.name ?? undefined,
-        vendorWebsiteUrl: t.vendor?.websiteUrl ?? undefined,
-        vendorSlug: t.vendor?.name ? slugify(t.vendor.name) : undefined,
-        categories: t.categories.map((c) => c.category.name),
-        tagline: t.tagline ?? undefined,
-        verified: Boolean(t.lastVerifiedAt),
-      }));
+      function bestForLabels(bands: unknown): string[] {
+        const arr = Array.isArray(bands) ? (bands as string[]) : [];
+        const map: Record<string, string> = {
+          EMP_20_200: "20–200 employees",
+          EMP_50_500: "50–500 employees",
+          EMP_100_1000: "100–1000 employees",
+        };
+        const out = arr.map((b) => map[b]).filter(Boolean);
+        return out.length ? out : ["SMEs"];
+      }
+
+      function implementationTime(categories: string[]) {
+        const has = (x: string) => categories.some((c) => c.toLowerCase().includes(x));
+        if (has("payroll") || has("compliance")) return "2–4 weeks";
+        if (has("hrms") || has("core")) return "2–6 weeks";
+        if (has("attendance") || has("leave") || has("time")) return "1–3 weeks";
+        if (has("ats") || has("hiring")) return "1–2 weeks";
+        if (has("performance") || has("okr")) return "1–3 weeks";
+        return "2–6 weeks";
+      }
+
+      function pricingHint(toolName: string, plans: Array<{ priceNote: string | null }> | undefined) {
+        const note = plans?.find((p) => p.priceNote)?.priceNote?.trim();
+        if (note) return note;
+        const n = toolName.toLowerCase();
+        if (n.includes("zoho")) return "Plan-based";
+        if (n.includes("fresh")) return "Plan-based";
+        return "Quote-based";
+      }
+
+      tools = rows.map((t) => {
+        const categories = t.categories.map((c) => c.category.name);
+        const keyFeatures = [
+          ...new Set([
+            ...categories.slice(0, 2),
+            t.deployment ? String(t.deployment).toLowerCase() === "cloud" ? "Cloud" : "Deployment options" : null,
+            t.indiaComplianceTags?.length ? "India compliance" : null,
+          ].filter(Boolean) as string[]),
+        ].slice(0, 3);
+
+        return {
+          slug: t.slug,
+          name: t.name,
+          vendorName: t.vendor?.name ?? undefined,
+          vendorWebsiteUrl: t.vendor?.websiteUrl ?? undefined,
+          vendorSlug: t.vendor?.name ? slugify(t.vendor.name) : undefined,
+          categories,
+          tagline: t.tagline ?? undefined,
+          verified: Boolean(t.lastVerifiedAt),
+          bestFor: bestForLabels(t.bestForSizeBands),
+          keyFeatures,
+          implementationTime: implementationTime(categories),
+          pricingHint: pricingHint(t.name, t.pricingPlans),
+        } satisfies ToolCardModel;
+      });
       if (!tools.length) mode = "empty";
     } catch {
       mode = "fallback";

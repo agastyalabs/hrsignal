@@ -16,6 +16,10 @@ export type ToolCardModel = {
   categories: string[];
   tagline?: string;
   verified?: boolean;
+  bestFor?: string[];
+  keyFeatures?: string[];
+  implementationTime?: string;
+  pricingHint?: string;
 };
 
 export function ToolCard({ tool }: { tool: ToolCardModel }) {
@@ -51,6 +55,29 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
 
         {tool.tagline ? <div className="mt-3 text-sm leading-relaxed text-[#CBD5E1]">{tool.tagline}</div> : null}
 
+        {tool.bestFor?.length ? (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {tool.bestFor.slice(0, 2).map((x) => (
+              <span
+                key={x}
+                className="rounded-full border border-[#1F2937] bg-[#171C3F] px-2.5 py-1 text-xs font-semibold text-[#F5F7FF]"
+              >
+                Best for: {x}
+              </span>
+            ))}
+          </div>
+        ) : null}
+
+        {tool.keyFeatures?.length ? (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {tool.keyFeatures.slice(0, 3).map((x) => (
+              <span key={x} className="rounded-full border border-[#1F2937] bg-[#0F172A] px-2 py-0.5 text-xs text-[#CBD5E1]">
+                {x}
+              </span>
+            ))}
+          </div>
+        ) : null}
+
         {tool.categories?.length ? (
           <div className="mt-4 flex flex-wrap gap-2">
             {tool.categories.slice(0, 3).map((c) => (
@@ -66,10 +93,19 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
           </div>
         ) : null}
 
+        <div className="mt-4 grid grid-cols-1 gap-2 text-xs text-[#94A3B8] sm:grid-cols-2">
+          <div>
+            <span className="font-medium text-[#CBD5E1]">Implementation:</span> {tool.implementationTime ?? "1–3 weeks"}
+          </div>
+          <div>
+            <span className="font-medium text-[#CBD5E1]">Pricing:</span> {tool.pricingHint ?? "Quote-based"}
+          </div>
+        </div>
+
         <div className="mt-5 flex items-center justify-between gap-3">
           <CompareToggle slug={tool.slug} />
           <div className="inline-flex h-11 items-center rounded-lg bg-[#8B5CF6] px-4 text-sm font-medium text-[#0B1220] hover:bg-[#7C3AED]">
-            View details
+            Request Demo via HRSignal
           </div>
         </div>
       </Card>

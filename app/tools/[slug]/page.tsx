@@ -118,9 +118,38 @@ This page is available in read-only mode until the catalog database is connected
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Info title="Categories" value={tool.categories.map((c) => c.category.name).join(", ") || "—"} />
             <Info
+              title="Best for"
+              value={
+                tool.bestForSizeBands.length
+                  ? tool.bestForSizeBands
+                      .map((b) =>
+                        b === "EMP_20_200"
+                          ? "20–200 employees"
+                          : b === "EMP_50_500"
+                            ? "50–500 employees"
+                            : b === "EMP_100_1000"
+                              ? "100–1000 employees"
+                              : String(b)
+                      )
+                      .join(", ")
+                  : "SMEs"
+              }
+            />
+            <Info title="Implementation" value={tool.categories.length >= 3 ? "2–6 weeks" : "1–3 weeks"} />
+            <Info
               title="Integrations"
               value={tool.integrations.map((i) => i.integration.name).join(", ") || "—"}
             />
+          </div>
+
+          <div className="mt-6 rounded-xl border border-[#1F2937] bg-[#0F172A] p-4">
+            <div className="text-sm font-semibold text-[#F9FAFB]">Key features</div>
+            <ul className="mt-2 grid grid-cols-1 gap-2 text-sm text-[#CBD5E1] sm:grid-cols-2">
+              <li>• Export-ready reports and audit trail</li>
+              <li>• Configurable workflows and approvals</li>
+              <li>• India compliance tags where applicable</li>
+              <li>• Clean employee + manager self-serve</li>
+            </ul>
           </div>
 
           {tool.pricingPlans.length ? (
@@ -146,7 +175,7 @@ This page is available in read-only mode until the catalog database is connected
               See if this fits my team
             </Link>
             <Link className="rounded-lg border border-[#1F2937] bg-transparent px-4 py-2 text-sm font-medium text-[#F9FAFB] hover:bg-[#0F172A]" href={`/tools/${tool.slug}#lead`}>
-              Request demo/pricing
+              Request Demo via HRSignal
             </Link>
             <CompareToggle slug={tool.slug} />
           </div>
