@@ -169,7 +169,7 @@ export default async function CategoriesPage() {
           {categories.map((c) => (
             <CategoryCard
               key={c.slug}
-              slug={c.slug as "hrms" | "payroll" | "attendance" | "ats" | "performance"}
+              slug={c.slug}
               name={c.name}
               description={c.desc ?? ""}
               toolCount={toolCounts.get(c.slug) ?? undefined}

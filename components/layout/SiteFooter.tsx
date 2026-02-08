@@ -49,7 +49,7 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link className="text-gray-600 hover:text-gray-900" href="/resources">
+                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/resources">
                   Resources
                 </Link>
               </li>
@@ -65,17 +65,17 @@ export function SiteFooter() {
             <div className="text-sm font-semibold text-[#F9FAFB]">Resources</div>
             <ul className="mt-3 space-y-2 text-sm">
               <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/resources/hrms-selection-india-sme">
-                  HRMS buyer guide
+                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/resources/best-hrms-india-sme-2026">
+                  Best HRMS (India, 2026)
                 </Link>
               </li>
               <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/resources/payroll-compliance-checklist">
-                  Payroll checklist
+                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/resources/payroll-compliance-checklist-india-2026">
+                  Payroll compliance checklist
                 </Link>
               </li>
               <li>
-                <Link className="text-gray-600 hover:text-gray-900" href="/resources">
+                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/resources">
                   Browse all resources
                 </Link>
               </li>

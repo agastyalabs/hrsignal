@@ -1,17 +1,30 @@
 import Link from "next/link";
 import * as React from "react";
-import { Briefcase, Calculator, Clock, UserSearch, Target } from "lucide-react";
+import {
+  Briefcase,
+  Calculator,
+  Clock,
+  GraduationCap,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  UserSearch,
+  HeartHandshake,
+} from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 
-type CategorySlug = "hrms" | "payroll" | "attendance" | "ats" | "performance";
+type CategorySlug = string;
 
-const iconBySlug: Record<CategorySlug, React.ComponentType<{ size?: number }>> = {
+const iconBySlug: Record<string, React.ComponentType<{ size?: number }>> = {
   hrms: Briefcase,
   payroll: Calculator,
   attendance: Clock,
   ats: UserSearch,
   performance: Target,
+  bgv: ShieldCheck,
+  lms: GraduationCap,
+  engagement: HeartHandshake,
 };
 
 export function CategoryCard({
@@ -27,7 +40,7 @@ export function CategoryCard({
   toolCount?: number;
   indiaReady?: boolean;
 }) {
-  const Icon = iconBySlug[slug];
+  const Icon = iconBySlug[slug] ?? Sparkles;
   return (
     <Link href={`/tools?category=${encodeURIComponent(slug)}`} className="block">
       <Card className="h-full border border-[rgba(255,255,255,0.08)] bg-[#121634] transition-all duration-200 hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.14)] hover:shadow-md motion-reduce:transition-none">
