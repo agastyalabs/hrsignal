@@ -6,6 +6,7 @@ export type ResourceArticle = {
   title: string;
   summary: string;
   date: string; // YYYY-MM-DD
+  author: string;
   tags: string[];
   category: string;
   readingTime: string;
@@ -75,6 +76,7 @@ export function loadResourceArticles(): ResourceArticle[] {
     const date = meta.date ?? "2026-02-08";
     const category = meta.category ?? "Guide";
     const tags = parseCsvList(meta.tags);
+    const author = meta.author ?? "HRSignal";
     const featured = (meta.featured ?? "").toLowerCase() === "true";
 
     const words = wordCount(body);
@@ -84,6 +86,7 @@ export function loadResourceArticles(): ResourceArticle[] {
       title,
       summary,
       date,
+      author,
       category,
       tags,
       readingTime: readingTimeFromWords(words),

@@ -2,6 +2,7 @@
 title: HRMS implementation mistakes Indian SMEs should avoid (and how to go live smoothly)
 summary: The most common HRMS rollout mistakes—data, ownership, policies, manager adoption—and a practical 30‑day plan to avoid go-live chaos.
 date: 2026-02-08
+author: HRSignal Research Team
 category: Implementation
 tags: Implementation, HRMS, Payroll, Attendance, SME, India
 ---

@@ -2,6 +2,7 @@
 title: Payroll Compliance Checklist (India, 2026): what to verify before you sign
 summary: A practical, audit-friendly checklist for PF/ESI/PT/TDS and payroll operations in India—questions to ask, reports to demand, and common failure modes.
 date: 2026-02-08
+author: HRSignal Research Team
 category: Checklist
 tags: Payroll, Compliance, PF, ESI, PT, TDS, India
 ---

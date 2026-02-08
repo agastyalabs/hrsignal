@@ -2,6 +2,7 @@
 title: Best HRMS for Indian SMEs (2026): a buyer’s shortlist process
 summary: A practical way to choose an HRMS in India in 2026—what to validate in demos, what to avoid, and how to shortlist without vendor spam.
 date: 2026-02-08
+author: HRSignal Research Team
 category: Buyer guide
 tags: HRMS, SME, India, Buying, Implementation
 featured: true

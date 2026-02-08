@@ -2,6 +2,7 @@
 title: ATS vs HRMS — what should Indian SMEs choose first?
 summary: A practical sequencing guide for Indian SMEs: when to buy an ATS first vs an HRMS first, what to validate in demos, and how to avoid rework.
 date: 2026-02-08
+author: HRSignal Research Team
 category: Decision guide
 tags: ATS, HRMS, Hiring, SME, India, Buying
 ---

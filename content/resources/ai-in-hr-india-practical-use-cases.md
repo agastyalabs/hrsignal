@@ -2,6 +2,7 @@
 title: AI in HR (India): practical use cases that actually work
 summary: A non-hype guide for Indian SMEs: where AI helps HR teams today, where it creates risk, and how to adopt it with privacy and auditability.
 date: 2026-02-08
+author: HRSignal Research Team
 category: Advisory
 tags: AI, HR, India, Operations, Security, Buying
 ---

@@ -2,6 +2,7 @@
 title: HR software budget guide (India) for 50–500 employees
 summary: A practical budgeting guide for HRMS, payroll, attendance, ATS and performance tools—how pricing works in India, what to expect, and how to avoid hidden costs.
 date: 2026-02-08
+author: HRSignal Research Team
 category: Budget guide
 tags: Budget, Pricing, HRMS, Payroll, SME, India
 ---
