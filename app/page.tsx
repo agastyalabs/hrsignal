@@ -9,7 +9,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FeatureGrid } from "@/components/marketing/FeatureGrid";
 import { TrustStrip } from "@/components/marketing/TrustStrip";
-import { LogoStrip } from "@/components/marketing/LogoStrip";
+import { VendorLogoStrip } from "@/components/marketing/VendorLogoStrip";
 import { TestimonialStrip } from "@/components/marketing/TestimonialStrip";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
@@ -81,14 +81,14 @@ export default async function Home() {
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <ButtonLink href="/recommend" size="lg" variant="primary">
-                  Get personalised recommendations
+                  Get Recommendations
                 </ButtonLink>
-                <ButtonLink href="/tools" size="lg" variant="secondary">
-                  Browse verified tools
+                <ButtonLink href="/categories" size="lg" variant="secondary">
+                  Browse Categories
                 </ButtonLink>
               </div>
 
-              <div className="mt-4 text-sm font-medium text-[#94A3B8]">
+              <div className="mt-4 text-sm font-medium text-[var(--text-muted)]">
                 200+ India-ready tools · Verified vendors · Privacy-first
               </div>
 
@@ -104,19 +104,19 @@ export default async function Home() {
                 ))}
               </div>
 
-              {/* Trust strip below hero copy */}
+              {/* Proof bar */}
               <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-[#F9FAFB]">Trusted by Indian SMEs</div>
-                  <div className="mt-1 text-sm text-[#CBD5E1]">Early access — built with operators.</div>
+                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-4 shadow-sm">
+                  <div className="text-sm font-semibold text-[var(--text)]">Built for Indian SMEs</div>
+                  <div className="mt-1 text-sm text-[var(--text-muted)]">Shortlists that fit India payroll + ops realities.</div>
                 </div>
-                <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-[#F9FAFB]">Verified listings</div>
-                  <div className="mt-1 text-sm text-[#CBD5E1]">Freshness cues + clear metadata.</div>
+                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-4 shadow-sm">
+                  <div className="text-sm font-semibold text-[var(--text)]">Verified listings</div>
+                  <div className="mt-1 text-sm text-[var(--text-muted)]">Clear metadata, compliance tags, deployment info.</div>
                 </div>
-                <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-[#F9FAFB]">Privacy-first</div>
-                  <div className="mt-1 text-sm text-[#CBD5E1]">We don’t share details without consent.</div>
+                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-4 shadow-sm">
+                  <div className="text-sm font-semibold text-[var(--text)]">Privacy-first</div>
+                  <div className="mt-1 text-sm text-[var(--text-muted)]">We don’t share details without consent.</div>
                 </div>
               </div>
             </div>
@@ -193,7 +193,7 @@ export default async function Home() {
 
         <div className="mt-10 space-y-6">
           <TrustStrip />
-          <LogoStrip title="Early access teams" />
+          <VendorLogoStrip title="Popular vendors" subtitle="Recognizable India-first HR tools — more logos added continuously." />
         </div>
       </Section>
 
