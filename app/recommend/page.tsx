@@ -6,7 +6,15 @@ import { RecommendTabs } from "./RecommendTabs";
 
 export const dynamic = "force-dynamic";
 
-export default function RecommendPage() {
+export default async function RecommendPage({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = (await searchParams) ?? {};
+  const raw = sp.mode;
+  const mode = (Array.isArray(raw) ? raw[0] : raw) === "detailed" ? "detailed" : "quick";
+
   return (
     <div className="min-h-screen bg-[#0B0E23]">
       <SiteHeader />
@@ -20,7 +28,7 @@ export default function RecommendPage() {
             </p>
 
             <div className="mt-6">
-              <RecommendTabs />
+              <RecommendTabs initialMode={mode} />
             </div>
           </div>
         </Container>

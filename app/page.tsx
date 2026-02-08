@@ -55,41 +55,65 @@ export default async function Home() {
     <div className="min-h-screen bg-[#0B1220]">
       <SiteHeader />
 
-      {/* Hero */}
+      {/* Hero (bento) */}
       <Section className="pt-10 sm:pt-14">
-        <div className="relative overflow-hidden rounded-3xl border border-[#1F2937] bg-[#111827] shadow-sm">
-          {/* Background wash (subtle) */}
-          <div className="pointer-events-none absolute -top-28 right-[-140px] h-[420px] w-[420px] rounded-full bg-[#8B5CF6]/20 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-28 left-[-140px] h-[420px] w-[420px] rounded-full bg-[#0F172A] blur-3xl" />
+        <div className="relative overflow-hidden rounded-3xl border border-[#1F2937] bg-[#0F172A] shadow-[var(--shadow-sm)]">
+          {/* Signal motif: layered gradients + waveform */}
+          <div className="pointer-events-none absolute inset-0 opacity-90">
+            <div className="absolute -top-40 right-[-160px] h-[520px] w-[520px] rounded-full bg-[#8B5CF6]/18 blur-3xl" />
+            <div className="absolute -bottom-44 left-[-180px] h-[560px] w-[560px] rounded-full bg-[#2DD4BF]/10 blur-3xl" />
+            <svg
+              aria-hidden="true"
+              className="absolute -right-24 top-10 h-[340px] w-[640px] opacity-[0.18]"
+              viewBox="0 0 640 340"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 210 C 80 120, 160 300, 240 210 C 320 120, 400 300, 480 210 C 560 120, 600 190, 640 160"
+                stroke="#8B5CF6"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+              <path
+                d="M0 250 C 90 160, 170 330, 250 250 C 330 170, 410 330, 490 250 C 570 170, 610 240, 640 210"
+                stroke="#A78BFA"
+                strokeWidth="2"
+                strokeLinecap="round"
+                opacity="0.8"
+              />
+            </svg>
+          </div>
 
-          <div className="grid grid-cols-1 gap-10 p-6 sm:p-10 lg:grid-cols-2 lg:items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#1F2937] bg-[#0F172A] px-3 py-1 text-xs font-semibold text-[#CBD5E1]">
-                Built for Indian SMEs • HR-only directory
+          <div className="relative grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-10">
+            {/* Left */}
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#1F2937] bg-[#111827] px-3 py-1 text-xs font-semibold text-[#CBD5E1]">
+                India-first HR software discovery
+                <span className="h-1 w-1 rounded-full bg-[#334155]" />
+                Explainable shortlists
               </div>
 
-              <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-[#F9FAFB] sm:text-5xl">
+              <h1 className="mt-5 text-[length:var(--h1-size)] font-semibold leading-[1.08] tracking-tight text-[#F9FAFB]">
                 Stop guessing HR software.
               </h1>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#8B5CF6] sm:text-3xl">
-                Get a shortlist that actually fits your team.
-              </h2>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#CBD5E1]">
-                HRSignal helps Indian SMEs compare HRMS, payroll, compliance, attendance, ATS and performance tools — with clear match reasons,
-                not sales fluff.
+                HRSignal helps Indian SMEs shortlist HRMS, payroll & compliance, attendance, ATS and performance tools—with clear match reasons.
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <ButtonLink href="/recommend" size="lg" variant="primary">
-                  Get Recommendations
-                </ButtonLink>
-                <ButtonLink href="/categories" size="lg" variant="secondary">
-                  Browse Categories
-                </ButtonLink>
+              <div className="mt-6 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
+                {["Export-ready reporting", "RBAC + audit trail", "Month-end reality checks", "No vendor spam by default"].map((x) => (
+                  <div
+                    key={x}
+                    className="rounded-2xl border border-[#1F2937] bg-[#111827] p-4 text-sm font-medium text-[#CBD5E1]"
+                  >
+                    {x}
+                  </div>
+                ))}
               </div>
 
-              <div className="mt-4 text-sm font-medium text-[var(--text-muted)]">
-                200+ India-ready tools · Verified vendors · Privacy-first
+              <div className="mt-6 text-sm font-medium text-[#94A3B8]">
+                200+ directory listings • Deterministic recommendations • Privacy-first
               </div>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -97,95 +121,89 @@ export default async function Home() {
                   <Link
                     key={c.slug}
                     href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                    className="rounded-full border border-[#1F2937] bg-[#111827] px-3 py-1 text-sm text-[#CBD5E1] transition-all duration-200 hover:bg-[#0F172A] hover:text-[#F9FAFB] hover:border-[#334155] hover:shadow-sm motion-reduce:transition-none"
+                    className="rounded-full border border-[#1F2937] bg-[#0B1220] px-3 py-1 text-sm text-[#CBD5E1] transition-all duration-200 hover:border-[#334155] hover:bg-[#111827] hover:text-[#F9FAFB]"
                   >
                     {c.name}
                   </Link>
                 ))}
               </div>
-
-              {/* Proof bar */}
-              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-[var(--text)]">Built for Indian SMEs</div>
-                  <div className="mt-1 text-sm text-[var(--text-muted)]">Shortlists that fit India payroll + ops realities.</div>
-                </div>
-                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-[var(--text)]">Verified listings</div>
-                  <div className="mt-1 text-sm text-[var(--text-muted)]">Clear metadata, compliance tags, deployment info.</div>
-                </div>
-                <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-[var(--text)]">Privacy-first</div>
-                  <div className="mt-1 text-sm text-[var(--text-muted)]">We don’t share details without consent.</div>
-                </div>
-              </div>
             </div>
 
-            {/* Right visual + search */}
-            <div>
-              <div className="rounded-2xl border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm sm:p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="text-sm font-semibold text-[#F9FAFB]">Search tools</div>
-                    <div className="mt-1 text-sm text-[#CBD5E1]">Start with a vendor, category, or use-case.</div>
-                  </div>
+            {/* Right */}
+            <div className="lg:col-span-5">
+              <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-5 shadow-[var(--shadow-sm)] sm:p-6">
+                <div className="text-sm font-semibold text-[#F9FAFB]">Get your shortlist</div>
+                <p className="mt-1 text-sm text-[#CBD5E1]">
+                  Choose a fast path or go deeper for more tailored match reasons.
+                </p>
 
-                  {/* Inline SVG illustration (no external asset dependency) */}
-                  <svg
-                    width="56"
-                    height="56"
-                    viewBox="0 0 56 56"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    className="opacity-90"
-                  >
-                    <rect x="8" y="10" width="40" height="36" rx="12" fill="#E0E7FF" />
-                    <rect x="16" y="19" width="24" height="6" rx="3" fill="#4F46E5" opacity="0.85" />
-                    <rect x="16" y="29" width="18" height="5" rx="2.5" fill="#111827" opacity="0.25" />
-                    <circle cx="40" cy="33" r="6" fill="#F5F3FF" />
-                    <path
-                      d="M41.8 35.8L45 39"
-                      stroke="#4F46E5"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </div>
-
-                <div className="mt-4 rounded-xl border border-[#1F2937] bg-[#111827] p-4">
-                  <div className="text-sm font-medium text-[#CBD5E1]">
-                    Use the search bar in the header to find tools, vendors, and categories.
-                  </div>
-                </div>
-
-                <div className="mt-4">
-                  <div className="text-xs font-medium text-[#94A3B8]">Popular categories</div>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {CATEGORIES.map((c) => (
-                      <Link
-                        key={c.slug}
-                        href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                        className="rounded-full border border-[#1F2937] bg-[#111827] px-3 py-1 text-sm text-[#CBD5E1] transition-all duration-200 hover:bg-[#0F172A] hover:text-[#F9FAFB] hover:border-[#334155] hover:shadow-sm motion-reduce:transition-none"
-                      >
-                        {c.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-6 grid grid-cols-3 gap-3">
-                  {[
-                    { k: "Listings", v: "200+" },
-                    { k: "SME focus", v: "India" },
-                    { k: "Method", v: "Explainable" },
-                  ].map((m) => (
-                    <div key={m.k} className="rounded-xl border border-[#1F2937] bg-[#111827] p-3 shadow-sm">
-                      <div className="text-xs font-medium text-[#94A3B8]">{m.k}</div>
-                      <div className="mt-1 text-sm font-semibold text-[#F9FAFB]">{m.v}</div>
+                <div className="mt-5 grid grid-cols-1 gap-3">
+                  <div className="rounded-2xl border border-[#1F2937] bg-[#0F172A] p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <div className="text-sm font-semibold text-[#F9FAFB]">Get Quick Recommendation</div>
+                        <div className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
+                          2–3 minutes. Ideal if you want a starting shortlist.
+                        </div>
+                      </div>
+                      <div className="rounded-xl border border-[#1F2937] bg-[#111827] px-2.5 py-1 text-xs font-semibold text-[#CBD5E1]">
+                        Quick
+                      </div>
                     </div>
-                  ))}
+                    <div className="mt-4">
+                      <ButtonLink href="/recommend?mode=quick" variant="primary" size="md" className="w-full justify-center">
+                        Start quick →
+                      </ButtonLink>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-[#1F2937] bg-[#0F172A] p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <div className="text-sm font-semibold text-[#F9FAFB]">Start Detailed Recommendation</div>
+                        <div className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
+                          6–10 minutes. Better if compliance, integrations, or rollout complexity matters.
+                        </div>
+                      </div>
+                      <div className="rounded-xl border border-[#1F2937] bg-[#111827] px-2.5 py-1 text-xs font-semibold text-[#CBD5E1]">
+                        Detailed
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <ButtonLink href="/recommend?mode=detailed" variant="secondary" size="md" className="w-full justify-center">
+                        Start detailed →
+                      </ButtonLink>
+                    </div>
+                  </div>
                 </div>
+
+                <div className="mt-5 rounded-xl border border-[#1F2937] bg-[#0B1220] p-4">
+                  <div className="text-xs font-semibold text-[#F9FAFB]">Pro tip</div>
+                  <div className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
+                    If you already have 2–3 tools in mind, add them to Compare and evaluate exports, workflows, and month-end reliability.
+                  </div>
+                  <div className="mt-3">
+                    <ButtonLink href="/tools" variant="tertiary" size="sm" className="w-full justify-center">
+                      Browse tools →
+                    </ButtonLink>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 grid grid-cols-3 gap-3">
+                {[
+                  { k: "Listings", v: "200+" },
+                  { k: "Mode", v: "Explainable" },
+                  { k: "Fit", v: "India-first" },
+                ].map((m) => (
+                  <div
+                    key={m.k}
+                    className="rounded-2xl border border-[#1F2937] bg-[#111827] p-3 text-center shadow-[var(--shadow-sm)]"
+                  >
+                    <div className="text-xs font-medium text-[#94A3B8]">{m.k}</div>
+                    <div className="mt-1 text-sm font-semibold text-[#F9FAFB]">{m.v}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -211,13 +229,7 @@ export default async function Home() {
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((c) => (
-            <CategoryCard
-              key={c.slug}
-              slug={c.slug}
-              name={c.name}
-              description={c.description}
-              indiaReady={c.indiaReady}
-            />
+            <CategoryCard key={c.slug} slug={c.slug} name={c.name} description={c.description} indiaReady={c.indiaReady} />
           ))}
         </div>
       </Section>
@@ -270,7 +282,7 @@ export default async function Home() {
           <TestimonialStrip />
         </div>
 
-        <div className="mt-10 rounded-2xl border border-[#1F2937] bg-[#0F172A] p-6 shadow-sm sm:p-8">
+        <div className="mt-10 rounded-2xl border border-[#1F2937] bg-[#0F172A] p-6 shadow-[var(--shadow-sm)] sm:p-8">
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
               <div className="text-xl font-semibold text-[#F9FAFB]">Ready for a guided shortlist?</div>
@@ -293,7 +305,7 @@ export default async function Home() {
         />
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
+          <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-[var(--shadow-sm)]">
             <div className="text-sm font-semibold text-[#F9FAFB]">Starter</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight">Free</div>
             <p className="mt-2 text-sm text-[#CBD5E1]">Get recommendations + shortlist with reasons.</p>
@@ -309,7 +321,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[var(--primary)]/30 bg-[#0F172A] p-6 shadow-sm">
+          <div className="rounded-2xl border border-[var(--primary)]/30 bg-[#0F172A] p-6 shadow-[var(--shadow-sm)]">
             <div className="text-sm font-semibold text-[#F9FAFB]">Teams</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight text-[#F9FAFB]">Early access</div>
             <p className="mt-2 text-sm text-[#CBD5E1]">We’ll set this up with you (white-glove).</p>
@@ -325,7 +337,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
+          <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-[var(--shadow-sm)]">
             <div className="text-sm font-semibold text-[#F9FAFB]">Enterprise</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight">Talk to us</div>
             <p className="mt-2 text-sm text-[#CBD5E1]">For larger teams and multi-entity compliance needs.</p>
@@ -365,7 +377,7 @@ export default async function Home() {
               a: "Add details in the note and we’ll refine the shortlist manually before making an intro.",
             },
           ].map((f) => (
-            <div key={f.q} className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
+            <div key={f.q} className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-[var(--shadow-sm)]">
               <div className="text-sm font-semibold text-[#F9FAFB]">{f.q}</div>
               <div className="mt-2 text-sm leading-relaxed text-[#CBD5E1]">{f.a}</div>
             </div>

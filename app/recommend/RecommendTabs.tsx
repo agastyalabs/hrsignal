@@ -1,14 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import RecommendInner from "@/components/recommend/RecommendInner";
 
-export function RecommendTabs() {
+export function RecommendTabs({ initialMode = "quick" }: { initialMode?: "quick" | "detailed" }) {
   const [mode, setMode] = useState<"quick" | "detailed">("quick");
 
+  useEffect(() => {
+    setMode(initialMode);
+  }, [initialMode]);
+
   return (
-    <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-5 shadow-sm">
+    <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-5 shadow-[var(--shadow-sm)]">
       <div className="flex items-center justify-between gap-3">
         <div>
           <div className="text-sm font-semibold text-[#F9FAFB]">Recommendation mode</div>
@@ -21,7 +25,7 @@ export function RecommendTabs() {
           <button
             type="button"
             onClick={() => setMode("quick")}
-            className={`h-9 rounded-lg px-3 text-sm font-medium transition-colors ${
+            className={`h-9 rounded-lg px-3 text-sm font-medium transition-all duration-200 motion-reduce:transition-none ${
               mode === "quick" ? "bg-[#7441F2] text-[#F9FAFB]" : "text-[#CBD5E1] hover:text-[#F9FAFB]"
             }`}
             aria-pressed={mode === "quick"}
@@ -31,7 +35,7 @@ export function RecommendTabs() {
           <button
             type="button"
             onClick={() => setMode("detailed")}
-            className={`h-9 rounded-lg px-3 text-sm font-medium transition-colors ${
+            className={`h-9 rounded-lg px-3 text-sm font-medium transition-all duration-200 motion-reduce:transition-none ${
               mode === "detailed" ? "bg-[#7441F2] text-[#F9FAFB]" : "text-[#CBD5E1] hover:text-[#F9FAFB]"
             }`}
             aria-pressed={mode === "detailed"}
@@ -62,7 +66,7 @@ export function RecommendTabs() {
                 <input className="input mt-1" name="buyerRole" placeholder="Founder / HR / Ops" />
               </div>
 
-              <button className="h-11 w-full rounded-lg bg-[#7441F2] px-4 text-sm font-medium text-[#F9FAFB] hover:bg-[#825AE0]">
+              <button className="h-11 w-full rounded-lg bg-[#7441F2] px-4 text-sm font-medium text-[#F9FAFB] transition-all duration-200 hover:bg-[#825AE0]">
                 Continue
               </button>
 

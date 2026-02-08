@@ -9,6 +9,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { ButtonLink } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useCompare } from "@/lib/compare/useCompare";
 
 function navItemClass(active: boolean) {
@@ -123,6 +124,10 @@ export function SiteHeader() {
               </span>
             </Link>
           ) : null}
+
+          <div className="ml-2 hidden sm:block">
+            <ThemeToggle />
+          </div>
 
           <div className="ml-2">
             <ButtonLink href="/recommend" variant="primary" size="sm">
