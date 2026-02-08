@@ -7,7 +7,7 @@ This document outlines the final set of visual and functional enhancements neede
 Observations from the current live site
 
 Based on a review of the public site on 8 Feb 2026 (Asia/Kolkata timezone) the following issues were identified:
-1. Branding inconsistency: The navigation bar still occasionally shows the placeholder “PICHS” brand in some builds, and the new HR Signal logo is missing from certain components. This undermines trust and needs to be eliminated everywhere.
+1. Branding inconsistency: The navigation bar still occasionally shows an old placeholder brand label in some builds, and the new HR Signal logo is missing from certain components. This undermines trust and needs to be eliminated everywhere.
 2. Vendor logos missing: Many tool and vendor cards display coloured initials instead of the actual company logos. This makes the site feel unfinished and reduces brand credibility. Vendors should be represented with their real logos or a fallback mechanism.
 3. Navigation & hero clarity: The homepage hero features two calls-to-action (“Get recommendation” button on the hero and another inside the panel) without clear differentiation (e.g., quick vs detailed recommendation). There is also an empty placeholder square under the search bar that distracts from the hero messaging. Navigation items occasionally lose their active highlight state.
 4. Resource content depth: The resources page currently lists only two short articles. For a B2B purchase-journey site, visitors expect in-depth guides (600–1 200 words) that establish expertise and improve SEO. At least 8–12 posts should be available at launch, each with reading-time indicators, author attribution and structured headings.
@@ -35,7 +35,7 @@ Based on a review of the public site on 8 Feb 2026 (Asia/Kolkata timezone) the f
 Page-by-page recommendations
 
 1. Navigation & Header
-- Consistent branding: Replace all instances of “PICHS” with HR Signal. Store the logo in /public/brand/ and reference via a single configuration file.
+- Consistent branding: Replace all instances of any placeholder brand label with HR Signal. Store the logo in /public/brand/ and reference via a single configuration file.
 - Minimal navigation: Limit top nav to Tools, Vendors, Categories, Resources and Get Recommendations.
 - Predictive search bar: Enhance header search with autocomplete and typo tolerance.
 - Active state feedback: Ensure nav items highlight on current page. Use ~0.2s transitions.

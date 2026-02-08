@@ -115,7 +115,7 @@ Dark Charcoal #1A233A
 
 ## 8. Implementation Checklist
 
-1. Remove all PICHS references
+1. Remove all placeholder brand references
 2. Canonical logo usage from /public/brand/logo.svg
 3. CSS variables for light/dark themes
 4. Vendor logo fetch + cache
