@@ -71,7 +71,7 @@ export default async function ResourceArticlePage({ params }: { params: Promise<
   const relatedTools = await getRelatedTools(article);
 
   return (
-    <div className="min-h-screen bg-[#0B1220]">
+    <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">

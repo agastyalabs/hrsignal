@@ -29,7 +29,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
   if (!vendor) return notFound();
 
   return (
-    <div className="min-h-screen bg-[#0B1220]">
+    <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">

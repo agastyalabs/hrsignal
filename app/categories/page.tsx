@@ -86,7 +86,7 @@ export default async function CategoriesPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#0B0E23]">
+    <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">

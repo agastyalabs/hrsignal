@@ -16,7 +16,7 @@ export default async function RecommendPage({
   const mode = (Array.isArray(raw) ? raw[0] : raw) === "detailed" ? "detailed" : "quick";
 
   return (
-    <div className="min-h-screen bg-[#0B0E23]">
+    <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
 
       <main className="py-10 sm:py-14">

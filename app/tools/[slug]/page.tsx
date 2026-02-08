@@ -46,7 +46,7 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
     if (!f) return notFound();
 
     return (
-      <div className="min-h-screen bg-[#0B1220]">
+      <div className="min-h-screen bg-[var(--bg)]">
         <SiteHeader />
         <main className="mx-auto max-w-4xl px-6 py-10">
           <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED]" href="/tools">
@@ -90,7 +90,7 @@ This page is available in read-only mode until the catalog database is connected
   if (!tool || tool.status !== "PUBLISHED") return notFound();
 
   return (
-    <div className="min-h-screen bg-[#0B1220]">
+    <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
       <main className="mx-auto max-w-4xl px-6 py-10">
         <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED]" href="/tools">

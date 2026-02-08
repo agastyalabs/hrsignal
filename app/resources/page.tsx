@@ -26,7 +26,7 @@ export default function ResourcesPage() {
   const rest = featured ? articles.filter((a) => a.slug !== featured.slug) : articles;
 
   return (
-    <div className="min-h-screen bg-[#0B1220]">
+    <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">

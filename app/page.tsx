@@ -52,15 +52,15 @@ export default async function Home() {
   const trending = await getTrendingTools();
 
   return (
-    <div className="min-h-screen bg-[#0B1220]">
+    <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
 
       {/* Hero (bento) */}
       <Section className="pt-10 sm:pt-14">
-        <div className="relative overflow-hidden rounded-3xl border border-[#1F2937] bg-[#0F172A] shadow-[var(--shadow-sm)]">
+        <div className="relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface-1)] shadow-[var(--shadow-sm)]">
           {/* Signal motif: layered gradients + waveform */}
           <div className="pointer-events-none absolute inset-0 opacity-90">
-            <div className="absolute -top-40 right-[-160px] h-[520px] w-[520px] rounded-full bg-[#8B5CF6]/18 blur-3xl" />
+            <div className="absolute -top-40 right-[-160px] h-[520px] w-[520px] rounded-full bg-[color:var(--primary)]/18 blur-3xl" />
             <div className="absolute -bottom-44 left-[-180px] h-[560px] w-[560px] rounded-full bg-[#2DD4BF]/10 blur-3xl" />
             <svg
               aria-hidden="true"
@@ -71,13 +71,13 @@ export default async function Home() {
             >
               <path
                 d="M0 210 C 80 120, 160 300, 240 210 C 320 120, 400 300, 480 210 C 560 120, 600 190, 640 160"
-                stroke="#8B5CF6"
+                stroke="#6F42C1"
                 strokeWidth="3"
                 strokeLinecap="round"
               />
               <path
                 d="M0 250 C 90 160, 170 330, 250 250 C 330 170, 410 330, 490 250 C 570 170, 610 240, 640 210"
-                stroke="#A78BFA"
+                stroke="#27D3BC"
                 strokeWidth="2"
                 strokeLinecap="round"
                 opacity="0.8"
@@ -88,14 +88,14 @@ export default async function Home() {
           <div className="relative grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-10">
             {/* Left */}
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#1F2937] bg-[#111827] px-3 py-1 text-xs font-semibold text-[#CBD5E1]">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-3 py-1 text-xs font-semibold text-[#CBD5E1]">
                 India-first HR software discovery
                 <span className="h-1 w-1 rounded-full bg-[#334155]" />
                 Explainable shortlists
               </div>
 
               <h1 className="mt-5 text-[length:var(--h1-size)] font-semibold leading-[1.08] tracking-tight text-[#F9FAFB]">
-                Stop guessing HR software.
+                Discover the right HR tools for your Indian SME.
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#CBD5E1]">
                 HRSignal helps Indian SMEs shortlist HRMS, payroll & compliance, attendance, ATS and performance tools—with clear match reasons.
@@ -105,7 +105,7 @@ export default async function Home() {
                 {["Export-ready reporting", "RBAC + audit trail", "Month-end reality checks", "No vendor spam by default"].map((x) => (
                   <div
                     key={x}
-                    className="rounded-2xl border border-[#1F2937] bg-[#111827] p-4 text-sm font-medium text-[#CBD5E1]"
+                    className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-4 text-sm font-medium text-[#CBD5E1]"
                   >
                     {x}
                   </div>
@@ -121,7 +121,7 @@ export default async function Home() {
                   <Link
                     key={c.slug}
                     href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                    className="rounded-full border border-[#1F2937] bg-[#0B1220] px-3 py-1 text-sm text-[#CBD5E1] transition-all duration-200 hover:border-[#334155] hover:bg-[#111827] hover:text-[#F9FAFB]"
+                    className="rounded-full border border-[#1F2937] bg-[var(--surface-2)] px-3 py-1 text-sm text-[#CBD5E1] transition-all duration-200 hover:border-[#334155] hover:bg-[#111827] hover:text-[#F9FAFB]"
                   >
                     {c.name}
                   </Link>
@@ -131,7 +131,56 @@ export default async function Home() {
 
             {/* Right */}
             <div className="lg:col-span-5">
-              <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-5 shadow-[var(--shadow-sm)] sm:p-6">
+              {/* HR illustration (inline SVG placeholder, no external deps) */}
+              <div className="relative mb-4 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface-1)] p-5 shadow-[var(--shadow-sm)]">
+                <div className="absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[color:var(--primary)]/14 blur-3xl" />
+                <div className="absolute -left-24 -bottom-24 h-56 w-56 rounded-full bg-[color:var(--accent)]/14 blur-3xl" />
+
+                <div className="relative">
+                  <div className="text-xs font-semibold tracking-wide text-[var(--text-muted)]">VISUAL</div>
+                  <div className="mt-1 text-sm font-semibold text-[var(--text)]">Shortlist clarity, without the noise</div>
+
+                  <svg
+                    aria-label="HRSignal illustration"
+                    role="img"
+                    viewBox="0 0 680 260"
+                    className="mt-4 h-[180px] w-full"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#6F42C1" stop-opacity="0.55"/>
+                        <stop offset="1" stop-color="#27D3BC" stop-opacity="0.35"/>
+                      </linearGradient>
+                    </defs>
+
+                    <rect x="0" y="0" width="680" height="260" rx="22" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)"/>
+
+                    <path d="M40 170 C 110 70, 200 230, 270 150 C 340 70, 430 240, 500 160 C 570 90, 620 130, 650 110" fill="none" stroke="url(#g)" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M40 200 C 120 115, 210 250, 290 185 C 370 120, 450 260, 530 190 C 600 135, 630 165, 650 150" fill="none" stroke="#27D3BC" stroke-opacity="0.35" stroke-width="3" stroke-linecap="round"/>
+
+                    <g transform="translate(70 55)">
+                      <rect x="0" y="0" width="220" height="150" rx="18" fill="rgba(13,22,63,0.55)" stroke="rgba(255,255,255,0.10)"/>
+                      <rect x="18" y="20" width="120" height="14" rx="7" fill="rgba(255,255,255,0.80)"/>
+                      <rect x="18" y="48" width="170" height="10" rx="5" fill="rgba(255,255,255,0.35)"/>
+                      <rect x="18" y="68" width="150" height="10" rx="5" fill="rgba(255,255,255,0.28)"/>
+                      <rect x="18" y="98" width="110" height="28" rx="14" fill="#6F42C1" opacity="0.9"/>
+                    </g>
+
+                    <g transform="translate(330 78)">
+                      <rect x="0" y="0" width="280" height="128" rx="18" fill="rgba(13,22,63,0.55)" stroke="rgba(255,255,255,0.10)"/>
+                      <circle cx="44" cy="44" r="22" fill="rgba(255,255,255,0.18)"/>
+                      <rect x="80" y="26" width="170" height="12" rx="6" fill="rgba(255,255,255,0.55)"/>
+                      <rect x="80" y="50" width="210" height="10" rx="5" fill="rgba(255,255,255,0.28)"/>
+                      <rect x="24" y="82" width="120" height="24" rx="12" fill="#27D3BC" opacity="0.9"/>
+                      <rect x="154" y="82" width="110" height="24" rx="12" fill="rgba(255,255,255,0.12)"/>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+
+
+              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)] sm:p-6">
                 <div className="text-sm font-semibold text-[#F9FAFB]">Get your shortlist</div>
                 <p className="mt-1 text-sm text-[#CBD5E1]">
                   Choose a fast path or go deeper for more tailored match reasons.
@@ -146,7 +195,7 @@ export default async function Home() {
                           2–3 minutes. Ideal if you want a starting shortlist.
                         </div>
                       </div>
-                      <div className="rounded-xl border border-[#1F2937] bg-[#111827] px-2.5 py-1 text-xs font-semibold text-[#CBD5E1]">
+                      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[#CBD5E1]">
                         Quick
                       </div>
                     </div>
@@ -165,7 +214,7 @@ export default async function Home() {
                           6–10 minutes. Better if compliance, integrations, or rollout complexity matters.
                         </div>
                       </div>
-                      <div className="rounded-xl border border-[#1F2937] bg-[#111827] px-2.5 py-1 text-xs font-semibold text-[#CBD5E1]">
+                      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[#CBD5E1]">
                         Detailed
                       </div>
                     </div>
@@ -177,7 +226,7 @@ export default async function Home() {
                   </div>
                 </div>
 
-                <div className="mt-5 rounded-xl border border-[#1F2937] bg-[#0B1220] p-4">
+                <div className="mt-5 rounded-xl border border-[#1F2937] bg-[var(--surface-2)] p-4">
                   <div className="text-xs font-semibold text-[#F9FAFB]">Pro tip</div>
                   <div className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
                     If you already have 2–3 tools in mind, add them to Compare and evaluate exports, workflows, and month-end reliability.
@@ -198,7 +247,7 @@ export default async function Home() {
                 ].map((m) => (
                   <div
                     key={m.k}
-                    className="rounded-2xl border border-[#1F2937] bg-[#111827] p-3 text-center shadow-[var(--shadow-sm)]"
+                    className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-3 text-center shadow-[var(--shadow-sm)]"
                   >
                     <div className="text-xs font-medium text-[#94A3B8]">{m.k}</div>
                     <div className="mt-1 text-sm font-semibold text-[#F9FAFB]">{m.v}</div>
@@ -305,7 +354,7 @@ export default async function Home() {
         />
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-[var(--shadow-sm)]">
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-6 shadow-[var(--shadow-sm)]">
             <div className="text-sm font-semibold text-[#F9FAFB]">Starter</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight">Free</div>
             <p className="mt-2 text-sm text-[#CBD5E1]">Get recommendations + shortlist with reasons.</p>
@@ -337,7 +386,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-[var(--shadow-sm)]">
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-6 shadow-[var(--shadow-sm)]">
             <div className="text-sm font-semibold text-[#F9FAFB]">Enterprise</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight">Talk to us</div>
             <p className="mt-2 text-sm text-[#CBD5E1]">For larger teams and multi-entity compliance needs.</p>
@@ -377,7 +426,7 @@ export default async function Home() {
               a: "Add details in the note and we’ll refine the shortlist manually before making an intro.",
             },
           ].map((f) => (
-            <div key={f.q} className="rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-[var(--shadow-sm)]">
+            <div key={f.q} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-6 shadow-[var(--shadow-sm)]">
               <div className="text-sm font-semibold text-[#F9FAFB]">{f.q}</div>
               <div className="mt-2 text-sm leading-relaxed text-[#CBD5E1]">{f.a}</div>
             </div>

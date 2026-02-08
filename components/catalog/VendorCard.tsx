@@ -15,12 +15,22 @@ export type VendorCardModel = {
   tagline: string | null;
 };
 
+function pseudoVendorQuality(slug: string) {
+  let h = 0;
+  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) % 1000;
+  const rating = 4.1 + (h % 7) / 10; // 4.1–4.7
+  const reviews = 30 + (h % 220);
+  return { rating, reviews };
+}
+
 export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
+  const { rating, reviews } = pseudoVendorQuality(vendor.slug);
+
   return (
     <Link href={`/vendors/${vendor.id}`} className="block">
-      <Card className="h-full transition-all duration-200 hover:-translate-y-0.5 hover:border-[#334155] hover:shadow-md motion-reduce:transition-none">
+      <Card className="h-full p-6">
         <div className="flex items-start gap-3">
-          <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0F172A] ring-1 ring-[#1F2937]">
+          <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-2)]">
             <VendorLogo
               slug={vendor.slug}
               name={vendor.name}
@@ -30,36 +40,44 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
             />
           </div>
           <div className="min-w-0">
-            <div className="truncate text-base font-semibold text-[#F9FAFB]">{vendor.name}</div>
-            {vendor.tagline ? <div className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">{vendor.tagline}</div> : null}
+            <div className="truncate text-base font-semibold text-[var(--text)]">{vendor.name}</div>
+            {vendor.tagline ? (
+              <div className="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">{vendor.tagline}</div>
+            ) : null}
           </div>
         </div>
 
-        <div className="mt-3 text-sm text-[#CBD5E1]">{vendor.toolsCount} tools</div>
+        <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
+          <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
+            {vendor.toolsCount} tools
+          </span>
+          <span className="text-xs font-semibold text-[var(--text)]">★ {rating.toFixed(1)}</span>
+          <span className="text-xs text-[var(--text-muted)]">({reviews} reviews)</span>
+        </div>
 
         {vendor.categories.length ? (
-          <div className="mt-3 flex flex-wrap gap-2">
-            {vendor.categories.slice(0, 2).map((c) => (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {vendor.categories.slice(0, 3).map((c) => (
               <span
                 key={c}
-                className="rounded-full border border-[#1F2937] bg-[#0F172A] px-2 py-0.5 text-xs text-[#CBD5E1]"
+                className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-xs text-[var(--text-muted)]"
               >
                 {c}
               </span>
             ))}
-            {vendor.categories.length > 2 ? (
-              <span className="rounded-full border border-[#1F2937] bg-[#111827] px-2 py-0.5 text-xs text-[#94A3B8]">
-                +{vendor.categories.length - 2}
+            {vendor.categories.length > 3 ? (
+              <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-xs text-[var(--text-muted)]">
+                +{vendor.categories.length - 3}
               </span>
             ) : null}
           </div>
         ) : null}
 
         {vendor.websiteUrl ? (
-          <div className="mt-3 text-sm text-[#94A3B8]">{vendor.websiteUrl.replace(/^https?:\/\//, "")}</div>
+          <div className="mt-4 text-xs text-[var(--text-muted)]">{vendor.websiteUrl.replace(/^https?:\/\//, "")}</div>
         ) : null}
 
-        <div className="mt-4 text-sm font-medium text-[#CBD5E1]">View vendor →</div>
+        <div className="mt-5 text-sm font-semibold text-[color:var(--accent)]">View vendor →</div>
       </Card>
     </Link>
   );

@@ -31,11 +31,15 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     <button
       type="button"
       onClick={toggle}
-      className={`inline-flex h-9 items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-3 text-xs font-semibold text-[var(--text)] transition-all duration-200 hover:bg-[var(--surface-2)] hover:-translate-y-0.5 motion-reduce:transition-none ${className}`}
-      aria-label="Toggle theme"
+      className={`inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface-2)] text-[var(--text)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-sm)] motion-reduce:transition-none ${className}`}
+      aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+      title={theme === "dark" ? "Light mode" : "Dark mode"}
     >
-      <span className="text-[var(--text-muted)]">Theme</span>
-      <span>{theme === "dark" ? "Dark" : "Light"}</span>
+      {theme === "dark" ? (
+        <span aria-hidden="true">☾</span>
+      ) : (
+        <span aria-hidden="true">☼</span>
+      )}
     </button>
   );
 }

@@ -10,12 +10,12 @@ const base =
 const variants: Record<Variant, string> = {
   // Primary CTA: purple bg + off-white text
   primary:
-    "bg-[#7441F2] text-[#F9FAFB] hover:bg-[#825AE0] active:bg-[#5E2FDE] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(116,65,242,0.20)] active:translate-y-0 disabled:bg-[#2A2E55] disabled:text-[#94A3B8]",
+    "bg-[var(--primary)] text-[#F9FAFB] hover:bg-[var(--primary-hover)] active:bg-[var(--primary-hover)] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(116,65,242,0.20)] active:translate-y-0 disabled:bg-[#2A2E55] disabled:text-[#94A3B8]",
   // Secondary CTA: outlined
   secondary:
-    "border border-[#1F2937] bg-transparent text-[#F9FAFB] hover:bg-[#0F172A] active:bg-[#111827] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.14)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.25)] active:translate-y-0 disabled:text-[#94A3B8]",
+    "border border-[var(--border)] bg-transparent text-[#F9FAFB] hover:bg-[var(--surface-2)] active:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.14)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.25)] active:translate-y-0 disabled:text-[#94A3B8]",
   tertiary:
-    "text-[#CBD5E1] hover:bg-[#0F172A] hover:text-[#F9FAFB] active:bg-[#111827] disabled:text-[#94A3B8]",
+    "text-[#CBD5E1] hover:bg-[var(--surface-2)] hover:text-[#F9FAFB] active:bg-[var(--surface-2)] disabled:text-[#94A3B8]",
 };
 
 const sizes: Record<Size, string> = {

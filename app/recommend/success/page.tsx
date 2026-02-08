@@ -30,7 +30,7 @@ export default async function RecommendSuccessPage({
   const submission = data?.submission;
 
   return (
-    <div className="min-h-screen bg-[#0B0E23]">
+    <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
 
       <main className="py-10 sm:py-14">
