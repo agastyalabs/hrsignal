@@ -5,7 +5,7 @@ This file tracks production deployments for UX plan work.
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
-- **Resolved production deployment (Vercel):** https://hrsignal-hzsbk1kbh-agastyalabs-projects.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-n9xruvnnr-agastyalabs-projects.vercel.app
 
 ### Commits included
 
