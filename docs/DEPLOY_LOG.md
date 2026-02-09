@@ -5,7 +5,7 @@ This file tracks production deployments for UX plan work.
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
-- **Resolved production deployment (Vercel):** https://hrsignal-ngw7evr8x-agastyalabs-projects.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-jw94w4oiu-agastyalabs-projects.vercel.app
 
 ### Commits included
 
@@ -17,3 +17,4 @@ This file tracks production deployments for UX plan work.
 - `0c9a000` — P0(tools): logical employee size buckets in directory + categories intent filter (best-effort mapping to existing bands).
 - `69e75bd` — P0: accept logical size buckets in /recommend (maps to legacy size bands; labels now use 51–200 / 201–500 / 501–1000).
 - `f2561a2` — P0(home): remove duplicate homepage search UI by hiding the header search bar on `/` (no layout redesign).
+- `09977e8` — P0(vendors): vendor detail pages now include full structured sections (overview, best for, features, pros/cons, pricing, integrations, onboarding, support/compliance, alternatives) with “Info pending” fallbacks.
