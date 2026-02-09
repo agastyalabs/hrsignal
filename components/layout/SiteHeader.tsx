@@ -85,15 +85,17 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        {/* Header search (UI-only for now; forwards to /tools query) */}
-        <form action="/tools" className="hidden w-full max-w-md lg:flex">
-          <input
-            className="h-11 w-full rounded-lg border border-[#1F2937] bg-[#111827] px-3 text-sm text-[#F9FAFB] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/35"
-            name="q"
-            placeholder="Search tools (e.g., payroll, attendance, Keka…)"
-            aria-label="Search tools"
-          />
-        </form>
+        {/* Header search (for non-home pages only; homepage already has the primary search/CTA experience) */}
+        {pathname !== "/" ? (
+          <form action="/tools" className="hidden w-full max-w-md lg:flex">
+            <input
+              className="h-11 w-full rounded-lg border border-[#1F2937] bg-[#111827] px-3 text-sm text-[#F9FAFB] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/35"
+              name="q"
+              placeholder="Search tools (e.g., payroll, attendance, Keka…)"
+              aria-label="Search tools"
+            />
+          </form>
+        ) : null}
 
         <nav className="flex shrink-0 items-center gap-1 text-sm">
           <NavLink href="/tools" active={active.tools}>
