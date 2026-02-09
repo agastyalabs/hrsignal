@@ -5,7 +5,7 @@ This file tracks production deployments for UX plan work.
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
-- **Resolved production deployment (Vercel):** https://hrsignal-6ak7t2372-agastyalabs-projects.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-e0fg5hd5d-agastyalabs-projects.vercel.app
 
 ### Commits included
 
@@ -18,3 +18,5 @@ This file tracks production deployments for UX plan work.
 - `69e75bd` — P0: accept logical size buckets in /recommend (maps to legacy size bands; labels now use 51–200 / 201–500 / 501–1000).
 - `f2561a2` — P0(home): remove duplicate homepage search UI by hiding the header search bar on `/` (no layout redesign).
 - `09977e8` — P0(vendors): vendor detail pages now include full structured sections (overview, best for, features, pros/cons, pricing, integrations, onboarding, support/compliance, alternatives) with “Info pending” fallbacks.
+- `9b5c6ab` — P0(pricing): enforce pricing type badges (PEPM / Per user/month / One-time / Quote-based) across tool cards, tool detail, compare, and vendor pages.
+- `3a529a5` — P0(pricing): compare page pricing formatting tuned to show type badge as its own line (no ambiguous units).
