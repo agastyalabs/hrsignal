@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+
+    // Repo-local OpenClaw workspaces (may contain nested repos)
+    ".openclaw/**",
   ]),
 ]);
 
