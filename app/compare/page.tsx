@@ -116,10 +116,11 @@ export default async function ComparePage({
             .map((p) => {
               const type = pricingTypeFromNote(p.priceNote, t.deployment);
               const text = normalizePricingText(p.priceNote, type);
-              return `${p.name} — [${type}] ${text}${p.setupFeeNote ? ` (Setup: ${p.setupFeeNote})` : ""}`;
+              const setup = p.setupFeeNote ? `\nSetup: ${p.setupFeeNote}` : "";
+              return `${p.name}\n${type}\n${text}${setup}`;
             })
             .join("\n")
-        : "[Quote-based] Contact vendor / request quote",
+        : "Quote-based\nContact vendor / request quote",
     }));
 
   const diffOnly = sp.diff === "1";
@@ -137,7 +138,8 @@ export default async function ComparePage({
         {
           key: "pricing_note",
           label: "Notes",
-          value: () => "Pricing is indicative; confirm latest on vendor site.",
+          value: () =>
+            "Badges indicate unit/type: PEPM (per employee/month), Per user/month, One-time (license; AMC may apply), Quote-based (contact vendor / request quote).",
         },
       ],
     },
