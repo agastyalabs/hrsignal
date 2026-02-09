@@ -5,7 +5,7 @@ This file tracks production deployments for UX plan work.
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
-- **Resolved production deployment (Vercel):** https://hrsignal-62sxrl7ls-agastyalabs-projects.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-9uwn3c56a-agastyalabs-projects.vercel.app
 
 ### Commits included
 
@@ -14,3 +14,5 @@ This file tracks production deployments for UX plan work.
 - `04c04b3` — docs: add `docs/DEPLOY_LOG.md` (this file).
 - `77de031` — P0(home): remove redundant header search button so homepage has a single primary search input + the main CTA.
 - `c9826af` — docs: append deploy log for P0 homepage search dedupe.
+- `0c9a000` — P0(tools): logical employee size buckets in directory + categories intent filter (best-effort mapping to existing bands).
+- `69e75bd` — P0: accept logical size buckets in /recommend (maps to legacy size bands; labels now use 51–200 / 201–500 / 501–1000).
