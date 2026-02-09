@@ -7,6 +7,14 @@ This file tracks production deployments for UX plan work.
 - **Deployment URL:** https://hrsignal.vercel.app
 - **Resolved production deployment (Vercel):** https://hrsignal-jcdzt8iut-agastyalabs-projects.vercel.app
 
+### Hotfix — vendor page crash digest 1288604524
+
+- **Commit:** `c97bbbe` — hotfix: vendor page crash (digest 1288604524)
+- **Root cause:** `pricingNotes` referenced inside `prosCons()` before the `const pricingNotes = ...` declaration (Temporal Dead Zone → runtime crash).
+- **Fix:** compute `hasPricingNotes` directly from `v.tools[*].pricingPlans[*].priceNote` inside `prosCons()` (no TDZ).
+- **Prod deployment:** https://hrsignal-8b2fsd0ra-agastyalabs-projects.vercel.app
+- **Alias:** `vercel alias set hrsignal-8b2fsd0ra-agastyalabs-projects.vercel.app hrsignal.vercel.app`
+
 ### Commits included
 
 - `d1b0b19` — P0(home): tokenized TrustStrip (dark theme tokens) + add `docs/UX_IMPLEMENTATION_PLAN.md`.
