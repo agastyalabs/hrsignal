@@ -10,6 +10,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrustStrip } from "@/components/marketing/TrustStrip";
 import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
+import { normalizePricingText, pricingTypeFromNote, type PricingType } from "@/lib/pricing/format";
 
 const FALLBACK_TOOLS: ToolCardModel[] = [
   {
@@ -21,7 +22,8 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     bestFor: ["20–500 employees"],
     keyFeatures: ["Payroll compliance", "Leave & attendance", "Employee self-serve"],
     implementationTime: "2–4 weeks",
-    pricingHint: "SME-friendly, quote-based",
+    pricingType: "Quote-based",
+    pricingHint: "Contact vendor / request quote",
   },
   {
     slug: "keka",
@@ -32,7 +34,8 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     bestFor: ["50–1000 employees"],
     keyFeatures: ["Core HR", "Payroll", "Performance"],
     implementationTime: "2–6 weeks",
-    pricingHint: "Per-employee pricing",
+    pricingType: "PEPM",
+    pricingHint: "Indicative PEPM (request quote)",
   },
   {
     slug: "zoho-people",
@@ -43,7 +46,8 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     bestFor: ["20–500 employees"],
     keyFeatures: ["Attendance", "Leave policies", "Workflows"],
     implementationTime: "1–3 weeks",
-    pricingHint: "Plan-based",
+    pricingType: "Per user/month",
+    pricingHint: "Per user/month (plan-based)",
   },
   {
     slug: "freshteam",
@@ -54,7 +58,8 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     bestFor: ["Hiring teams"],
     keyFeatures: ["Pipeline", "Scorecards", "Offer workflow"],
     implementationTime: "1–2 weeks",
-    pricingHint: "Plan-based",
+    pricingType: "Per user/month",
+    pricingHint: "Per user/month (plan-based)",
   },
 ];
 
@@ -244,13 +249,21 @@ export default async function ToolsPage({
         return "2–6 weeks";
       }
 
-      function pricingHint(toolName: string, plans: Array<{ priceNote: string | null }> | undefined) {
-        const note = plans?.find((p) => p.priceNote)?.priceNote?.trim();
-        if (note) return note;
-        const n = toolName.toLowerCase();
-        if (n.includes("zoho")) return "Plan-based";
-        if (n.includes("fresh")) return "Plan-based";
-        return "Quote-based";
+      function pricingMeta(toolName: string, plans: Array<{ priceNote: string | null }> | undefined, deployment: unknown) {
+        const note = plans?.find((p) => p.priceNote)?.priceNote?.trim() ?? null;
+        const dep = typeof deployment === "string" ? (deployment as "CLOUD" | "ONPREM" | "HYBRID") : null;
+
+        // Prefer explicit notes, otherwise keep a conservative default.
+        let type: PricingType = pricingTypeFromNote(note, dep);
+
+        // Heuristic for common SaaS vendors when no notes exist.
+        if (!note) {
+          const n = toolName.toLowerCase();
+          if (n.includes("zoho") || n.includes("fresh")) type = "Per user/month";
+        }
+
+        const text = normalizePricingText(note, type);
+        return { type, text };
       }
 
       tools = rows.map((t) => {
@@ -262,6 +275,8 @@ export default async function ToolsPage({
             t.indiaComplianceTags?.length ? "India compliance" : null,
           ].filter(Boolean) as string[]),
         ].slice(0, 3);
+
+        const pricing = pricingMeta(t.name, t.pricingPlans, t.deployment);
 
         return {
           slug: t.slug,
@@ -275,7 +290,8 @@ export default async function ToolsPage({
           bestFor: bestForLabels(t.bestForSizeBands),
           keyFeatures,
           implementationTime: implementationTime(categories),
-          pricingHint: pricingHint(t.name, t.pricingPlans),
+          pricingHint: pricing.text,
+          pricingType: pricing.type,
         } satisfies ToolCardModel;
       });
       if (!tools.length) mode = "empty";

@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/Card";
 import { CompareHydrate } from "@/components/compare/CompareHydrate";
 import { prisma } from "@/lib/db";
 import { CompareActions } from "./CompareActions";
+import { normalizePricingText, pricingTypeFromNote } from "@/lib/pricing/format";
 
 function parseSlugs(raw: string | null | undefined): string[] {
   if (!raw) return [];
@@ -112,9 +113,13 @@ export default async function ComparePage({
       pricing: t.pricingPlans.length
         ? t.pricingPlans
             .slice(0, 3)
-            .map((p) => `${p.name}${p.priceNote ? `: ${p.priceNote}` : ""}${p.setupFeeNote ? ` (Setup: ${p.setupFeeNote})` : ""}`)
+            .map((p) => {
+              const type = pricingTypeFromNote(p.priceNote, t.deployment);
+              const text = normalizePricingText(p.priceNote, type);
+              return `${p.name} — [${type}] ${text}${p.setupFeeNote ? ` (Setup: ${p.setupFeeNote})` : ""}`;
+            })
             .join("\n")
-        : "Pricing on request",
+        : "[Quote-based] Contact vendor / request quote",
     }));
 
   const diffOnly = sp.diff === "1";

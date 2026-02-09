@@ -20,6 +20,7 @@ export type ToolCardModel = {
   keyFeatures?: string[];
   implementationTime?: string;
   pricingHint?: string;
+  pricingType?: import("@/lib/pricing/format").PricingType;
 };
 
 export function ToolCard({ tool }: { tool: ToolCardModel }) {
@@ -97,8 +98,12 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
           <div>
             <span className="font-semibold text-[var(--text)]">Implementation:</span> {tool.implementationTime ?? "2–4 weeks"}
           </div>
-          <div>
-            <span className="font-semibold text-[var(--text)]">Pricing:</span> {tool.pricingHint ?? "Quote-based"}
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-[var(--text)]">Pricing:</span>
+            <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">
+              {tool.pricingType ?? "Quote-based"}
+            </span>
+            <span className="truncate">{tool.pricingHint ?? "Contact vendor / request quote"}</span>
           </div>
         </div>
 

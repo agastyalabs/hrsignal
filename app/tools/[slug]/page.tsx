@@ -10,6 +10,7 @@ import { LeadSection } from "./LeadSection";
 import { CompareToggle } from "@/components/compare/CompareToggle";
 import { VendorLogo } from "@/components/VendorLogo";
 import { domainFromUrl } from "@/lib/brand/logo";
+import { normalizePricingText, pricingTypeFromNote } from "@/lib/pricing/format";
 
 export default async function ToolDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -152,20 +153,36 @@ This page is available in read-only mode until the catalog database is connected
             </ul>
           </div>
 
-          {tool.pricingPlans.length ? (
-            <div className="mt-6">
-              <h2 className="text-lg font-semibold text-[#F9FAFB]">Pricing</h2>
+          <div className="mt-6">
+            <h2 className="text-lg font-semibold text-[#F9FAFB]">Pricing</h2>
+            {tool.pricingPlans.length ? (
               <ul className="mt-2 space-y-2 text-sm">
-                {tool.pricingPlans.map((p) => (
-                  <li key={p.id} className="rounded-lg border border-[#1F2937] bg-[#0F172A] p-3">
-                    <div className="font-medium">{p.name}</div>
-                    {p.priceNote ? <div className="text-[#CBD5E1]">{p.priceNote}</div> : null}
-                    {p.setupFeeNote ? <div className="text-[#94A3B8]">Setup: {p.setupFeeNote}</div> : null}
-                  </li>
-                ))}
+                {tool.pricingPlans.map((p) => {
+                  const type = pricingTypeFromNote(p.priceNote, tool.deployment);
+                  const text = normalizePricingText(p.priceNote, type);
+                  return (
+                    <li key={p.id} className="rounded-lg border border-[#1F2937] bg-[#0F172A] p-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="font-medium text-[#F9FAFB]">{p.name}</div>
+                        <span className="shrink-0 rounded-full border border-[#1F2937] bg-[#111827] px-2 py-0.5 text-xs font-semibold text-[#CBD5E1]">
+                          {type}
+                        </span>
+                      </div>
+                      <div className="mt-1 text-[#CBD5E1]">{text}</div>
+                      {p.setupFeeNote ? <div className="mt-1 text-[#94A3B8]">Setup: {p.setupFeeNote}</div> : null}
+                    </li>
+                  );
+                })}
               </ul>
-            </div>
-          ) : null}
+            ) : (
+              <div className="mt-2 rounded-lg border border-[#1F2937] bg-[#0F172A] p-3 text-sm text-[#CBD5E1]">
+                <span className="mr-2 inline-flex rounded-full border border-[#1F2937] bg-[#111827] px-2 py-0.5 text-xs font-semibold text-[#CBD5E1]">
+                  Quote-based
+                </span>
+                Contact vendor / request quote.
+              </div>
+            )}
+          </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link

@@ -10,6 +10,7 @@ import { Section } from "@/components/layout/Section";
 import { Card } from "@/components/ui/Card";
 import { VendorLogo } from "@/components/VendorLogo";
 import { domainFromUrl } from "@/lib/brand/logo";
+import { normalizePricingText, pricingTypeFromNote } from "@/lib/pricing/format";
 
 export default async function VendorDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -57,7 +58,17 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
   const bestForStates = vendor.supportedStates?.length ? vendor.supportedStates.join(", ") : null;
 
   const pricingNotes = vendor.tools
-    .flatMap((t) => t.pricingPlans.map((p) => ({ tool: t.name, name: p.name, note: p.priceNote ?? null })))
+    .flatMap((t) =>
+      t.pricingPlans.map((p) => {
+        const type = pricingTypeFromNote(p.priceNote, t.deployment);
+        return {
+          tool: t.name,
+          name: p.name,
+          type,
+          note: normalizePricingText(p.priceNote, type),
+        };
+      })
+    )
     .filter((x) => x.note);
 
   const alternatives = await prisma.vendor.findMany({
@@ -204,7 +215,11 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
               {pricingNotes.length ? (
                 <ul className="space-y-2 text-sm text-[#CBD5E1]">
                   {pricingNotes.slice(0, 6).map((p) => (
-                    <li key={`${p.tool}-${p.name}`}>• {p.tool} — {p.name}: {p.note}</li>
+                    <li key={`${p.tool}-${p.name}`} className="flex flex-wrap items-center gap-2">
+                      <span>• {p.tool} — {p.name}:</span>
+                      <span className="rounded-full border border-[#1F2937] bg-[#111827] px-2 py-0.5 text-xs font-semibold text-[#CBD5E1]">{p.type}</span>
+                      <span>{p.note}</span>
+                    </li>
                   ))}
                 </ul>
               ) : (
