@@ -124,7 +124,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
     if (v.verifiedInIndia) pros.push("India-first listing signals available (verify scope)");
     else cons.push("India coverage not verified — confirm compliance/state coverage in the demo");
 
-    if (pricingNotes.length) pros.push("Some pricing notes are available (units are labeled)");
+    // NOTE: pricingNotes is defined later; avoid TDZ errors by checking directly from tools.
+    const hasPricingNotes = v.tools.some((t) => (t.pricingPlans ?? []).some((p) => Boolean(p.priceNote)));
+    if (hasPricingNotes) pros.push("Some pricing notes are available (units are labeled)");
     else cons.push("Pricing is quote-based/unclear — confirm unit, minimums, and add-ons");
 
     // Keep balanced and not sales-y
