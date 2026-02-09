@@ -13,6 +13,8 @@ export type VendorCardModel = {
   toolsCount: number;
   categories: string[];
   tagline: string | null;
+  pricingType?: import("@/lib/pricing/format").PricingType;
+  pricingText?: string;
 };
 
 function pseudoVendorQuality(slug: string) {
@@ -73,9 +75,19 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
           </div>
         ) : null}
 
-        {vendor.websiteUrl ? (
-          <div className="mt-4 text-xs text-[var(--text-muted)]">{vendor.websiteUrl.replace(/^https?:\/\//, "")}</div>
-        ) : null}
+        <div className="mt-4 grid grid-cols-1 gap-2 text-xs text-[var(--text-muted)]">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-[var(--text)]">Pricing:</span>
+            <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">
+              {vendor.pricingType ?? "Quote-based"}
+            </span>
+            <span className="truncate">{vendor.pricingText ?? "Contact vendor / request quote"}</span>
+          </div>
+
+          {vendor.websiteUrl ? (
+            <div className="text-xs text-[var(--text-muted)]">{vendor.websiteUrl.replace(/^https?:\/\//, "")}</div>
+          ) : null}
+        </div>
 
         <div className="mt-5 text-sm font-semibold text-[color:var(--accent)]">View vendor →</div>
       </Card>

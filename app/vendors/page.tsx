@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/Card";
 import { VendorCard } from "@/components/catalog/VendorCard";
 
 import { indiaOnlyFromSearchParams } from "@/lib/india/mode";
+import { normalizePricingText, pricingTypeFromNote, type PricingType } from "@/lib/pricing/format";
 
 export default async function VendorsPage({
   searchParams,
@@ -28,6 +29,8 @@ export default async function VendorsPage({
     toolsCount: number;
     categories: string[];
     tagline: string | null;
+    pricingType: PricingType;
+    pricingText: string;
   }> = [];
 
   if (process.env.DATABASE_URL) {
@@ -41,7 +44,15 @@ export default async function VendorsPage({
         include: {
           _count: { select: { tools: true } },
           categories: true,
-          tools: { where: { status: "PUBLISHED" }, select: { tagline: true }, take: 1 },
+          tools: {
+            where: { status: "PUBLISHED" },
+            select: {
+              tagline: true,
+              deployment: true,
+              pricingPlans: { select: { priceNote: true, setupFeeNote: true }, take: 2 },
+            },
+            take: 3,
+          },
         },
         take: 200,
       });
@@ -54,15 +65,34 @@ export default async function VendorsPage({
           .slice(0, 60);
       }
 
-      vendors = rows.map((v) => ({
-        id: v.id,
-        slug: slugify(v.name),
-        name: v.name,
-        websiteUrl: v.websiteUrl ?? null,
-        toolsCount: v._count.tools,
-        categories: v.categories.map((c) => c.name),
-        tagline: v.tools[0]?.tagline ?? null,
-      }));
+      vendors = rows.map((v) => {
+        const firstPlan = v.tools
+          .flatMap((t) =>
+            (t.pricingPlans ?? []).map((p) => ({
+              deployment: t.deployment,
+              priceNote: p.priceNote,
+              setupFeeNote: p.setupFeeNote,
+            }))
+          )
+          .find((p) => p.priceNote || p.setupFeeNote);
+
+        const type = pricingTypeFromNote(firstPlan?.priceNote ?? null, firstPlan?.deployment ?? null);
+        const text = firstPlan?.priceNote
+          ? normalizePricingText(firstPlan.priceNote, type)
+          : "Contact vendor / request quote";
+
+        return {
+          id: v.id,
+          slug: slugify(v.name),
+          name: v.name,
+          websiteUrl: v.websiteUrl ?? null,
+          toolsCount: v._count.tools,
+          categories: v.categories.map((c) => c.name),
+          tagline: v.tools[0]?.tagline ?? null,
+          pricingType: type,
+          pricingText: text,
+        };
+      });
     } catch {
       vendors = [];
     }
