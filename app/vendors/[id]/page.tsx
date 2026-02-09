@@ -182,15 +182,15 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
 
       <Section className="pt-10 sm:pt-14">
         <div className="mb-6">
-          <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED]" href="/vendors">
+          <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/vendors">
             ← Back to vendors
           </Link>
         </div>
 
-        <Card className="border border-[#1F2937] bg-[#111827] shadow-sm">
+        <Card className="border border-[var(--border)] bg-[var(--surface-1)] shadow-[var(--shadow-sm)]">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-start gap-4">
-              <div className="mt-0.5 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#0F172A] ring-1 ring-[#1F2937]">
+              <div className="mt-0.5 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[var(--surface-2)] ring-1 ring-[var(--border)]">
                 <VendorLogo
                   slug={vendor.id}
                   name={vendor.name}
@@ -201,9 +201,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
               </div>
 
               <div className="min-w-0">
-                <h1 className="text-3xl font-semibold tracking-tight text-[#F9FAFB]">{vendor.name}</h1>
+                <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">{vendor.name}</h1>
                 {vendor.websiteUrl ? (
-                  <p className="mt-2 text-sm text-[#CBD5E1]">
+                  <p className="mt-2 text-sm text-[var(--text-muted)]">
                     <a className="underline" href={vendor.websiteUrl} target="_blank" rel="noreferrer">
                       {vendor.websiteUrl.replace(/^https?:\/\//, "")}
                     </a>
@@ -212,87 +212,87 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
               </div>
             </div>
 
-            <div className="rounded-xl border border-[#1F2937] bg-[#0F172A] px-4 py-3 text-sm text-[#CBD5E1]">
-              Published tools: <span className="font-semibold text-[#F9FAFB]">{vendor.tools.length}</span>
+            <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-4 py-3 text-sm text-[var(--text-muted)]">
+              Published tools: <span className="font-semibold text-[var(--text)]">{vendor.tools.length}</span>
             </div>
           </div>
 
           <div className="mt-10">
-            <div className="text-sm font-semibold text-[#F9FAFB]">Overview</div>
+            <div className="text-sm font-semibold text-[var(--text)]">Overview</div>
             <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-3">
-              <Card className="border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm lg:col-span-2">
-                <div className="space-y-2 text-sm leading-relaxed text-[#CBD5E1]">
+              <Card className="border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)] lg:col-span-2">
+                <div className="space-y-2 text-sm leading-relaxed text-[var(--text-muted)]">
                   {overviewLines.map((line, idx) => (
                     <p key={idx}>{line}</p>
                   ))}
                 </div>
 
                 <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  <div className="rounded-xl border border-[#1F2937] bg-[#111827] p-3">
-                    <div className="text-[11px] font-semibold text-[#94A3B8]">Deployment</div>
-                    <div className="mt-1 text-xs font-semibold text-[#F9FAFB]">{deploymentLabel()}</div>
+                  <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-3">
+                    <div className="text-[11px] font-semibold text-[var(--text-muted)]">Deployment</div>
+                    <div className="mt-1 text-xs font-semibold text-[var(--text)]">{deploymentLabel()}</div>
                   </div>
-                  <div className="rounded-xl border border-[#1F2937] bg-[#111827] p-3">
-                    <div className="text-[11px] font-semibold text-[#94A3B8]">Integrations</div>
-                    <div className="mt-1 text-xs font-semibold text-[#F9FAFB]">
+                  <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-3">
+                    <div className="text-[11px] font-semibold text-[var(--text-muted)]">Integrations</div>
+                    <div className="mt-1 text-xs font-semibold text-[var(--text)]">
                       {integrationNames.length ? `${integrationNames.length}+ listed` : "Info pending"}
                     </div>
                   </div>
-                  <div className="rounded-xl border border-[#1F2937] bg-[#111827] p-3">
-                    <div className="text-[11px] font-semibold text-[#94A3B8]">Compliance</div>
-                    <div className="mt-1 text-xs font-semibold text-[#F9FAFB]">
+                  <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-3">
+                    <div className="text-[11px] font-semibold text-[var(--text-muted)]">Compliance</div>
+                    <div className="mt-1 text-xs font-semibold text-[var(--text)]">
                       {complianceTags.length ? `${complianceTags.length}+ tags` : vendor.verifiedInIndia ? "India-first" : "Info pending"}
                     </div>
                   </div>
                 </div>
-                <div className="mt-4 text-xs font-semibold text-[#94A3B8]">Categories</div>
+                <div className="mt-4 text-xs font-semibold text-[var(--text-muted)]">Categories</div>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {(toolCategories.length ? toolCategories : vendor.categories.map((c) => c.name)).slice(0, 10).map((x) => (
-                    <span key={x} className="rounded-full border border-[#1F2937] bg-[#111827] px-2.5 py-1 text-xs font-medium text-[#CBD5E1]">
+                    <span key={x} className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-2.5 py-1 text-xs font-medium text-[var(--text-muted)]">
                       {x}
                     </span>
                   ))}
                   {toolCategories.length === 0 && vendor.categories.length === 0 ? (
-                    <span className="text-xs text-[#94A3B8]">Info pending</span>
+                    <span className="text-xs text-[var(--text-muted)]">Info pending</span>
                   ) : null}
                 </div>
               </Card>
 
-              <Card className="border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm">
-                <div className="text-sm font-semibold text-[#F9FAFB]">Best for</div>
+              <Card className="border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                <div className="text-sm font-semibold text-[var(--text)]">Best for</div>
                 <dl className="mt-3 space-y-3 text-sm">
                   <div>
-                    <dt className="text-xs font-semibold text-[#94A3B8]">Company size</dt>
-                    <dd className="mt-1 text-[#CBD5E1]">{bestForSizes ?? "Info pending"}</dd>
+                    <dt className="text-xs font-semibold text-[var(--text-muted)]">Company size</dt>
+                    <dd className="mt-1 text-[var(--text-muted)]">{bestForSizes ?? "Info pending"}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs font-semibold text-[#94A3B8]">India coverage</dt>
-                    <dd className="mt-1 text-[#CBD5E1]">
+                    <dt className="text-xs font-semibold text-[var(--text-muted)]">India coverage</dt>
+                    <dd className="mt-1 text-[var(--text-muted)]">
                       {vendor.verifiedInIndia ? "India-first listing" : "Info pending"}
                       {vendor.multiStateSupport ? " • Multi-state" : ""}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs font-semibold text-[#94A3B8]">States</dt>
-                    <dd className="mt-1 text-[#CBD5E1]">{bestForStates ?? "Info pending"}</dd>
+                    <dt className="text-xs font-semibold text-[var(--text-muted)]">States</dt>
+                    <dd className="mt-1 text-[var(--text-muted)]">{bestForStates ?? "Info pending"}</dd>
                   </div>
                 </dl>
               </Card>
             </div>
           </div>
 
-          <div className="mt-10">
-            <div className="text-sm font-semibold text-[#F9FAFB]">Key modules / features</div>
-            <Card className="mt-3 border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm">
-              <ul className="grid grid-cols-1 gap-2 text-sm text-[#CBD5E1] sm:grid-cols-2">
+          <div className="mt-10 pt-8 border-t border-[var(--border)]">
+            <div className="text-sm font-semibold text-[var(--text)]">Key modules / features</div>
+            <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+              <ul className="grid grid-cols-1 gap-2 text-sm text-[var(--text-muted)] sm:grid-cols-2">
                 {modules.map((x, idx) => (
                   <li key={`${x}-${idx}`}>• {x}</li>
                 ))}
               </ul>
               {!vendor.tools.length ? (
-                <div className="mt-4 rounded-xl border border-[#1F2937] bg-[#111827] p-4">
-                  <div className="text-xs font-semibold text-[#F9FAFB]">Buyer checklist (until info is verified)</div>
-                  <ul className="mt-2 space-y-2 text-sm text-[#CBD5E1]">
+                <div className="mt-4 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-4">
+                  <div className="text-xs font-semibold text-[var(--text)]">Buyer checklist (until info is verified)</div>
+                  <ul className="mt-2 space-y-2 text-sm text-[var(--text-muted)]">
                     {qa.map((q, idx) => (
                       <li key={`${q}-${idx}`}>• {q}</li>
                     ))}
@@ -304,9 +304,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
 
           <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
             <div>
-              <div className="text-sm font-semibold text-[#F9FAFB]">Pros</div>
-              <Card className="mt-3 border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm">
-                <ul className="space-y-2 text-sm text-[#CBD5E1]">
+              <div className="text-sm font-semibold text-[var(--text)]">Pros</div>
+              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                <ul className="space-y-2 text-sm text-[var(--text-muted)]">
                   {pros.map((x, idx) => (
                     <li key={`${x}-${idx}`}>• {x}</li>
                   ))}
@@ -314,9 +314,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
               </Card>
             </div>
             <div>
-              <div className="text-sm font-semibold text-[#F9FAFB]">Cons</div>
-              <Card className="mt-3 border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm">
-                <ul className="space-y-2 text-sm text-[#CBD5E1]">
+              <div className="text-sm font-semibold text-[var(--text)]">Cons</div>
+              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                <ul className="space-y-2 text-sm text-[var(--text-muted)]">
                   {cons.map((x, idx) => (
                     <li key={`${x}-${idx}`}>• {x}</li>
                   ))}
@@ -325,22 +325,22 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
             </div>
           </div>
 
-          <div className="mt-10">
-            <div className="text-sm font-semibold text-[#F9FAFB]">Pricing</div>
-            <Card className="mt-3 border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm">
+          <div className="mt-10 pt-8 border-t border-[var(--border)]">
+            <div className="text-sm font-semibold text-[var(--text)]">Pricing</div>
+            <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
               {pricingNotes.length ? (
-                <ul className="space-y-2 text-sm text-[#CBD5E1]">
+                <ul className="space-y-2 text-sm text-[var(--text-muted)]">
                   {pricingNotes.slice(0, 6).map((p) => (
                     <li key={`${p.tool}-${p.name}`} className="flex flex-wrap items-center gap-2">
                       <span>• {p.tool} — {p.name}:</span>
-                      <span className="rounded-full border border-[#1F2937] bg-[#111827] px-2 py-0.5 text-xs font-semibold text-[#CBD5E1]">{p.type}</span>
+                      <span className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-2 py-0.5 text-xs font-semibold text-[var(--text-muted)]">{p.type}</span>
                       <span>{p.note}</span>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <div className="flex flex-wrap items-center gap-2 text-sm text-[#CBD5E1]">
-                  <span className="rounded-full border border-[#1F2937] bg-[#111827] px-2 py-0.5 text-xs font-semibold text-[#CBD5E1]">
+                <div className="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
+                  <span className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-2 py-0.5 text-xs font-semibold text-[var(--text-muted)]">
                     Quote-based
                   </span>
                   <span>Contact vendor / request quote.</span>
@@ -351,20 +351,20 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
 
           <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
             <div>
-              <div className="text-sm font-semibold text-[#F9FAFB]">Integrations</div>
-              <Card className="mt-3 border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm">
+              <div className="text-sm font-semibold text-[var(--text)]">Integrations</div>
+              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
                 {integrationNames.length ? (
                   <div className="flex flex-wrap gap-2">
                     {integrationNames.slice(0, 14).map((n) => (
-                      <span key={n} className="rounded-full border border-[#1F2937] bg-[#111827] px-2.5 py-1 text-xs font-medium text-[#CBD5E1]">
+                      <span key={n} className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-2.5 py-1 text-xs font-medium text-[var(--text-muted)]">
                         {n}
                       </span>
                     ))}
                   </div>
                 ) : (
                   <div>
-                    <div className="text-sm text-[#CBD5E1]">Info pending.</div>
-                    <ul className="mt-3 space-y-2 text-sm text-[#CBD5E1]">
+                    <div className="text-sm text-[var(--text-muted)]">Info pending.</div>
+                    <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
                       <li>• Ask for a current integration list (HRIS/payroll/ATS/accounting)</li>
                       <li>• Confirm exports (CSV, Tally, Zoho Books, bank files) and API availability</li>
                       <li>• Validate SSO, SCIM, and webhooks if you need enterprise integration</li>
@@ -375,9 +375,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
             </div>
 
             <div>
-              <div className="text-sm font-semibold text-[#F9FAFB]">Implementation / onboarding</div>
-              <Card className="mt-3 border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm">
-                <div className="text-sm leading-relaxed text-[#CBD5E1]">
+              <div className="text-sm font-semibold text-[var(--text)]">Implementation / onboarding</div>
+              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                <div className="text-sm leading-relaxed text-[var(--text-muted)]">
                   {vendor.tools.length ? (
                     <>
                       Implementation usually depends on modules and policy complexity. For {vendor.name}, validate:
@@ -405,14 +405,14 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
 
           <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
             <div>
-              <div className="text-sm font-semibold text-[#F9FAFB]">Support & compliance notes</div>
-              <Card className="mt-3 border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm">
+              <div className="text-sm font-semibold text-[var(--text)]">Compliance & security</div>
+              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
                 {complianceTags.length ? (
                   <div>
-                    <div className="text-sm text-[#CBD5E1]">Compliance tags seen on published tools:</div>
+                    <div className="text-sm text-[var(--text-muted)]">Compliance tags seen on published tools:</div>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {complianceTags.map((t) => (
-                        <span key={t} className="rounded-full border border-[#1F2937] bg-[#111827] px-2.5 py-1 text-xs font-medium text-[#CBD5E1]">
+                        <span key={t} className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-2.5 py-1 text-xs font-medium text-[var(--text-muted)]">
                           {t}
                         </span>
                       ))}
@@ -420,8 +420,8 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                   </div>
                 ) : (
                   <div>
-                    <div className="text-sm text-[#CBD5E1]">Info pending.</div>
-                    <ul className="mt-3 space-y-2 text-sm text-[#CBD5E1]">
+                    <div className="text-sm text-[var(--text-muted)]">Info pending.</div>
+                    <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
                       <li>• Confirm India compliance scope (PF/ESI/PT/TDS/LWF) and reporting formats</li>
                       <li>• Ask about audit trails, role-based access, and data retention</li>
                       <li>• Validate security posture (SSO, IP restrictions, backups, incident response)</li>
@@ -433,29 +433,29 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
             </div>
 
             <div>
-              <div className="text-sm font-semibold text-[#F9FAFB]">Alternatives</div>
-              <Card className="mt-3 border border-[#1F2937] bg-[#0F172A] p-5 shadow-sm">
+              <div className="text-sm font-semibold text-[var(--text)]">Alternatives</div>
+              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
                 {alternatives.length ? (
-                  <ul className="space-y-2 text-sm text-[#CBD5E1]">
+                  <ul className="space-y-2 text-sm text-[var(--text-muted)]">
                     {alternatives.slice(0, 6).map((a) => (
                       <li key={a.id}>
-                        • <Link className="text-[#8B5CF6] hover:text-[#7C3AED]" href={`/vendors/${a.id}`}>{a.name}</Link>
+                        • <Link className="text-[var(--primary)] hover:text-[var(--primary-hover)]" href={`/vendors/${a.id}`}>{a.name}</Link>
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <div className="text-sm text-[#CBD5E1]">Info pending.</div>
+                  <div className="text-sm text-[var(--text-muted)]">Info pending.</div>
                 )}
                 <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
                   {vendor.tools.length >= 2 ? (
                     <Link
-                      className="font-medium text-[#8B5CF6] hover:text-[#7C3AED]"
+                      className="font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]"
                       href={`/compare?tools=${encodeURIComponent(vendor.tools.map((t) => t.slug).join(","))}`}
                     >
                       Compare {vendor.name} tools →
                     </Link>
                   ) : null}
-                  <Link className="font-medium text-[#8B5CF6] hover:text-[#7C3AED]" href="/tools">
+                  <Link className="font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/tools">
                     Browse tools →
                   </Link>
                 </div>
@@ -464,20 +464,20 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
           </div>
 
           <div className="mt-10">
-            <div className="text-sm font-semibold text-[#F9FAFB]">Tools</div>
+            <div className="text-sm font-semibold text-[var(--text)]">Tools</div>
             {vendor.tools.length === 0 ? (
-              <p className="mt-2 text-sm text-[#CBD5E1]">No published tools for this vendor yet.</p>
+              <p className="mt-2 text-sm text-[var(--text-muted)]">No published tools for this vendor yet.</p>
             ) : (
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {vendor.tools.map((t) => (
                   <Link key={t.id} href={`/tools/${t.slug}`} className="block">
-                    <Card className="h-full border border-[#1F2937] bg-[#0F172A] shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#334155] hover:shadow-md">
-                      <div className="text-base font-semibold text-[#F9FAFB]">{t.name}</div>
-                      {t.tagline ? <div className="mt-1 text-sm text-[#CBD5E1]">{t.tagline}</div> : null}
-                      <div className="mt-3 text-sm text-[#94A3B8]">
+                    <Card className="h-full border border-[var(--border)] bg-[var(--surface-2)] shadow-[var(--shadow-sm)] transition-all hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.14)] hover:shadow-[var(--shadow-md)]">
+                      <div className="text-base font-semibold text-[var(--text)]">{t.name}</div>
+                      {t.tagline ? <div className="mt-1 text-sm text-[var(--text-muted)]">{t.tagline}</div> : null}
+                      <div className="mt-3 text-sm text-[var(--text-muted)]">
                         {t.categories.map((c) => c.category.name).join(" • ")}
                       </div>
-                      <div className="mt-4 text-sm font-medium text-[#8B5CF6]">View tool →</div>
+                      <div className="mt-4 text-sm font-medium text-[var(--primary)]">View tool →</div>
                     </Card>
                   </Link>
                 ))}

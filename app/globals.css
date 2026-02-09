@@ -5,15 +5,15 @@
 
   /* HRSignal Feb 2026 go-live palette */
   --bg: #0D163F; /* Dark Navy */
-  --surface-1: #394179; /* Light Indigo (cards) */
-  --surface-2: rgba(255, 255, 255, 0.06); /* Frosted panel */
+  --surface-1: #444C86; /* Light Indigo (cards) — slightly lifted for readability */
+  --surface-2: rgba(255, 255, 255, 0.08); /* Frosted panel — slightly brighter */
 
   --primary: #6F42C1; /* Primary Purple */
   --primary-hover: #5E2FDE;
   --accent: #27D3BC; /* Teal Accent */
 
   --text: #F5F7FF;
-  --text-muted: #B6B9D8;
+  --text-muted: #C2C5E6;
   --border: rgba(255, 255, 255, 0.08);
 
   /* Back-compat aliases (avoid breaking older usage) */
