@@ -60,6 +60,50 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
 
 import { clampCsv, indiaOnlyFromSearchParams } from "@/lib/india/mode";
 
+const SIZE_BUCKETS = [
+  "1-10",
+  "11-50",
+  "51-200",
+  "201-500",
+  "501-1000",
+  "1001-5000",
+  "5001-10000",
+  "10000+",
+] as const;
+
+type SizeBucket = (typeof SIZE_BUCKETS)[number];
+
+function isSizeBucket(v: string): v is SizeBucket {
+  return (SIZE_BUCKETS as readonly string[]).includes(v);
+}
+
+function prettySizeBucket(v: string): string {
+  if (!isSizeBucket(v)) return v;
+  if (v === "10000+") return "10,000+";
+  const [a, b] = v.split("-");
+  if (a && b) {
+    const left = a === "5001" ? "5001" : a;
+    const right = b === "10000" ? "10,000" : b;
+    return `${left}–${right}`;
+  }
+  return v;
+}
+
+function mapSizeBucketToLegacyBands(v: string): string[] {
+  // IMPORTANT: we keep DB enums as-is (legacy BuyerSizeBand values).
+  // These buckets are a P0 UX improvement; matching is best-effort.
+  if (!isSizeBucket(v)) return [];
+
+  if (v === "1-10" || v === "11-50" || v === "51-200") return ["EMP_20_200"];
+  if (v === "201-500") return ["EMP_50_500"];
+  if (v === "501-1000") return ["EMP_100_1000"];
+
+  // For 1001+ buckets we don't have a dedicated band in DB yet.
+  // Best-effort: include the largest available legacy band.
+  return ["EMP_100_1000"];
+}
+
+
 export default async function ToolsPage({
   searchParams,
 }: {
@@ -81,7 +125,9 @@ export default async function ToolsPage({
   const q = sp.q?.trim();
   const sort = sp.sort?.trim() === "recent" ? "recent" : "name";
 
-  const sizeBands = clampCsv(sp.size, 5);
+  const sizeBucket = (sp.size ?? "").trim();
+  const sizeQueryBands = sizeBucket ? mapSizeBucketToLegacyBands(sizeBucket) : [];
+  const sizeLabel = sizeBucket ? prettySizeBucket(sizeBucket) : "Any";
   const deployment = sp.deployment?.trim() || "";
   const modules = clampCsv(sp.modules, 10);
   const compliance = clampCsv(sp.compliance, 20);
@@ -129,10 +175,10 @@ export default async function ToolsPage({
                 },
               }
             : {}),
-          ...(sizeBands.length
+          ...(sizeQueryBands.length
             ? {
                 OR: [
-                  { bestForSizeBands: { hasSome: sizeBands as never } },
+                  { bestForSizeBands: { hasSome: sizeQueryBands as never } },
                   { bestForSizeBands: { equals: [] } },
                 ],
               }
@@ -174,14 +220,17 @@ export default async function ToolsPage({
           .slice(0, 60);
       }
 
+      function prettySizeBandLabel(band: string): string {
+        // We only have legacy bands in DB today; label them using the new logical buckets.
+        if (band === "EMP_20_200") return "51–200 employees";
+        if (band === "EMP_50_500") return "201–500 employees";
+        if (band === "EMP_100_1000") return "501–1000 employees";
+        return String(band);
+      }
+
       function bestForLabels(bands: unknown): string[] {
         const arr = Array.isArray(bands) ? (bands as string[]) : [];
-        const map: Record<string, string> = {
-          EMP_20_200: "20–200 employees",
-          EMP_50_500: "50–500 employees",
-          EMP_100_1000: "100–1000 employees",
-        };
-        const out = arr.map((b) => map[b]).filter(Boolean);
+        const out = arr.map((b) => prettySizeBandLabel(b)).filter(Boolean);
         return out.length ? out : ["SMEs"];
       }
 
@@ -282,12 +331,18 @@ export default async function ToolsPage({
 
                 <div>
                   <label className="text-xs font-medium text-[#CBD5E1]">Company size</label>
-                  <select className="input mt-1" name="size" defaultValue={sizeBands.join(",")} aria-label="Company size">
+                  <select className="input mt-1" name="size" defaultValue={sizeBucket} aria-label="Company size">
                     <option value="">Any</option>
-                    <option value="EMP_20_200">20–200 employees</option>
-                    <option value="EMP_50_500">50–500 employees</option>
-                    <option value="EMP_100_1000">100–1000 employees</option>
+                    <option value="1-10">1–10 employees</option>
+                    <option value="11-50">11–50 employees</option>
+                    <option value="51-200">51–200 employees</option>
+                    <option value="201-500">201–500 employees</option>
+                    <option value="501-1000">501–1000 employees</option>
+                    <option value="1001-5000">1001–5000 employees</option>
+                    <option value="5001-10000">5001–10,000 employees</option>
+                    <option value="10000+">10,000+ employees</option>
                   </select>
+                  <div className="mt-1 text-xs text-[#94A3B8]">Selected: {sizeLabel}</div>
                 </div>
 
                 <div>
