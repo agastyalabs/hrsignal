@@ -54,7 +54,15 @@ export default async function RecommendSuccessPage({
                     </div>
                     <div>
                       <dt className="text-[#94A3B8]">Size band</dt>
-                      <dd className="mt-0.5 font-medium text-[#F9FAFB]">{submission.sizeBand}</dd>
+                      <dd className="mt-0.5 font-medium text-[#F9FAFB]">
+                        {submission.sizeBand === "EMP_20_200"
+                          ? "51–200"
+                          : submission.sizeBand === "EMP_50_500"
+                            ? "201–500"
+                            : submission.sizeBand === "EMP_100_1000"
+                              ? "501–1000"
+                              : submission.sizeBand}
+                      </dd>
                     </div>
                     <div className="sm:col-span-2">
                       <dt className="text-[#94A3B8]">Needs</dt>

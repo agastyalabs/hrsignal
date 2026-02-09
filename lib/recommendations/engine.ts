@@ -136,10 +136,11 @@ function scoreTool(
 }
 
 function prettySizeBand(band: BuyerSizeBand) {
-  if (band === "EMP_20_200") return "20–200";
-  if (band === "EMP_50_500") return "50–500";
-  if (band === "EMP_100_1000") return "100–1000";
-  return band;
+  // UI labels should match the new logical ranges.
+  if (band === "EMP_20_200") return "51–200";
+  if (band === "EMP_50_500") return "201–500";
+  if (band === "EMP_100_1000") return "501–1000";
+  return String(band);
 }
 
 function prettyCategory(slug: string) {

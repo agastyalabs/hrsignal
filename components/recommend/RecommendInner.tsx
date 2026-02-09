@@ -25,7 +25,7 @@ const INTEGRATION_OPTIONS = [
   { slug: "google-workspace", label: "Google Workspace" },
 ] as const;
 
-type SizeBand = "EMP_20_200" | "EMP_50_500" | "EMP_100_1000";
+type SizeBand = "1-10" | "11-50" | "51-200" | "201-500" | "501-1000" | "1001-5000" | "5001-10000" | "10000+";
 
 type Mode = "recommend" | "stack-builder";
 
@@ -43,7 +43,7 @@ export default function RecommendInner({
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-  const [sizeBand, setSizeBand] = useState<SizeBand>("EMP_20_200");
+  const [sizeBand, setSizeBand] = useState<SizeBand>("11-50");
   const [industry, setIndustry] = useState("");
   const [deployment, setDeployment] = useState<"cloud" | "on-prem" | "hybrid" | "">("");
   const [budgetBand, setBudgetBand] = useState<"lt_50" | "50_100" | "100_200" | "quote" | "unknown" | "">("");
@@ -195,9 +195,14 @@ export default function RecommendInner({
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <Field label="Employee count band">
                         <select className="input" value={sizeBand} onChange={(e) => setSizeBand(e.target.value as SizeBand)}>
-                          <option value="EMP_20_200">20–200</option>
-                          <option value="EMP_50_500">50–500</option>
-                          <option value="EMP_100_1000">100–1000</option>
+                          <option value="1-10">1–10</option>
+                          <option value="11-50">11–50</option>
+                          <option value="51-200">51–200</option>
+                          <option value="201-500">201–500</option>
+                          <option value="501-1000">501–1000</option>
+                          <option value="1001-5000">1001–5000</option>
+                          <option value="5001-10000">5001–10,000</option>
+                          <option value="10000+">10,000+</option>
                         </select>
                       </Field>
                       <Field label="States (optional, comma separated)">

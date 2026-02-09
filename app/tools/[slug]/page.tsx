@@ -124,11 +124,11 @@ This page is available in read-only mode until the catalog database is connected
                   ? tool.bestForSizeBands
                       .map((b) =>
                         b === "EMP_20_200"
-                          ? "20–200 employees"
+                          ? "51–200 employees"
                           : b === "EMP_50_500"
-                            ? "50–500 employees"
+                            ? "201–500 employees"
                             : b === "EMP_100_1000"
-                              ? "100–1000 employees"
+                              ? "501–1000 employees"
                               : String(b)
                       )
                       .join(", ")
