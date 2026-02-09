@@ -5,7 +5,7 @@ This file tracks production deployments for UX plan work.
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
-- **Resolved production deployment (Vercel):** https://hrsignal-cbr48wr82-agastyalabs-projects.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-hzsbk1kbh-agastyalabs-projects.vercel.app
 
 ### Commits included
 
@@ -20,3 +20,4 @@ This file tracks production deployments for UX plan work.
 - `09977e8` — P0(vendors): vendor detail pages now include full structured sections (overview, best for, features, pros/cons, pricing, integrations, onboarding, support/compliance, alternatives) with “Info pending” fallbacks.
 - `9b5c6ab` — P0(pricing): enforce pricing type badges (PEPM / Per user/month / One-time / Quote-based) across tool cards, tool detail, compare, and vendor pages.
 - `3a529a5` — P0(pricing): compare page pricing formatting tuned to show type badge as its own line (no ambiguous units).
+- `c14021a` — P0(pricing): vendor cards now show pricing type badges + unit-labeled helper text (reuses shared pricing helpers).
