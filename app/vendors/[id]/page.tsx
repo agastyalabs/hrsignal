@@ -223,7 +223,12 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                   ))}
                 </ul>
               ) : (
-                <div className="text-sm text-[#CBD5E1]">Info pending. Use “Request demo/pricing” from a tool page to get a quote that fits your headcount and modules.</div>
+                <div className="flex flex-wrap items-center gap-2 text-sm text-[#CBD5E1]">
+                  <span className="rounded-full border border-[#1F2937] bg-[#111827] px-2 py-0.5 text-xs font-semibold text-[#CBD5E1]">
+                    Quote-based
+                  </span>
+                  <span>Contact vendor / request quote.</span>
+                </div>
               )}
             </Card>
           </div>
