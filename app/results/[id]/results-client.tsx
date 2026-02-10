@@ -2,7 +2,7 @@
 
 import type { BuyerSizeBand } from "@prisma/client";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -44,6 +44,19 @@ type RecommendationResult = {
   }>;
 };
 
+type ToolMeta = {
+  slug: string;
+  lastVerifiedAt: string | null;
+  vendorName: string | null;
+};
+
+type PayrollDecisionInputs = {
+  statutoryComplexity: string | null;
+  complianceNeeded: string[];
+  gstRequired: string | null;
+  dataResidency: string | null;
+};
+
 export default function ResultsClient({
   runId,
   submission,
@@ -81,6 +94,38 @@ export default function ResultsClient({
     if (slugs.length < 2) return null;
     return `/compare?tools=${encodeURIComponent(slugs.join(","))}`;
   }, [result]);
+
+  const decisionInputs = useMemo(() => extractPayrollDecisionInputs(submission.budgetNote || ""), [submission.budgetNote]);
+
+  const [toolMeta, setToolMeta] = useState<Record<string, ToolMeta>>({});
+
+  useEffect(() => {
+    const slugs = picks.map((p) => p.tool.slug).filter(Boolean);
+    if (!slugs.length) return;
+
+    let cancelled = false;
+    (async () => {
+      const res = await fetch("/api/tools", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ slugs: slugs.slice(0, 5) }),
+      }).catch(() => null);
+
+      const data = await res?.json().catch(() => null);
+      if (!res?.ok || !data?.ok || !Array.isArray(data.tools)) return;
+
+      const next: Record<string, ToolMeta> = {};
+      for (const t of data.tools as Array<{ slug: string; lastVerifiedAt: string | null; vendorName: string | null }>) {
+        next[t.slug] = { slug: t.slug, lastVerifiedAt: t.lastVerifiedAt, vendorName: t.vendorName };
+      }
+
+      if (!cancelled) setToolMeta(next);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [picks]);
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -120,6 +165,25 @@ export default function ResultsClient({
           ) : null}
         </div>
 
+        {decisionInputs ? (
+          <div className="mt-5 rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <div className="text-sm font-semibold text-zinc-900">Payroll decision context</div>
+                <div className="mt-1 text-xs text-zinc-500">We’ll highlight verification freshness when we have dates, and call out what to validate.</div>
+              </div>
+              <div className="text-xs text-zinc-500">Trust-first: evidence & recency over guesswork</div>
+            </div>
+
+            <div className="mt-3 grid grid-cols-1 gap-2 text-sm text-zinc-700 sm:grid-cols-2">
+              <Chip label="Compliance" value={decisionInputs.complianceNeeded.join(", ") || "—"} />
+              <Chip label="Complexity" value={decisionInputs.statutoryComplexity || "—"} />
+              <Chip label="GST invoicing" value={decisionInputs.gstRequired || "—"} />
+              <Chip label="Data residency" value={decisionInputs.dataResidency || "—"} />
+            </div>
+          </div>
+        ) : null}
+
         <div className="mt-8 space-y-4">
           {picks.length === 0 ? (
             <Card className="shadow-sm">
@@ -139,40 +203,107 @@ export default function ResultsClient({
             </Card>
           ) : null}
 
-          {picks.map((p) => (
-            <Card key={p.tool.slug} className="shadow-sm">
-              <div className="flex items-baseline justify-between gap-4">
-                <div>
-                  <div className="text-xl font-semibold">{p.tool.name}</div>
-                  {p.tool.vendorName ? <div className="mt-1 text-sm text-zinc-600">by {p.tool.vendorName}</div> : null}
+          {picks.map((p) => {
+            const meta = toolMeta[p.tool.slug];
+            const freshness = meta?.lastVerifiedAt ? freshnessLabel(meta.lastVerifiedAt) : null;
+            const vendorName = meta?.vendorName ?? p.tool.vendorName;
+
+            return (
+              <Card key={p.tool.slug} className="shadow-sm">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <div className="text-xl font-semibold text-zinc-900">{p.tool.name}</div>
+                    {vendorName ? <div className="mt-1 text-sm text-zinc-600">by {vendorName}</div> : null}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {freshness ? (
+                      <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${freshness.tone}`}>{freshness.label}</span>
+                    ) : (
+                      <span className="rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-semibold text-zinc-600">
+                        Verification: unknown
+                      </span>
+                    )}
+                    <span className="text-xs text-zinc-500">Score {p.score}</span>
+                  </div>
                 </div>
-                <div className="text-sm text-zinc-500">Score {p.score}</div>
-              </div>
 
-              {p.tool.tagline ? <div className="mt-2 text-zinc-700">{p.tool.tagline}</div> : null}
+                {p.tool.tagline ? <div className="mt-2 text-zinc-700">{p.tool.tagline}</div> : null}
 
-              {p.matchedCategories.length ? (
-                <div className="mt-3 text-sm text-zinc-600">
-                  Matches: {p.matchedCategories.map(prettyCategory).join(", ")}
+                <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <div className="sm:col-span-2">
+                    <div className="text-sm font-semibold text-zinc-900">Why shortlisted</div>
+                    <ul className="mt-2 space-y-2">
+                      {p.why.slice(0, 6).map((w) => (
+                        <li key={w} className="flex gap-2 text-sm leading-6 text-zinc-700">
+                          <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                            ✓
+                          </span>
+                          <span>{w}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div>
+                    <div className="text-sm font-semibold text-zinc-900">Compliance fit (validate)</div>
+                    <div className="mt-2 space-y-2 text-sm text-zinc-700">
+                      {decisionInputs?.complianceNeeded?.length ? (
+                        <MiniRow label="Compliance" value={decisionInputs.complianceNeeded.join(", ")} />
+                      ) : (
+                        <MiniRow label="Compliance" value="Validate in demo" />
+                      )}
+                      <MiniRow label="GST" value={decisionInputs?.gstRequired ?? "Validate"} />
+                      <MiniRow label="Residency" value={decisionInputs?.dataResidency ?? "Validate"} />
+                      <div className="text-xs leading-5 text-zinc-500">
+                        Tool-level evidence can be partial. Use “View details” to check sources and freshness.
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              ) : null}
 
-              <div className="mt-3 text-sm text-zinc-700">
-                <div className="font-medium">Why this fits</div>
-                <ul className="mt-2 list-disc space-y-1 pl-5">
-                  {p.why.map((w) => (
-                    <li key={w}>{w}</li>
-                  ))}
-                </ul>
-              </div>
+                {p.matchedCategories.length ? (
+                  <div className="mt-4 text-sm text-zinc-600">Matches: {p.matchedCategories.map(prettyCategory).join(", ")}</div>
+                ) : null}
 
-              <div className="mt-4">
-                <Link className="text-sm font-medium text-indigo-700" href={`/tools/${p.tool.slug}`}>
-                  View details →
-                </Link>
-              </div>
+                <div className="mt-4">
+                  <Link className="text-sm font-medium text-indigo-700 hover:underline" href={`/tools/${p.tool.slug}`}>
+                    View details →
+                  </Link>
+                </div>
+              </Card>
+            );
+          })}
+
+          {picks.length ? (
+            <Card className="shadow-sm">
+              <details>
+                <summary className="cursor-pointer text-sm font-semibold text-zinc-900">Why not others?</summary>
+                <div className="mt-3 text-sm text-zinc-700">
+                  <p className="text-zinc-600">
+                    HRSignal shows the top 3–5 tools for your inputs. Tools that are not shown typically fall into one (or more) buckets:
+                  </p>
+                  <ul className="mt-3 space-y-2">
+                    <li className="flex gap-2">
+                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-100 text-zinc-700">•</span>
+                      <span>Lower overall fit score for your size/integrations/requirements.</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-100 text-zinc-700">•</span>
+                      <span>Missing evidence for critical payroll/compliance claims (we’ll say “validate”).</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-100 text-zinc-700">•</span>
+                      <span>Stale or unknown verification freshness (we surface “verified recently” when dates exist).</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-100 text-zinc-700">•</span>
+                      <span>Doesn’t match must-have integrations (if selected).</span>
+                    </li>
+                  </ul>
+                </div>
+              </details>
             </Card>
-          ))}
+          ) : null}
         </div>
 
         <div className="mt-10">
@@ -303,4 +434,57 @@ function prettyCategory(slug: string) {
     attendance: "Time & Attendance",
   };
   return map[slug] ?? slug;
+}
+
+function Chip({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2">
+      <div className="text-xs font-semibold text-zinc-500">{label}</div>
+      <div className="text-sm font-semibold text-zinc-900">{value}</div>
+    </div>
+  );
+}
+
+function MiniRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3 rounded-lg border border-zinc-200 bg-white px-3 py-2">
+      <div className="text-xs font-semibold text-zinc-500">{label}</div>
+      <div className="text-xs font-semibold text-zinc-900">{value}</div>
+    </div>
+  );
+}
+
+function extractPayrollDecisionInputs(note: string): PayrollDecisionInputs | null {
+  // The payroll decision wizard appends a structured block into budgetNote.
+  if (!note || !note.includes("Category: Payroll")) return null;
+
+  const compliance = matchLine(note, /^Compliance needed:\s*(.*)$/m)
+    ?.split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .filter((x) => x !== "-") ?? [];
+
+  return {
+    statutoryComplexity: matchLine(note, /^Statutory complexity:\s*(.*)$/m) ?? null,
+    complianceNeeded: compliance,
+    gstRequired: matchLine(note, /^GST invoicing required:\s*(.*)$/m) ?? null,
+    dataResidency: matchLine(note, /^Data residency:\s*(.*)$/m) ?? null,
+  };
+}
+
+function matchLine(input: string, re: RegExp) {
+  const m = input.match(re);
+  const v = m?.[1]?.trim();
+  if (!v) return null;
+  return v;
+}
+
+function freshnessLabel(iso: string): { label: string; tone: string } {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return { label: "Verified: unknown", tone: "border-zinc-200 bg-white text-zinc-600" };
+
+  const days = Math.floor((Date.now() - d.getTime()) / (1000 * 60 * 60 * 24));
+  if (days <= 45) return { label: `Verified recently (${days}d)`, tone: "border-emerald-200 bg-emerald-50 text-emerald-800" };
+  if (days <= 120) return { label: `Verified (${days}d ago)`, tone: "border-amber-200 bg-amber-50 text-amber-800" };
+  return { label: `Verification stale (${days}d)`, tone: "border-rose-200 bg-rose-50 text-rose-800" };
 }
