@@ -260,7 +260,7 @@ export default async function Home() {
 
         <div className="mt-10 space-y-6">
           <TrustStrip />
-          <VendorLogoStrip title="Popular vendors" subtitle="Recognizable India-first HR tools — more logos added continuously." />
+          <VendorLogoStrip title="Popular vendors" subtitle="A few commonly evaluated vendors in the India-first HR stack." />
         </div>
       </Section>
 
