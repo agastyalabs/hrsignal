@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { execSync } from "node:child_process";
 
 const NO_STORE_HEADERS = [
   { key: "Cache-Control", value: "private, no-cache, no-store, max-age=0, must-revalidate" },
@@ -7,7 +8,34 @@ const NO_STORE_HEADERS = [
   { key: "Expires", value: "0" },
 ];
 
+function safe(cmd: string) {
+  try {
+    return execSync(cmd, { stdio: ["ignore", "pipe", "ignore"] }).toString().trim();
+  } catch {
+    return "";
+  }
+}
+
+const buildBranch =
+  process.env.VERCEL_GIT_COMMIT_REF ||
+  process.env.GIT_BRANCH ||
+  safe("git rev-parse --abbrev-ref HEAD") ||
+  "unknown";
+
+const buildSha =
+  (process.env.VERCEL_GIT_COMMIT_SHA || process.env.GIT_COMMIT_SHA || safe("git rev-parse HEAD") || "").slice(0, 7) ||
+  "unknown";
+
+const buildTime = process.env.BUILD_TIME || new Date().toISOString();
+
 const nextConfig: NextConfig = {
+  env: {
+    // Tiny footer build stamp (computed at build time)
+    NEXT_PUBLIC_BUILD_BRANCH: buildBranch,
+    NEXT_PUBLIC_BUILD_SHA: buildSha,
+    NEXT_PUBLIC_BUILD_TIME: buildTime,
+  },
+
   async headers() {
     return [
       // Never cache HTML routes/pages (prevents "hard refresh" after deploy)

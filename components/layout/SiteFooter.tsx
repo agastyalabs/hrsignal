@@ -103,7 +103,12 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-[#1F2937] pt-6 text-xs text-[#94A3B8] sm:flex-row sm:items-center sm:justify-between">
-          <div>© {new Date().getFullYear()} {BRAND.name}</div>
+          <div>
+            © {new Date().getFullYear()} {BRAND.name}
+            <span className="ml-3 align-middle text-[10px] text-[#94A3B8]/70">
+              build: {process.env.NEXT_PUBLIC_BUILD_BRANCH ?? "?"} {process.env.NEXT_PUBLIC_BUILD_SHA ?? "?"} {process.env.NEXT_PUBLIC_BUILD_TIME ?? "?"}
+            </span>
+          </div>
           <div>
             Questions? Email{" "}
             <a className="text-[#CBD5E1] underline decoration-[#1F2937]" href="mailto:hello@hrsignal.in">
