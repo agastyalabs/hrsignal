@@ -3,6 +3,7 @@ import * as React from "react";
 
 import { Card } from "@/components/ui/Card";
 import { VendorLogo } from "@/components/VendorLogo";
+import { VendorCompareToggle } from "@/components/vendor-compare/VendorCompareToggle";
 import { domainFromUrl } from "@/lib/brand/logo";
 import { TrustRatingRow } from "@/components/trust/TrustRatingRow";
 
@@ -30,9 +31,8 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
   const trustLevel = vendor.trustLevel ?? (vendor.verifiedInIndia ? "verified" : "unverified");
 
   return (
-    <Link href={`/vendors/${vendor.slug}`} className="block">
-      <Card className="h-full p-5">
-        <div className="flex items-start justify-between gap-3">
+    <Card className="h-full p-5">
+      <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 items-start gap-3">
             <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-2)]">
               <VendorLogo
@@ -44,14 +44,19 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
               />
             </div>
             <div className="min-w-0">
-              <div className="truncate text-base font-semibold text-[var(--text)]">{vendor.name}</div>
+              <div className="flex items-center justify-between gap-3">
+                <Link href={`/vendors/${vendor.slug}`} className="truncate text-base font-semibold text-[var(--text)] hover:underline">
+                  {vendor.name}
+                </Link>
+                <VendorCompareToggle slug={vendor.slug} label={vendor.name} />
+              </div>
               <div className="mt-1 line-clamp-1 text-sm text-[var(--text-muted)]">
                 {vendor.tagline ?? "HR software vendor listing"}
               </div>
             </div>
           </div>
 
-          <div className="shrink-0 text-right text-xs text-[var(--text-muted)]">
+          <div className="shrink-0 text-right text-xs text-[var(--text-muted)] hidden sm:block">
             {vendor.websiteUrl ? vendor.websiteUrl.replace(/^https?:\/\//, "") : "—"}
           </div>
         </div>
@@ -122,11 +127,13 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
         </div>
 
         <div className="mt-5">
-          <div className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)]">
+          <Link
+            href={`/vendors/${vendor.slug}`}
+            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-4 focus:ring-[rgba(139,92,246,0.25)]"
+          >
             View vendor
-          </div>
+          </Link>
         </div>
       </Card>
-    </Link>
   );
 }
