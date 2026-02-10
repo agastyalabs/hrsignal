@@ -7,7 +7,31 @@ export type VendorBrief = {
   updatedAt: Date | null;
   raw: string | null;
   sections: Record<string, string>; // keyed by normalized heading
+  urls: string[];
+  dataGaps: string[];
 };
+
+function extractUrls(text: string): string[] {
+  const out = new Set<string>();
+  const re = /https?:\/\/[^\s)\]]+/g;
+  for (;;) {
+    const m = re.exec(text);
+    if (!m) break;
+    out.add(m[0].replace(/[.,;]+$/, ""));
+  }
+  return Array.from(out);
+}
+
+function extractBullets(text: string): string[] {
+  return text
+    .replace(/\r\n/g, "\n")
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.startsWith("-") || l.startsWith("•"))
+    .map((l) => l.replace(/^[-•]\s+/, ""))
+    .filter(Boolean)
+    .slice(0, 12);
+}
 
 function slugify(name: string) {
   return String(name)
@@ -81,12 +105,18 @@ export async function getVendorBrief(input: {
 
   try {
     const [raw, stat] = await Promise.all([fs.readFile(filePath, "utf8"), fs.stat(filePath)]);
+    const sections = splitMarkdownByH2(raw);
+    const sources = sections["sources checked"] ?? sections["sources and data quality"] ?? "";
+    const gaps = sections["data gaps"] ?? sections["data gaps explicit"] ?? "";
+
     return {
       slug,
       exists: true,
       updatedAt: stat.mtime,
       raw,
-      sections: splitMarkdownByH2(raw),
+      sections,
+      urls: extractUrls(sources),
+      dataGaps: extractBullets(gaps),
     };
   } catch {
     return {
@@ -95,6 +125,8 @@ export async function getVendorBrief(input: {
       updatedAt: null,
       raw: null,
       sections: {},
+      urls: [],
+      dataGaps: [],
     };
   }
 }
