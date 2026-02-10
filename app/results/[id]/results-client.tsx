@@ -88,6 +88,8 @@ export default function ResultsClient({
   }
 
   const picks = useMemo(() => result?.tools ?? [], [result]);
+  const primaryPick = picks[0] ?? null;
+  const alternatives = picks.slice(1);
 
   const compareHref = useMemo(() => {
     const slugs = (result?.tools ?? []).map((t) => t.tool.slug).filter(Boolean).slice(0, 4);
@@ -132,50 +134,81 @@ export default function ResultsClient({
       <SiteHeader />
       <ToastViewport toasts={toasts} dismiss={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))} />
 
-      <main className="py-10 sm:py-14">
+      <main className="py-8 sm:py-12">
         <Container className="max-w-5xl">
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <h1 className="text-2xl font-semibold">Your HR stack shortlist</h1>
-          <div className="flex items-center gap-3">
-            {compareHref ? (
-              <Link className="text-sm font-medium text-indigo-700 hover:underline" href={compareHref}>
-                Compare
-              </Link>
-            ) : null}
-            <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/recommend">
-              Start over
-            </Link>
-          </div>
-        </div>
-        <p className="mt-2 text-zinc-600">
-          Based on your inputs, here are 3–5 best-fit tools. Want pricing/demo help? Submit your details and we’ll route you to the best-fit
-          vendor.
-        </p>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl">Your shortlist</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
+                We picked 3–5 best-fit tools and surfaced trust signals (verification freshness) so you can move forward with confidence.
+              </p>
+            </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {submission.categoriesNeeded.slice(0, 5).map((c) => (
-            <span key={c} className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-zinc-700">
-              {prettyCategory(c)}
-            </span>
-          ))}
-          {submission.mustHaveIntegrations.length ? (
-            <span className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm text-zinc-700">
-              Integrations: {submission.mustHaveIntegrations.join(", ")}
-            </span>
-          ) : null}
-        </div>
+            <div className="flex items-center gap-3">
+              {compareHref ? (
+                <Link className="text-sm font-medium text-indigo-700 hover:underline" href={compareHref}>
+                  Compare
+                </Link>
+              ) : null}
+              <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/recommend">
+                Edit answers
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <MomentumStep step={2} title="Shortlist" desc="Explainable picks" active />
+            <MomentumStep step={3} title="Next" desc="Request intro" />
+            <MomentumStep step={4} title="Decide" desc="Compare + demo" />
+          </div>
+
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap gap-2">
+              {submission.categoriesNeeded.slice(0, 5).map((c) => (
+                <span key={c} className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-semibold text-zinc-700">
+                  {prettyCategory(c)}
+                </span>
+              ))}
+              {submission.mustHaveIntegrations.length ? (
+                <span className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-semibold text-zinc-700">
+                  Integrations: {submission.mustHaveIntegrations.join(", ")}
+                </span>
+              ) : null}
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <a
+                href="#intro"
+                className="inline-flex h-10 items-center justify-center rounded-lg bg-indigo-700 px-4 text-sm font-semibold text-white hover:bg-indigo-800"
+              >
+                Request pricing & intro
+              </a>
+              {primaryPick ? (
+                <Link
+                  href={`/tools/${primaryPick.tool.slug}`}
+                  className="inline-flex h-10 items-center justify-center rounded-lg border border-zinc-200 bg-white px-4 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                >
+                  View top pick
+                </Link>
+              ) : null}
+            </div>
+          </div>
 
         {decisionInputs ? (
-          <div className="mt-5 rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
+          <div className="mt-6 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <div className="text-sm font-semibold text-zinc-900">Payroll decision context</div>
-                <div className="mt-1 text-xs text-zinc-500">We’ll highlight verification freshness when we have dates, and call out what to validate.</div>
+                <div className="mt-1 text-xs leading-5 text-zinc-500">
+                  This is what we’ll optimize for. If a tool’s evidence is missing or stale, we’ll call it out.
+                </div>
               </div>
-              <div className="text-xs text-zinc-500">Trust-first: evidence & recency over guesswork</div>
+              <div className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-semibold text-zinc-700">
+                Trust: evidence + recency
+              </div>
             </div>
 
-            <div className="mt-3 grid grid-cols-1 gap-2 text-sm text-zinc-700 sm:grid-cols-2">
+            <div className="mt-4 grid grid-cols-1 gap-2 text-sm text-zinc-700 sm:grid-cols-2">
               <Chip label="Compliance" value={decisionInputs.complianceNeeded.join(", ") || "—"} />
               <Chip label="Complexity" value={decisionInputs.statutoryComplexity || "—"} />
               <Chip label="GST invoicing" value={decisionInputs.gstRequired || "—"} />
@@ -189,8 +222,8 @@ export default function ResultsClient({
             <Card className="shadow-sm">
               <div className="text-base font-semibold text-zinc-900">No matches yet</div>
               <p className="mt-2 text-sm leading-6 text-zinc-600">
-                We couldn’t find published tools that match your selected categories/integrations.
-                Try removing an integration requirement, or browse the directory.
+                We couldn’t find published tools that match your selected categories/integrations. Try removing an integration requirement, or
+                browse the directory.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white" href="/recommend">
@@ -203,76 +236,161 @@ export default function ResultsClient({
             </Card>
           ) : null}
 
-          {picks.map((p) => {
-            const meta = toolMeta[p.tool.slug];
-            const freshness = meta?.lastVerifiedAt ? freshnessLabel(meta.lastVerifiedAt) : null;
-            const vendorName = meta?.vendorName ?? p.tool.vendorName;
-
-            return (
-              <Card key={p.tool.slug} className="shadow-sm">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <div className="text-xl font-semibold text-zinc-900">{p.tool.name}</div>
-                    {vendorName ? <div className="mt-1 text-sm text-zinc-600">by {vendorName}</div> : null}
+          {primaryPick ? (
+            <Card className="relative overflow-hidden border border-zinc-200 bg-white shadow-sm">
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500" />
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-800">
+                    Primary recommendation
                   </div>
-                  <div className="flex items-center gap-2">
-                    {freshness ? (
-                      <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${freshness.tone}`}>{freshness.label}</span>
-                    ) : (
-                      <span className="rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-semibold text-zinc-600">
-                        Verification: unknown
-                      </span>
-                    )}
-                    <span className="text-xs text-zinc-500">Score {p.score}</span>
-                  </div>
+                  <div className="mt-3 text-2xl font-semibold tracking-tight text-zinc-950">{primaryPick.tool.name}</div>
+                  {(() => {
+                    const meta = toolMeta[primaryPick.tool.slug];
+                    const vendorName = meta?.vendorName ?? primaryPick.tool.vendorName;
+                    return vendorName ? <div className="mt-1 text-sm text-zinc-600">by {vendorName}</div> : null;
+                  })()}
                 </div>
 
-                {p.tool.tagline ? <div className="mt-2 text-zinc-700">{p.tool.tagline}</div> : null}
+                <div className="flex flex-wrap items-center gap-2">
+                  {(() => {
+                    const meta = toolMeta[primaryPick.tool.slug];
+                    const freshness = meta?.lastVerifiedAt ? freshnessLabel(meta.lastVerifiedAt) : null;
+                    if (!freshness)
+                      return (
+                        <span className="rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-semibold text-zinc-600">
+                          Verification: unknown
+                        </span>
+                      );
+                    return <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${freshness.tone}`}>{freshness.label}</span>;
+                  })()}
+                  <span className="text-xs text-zinc-500">Score {primaryPick.score}</span>
+                </div>
+              </div>
 
-                <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  <div className="sm:col-span-2">
-                    <div className="text-sm font-semibold text-zinc-900">Why shortlisted</div>
-                    <ul className="mt-2 space-y-2">
-                      {p.why.slice(0, 6).map((w) => (
-                        <li key={w} className="flex gap-2 text-sm leading-6 text-zinc-700">
-                          <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
-                            ✓
-                          </span>
-                          <span>{w}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+              {primaryPick.tool.tagline ? <div className="mt-3 text-zinc-700">{primaryPick.tool.tagline}</div> : null}
 
-                  <div>
-                    <div className="text-sm font-semibold text-zinc-900">Compliance fit (validate)</div>
-                    <div className="mt-2 space-y-2 text-sm text-zinc-700">
-                      {decisionInputs?.complianceNeeded?.length ? (
-                        <MiniRow label="Compliance" value={decisionInputs.complianceNeeded.join(", ")} />
-                      ) : (
-                        <MiniRow label="Compliance" value="Validate in demo" />
-                      )}
-                      <MiniRow label="GST" value={decisionInputs?.gstRequired ?? "Validate"} />
-                      <MiniRow label="Residency" value={decisionInputs?.dataResidency ?? "Validate"} />
-                      <div className="text-xs leading-5 text-zinc-500">
-                        Tool-level evidence can be partial. Use “View details” to check sources and freshness.
-                      </div>
+              <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+                <div className="sm:col-span-2">
+                  <div className="text-sm font-semibold text-zinc-900">Why shortlisted</div>
+                  <ul className="mt-3 space-y-2">
+                    {primaryPick.why.slice(0, 7).map((w) => (
+                      <li key={w} className="flex gap-2 text-sm leading-6 text-zinc-800">
+                        <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
+                          ✓
+                        </span>
+                        <span>{w}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <div className="text-sm font-semibold text-zinc-900">Decision-ready checks</div>
+                  <div className="mt-3 space-y-2">
+                    <MiniRow label="Compliance" value={decisionInputs?.complianceNeeded?.length ? decisionInputs.complianceNeeded.join(", ") : "Validate"} />
+                    <MiniRow label="GST" value={decisionInputs?.gstRequired ?? "Validate"} />
+                    <MiniRow label="Residency" value={decisionInputs?.dataResidency ?? "Validate"} />
+                    <div className="text-xs leading-5 text-zinc-500">
+                      Use tool details to verify sources. Unknowns are highlighted so you can validate fast.
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {p.matchedCategories.length ? (
-                  <div className="mt-4 text-sm text-zinc-600">Matches: {p.matchedCategories.map(prettyCategory).join(", ")}</div>
-                ) : null}
-
-                <div className="mt-4">
-                  <Link className="text-sm font-medium text-indigo-700 hover:underline" href={`/tools/${p.tool.slug}`}>
-                    View details →
-                  </Link>
+              <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <Link className="text-sm font-semibold text-indigo-700 hover:underline" href={`/tools/${primaryPick.tool.slug}`}>
+                  View top pick details →
+                </Link>
+                <div className="flex flex-wrap gap-2">
+                  {compareHref ? (
+                    <Link
+                      className="inline-flex h-10 items-center justify-center rounded-lg border border-zinc-200 bg-white px-4 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                      href={compareHref}
+                    >
+                      Compare
+                    </Link>
+                  ) : null}
+                  <a
+                    href="#intro"
+                    className="inline-flex h-10 items-center justify-center rounded-lg bg-indigo-700 px-4 text-sm font-semibold text-white hover:bg-indigo-800"
+                  >
+                    Request intro
+                  </a>
                 </div>
-              </Card>
-            );
-          })}
+              </div>
+            </Card>
+          ) : null}
+
+          {alternatives.length ? (
+            <div className="pt-2">
+              <div className="mb-3 flex items-baseline justify-between gap-3">
+                <h2 className="text-base font-semibold text-zinc-900">Alternatives</h2>
+                <div className="text-xs text-zinc-500">Useful to sanity-check pricing, payroll edge cases, and support</div>
+              </div>
+
+              <div className="space-y-4">
+                {alternatives.map((p) => {
+                  const meta = toolMeta[p.tool.slug];
+                  const freshness = meta?.lastVerifiedAt ? freshnessLabel(meta.lastVerifiedAt) : null;
+                  const vendorName = meta?.vendorName ?? p.tool.vendorName;
+
+                  return (
+                    <Card key={p.tool.slug} className="shadow-sm">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                        <div>
+                          <div className="text-lg font-semibold text-zinc-950">{p.tool.name}</div>
+                          {vendorName ? <div className="mt-1 text-sm text-zinc-600">by {vendorName}</div> : null}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {freshness ? (
+                            <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${freshness.tone}`}>{freshness.label}</span>
+                          ) : (
+                            <span className="rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-semibold text-zinc-600">
+                              Verification: unknown
+                            </span>
+                          )}
+                          <span className="text-xs text-zinc-500">Score {p.score}</span>
+                        </div>
+                      </div>
+
+                      {p.tool.tagline ? <div className="mt-2 text-sm text-zinc-700">{p.tool.tagline}</div> : null}
+
+                      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                        <div className="sm:col-span-2">
+                          <div className="text-sm font-semibold text-zinc-900">Why shortlisted</div>
+                          <ul className="mt-2 space-y-2">
+                            {p.why.slice(0, 4).map((w) => (
+                              <li key={w} className="flex gap-2 text-sm leading-6 text-zinc-700">
+                                <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-100 text-zinc-700">
+                                  •
+                                </span>
+                                <span>{w}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold text-zinc-900">Next to validate</div>
+                          <div className="mt-2 space-y-2">
+                            <MiniRow label="Payroll" value="Edge cases" />
+                            <MiniRow label="Compliance" value="Evidence" />
+                            <MiniRow label="Support" value="SLA" />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mt-4">
+                        <Link className="text-sm font-semibold text-indigo-700 hover:underline" href={`/tools/${p.tool.slug}`}>
+                          View details →
+                        </Link>
+                      </div>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
 
           {picks.length ? (
             <Card className="shadow-sm">
@@ -306,12 +424,19 @@ export default function ResultsClient({
           ) : null}
         </div>
 
-        <div className="mt-10">
+        <div className="mt-10" id="intro">
           <Card className="shadow-sm">
-          <h2 className="text-lg font-semibold text-zinc-900">Get pricing & vendor intro</h2>
-          <p className="mt-1 text-sm text-zinc-600">
-            We’ll review and share your requirement with one best-fit vendor (not blasted to everyone).
-          </p>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h2 className="text-lg font-semibold text-zinc-900">Get pricing & vendor intro</h2>
+                <p className="mt-1 text-sm text-zinc-600">
+                  We’ll review and share your requirement with one best-fit vendor (not blasted to everyone).
+                </p>
+              </div>
+              <div className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-semibold text-zinc-700">
+                Momentum: shortlist → intro → demo
+              </div>
+            </div>
 
           <form
             className="mt-5 space-y-4"
@@ -434,6 +559,41 @@ function prettyCategory(slug: string) {
     attendance: "Time & Attendance",
   };
   return map[slug] ?? slug;
+}
+
+function MomentumStep({
+  step,
+  title,
+  desc,
+  active,
+}: {
+  step: number;
+  title: string;
+  desc: string;
+  active?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-2xl border px-4 py-3 shadow-sm ${
+        active ? "border-indigo-200 bg-indigo-50" : "border-zinc-200 bg-white"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <div className={`text-xs font-semibold ${active ? "text-indigo-800" : "text-zinc-500"}`}>Step {step}</div>
+          <div className="mt-1 text-sm font-semibold text-zinc-950">{title}</div>
+          <div className="mt-1 text-xs leading-5 text-zinc-600">{desc}</div>
+        </div>
+        <div
+          className={`inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
+            active ? "bg-indigo-700 text-white" : "bg-zinc-100 text-zinc-700"
+          }`}
+        >
+          {step}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function Chip({ label, value }: { label: string; value: string }) {
