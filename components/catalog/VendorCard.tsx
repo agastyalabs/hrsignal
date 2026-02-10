@@ -23,33 +23,59 @@ export type VendorCardModel = {
 };
 
 export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
+  const verificationLabel = vendor.verifiedInIndia ? "Verified" : "Unverified";
+
   return (
     <Link href={`/vendors/${vendor.slug}`} className="block">
-      <Card className="h-full p-6">
-        <div className="flex items-start gap-3">
-          <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-2)]">
-            <VendorLogo
-              slug={vendor.slug}
-              name={vendor.name}
-              domain={domainFromUrl(vendor.websiteUrl)}
-              className="h-8 w-8 rounded-md"
-              size={32}
-            />
+      <Card className="h-full p-5">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex min-w-0 items-start gap-3">
+            <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-2)]">
+              <VendorLogo
+                slug={vendor.slug}
+                name={vendor.name}
+                domain={domainFromUrl(vendor.websiteUrl)}
+                className="h-8 w-8 rounded-md"
+                size={32}
+              />
+            </div>
+            <div className="min-w-0">
+              <div className="truncate text-base font-semibold text-[var(--text)]">{vendor.name}</div>
+              <div className="mt-1 line-clamp-1 text-sm text-[var(--text-muted)]">
+                {vendor.tagline ?? "HR software vendor listing"}
+              </div>
+            </div>
           </div>
-          <div className="min-w-0">
-            <div className="truncate text-base font-semibold text-[var(--text)]">{vendor.name}</div>
-            {vendor.tagline ? (
-              <div className="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">{vendor.tagline}</div>
-            ) : null}
+
+          <div className="shrink-0 text-right text-xs text-[var(--text-muted)]">
+            {vendor.websiteUrl ? vendor.websiteUrl.replace(/^https?:\/\//, "") : "—"}
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
-          <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text)]">
             {vendor.toolsCount} tools
           </span>
-          <span className="text-xs text-[var(--text-muted)]">No ratings yet</span>
+          <span className="text-[11px] text-[var(--text-muted)]">No ratings yet</span>
         </div>
+
+        {vendor.categories.length ? (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {vendor.categories.slice(0, 3).map((c) => (
+              <span
+                key={c}
+                className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-xs text-[var(--text-muted)]"
+              >
+                {c}
+              </span>
+            ))}
+            {vendor.categories.length > 3 ? (
+              <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-xs text-[var(--text-muted)]">
+                +{vendor.categories.length - 3}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
 
         {vendor.categories.length ? (
           <div className="mt-4 flex flex-wrap gap-2">
@@ -72,15 +98,14 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
         <div className="mt-4 grid grid-cols-1 gap-2 text-xs text-[var(--text-muted)]">
           <div className="flex flex-wrap items-center gap-2">
             <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">
-              {vendor.verifiedInIndia ? "Verified" : "Unverified"}
+              {verificationLabel}
             </span>
-            <span className="text-[11px] text-[var(--text-muted)]">
-              {vendor.freshnessLabel ? vendor.freshnessLabel : "Updated: —"}
-            </span>
+            <span className="text-[11px] text-[var(--text-muted)]">{vendor.freshnessLabel ?? "Updated: —"}</span>
             <span className="text-[11px] text-[var(--text-muted)]">
               Sources: {typeof vendor.sourcesCount === "number" ? vendor.sourcesCount : "—"}
             </span>
           </div>
+
           <div className="flex items-center gap-2">
             <span className="font-semibold text-[var(--text)]">Pricing:</span>
             <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">
@@ -88,13 +113,13 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
             </span>
             <span className="truncate">{vendor.pricingText ?? "Contact vendor / request quote"}</span>
           </div>
-
-          {vendor.websiteUrl ? (
-            <div className="text-xs text-[var(--text-muted)]">{vendor.websiteUrl.replace(/^https?:\/\//, "")}</div>
-          ) : null}
         </div>
 
-        <div className="mt-5 text-sm font-semibold text-[color:var(--accent)]">View vendor →</div>
+        <div className="mt-5">
+          <div className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)]">
+            View vendor
+          </div>
+        </div>
       </Card>
     </Link>
   );
