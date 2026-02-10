@@ -4,17 +4,17 @@ import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 
 const VENDORS = [
-  { slug: "keka", name: "Keka", href: "/vendors" },
-  { slug: "greythr", name: "greytHR", href: "/vendors" },
-  { slug: "darwinbox", name: "Darwinbox", href: "/vendors" },
-  { slug: "peoplestrong", name: "PeopleStrong", href: "/vendors" },
-  { slug: "pocket-hrms", name: "Pocket HRMS", href: "/vendors" },
-  { slug: "freshteam-freshworks", name: "Freshteam", href: "/vendors" },
+  { slug: "keka", name: "Keka", href: "/vendors/keka" },
+  { slug: "greythr", name: "greytHR", href: "/vendors/greythr" },
+  { slug: "darwinbox", name: "Darwinbox", href: "/vendors/darwinbox" },
+  { slug: "peoplestrong", name: "PeopleStrong", href: "/vendors/peoplestrong" },
+  { slug: "pocket-hrms", name: "Pocket HRMS", href: "/vendors/pocket-hrms" },
+  { slug: "freshteam", name: "Freshteam", href: "/vendors/freshteam" },
 ] as const;
 
 export function VendorLogoStrip({
   title = "Popular vendors",
-  subtitle = "Logos shown for known vendors. More added continuously.",
+  subtitle = "A few commonly evaluated vendors in the India-first HR stack.",
 }: {
   title?: string;
   subtitle?: string;
@@ -46,11 +46,12 @@ export function VendorLogoStrip({
               height={96}
               className="h-8 w-auto opacity-90 transition-opacity group-hover:opacity-100"
             />
+            <span className="sr-only">{v.name}</span>
           </Link>
         ))}
       </div>
 
-      <div className="mt-4 text-xs text-[var(--text-muted)]">Early access customers (logos updated on approval).</div>
+      <div className="mt-4 text-xs text-[var(--text-muted)]">Logos are shown for quick recognition; always validate fit using evidence and last-checked dates.</div>
     </Card>
   );
 }
