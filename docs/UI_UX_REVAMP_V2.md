@@ -1,5 +1,35 @@
 # HRSignal UI/UX Revamp V2 — Single Source of Truth
 
+## Product North Star (HRSignal)
+
+### Mission
+**HRSignal is an India-first HR ecosystem discovery + comparison engine** that helps buyers go from confusion → clarity → shortlist → vendor intro, without spam.
+
+### Categories we must support
+These categories should exist as first-class navigation/filter concepts and be supported end-to-end in directory + comparison + recommendations:
+- **Core HR (HRMS / HCM)**
+- **Payroll**
+- **ATS (Recruitment)**
+- **BGV (Background verification)**
+- **LMS (Learning)**
+- **Performance / OKRs**
+- **HR service delivery** (tickets, HR helpdesk, case management)
+- **Workforce management** (attendance, leave, shifts, time tracking)
+- **Expense / Benefits** (expense claims, reimbursements, benefits admin)
+
+### Page goals (what every page should optimize for)
+- **Shortlist**: help users arrive at 3–5 credible options quickly.
+- **Compare**: make tradeoffs obvious with uniform fields and “show differences”.
+- **Explain stack-fit**: show *why* a tool fits (size band, modules, integrations, constraints).
+- **Highlight India readiness**: compliance, multi-state readiness, India support/implementation.
+
+### Content rules (trust-first consistency)
+- **Uniform comparable fields** across vendors/tools (avoid one-off marketing blobs).
+- **Pricing units normalized** (e.g., PEPM / per user / quote-based; INR where possible; no false precision).
+- **India fit always visible** (badge + quick facts + filter/sort hooks), not buried in tabs.
+
+---
+
 ## 1) North-star
 **Goal:** HRSignal should feel like **G2 / SoftwareSuggest-level polish** but **cleaner, faster, and India-first**.
 
