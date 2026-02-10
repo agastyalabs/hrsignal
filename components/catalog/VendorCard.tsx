@@ -29,7 +29,7 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
   const { rating, reviews } = pseudoVendorQuality(vendor.slug);
 
   return (
-    <Link href={`/vendors/${vendor.id}`} className="block">
+    <Link href={`/vendors/${vendor.slug}`} className="block">
       <Card className="h-full p-6">
         <div className="flex items-start gap-3">
           <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-2)]">

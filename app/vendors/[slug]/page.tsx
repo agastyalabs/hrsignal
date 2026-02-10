@@ -1,9 +1,11 @@
 export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 import Link from "next/link";
 
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
+import { Prisma } from "@prisma/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
@@ -14,27 +16,127 @@ import { normalizePricingText, pricingTypeFromNote } from "@/lib/pricing/format"
 import { getVendorBrief } from "@/lib/vendors/brief";
 import { Markdownish } from "@/app/resources/Markdownish";
 
-export default async function VendorDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  if (!process.env.DATABASE_URL) return notFound();
+function slugify(name: string) {
+  return String(name)
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+    .slice(0, 60);
+}
 
-  const vendor = await prisma.vendor.findUnique({
-    where: { id },
+export default async function VendorDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  // If a markdown brief exists, we should be able to render even if catalog DB is missing.
+  const slugBrief = await getVendorBrief({ vendorName: slug, urlSlug: slug });
+
+  type VendorWithIncludes = Prisma.VendorGetPayload<{
     include: {
-      categories: true,
+      categories: true;
       tools: {
-        where: { status: "PUBLISHED" },
-        orderBy: { name: "asc" },
         include: {
-          categories: { include: { category: true } },
-          integrations: { include: { integration: true } },
-          pricingPlans: true,
+          categories: { include: { category: true } };
+          integrations: { include: { integration: true } };
+          pricingPlans: true;
+        };
+      };
+    };
+  }>;
+
+  let vendor: VendorWithIncludes | null = null;
+
+  if (process.env.DATABASE_URL) {
+    // Back-compat: if caller passed an id, this will still resolve.
+    vendor = await prisma.vendor.findUnique({
+      where: { id: slug },
+      include: {
+        categories: true,
+        tools: {
+          where: { status: "PUBLISHED" },
+          orderBy: { name: "asc" },
+          include: {
+            categories: { include: { category: true } },
+            integrations: { include: { integration: true } },
+            pricingPlans: true,
+          },
         },
       },
-    },
-  });
+    });
 
-  if (!vendor) return notFound();
+    if (!vendor) {
+      // Resolve by derived slug from vendor name.
+      const rows = await prisma.vendor.findMany({
+        where: { isActive: true },
+        select: { id: true },
+        take: 500,
+      });
+
+      // Fetch names in a second query (prisma doesn't let us compute slug in SQL).
+      const vendorsById = await prisma.vendor.findMany({
+        where: { id: { in: rows.map((r) => r.id) } },
+        include: {
+          categories: true,
+          tools: {
+            where: { status: "PUBLISHED" },
+            orderBy: { name: "asc" },
+            include: {
+              categories: { include: { category: true } },
+              integrations: { include: { integration: true } },
+              pricingPlans: true,
+            },
+          },
+        },
+      });
+
+      vendor = vendorsById.find((v) => slugify(v.name) === slug) ?? null;
+    }
+  }
+
+  // If vendor isn't in catalog but a brief exists, render a minimal profile.
+  if (!vendor) {
+    if (!slugBrief.exists) return notFound();
+
+    const minimalName = slug;
+
+    return (
+      <div className="min-h-screen bg-[var(--bg)]">
+        <SiteHeader />
+
+        <Section className="pt-10 sm:pt-14">
+          <div className="mb-6">
+            <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/vendors">
+              ← Back to vendors
+            </Link>
+          </div>
+
+          <Card className="border border-[var(--border)] bg-[var(--surface-1)] shadow-[var(--shadow-sm)]">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">{minimalName}</h1>
+                <p className="mt-2 text-sm text-[var(--text-muted)]">Website: Info pending</p>
+              </div>
+              {slugBrief.updatedAt ? (
+                <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-4 py-3 text-sm text-[var(--text-muted)]">
+                  Last updated: <span className="font-semibold text-[var(--text)]">{slugBrief.updatedAt.toISOString().slice(0, 10)}</span>
+                </div>
+              ) : null}
+            </div>
+
+            <div className="mt-10">
+              <div className="text-sm font-semibold text-[var(--text)]">Vendor brief</div>
+              <div className="mt-3">
+                <Markdownish content={slugBrief.raw ?? ""} />
+              </div>
+            </div>
+          </Card>
+        </Section>
+
+        <SiteFooter />
+      </div>
+    );
+  }
+
   const v = vendor;
 
   const toolCategories = Array.from(new Set(v.tools.flatMap((t) => t.categories.map((c) => c.category.name))));
@@ -171,6 +273,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
 
   const brief = await getVendorBrief({
     vendorName: v.name,
+    urlSlug: slug,
     toolSlugs: v.tools.map((t) => t.slug),
   });
 
@@ -203,7 +306,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
             <div className="flex items-start gap-4">
               <div className="mt-0.5 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[var(--surface-2)] ring-1 ring-[var(--border)]">
                 <VendorLogo
-                  slug={vendor.id}
+                  slug={slugify(vendor.name)}
                   name={vendor.name}
                   domain={domainFromUrl(vendor.websiteUrl)}
                   className="h-11 w-11 rounded-lg"
@@ -479,7 +582,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
                   <ul className="space-y-2 text-sm text-[var(--text-muted)]">
                     {alternatives.slice(0, 6).map((a) => (
                       <li key={a.id}>
-                        • <Link className="text-[var(--primary)] hover:text-[var(--primary-hover)]" href={`/vendors/${a.id}`}>{a.name}</Link>
+                        • <Link className="text-[var(--primary)] hover:text-[var(--primary-hover)]" href={`/vendors/${slugify(a.name)}`}>{a.name}</Link>
                       </li>
                     ))}
                   </ul>

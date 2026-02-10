@@ -64,12 +64,18 @@ export async function getVendorBrief(input: {
   vendorName: string;
   vendorSlug?: string | null;
   toolSlugs?: string[];
+  // If you already have the URL slug (e.g., /vendors/<slug>), pass it here.
+  urlSlug?: string | null;
 }): Promise<VendorBrief> {
-  const derived = input.vendorSlug?.trim() ? slugify(input.vendorSlug) : slugify(input.vendorName);
+  const base = input.urlSlug?.trim()
+    ? slugify(input.urlSlug)
+    : input.vendorSlug?.trim()
+      ? slugify(input.vendorSlug)
+      : slugify(input.vendorName);
 
   // Special case: Freshteam should resolve to freshteam.
   const toolSlugs = new Set((input.toolSlugs ?? []).map((s) => String(s).toLowerCase()));
-  const slug = toolSlugs.has("freshteam") || derived.includes("freshteam") ? "freshteam" : derived;
+  const slug = toolSlugs.has("freshteam") || base.includes("freshteam") ? "freshteam" : base;
 
   const filePath = path.join(process.cwd(), "docs", "vendors", `${slug}.md`);
 
