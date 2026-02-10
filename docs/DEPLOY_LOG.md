@@ -5,7 +5,7 @@ This file tracks production deployments for UX plan work.
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
-- **Resolved production deployment (Vercel):** https://hrsignal-467dlo17l-agastyalabs-projects.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-679pw8o03-agastyalabs-projects.vercel.app
 
 ### Hotfix — vendor page crash digest 1288604524
 
@@ -33,3 +33,4 @@ This file tracks production deployments for UX plan work.
 - `0996c8b` — P0(vendors): vendor detail pages now generate richer, non-thin content (modules/features, deployment summary, buyer checklists, less repetitive pros/cons) without changing layout.
 - `2e25991` — P0(theme): dark theme readability polish using tokens only (lifted surfaces + muted text contrast; vendor page token colors + subtle section dividers).
 - `97e9c40` — P0(vendors): vendor detail pages can render markdown briefs from `docs/vendors/<slug>.md` into existing sections + show Last updated.
+- `8a049ac` — chore: revert package.json script change (vendor briefs require no package.json edits).
