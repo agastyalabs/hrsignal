@@ -5,7 +5,7 @@ This file tracks production deployments for UX plan work.
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
-- **Resolved production deployment (Vercel):** https://hrsignal-l9cdqjtpf-agastyalabs-projects.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-19zeikv8x-agastyalabs-projects.vercel.app
 
 ### Hotfix — vendor page crash digest 1288604524
 
@@ -35,3 +35,4 @@ This file tracks production deployments for UX plan work.
 - `97e9c40` — P0(vendors): vendor detail pages can render markdown briefs from `docs/vendors/<slug>.md` into existing sections + show Last updated.
 - `8a049ac` — chore: revert package.json script change (vendor briefs require no package.json edits).
 - `4df425a` — P0(vendors): vendor detail route now uses `/vendors/<slug>` and renders from markdown briefs when present (no 404 if `docs/vendors/<slug>.md` exists). Freshteam supported.
+- `8120745` — P0(vendors): slug normalization + alias handling (e.g. freshteam-freshworks → freshteam) and canonical freshteam redirect; added dev unit test for normalization.
