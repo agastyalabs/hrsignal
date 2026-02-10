@@ -91,7 +91,13 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
         },
       });
 
-      vendor = vendorsById.find((v) => slugify(v.name) === slug) ?? null;
+      vendor =
+        vendorsById.find((v) => {
+          if (slugify(v.name) === slug) return true;
+          const canon = canonicalVendorSlug({ vendorName: v.name, toolSlugs: v.tools.map((t) => t.slug) });
+          return canon === slug;
+        }) ??
+        null;
     }
   }
 
