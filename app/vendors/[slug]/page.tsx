@@ -4,8 +4,9 @@ export const dynamicParams = true;
 import Link from "next/link";
 
 import { prisma } from "@/lib/db";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Prisma } from "@prisma/client";
+import { canonicalVendorSlug, normalizeVendorSlug, resolveSlugRedirect } from "@/lib/vendors/slug";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
@@ -26,7 +27,8 @@ function slugify(name: string) {
 }
 
 export default async function VendorDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = normalizeVendorSlug(rawSlug);
 
   // If a markdown brief exists, we should be able to render even if catalog DB is missing.
   const slugBrief = await getVendorBrief({ vendorName: slug, urlSlug: slug });
@@ -97,6 +99,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
   if (!vendor) {
     if (!slugBrief.exists) return notFound();
 
+    // Redirect any alias slug to its normalized form.
+    if (rawSlug !== slug) redirect(`/vendors/${slug}`);
+
     const minimalName = slug;
 
     return (
@@ -136,6 +141,11 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
       </div>
     );
   }
+
+  // Redirect aliases (or derived slugs) to the canonical vendor slug.
+  const canon = canonicalVendorSlug({ vendorName: vendor.name, toolSlugs: vendor.tools.map((t) => t.slug) });
+  const maybeRedirect = resolveSlugRedirect({ requestedSlug: rawSlug, canonicalSlug: canon });
+  if (maybeRedirect) redirect(`/vendors/${maybeRedirect}`);
 
   const v = vendor;
 
