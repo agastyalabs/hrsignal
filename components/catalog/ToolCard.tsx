@@ -2,7 +2,7 @@ import Link from "next/link";
 import * as React from "react";
 
 import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
+import { TrustRatingRow } from "@/components/trust/TrustRatingRow";
 import { CompareToggle } from "@/components/compare/CompareToggle";
 import { VendorLogo } from "@/components/VendorLogo";
 import { domainFromUrl } from "@/lib/brand/logo";
@@ -16,6 +16,10 @@ export type ToolCardModel = {
   categories: string[];
   tagline?: string;
   verified?: boolean;
+  trustLevel?: "verified" | "partial" | "unverified";
+  sourcesCount?: number | null;
+  lastCheckedAt?: string | Date | null;
+
   bestFor?: string[];
   keyFeatures?: string[];
   implementationTime?: string;
@@ -24,6 +28,8 @@ export type ToolCardModel = {
 };
 
 export function ToolCard({ tool }: { tool: ToolCardModel }) {
+  const trustLevel = tool.trustLevel ?? (tool.verified ? "verified" : "unverified");
+
   return (
     <Link href={`/tools/${tool.slug}`} className="block">
       <Card className="h-full p-6">
@@ -45,16 +51,10 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
               ) : null}
             </div>
           </div>
-          {tool.verified ? <Badge variant="verified">Verified</Badge> : null}
         </div>
 
-        <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-          <span className="text-xs text-[var(--text-muted)]">No ratings yet</span>
-          {tool.verified ? (
-            <span className="ml-auto rounded-full border border-[rgba(39,211,188,0.35)] bg-[rgba(39,211,188,0.10)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
-              Verified
-            </span>
-          ) : null}
+        <div className="mt-3">
+          <TrustRatingRow level={trustLevel} sourcesCount={tool.sourcesCount} lastCheckedAt={tool.lastCheckedAt} />
         </div>
 
         {tool.tagline ? (

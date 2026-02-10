@@ -478,6 +478,7 @@ async function getTrendingTools(): Promise<ToolCardModel[]> {
       tagline: t.tagline ?? undefined,
       categories: t.categories.map((c) => c.category.name),
       verified: Boolean(t.lastVerifiedAt),
+      lastCheckedAt: t.lastVerifiedAt ? t.lastVerifiedAt.toISOString() : null,
     }));
   } catch {
     return fallback;

@@ -113,6 +113,7 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
         categories: t.categories.map((c) => c.category.name),
         tagline: t.tagline ?? undefined,
         verified: Boolean(t.lastVerifiedAt),
+        lastCheckedAt: t.lastVerifiedAt ? t.lastVerifiedAt.toISOString() : null,
       }));
     } catch {
       tools = [];

@@ -4,6 +4,7 @@ import * as React from "react";
 import { Card } from "@/components/ui/Card";
 import { VendorLogo } from "@/components/VendorLogo";
 import { domainFromUrl } from "@/lib/brand/logo";
+import { TrustRatingRow } from "@/components/trust/TrustRatingRow";
 
 export type VendorCardModel = {
   id: string;
@@ -18,12 +19,15 @@ export type VendorCardModel = {
 
   // Trust mini-row
   verifiedInIndia?: boolean;
-  freshnessLabel?: string | null;
+  trustLevel?: "verified" | "partial" | "unverified";
   sourcesCount?: number | null;
+  lastCheckedAt?: string | Date | null;
+  // Back-compat (avoid breaking callers)
+  freshnessLabel?: string | null;
 };
 
 export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
-  const verificationLabel = vendor.verifiedInIndia ? "Verified" : "Unverified";
+  const trustLevel = vendor.trustLevel ?? (vendor.verifiedInIndia ? "verified" : "unverified");
 
   return (
     <Link href={`/vendors/${vendor.slug}`} className="block">
@@ -56,7 +60,11 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
           <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text)]">
             {vendor.toolsCount} tools
           </span>
-          <span className="text-[11px] text-[var(--text-muted)]">No ratings yet</span>
+          <TrustRatingRow
+            level={trustLevel}
+            sourcesCount={vendor.sourcesCount}
+            lastCheckedAt={vendor.lastCheckedAt ?? vendor.freshnessLabel}
+          />
         </div>
 
         {vendor.categories.length ? (
@@ -97,13 +105,11 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
 
         <div className="mt-4 grid grid-cols-1 gap-2 text-xs text-[var(--text-muted)]">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">
-              {verificationLabel}
-            </span>
-            <span className="text-[11px] text-[var(--text-muted)]">{vendor.freshnessLabel ?? "Updated: —"}</span>
-            <span className="text-[11px] text-[var(--text-muted)]">
-              Sources: {typeof vendor.sourcesCount === "number" ? vendor.sourcesCount : "—"}
-            </span>
+            <TrustRatingRow
+              level={trustLevel}
+              sourcesCount={vendor.sourcesCount}
+              lastCheckedAt={vendor.lastCheckedAt ?? vendor.freshnessLabel}
+            />
           </div>
 
           <div className="flex items-center gap-2">

@@ -161,6 +161,7 @@ export default async function VendorsPage({
           freshnessLabel,
           freshnessSortKey,
           sourcesCount: brief.urls.length ? brief.urls.length : null,
+          lastCheckedAt: freshnessSortKey ? new Date(freshnessSortKey).toISOString() : null,
           supportedSizeBands: (v.supportedSizeBands ?? []).map((b) => sizeLabel(String(b))),
         };
       });

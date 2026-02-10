@@ -287,6 +287,7 @@ export default async function ToolsPage({
           categories,
           tagline: t.tagline ?? undefined,
           verified: Boolean(t.lastVerifiedAt),
+          lastCheckedAt: t.lastVerifiedAt ? t.lastVerifiedAt.toISOString() : null,
           bestFor: bestForLabels(t.bestForSizeBands),
           keyFeatures,
           implementationTime: implementationTime(categories),
