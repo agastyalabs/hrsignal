@@ -8,7 +8,7 @@ const Schema = z.object({
   companyName: z.string().min(1),
   buyerEmail: z.string().email(),
   buyerRole: z.string().optional().default(""),
-  sizeBand: z.enum(["EMP_20_200", "EMP_50_500", "EMP_100_1000"]),
+  sizeBand: z.enum(["1-10", "11-50", "51-200", "201-500", "501-1000", "1001-5000", "5001-10000", "10000+", "EMP_20_200", "EMP_50_500", "EMP_100_1000"]),
   industry: z.string().optional().nullable(),
   deployment: z.enum(["cloud", "on-prem", "hybrid"]).optional().nullable(),
   budgetBand: z.enum(["lt_50", "50_100", "100_200", "quote", "unknown"]).optional().nullable(),
@@ -58,13 +58,15 @@ export async function POST(req: Request) {
   try {
     const input = parsed.data;
 
+    const mappedSizeBand = mapSizeBand(input.sizeBand);
+
     const submission = await prisma.questionnaireSubmission.create({
       data: {
-        answers: input,
+        answers: { ...input, sizeBand: mappedSizeBand },
         companyName: input.companyName,
         buyerEmail: input.buyerEmail,
         buyerRole: input.buyerRole || null,
-        sizeBand: input.sizeBand,
+        sizeBand: mappedSizeBand,
         states: input.states,
         categoriesNeeded: input.categoriesNeeded,
         mustHaveIntegrations: input.mustHaveIntegrations,
@@ -74,7 +76,7 @@ export async function POST(req: Request) {
     });
 
     const result = await buildRecommendationsV2({
-      sizeBand: input.sizeBand,
+      sizeBand: mappedSizeBand,
       categoriesNeeded: input.categoriesNeeded,
       mustHaveIntegrations: input.mustHaveIntegrations,
     });
@@ -220,11 +222,24 @@ function scoreTool(
   return { score, reasons };
 }
 
+type SizeBucket = "1-10" | "11-50" | "51-200" | "201-500" | "501-1000" | "1001-5000" | "5001-10000" | "10000+";
+
+function mapSizeBand(band: BuyerSizeBand | SizeBucket): BuyerSizeBand {
+  // If we already have a DB enum, keep it.
+  if (band === "EMP_20_200" || band === "EMP_50_500" || band === "EMP_100_1000") return band;
+
+  // Map new logical buckets to legacy DB enums (best-effort).
+  if (band === "1-10" || band === "11-50" || band === "51-200") return "EMP_20_200";
+  if (band === "201-500") return "EMP_50_500";
+  return "EMP_100_1000";
+}
+
 function prettySizeBand(band: BuyerSizeBand) {
-  if (band === "EMP_20_200") return "20–200";
-  if (band === "EMP_50_500") return "50–500";
-  if (band === "EMP_100_1000") return "100–1000";
-  return band;
+  // UI labels should match the new logical ranges.
+  if (band === "EMP_20_200") return "51–200";
+  if (band === "EMP_50_500") return "201–500";
+  if (band === "EMP_100_1000") return "501–1000";
+  return String(band);
 }
 
 function prettyCategory(slug: string) {

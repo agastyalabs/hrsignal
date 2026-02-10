@@ -1,34 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F9FAFB;
-  --foreground: #111827;
-  --muted: #4B5563;
-  --border: #E5E7EB;
+  color-scheme: dark;
+
+  /* HRSignal Feb 2026 go-live palette */
+  --bg: #0D163F; /* Dark Navy */
+  --surface-1: #444C86; /* Light Indigo (cards) — slightly lifted for readability */
+  --surface-2: rgba(255, 255, 255, 0.08); /* Frosted panel — slightly brighter */
+
+  --primary: #6F42C1; /* Primary Purple */
+  --primary-hover: #5E2FDE;
+  --accent: #27D3BC; /* Teal Accent */
+
+  --text: #F5F7FF;
+  --text-muted: #C2C5E6;
+  --border: rgba(255, 255, 255, 0.08);
+
+  /* Back-compat aliases (avoid breaking older usage) */
+  --background: var(--bg);
+  --text-secondary: var(--text-muted);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0B1220;
-    --foreground: #F9FAFB;
-    --muted: #CBD5E1;
-    --border: rgba(148, 163, 184, 0.25);
-  }
-}
+/* Palette is locked for launch (dark UI). */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .input {
@@ -36,15 +44,22 @@ body {
   height: 2.75rem;
   border-radius: 0.75rem;
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--surface-1);
   padding: 0.5rem 0.875rem;
   font-size: 0.95rem;
+  color: var(--text);
   outline: none;
 }
 
+/* Search/input readability */
+.input::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
 .input:focus {
-  border-color: rgb(79 70 229); /* indigo-600 */
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.18);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(116, 65, 242, 0.35);
 }
 
 textarea.input {
@@ -53,3 +68,77 @@ textarea.input {
   padding-bottom: 0.75rem;
 }
 
+/* === 2026 premium polish (tokens + micro-interactions) === */
+
+:root {
+  /* Typography scale */
+  --h1-size: clamp(2.25rem, 3.2vw, 3rem);
+  --h2-size: clamp(1.5rem, 2.2vw, 2rem);
+  --body-size: 1rem;
+
+  /* Spacing / radius */
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  /* Subtle glow for hover/focus */
+  --glow: 0 0 0 1px rgba(39, 211, 188, 0.20), 0 12px 36px rgba(111, 66, 193, 0.22);
+}
+
+/* Accessible focus ring (keyboard) */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(13, 22, 63, 0.92), 0 0 0 4px rgba(111, 66, 193, 0.40);
+}
+
+/* Premium motion defaults */
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Optional helper classes (used by cards/buttons) */
+.u-card-hover {
+  transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+}
+.u-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: var(--glow);
+}
+
+/* Light theme override (adaptive theming) */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  /* Pale Lavender */
+  --bg: #F5F1FA;
+  --surface-1: #FFFFFF;
+  --surface-2: rgba(13, 22, 63, 0.05);
+
+  --primary: #6F42C1;
+  --primary-hover: #5E2FDE;
+  --accent: #27D3BC;
+
+  --text: #0D163F;
+  --text-muted: rgba(13, 22, 63, 0.68);
+  --border: rgba(13, 22, 63, 0.12);
+
+  --shadow-sm: 0 1px 2px rgba(13, 22, 63, 0.08);
+  --shadow-md: 0 10px 30px rgba(13, 22, 63, 0.12);
+  --glow: 0 0 0 1px rgba(39, 211, 188, 0.18), 0 12px 36px rgba(111, 66, 193, 0.16);
+}

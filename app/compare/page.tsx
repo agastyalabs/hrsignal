@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/Card";
 import { CompareHydrate } from "@/components/compare/CompareHydrate";
 import { prisma } from "@/lib/db";
 import { CompareActions } from "./CompareActions";
+import { normalizePricingText, pricingTypeFromNote } from "@/lib/pricing/format";
 
 function parseSlugs(raw: string | null | undefined): string[] {
   if (!raw) return [];
@@ -112,9 +113,14 @@ export default async function ComparePage({
       pricing: t.pricingPlans.length
         ? t.pricingPlans
             .slice(0, 3)
-            .map((p) => `${p.name}${p.priceNote ? `: ${p.priceNote}` : ""}${p.setupFeeNote ? ` (Setup: ${p.setupFeeNote})` : ""}`)
+            .map((p) => {
+              const type = pricingTypeFromNote(p.priceNote, t.deployment);
+              const text = normalizePricingText(p.priceNote, type);
+              const setup = p.setupFeeNote ? `\nSetup: ${p.setupFeeNote}` : "";
+              return `${p.name}\n${type}\n${text}${setup}`;
+            })
             .join("\n")
-        : "Pricing on request",
+        : "Quote-based\nContact vendor / request quote",
     }));
 
   const diffOnly = sp.diff === "1";
@@ -132,7 +138,8 @@ export default async function ComparePage({
         {
           key: "pricing_note",
           label: "Notes",
-          value: () => "Pricing is indicative; confirm latest on vendor site.",
+          value: () =>
+            "Badges indicate unit/type: PEPM (per employee/month), Per user/month, One-time (license; AMC may apply), Quote-based (contact vendor / request quote).",
         },
       ],
     },

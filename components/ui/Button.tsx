@@ -5,21 +5,23 @@ type Variant = "primary" | "secondary" | "tertiary";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-600/25 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none";
+  "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none";
 
 const variants: Record<Variant, string> = {
+  // Primary CTA: purple bg + off-white text
   primary:
-    "bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800 motion-reduce:transform-none",
+    "bg-[var(--primary)] text-[#F9FAFB] hover:bg-[var(--primary-hover)] active:bg-[var(--primary-hover)] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(116,65,242,0.20)] active:translate-y-0 disabled:bg-[#2A2E55] disabled:text-[#94A3B8]",
+  // Secondary CTA: outlined
   secondary:
-    "border border-gray-200 bg-white text-gray-900 hover:bg-gray-50 active:bg-gray-100 motion-reduce:transform-none",
+    "border border-[var(--border)] bg-transparent text-[#F9FAFB] hover:bg-[var(--surface-2)] active:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.14)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.25)] active:translate-y-0 disabled:text-[#94A3B8]",
   tertiary:
-    "text-gray-900 hover:bg-gray-50 active:bg-gray-100 motion-reduce:transform-none",
+    "text-[#CBD5E1] hover:bg-[var(--surface-2)] hover:text-[#F9FAFB] active:bg-[var(--surface-2)] disabled:text-[#94A3B8]",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-9 px-3 text-sm",
-  md: "h-10 px-4 text-sm",
-  lg: "h-11 px-5 text-base",
+  sm: "h-10 px-3 text-sm",
+  md: "h-11 px-4 text-sm",
+  lg: "h-12 px-5 text-base",
 };
 
 export function Button({

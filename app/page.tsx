@@ -9,6 +9,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { FeatureGrid } from "@/components/marketing/FeatureGrid";
 import { TrustStrip } from "@/components/marketing/TrustStrip";
+import { VendorLogoStrip } from "@/components/marketing/VendorLogoStrip";
 import { TestimonialStrip } from "@/components/marketing/TestimonialStrip";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
@@ -51,38 +52,68 @@ export default async function Home() {
   const trending = await getTrendingTools();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
 
-      {/* Hero */}
+      {/* Hero (bento) */}
       <Section className="pt-10 sm:pt-14">
-        <div className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm">
-          {/* Background wash (subtle) */}
-          <div className="pointer-events-none absolute -top-28 right-[-140px] h-[420px] w-[420px] rounded-full bg-indigo-500/10 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-28 left-[-140px] h-[420px] w-[420px] rounded-full bg-slate-500/5 blur-3xl" />
+        <div className="relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface-1)] shadow-[var(--shadow-sm)]">
+          {/* Signal motif: layered gradients + waveform */}
+          <div className="pointer-events-none absolute inset-0 opacity-90">
+            <div className="absolute -top-40 right-[-160px] h-[520px] w-[520px] rounded-full bg-[color:var(--primary)]/18 blur-3xl" />
+            <div className="absolute -bottom-44 left-[-180px] h-[560px] w-[560px] rounded-full bg-[#2DD4BF]/10 blur-3xl" />
+            <svg
+              aria-hidden="true"
+              className="absolute -right-24 top-10 h-[340px] w-[640px] opacity-[0.18]"
+              viewBox="0 0 640 340"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0 210 C 80 120, 160 300, 240 210 C 320 120, 400 300, 480 210 C 560 120, 600 190, 640 160"
+                stroke="#6F42C1"
+                strokeWidth="3"
+                strokeLinecap="round"
+              />
+              <path
+                d="M0 250 C 90 160, 170 330, 250 250 C 330 170, 410 330, 490 250 C 570 170, 610 240, 640 210"
+                stroke="#27D3BC"
+                strokeWidth="2"
+                strokeLinecap="round"
+                opacity="0.8"
+              />
+            </svg>
+          </div>
 
-          <div className="grid grid-cols-1 gap-10 p-6 sm:p-10 lg:grid-cols-2 lg:items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-800">
-                Built for Indian SMEs • HR-only directory
+          <div className="relative grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-10">
+            {/* Left */}
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-3 py-1 text-xs font-semibold text-[#CBD5E1]">
+                India-first HR software discovery
+                <span className="h-1 w-1 rounded-full bg-[#334155]" />
+                Explainable shortlists
               </div>
 
-              <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight text-gray-900 sm:text-5xl">
-                Stop guessing HR tools.
-                <span className="block text-indigo-800">Get a shortlist that fits your team.</span>
+              <h1 className="mt-5 text-[length:var(--h1-size)] font-semibold leading-[1.08] tracking-tight text-[#F9FAFB]">
+                Discover the right HR tools for your Indian SME.
               </h1>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-gray-600">
-                HRSignal helps Indian SMEs quickly find the right HRMS, payroll & compliance, attendance, ATS and performance tools — with
-                explainable match reasons.
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#CBD5E1]">
+                HRSignal helps Indian SMEs shortlist HRMS, payroll & compliance, attendance, ATS and performance tools—with clear match reasons.
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <ButtonLink href="/recommend" size="lg" variant="primary">
-                  Get recommendations
-                </ButtonLink>
-                <ButtonLink href="/tools" size="lg" variant="secondary">
-                  Browse tools
-                </ButtonLink>
+              <div className="mt-6 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
+                {["Export-ready reporting", "RBAC + audit trail", "Month-end reality checks", "No vendor spam by default"].map((x) => (
+                  <div
+                    key={x}
+                    className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-4 text-sm font-medium text-[#CBD5E1]"
+                  >
+                    {x}
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 text-sm font-medium text-[#94A3B8]">
+                200+ directory listings • Deterministic recommendations • Privacy-first
               </div>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -90,116 +121,146 @@ export default async function Home() {
                   <Link
                     key={c.slug}
                     href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                    className="rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-700 transition-all duration-200 hover:border-gray-300 hover:shadow-sm motion-reduce:transition-none"
+                    className="rounded-full border border-[#1F2937] bg-[var(--surface-2)] px-3 py-1 text-sm text-[#CBD5E1] transition-all duration-200 hover:border-[#334155] hover:bg-[#111827] hover:text-[#F9FAFB]"
                   >
                     {c.name}
                   </Link>
                 ))}
               </div>
-
-              {/* Trust strip below hero copy */}
-              <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-gray-900">Trusted by Indian SMEs</div>
-                  <div className="mt-1 text-sm text-gray-600">Early access — built with operators.</div>
-                </div>
-                <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-gray-900">Verified listings</div>
-                  <div className="mt-1 text-sm text-gray-600">Freshness cues + clear metadata.</div>
-                </div>
-                <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-                  <div className="text-sm font-semibold text-gray-900">Privacy-first</div>
-                  <div className="mt-1 text-sm text-gray-600">We don’t share details without consent.</div>
-                </div>
-              </div>
             </div>
 
-            {/* Right visual + search */}
-            <div>
-              <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 shadow-sm sm:p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="text-sm font-semibold text-gray-900">Search tools</div>
-                    <div className="mt-1 text-sm text-gray-600">Start with a vendor, category, or use-case.</div>
-                  </div>
+            {/* Right */}
+            <div className="lg:col-span-5">
+              {/* HR illustration (inline SVG placeholder, no external deps) */}
+              <div className="relative mb-4 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface-1)] p-5 shadow-[var(--shadow-sm)]">
+                <div className="absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[color:var(--primary)]/14 blur-3xl" />
+                <div className="absolute -left-24 -bottom-24 h-56 w-56 rounded-full bg-[color:var(--accent)]/14 blur-3xl" />
 
-                  {/* Inline SVG illustration (no external asset dependency) */}
+                <div className="relative">
+                  <div className="text-xs font-semibold tracking-wide text-[var(--text-muted)]">VISUAL</div>
+                  <div className="mt-1 text-sm font-semibold text-[var(--text)]">Shortlist clarity, without the noise</div>
+
                   <svg
-                    width="56"
-                    height="56"
-                    viewBox="0 0 56 56"
-                    fill="none"
+                    aria-label="HRSignal illustration"
+                    role="img"
+                    viewBox="0 0 680 260"
+                    className="mt-4 h-[180px] w-full"
                     xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    className="opacity-90"
                   >
-                    <rect x="8" y="10" width="40" height="36" rx="12" fill="#E0E7FF" />
-                    <rect x="16" y="19" width="24" height="6" rx="3" fill="#4F46E5" opacity="0.85" />
-                    <rect x="16" y="29" width="18" height="5" rx="2.5" fill="#111827" opacity="0.25" />
-                    <circle cx="40" cy="33" r="6" fill="#F5F3FF" />
-                    <path
-                      d="M41.8 35.8L45 39"
-                      stroke="#4F46E5"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
+                    <defs>
+                      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#6F42C1" stop-opacity="0.55"/>
+                        <stop offset="1" stop-color="#27D3BC" stop-opacity="0.35"/>
+                      </linearGradient>
+                    </defs>
+
+                    <rect x="0" y="0" width="680" height="260" rx="22" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)"/>
+
+                    <path d="M40 170 C 110 70, 200 230, 270 150 C 340 70, 430 240, 500 160 C 570 90, 620 130, 650 110" fill="none" stroke="url(#g)" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M40 200 C 120 115, 210 250, 290 185 C 370 120, 450 260, 530 190 C 600 135, 630 165, 650 150" fill="none" stroke="#27D3BC" stroke-opacity="0.35" stroke-width="3" stroke-linecap="round"/>
+
+                    <g transform="translate(70 55)">
+                      <rect x="0" y="0" width="220" height="150" rx="18" fill="rgba(13,22,63,0.55)" stroke="rgba(255,255,255,0.10)"/>
+                      <rect x="18" y="20" width="120" height="14" rx="7" fill="rgba(255,255,255,0.80)"/>
+                      <rect x="18" y="48" width="170" height="10" rx="5" fill="rgba(255,255,255,0.35)"/>
+                      <rect x="18" y="68" width="150" height="10" rx="5" fill="rgba(255,255,255,0.28)"/>
+                      <rect x="18" y="98" width="110" height="28" rx="14" fill="#6F42C1" opacity="0.9"/>
+                    </g>
+
+                    <g transform="translate(330 78)">
+                      <rect x="0" y="0" width="280" height="128" rx="18" fill="rgba(13,22,63,0.55)" stroke="rgba(255,255,255,0.10)"/>
+                      <circle cx="44" cy="44" r="22" fill="rgba(255,255,255,0.18)"/>
+                      <rect x="80" y="26" width="170" height="12" rx="6" fill="rgba(255,255,255,0.55)"/>
+                      <rect x="80" y="50" width="210" height="10" rx="5" fill="rgba(255,255,255,0.28)"/>
+                      <rect x="24" y="82" width="120" height="24" rx="12" fill="#27D3BC" opacity="0.9"/>
+                      <rect x="154" y="82" width="110" height="24" rx="12" fill="rgba(255,255,255,0.12)"/>
+                    </g>
                   </svg>
                 </div>
+              </div>
 
-                <form className="mt-4 flex flex-col gap-3 sm:flex-row" action="/tools">
-                  <input
-                    className="input"
-                    name="q"
-                    placeholder="Search tools (e.g., Keka, payroll, attendance)"
-                    aria-label="Search tools"
-                  />
-                  <select className="input" name="category" defaultValue="">
-                    <option value="">All categories</option>
-                    <option value="hrms">HRMS</option>
-                    <option value="payroll">Payroll + Compliance</option>
-                    <option value="attendance">Attendance/Leave</option>
-                    <option value="ats">ATS/Hiring</option>
-                    <option value="performance">Performance/OKR</option>
-                  </select>
-                  <button className="h-10 rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white hover:bg-indigo-700">
-                    Search
-                  </button>
-                </form>
 
-                <div className="mt-4">
-                  <div className="text-xs font-medium text-gray-500">Popular categories</div>
-                  <div className="mt-2 flex flex-wrap gap-2">
-                    {CATEGORIES.map((c) => (
-                      <Link
-                        key={c.slug}
-                        href={`/tools?category=${encodeURIComponent(c.slug)}`}
-                        className="rounded-full border border-transparent bg-white px-3 py-1 text-sm text-gray-700 ring-1 ring-gray-200 transition-all duration-200 hover:border-gray-300 hover:shadow-sm motion-reduce:transition-none"
-                      >
-                        {c.name}
-                      </Link>
-                    ))}
+              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)] sm:p-6">
+                <div className="text-sm font-semibold text-[#F9FAFB]">Get your shortlist</div>
+                <p className="mt-1 text-sm text-[#CBD5E1]">
+                  Choose a fast path or go deeper for more tailored match reasons.
+                </p>
+
+                <div className="mt-5 grid grid-cols-1 gap-3">
+                  <div className="rounded-2xl border border-[#1F2937] bg-[#0F172A] p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <div className="text-sm font-semibold text-[#F9FAFB]">Get Quick Recommendation</div>
+                        <div className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
+                          2–3 minutes. Ideal if you want a starting shortlist.
+                        </div>
+                      </div>
+                      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[#CBD5E1]">
+                        Quick
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <ButtonLink href="/recommend?mode=quick" variant="primary" size="md" className="w-full justify-center">
+                        Start quick →
+                      </ButtonLink>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-[#1F2937] bg-[#0F172A] p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <div className="text-sm font-semibold text-[#F9FAFB]">Start Detailed Recommendation</div>
+                        <div className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
+                          6–10 minutes. Better if compliance, integrations, or rollout complexity matters.
+                        </div>
+                      </div>
+                      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[#CBD5E1]">
+                        Detailed
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <ButtonLink href="/recommend?mode=detailed" variant="secondary" size="md" className="w-full justify-center">
+                        Start detailed →
+                      </ButtonLink>
+                    </div>
                   </div>
                 </div>
 
-                <div className="mt-6 grid grid-cols-3 gap-3">
-                  {[
-                    { k: "Listings", v: "200+" },
-                    { k: "SME focus", v: "India" },
-                    { k: "Method", v: "Explainable" },
-                  ].map((m) => (
-                    <div key={m.k} className="rounded-xl border border-gray-200 bg-white p-3 shadow-sm">
-                      <div className="text-xs font-medium text-gray-500">{m.k}</div>
-                      <div className="mt-1 text-sm font-semibold text-gray-900">{m.v}</div>
-                    </div>
-                  ))}
+                <div className="mt-5 rounded-xl border border-[#1F2937] bg-[var(--surface-2)] p-4">
+                  <div className="text-xs font-semibold text-[#F9FAFB]">Pro tip</div>
+                  <div className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
+                    If you already have 2–3 tools in mind, add them to Compare and evaluate exports, workflows, and month-end reliability.
+                  </div>
+                  <div className="mt-3">
+                    <ButtonLink href="/tools" variant="tertiary" size="sm" className="w-full justify-center">
+                      Browse tools →
+                    </ButtonLink>
+                  </div>
                 </div>
+              </div>
+
+              <div className="mt-4 grid grid-cols-3 gap-3">
+                {[
+                  { k: "Listings", v: "200+" },
+                  { k: "Mode", v: "Explainable" },
+                  { k: "Fit", v: "India-first" },
+                ].map((m) => (
+                  <div
+                    key={m.k}
+                    className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-3 text-center shadow-[var(--shadow-sm)]"
+                  >
+                    <div className="text-xs font-medium text-[#94A3B8]">{m.k}</div>
+                    <div className="mt-1 text-sm font-semibold text-[#F9FAFB]">{m.v}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-10 space-y-6">
           <TrustStrip />
+          <VendorLogoStrip title="Popular vendors" subtitle="Recognizable India-first HR tools — more logos added continuously." />
         </div>
       </Section>
 
@@ -210,26 +271,20 @@ export default async function Home() {
             title="Browse by category"
             subtitle="Start with the module you need. We keep categories simple in v1 so browsing stays fast."
           />
-          <Link className="text-sm font-medium text-indigo-700" href="/tools">
+          <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/tools">
             View all tools →
           </Link>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((c) => (
-            <CategoryCard
-              key={c.slug}
-              slug={c.slug}
-              name={c.name}
-              description={c.description}
-              indiaReady={c.indiaReady}
-            />
+            <CategoryCard key={c.slug} slug={c.slug} name={c.name} description={c.description} indiaReady={c.indiaReady} />
           ))}
         </div>
       </Section>
 
       {/* Trending */}
-      <Section className="bg-white">
+      <Section className="bg-transparent">
         <SectionHeading title="Trending tools" subtitle="Quick picks to start your shortlist." />
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {trending.map((t) => (
@@ -269,42 +324,18 @@ export default async function Home() {
       </Section>
 
       {/* Social proof */}
-      <Section className="bg-white">
-        <SectionHeading title="Trusted by modern teams" subtitle="Logos are placeholders until we add real customers." />
+      <Section className="bg-transparent">
+        <SectionHeading title="Built for India-first SMEs" subtitle="Practical, explainable shortlists—built to reduce vendor spam." />
 
-        <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {[
-            "Acme",
-            "ZenHR",
-            "Northwind",
-            "Atlas",
-            "Bluepeak",
-            "River",
-          ].map((x) => (
-            <div
-              key={x}
-              className="flex h-12 items-center justify-center rounded-xl border border-gray-200 bg-white text-sm font-semibold text-gray-500 shadow-sm"
-            >
-              {x}
-            </div>
-          ))}
+        <div className="mt-6">
+          <TestimonialStrip />
         </div>
 
-        <div className="mt-10">
-          <SectionHeading
-            title="Built for India-first SMEs"
-            subtitle="Representative testimonials (placeholder) until we add real customer stories."
-          />
-          <div className="mt-6">
-            <TestimonialStrip />
-          </div>
-        </div>
-
-        <div className="mt-10 rounded-2xl bg-gray-50 p-6 sm:p-8">
+        <div className="mt-10 rounded-2xl border border-[#1F2937] bg-[#0F172A] p-6 shadow-[var(--shadow-sm)] sm:p-8">
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
-              <div className="text-xl font-semibold text-gray-900">Ready for a guided shortlist?</div>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-gray-600">
+              <div className="text-xl font-semibold text-[#F9FAFB]">Ready for a guided shortlist?</div>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#CBD5E1]">
                 Get explainable recommendations based on company size, modules, integrations, and compliance needs.
               </p>
             </div>
@@ -323,11 +354,11 @@ export default async function Home() {
         />
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div className="text-sm font-semibold text-gray-900">Starter</div>
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-6 shadow-[var(--shadow-sm)]">
+            <div className="text-sm font-semibold text-[#F9FAFB]">Starter</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight">Free</div>
-            <p className="mt-2 text-sm text-gray-600">Get recommendations + shortlist with reasons.</p>
-            <ul className="mt-4 space-y-2 text-sm text-gray-700">
+            <p className="mt-2 text-sm text-[#CBD5E1]">Get recommendations + shortlist with reasons.</p>
+            <ul className="mt-4 space-y-2 text-sm text-[#CBD5E1]">
               <li>• 3–5 recommendations</li>
               <li>• Explainable match reasons</li>
               <li>• Request pricing/vendor intro</li>
@@ -339,11 +370,11 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-6 shadow-sm">
-            <div className="text-sm font-semibold text-indigo-900">Teams</div>
-            <div className="mt-2 text-3xl font-semibold tracking-tight text-indigo-900">Early access</div>
-            <p className="mt-2 text-sm text-indigo-800/80">We’ll set this up with you (white-glove).</p>
-            <ul className="mt-4 space-y-2 text-sm text-indigo-900">
+          <div className="rounded-2xl border border-[var(--primary)]/30 bg-[#0F172A] p-6 shadow-[var(--shadow-sm)]">
+            <div className="text-sm font-semibold text-[#F9FAFB]">Teams</div>
+            <div className="mt-2 text-3xl font-semibold tracking-tight text-[#F9FAFB]">Early access</div>
+            <p className="mt-2 text-sm text-[#CBD5E1]">We’ll set this up with you (white-glove).</p>
+            <ul className="mt-4 space-y-2 text-sm text-[#CBD5E1]">
               <li>• Custom filters (states, compliance, integrations)</li>
               <li>• Vendor screening and intro</li>
               <li>• Priority support</li>
@@ -355,11 +386,11 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div className="text-sm font-semibold text-gray-900">Enterprise</div>
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-6 shadow-[var(--shadow-sm)]">
+            <div className="text-sm font-semibold text-[#F9FAFB]">Enterprise</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight">Talk to us</div>
-            <p className="mt-2 text-sm text-gray-600">For larger teams and multi-entity compliance needs.</p>
-            <ul className="mt-4 space-y-2 text-sm text-gray-700">
+            <p className="mt-2 text-sm text-[#CBD5E1]">For larger teams and multi-entity compliance needs.</p>
+            <ul className="mt-4 space-y-2 text-sm text-[#CBD5E1]">
               <li>• Custom scoring rules</li>
               <li>• Assisted evaluation</li>
               <li>• SLA + reporting</li>
@@ -374,7 +405,7 @@ export default async function Home() {
       </Section>
 
       {/* FAQs */}
-      <Section className="bg-white">
+      <Section className="bg-transparent">
         <SectionHeading title="FAQs" subtitle="Straight answers so you can move fast." />
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
           {[
@@ -395,9 +426,9 @@ export default async function Home() {
               a: "Add details in the note and we’ll refine the shortlist manually before making an intro.",
             },
           ].map((f) => (
-            <div key={f.q} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-              <div className="text-sm font-semibold text-gray-900">{f.q}</div>
-              <div className="mt-2 text-sm leading-relaxed text-gray-600">{f.a}</div>
+            <div key={f.q} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-6 shadow-[var(--shadow-sm)]">
+              <div className="text-sm font-semibold text-[#F9FAFB]">{f.q}</div>
+              <div className="mt-2 text-sm leading-relaxed text-[#CBD5E1]">{f.a}</div>
             </div>
           ))}
         </div>
@@ -447,6 +478,7 @@ async function getTrendingTools(): Promise<ToolCardModel[]> {
       tagline: t.tagline ?? undefined,
       categories: t.categories.map((c) => c.category.name),
       verified: Boolean(t.lastVerifiedAt),
+      lastCheckedAt: t.lastVerifiedAt ? t.lastVerifiedAt.toISOString() : null,
     }));
   } catch {
     return fallback;

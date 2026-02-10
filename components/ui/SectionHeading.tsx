@@ -11,8 +11,10 @@ export function SectionHeading({
 }) {
   return (
     <div className={className}>
-      <h2 className="text-2xl font-semibold tracking-tight text-gray-900">{title}</h2>
-      {subtitle ? <p className="mt-2 max-w-2xl text-sm leading-relaxed text-gray-600">{subtitle}</p> : null}
+      <h2 className="text-[length:var(--h2-size)] font-semibold tracking-tight text-[var(--text)]">{title}</h2>
+      {subtitle ? (
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)]">{subtitle}</p>
+      ) : null}
     </div>
   );
 }

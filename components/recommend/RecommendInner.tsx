@@ -25,11 +25,17 @@ const INTEGRATION_OPTIONS = [
   { slug: "google-workspace", label: "Google Workspace" },
 ] as const;
 
-type SizeBand = "EMP_20_200" | "EMP_50_500" | "EMP_100_1000";
+type SizeBand = "1-10" | "11-50" | "51-200" | "201-500" | "501-1000" | "1001-5000" | "5001-10000" | "10000+";
 
 type Mode = "recommend" | "stack-builder";
 
-export default function RecommendInner({ mode }: { mode: Mode }) {
+export default function RecommendInner({
+  mode,
+  embedded = false,
+}: {
+  mode: Mode;
+  embedded?: boolean;
+}) {
   const router = useRouter();
   const search = useSearchParams();
   const prefill = search.get("prefill");
@@ -37,7 +43,7 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
   const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-  const [sizeBand, setSizeBand] = useState<SizeBand>("EMP_20_200");
+  const [sizeBand, setSizeBand] = useState<SizeBand>("11-50");
   const [industry, setIndustry] = useState("");
   const [deployment, setDeployment] = useState<"cloud" | "on-prem" | "hybrid" | "">("");
   const [budgetBand, setBudgetBand] = useState<"lt_50" | "50_100" | "100_200" | "quote" | "unknown" | "">("");
@@ -63,19 +69,18 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
     return `You came from tool: ${prefill}`;
   }, [prefill]);
 
-  return (
-    <div className="min-h-screen bg-zinc-50">
-      <SiteHeader />
+  const content = (
+    <>
       <ToastViewport toasts={toasts} dismiss={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))} />
 
-      <main className="py-10 sm:py-14">
+      <main className={embedded ? "" : "py-10 sm:py-14"}>
         <Container>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
+              <h1 className="text-3xl font-semibold tracking-tight text-[#F9FAFB]">
                 {mode === "recommend" ? "Get recommendations" : "Build your HR stack"}
               </h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#CBD5E1]">
                 Answer a few questions. HRSignal will recommend 3–5 best-fit tools and explain why each fits.
               </p>
               {prefillHint ? <p className="mt-2 text-sm text-zinc-500">{prefillHint}</p> : null}
@@ -190,9 +195,14 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <Field label="Employee count band">
                         <select className="input" value={sizeBand} onChange={(e) => setSizeBand(e.target.value as SizeBand)}>
-                          <option value="EMP_20_200">20–200</option>
-                          <option value="EMP_50_500">50–500</option>
-                          <option value="EMP_100_1000">100–1000</option>
+                          <option value="1-10">1–10</option>
+                          <option value="11-50">11–50</option>
+                          <option value="51-200">51–200</option>
+                          <option value="201-500">201–500</option>
+                          <option value="501-1000">501–1000</option>
+                          <option value="1001-5000">1001–5000</option>
+                          <option value="5001-10000">5001–10,000</option>
+                          <option value="10000+">10,000+</option>
                         </select>
                       </Field>
                       <Field label="States (optional, comma separated)">
@@ -292,7 +302,15 @@ export default function RecommendInner({ mode }: { mode: Mode }) {
           </div>
         </Container>
       </main>
+    </>
+  );
 
+  if (embedded) return <div className="bg-transparent">{content}</div>;
+
+  return (
+    <div className="min-h-screen bg-[#0B0E23]">
+      <SiteHeader />
+      {content}
       <SiteFooter />
     </div>
   );

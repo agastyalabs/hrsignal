@@ -1,0 +1,12 @@
+<svg width="240" height="48" viewBox="0 0 240 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#A855F7"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#g)"/>
+  <path d="M13 34V14h6.2c5.6 0 9 3 9 8s-3.4 8-9 8H13Zm6.3-5.2c2.6 0 4.3-1.1 4.3-3.8 0-2.7-1.7-3.8-4.3-3.8H17.3v7.6h2Z" fill="white" fill-opacity="0.95"/>
+  <path d="M29.5 34V14h4.9v7.2h6.5V14h4.9v20h-4.9v-7.5h-6.5V34h-4.9Z" fill="white" fill-opacity="0.95"/>
+  <text x="58" y="31" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="22" font-weight="700" fill="#0F172A">HRSignal</text>
+</svg>

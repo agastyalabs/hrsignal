@@ -6,9 +6,20 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["hrms", "payroll", "attendance", "performance"],
-    "evidence_urls": ["https://www.greythr.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance"
+    ],
+    "evidence_urls": [
+      "https://www.greythr.com/contact-us/"
+    ],
+    "domain": "greythr.com"
   },
   {
     "name": "Keka",
@@ -17,9 +28,22 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500", "EMP_100_1000"],
-    "categories": ["hrms", "payroll", "attendance", "performance", "ats"],
-    "evidence_urls": ["https://www.keka.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance",
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://www.keka.com/contact-us/"
+    ],
+    "domain": "keka.com"
   },
   {
     "name": "Zoho (People/Payroll)",
@@ -28,9 +52,21 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500", "EMP_100_1000"],
-    "categories": ["hrms", "attendance", "performance", "payroll"],
-    "evidence_urls": ["https://www.zoho.com/contactus.html"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "attendance",
+      "performance",
+      "payroll"
+    ],
+    "evidence_urls": [
+      "https://www.zoho.com/contactus.html"
+    ],
+    "domain": "zoho.com"
   },
   {
     "name": "Zoho Recruit",
@@ -39,9 +75,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://www.zoho.com/contactus.html"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://www.zoho.com/contactus.html"
+    ],
+    "domain": "zoho.com"
   },
   {
     "name": "Darwinbox",
@@ -50,9 +94,22 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["hrms", "attendance", "performance", "payroll", "lms", "ats"],
-    "evidence_urls": ["https://www.darwinbox.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "attendance",
+      "performance",
+      "payroll",
+      "lms",
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://www.darwinbox.com/contact-us/"
+    ],
+    "domain": "darwinbox.com"
   },
   {
     "name": "PeopleStrong",
@@ -61,9 +118,22 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["hrms", "payroll", "attendance", "performance", "ats", "lms"],
-    "evidence_urls": ["https://www.peoplestrong.com/contact/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance",
+      "ats",
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.peoplestrong.com/contact/"
+    ],
+    "domain": "peoplestrong.com"
   },
   {
     "name": "Pocket HRMS",
@@ -72,9 +142,20 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["hrms", "payroll", "attendance", "performance"],
-    "evidence_urls": ["https://www.pockethrms.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance"
+    ],
+    "evidence_urls": [
+      "https://www.pockethrms.com/contact-us/"
+    ],
+    "domain": "pockethrms.com"
   },
   {
     "name": "HROne",
@@ -83,9 +164,20 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["hrms", "attendance", "performance", "payroll"],
-    "evidence_urls": ["https://www.hrone.cloud/contact-us"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "hrms",
+      "attendance",
+      "performance",
+      "payroll"
+    ],
+    "evidence_urls": [
+      "https://www.hrone.cloud/contact-us"
+    ],
+    "domain": "hrone.cloud"
   },
   {
     "name": "ZingHR",
@@ -94,9 +186,21 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["hrms", "attendance", "performance", "payroll", "ats"],
-    "evidence_urls": ["https://www.zinghr.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "attendance",
+      "performance",
+      "payroll",
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://www.zinghr.com/contact-us/"
+    ],
+    "domain": "zinghr.com"
   },
   {
     "name": "sumHR",
@@ -105,9 +209,19 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["hrms", "attendance", "payroll"],
-    "evidence_urls": ["https://www.sumhr.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll"
+    ],
+    "evidence_urls": [
+      "https://www.sumhr.com/contact-us/"
+    ],
+    "domain": "sumhr.com"
   },
   {
     "name": "factoHR",
@@ -116,9 +230,20 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["hrms", "attendance", "payroll", "performance"],
-    "evidence_urls": ["https://factohr.com/contact/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll",
+      "performance"
+    ],
+    "evidence_urls": [
+      "https://factohr.com/contact/"
+    ],
+    "domain": "factohr.com"
   },
   {
     "name": "HRMantra",
@@ -127,9 +252,20 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["hrms", "payroll", "attendance", "performance"],
-    "evidence_urls": ["https://www.hrmantra.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance"
+    ],
+    "evidence_urls": [
+      "https://www.hrmantra.com/contact-us/"
+    ],
+    "domain": "hrmantra.com"
   },
   {
     "name": "Qandle",
@@ -138,9 +274,20 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["hrms", "attendance", "payroll", "performance"],
-    "evidence_urls": ["https://www.qandle.com/contact"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll",
+      "performance"
+    ],
+    "evidence_urls": [
+      "https://www.qandle.com/contact"
+    ],
+    "domain": "qandle.com"
   },
   {
     "name": "Kredily",
@@ -149,9 +296,18 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200"],
-    "categories": ["hrms", "attendance", "payroll"],
-    "evidence_urls": ["https://kredily.com/contact"]
+    "supported_size_bands": [
+      "EMP_20_200"
+    ],
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll"
+    ],
+    "evidence_urls": [
+      "https://kredily.com/contact"
+    ],
+    "domain": "kredily.com"
   },
   {
     "name": "Akrivia HCM",
@@ -160,9 +316,22 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["hrms", "payroll", "attendance", "performance", "ats", "lms"],
-    "evidence_urls": ["https://akriviahcm.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance",
+      "ats",
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://akriviahcm.com/contact-us/"
+    ],
+    "domain": "akriviahcm.com"
   },
   {
     "name": "EmployWise",
@@ -171,9 +340,21 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["hrms", "payroll", "attendance", "performance", "ats"],
-    "evidence_urls": ["https://www.employwise.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance",
+      "performance",
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://www.employwise.com/contact-us/"
+    ],
+    "domain": "employwise.com"
   },
   {
     "name": "Empxtrack",
@@ -182,9 +363,21 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["hrms", "attendance", "payroll", "performance", "ats"],
-    "evidence_urls": ["https://www.empxtrack.com/contact/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll",
+      "performance",
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://www.empxtrack.com/contact/"
+    ],
+    "domain": "empxtrack.com"
   },
   {
     "name": "Spine HR Suite",
@@ -193,9 +386,19 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["hrms", "payroll", "attendance"],
-    "evidence_urls": ["https://www.spinehr.in/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "attendance"
+    ],
+    "evidence_urls": [
+      "https://www.spinehr.in/contact-us/"
+    ],
+    "domain": "spinehr.in"
   },
   {
     "name": "RazorpayX Payroll",
@@ -204,9 +407,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["payroll"],
-    "evidence_urls": ["https://razorpay.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "payroll"
+    ],
+    "evidence_urls": [
+      "https://razorpay.com/contact-us/"
+    ],
+    "domain": "razorpay.com"
   },
   {
     "name": "Zoho Payroll",
@@ -215,9 +426,18 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["payroll"],
-    "evidence_urls": ["https://www.zoho.com/in/payroll/pricing/", "https://www.zoho.com/contactus.html"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "payroll"
+    ],
+    "evidence_urls": [
+      "https://www.zoho.com/in/payroll/pricing/",
+      "https://www.zoho.com/contactus.html"
+    ],
+    "domain": "zoho.com"
   },
   {
     "name": "Relyon (Saral PayPack)",
@@ -226,9 +446,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["payroll"],
-    "evidence_urls": ["https://www.saralpaypack.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "payroll"
+    ],
+    "evidence_urls": [
+      "https://www.saralpaypack.com/contact-us/"
+    ],
+    "domain": "saralpaypack.com"
   },
   {
     "name": "Timelabs",
@@ -237,9 +465,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["attendance"],
-    "evidence_urls": ["https://www.timelabs.in/contact-us.html"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "attendance"
+    ],
+    "evidence_urls": [
+      "https://www.timelabs.in/contact-us.html"
+    ],
+    "domain": "timelabs.in"
   },
   {
     "name": "Freshteam (Freshworks)",
@@ -248,9 +484,18 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["ats", "hrms"],
-    "evidence_urls": ["https://www.freshworks.com/company/contact/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "ats",
+      "hrms"
+    ],
+    "evidence_urls": [
+      "https://www.freshworks.com/company/contact/"
+    ],
+    "domain": "freshworks.com"
   },
   {
     "name": "Naukri RMS (Info Edge)",
@@ -259,9 +504,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://www.infoedge.in/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://www.infoedge.in/contact-us/"
+    ],
+    "domain": "rms.naukri.com"
   },
   {
     "name": "TurboHire",
@@ -270,9 +523,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://turbohire.co/contact/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://turbohire.co/contact/"
+    ],
+    "domain": "turbohire.co"
   },
   {
     "name": "TalentRecruit",
@@ -281,9 +542,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://www.talentrecruit.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://www.talentrecruit.com/contact-us/"
+    ],
+    "domain": "talentrecruit.com"
   },
   {
     "name": "Recruit CRM",
@@ -292,9 +561,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://recruitcrm.io/contact/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://recruitcrm.io/contact/"
+    ],
+    "domain": "recruitcrm.io"
   },
   {
     "name": "Recruiterflow",
@@ -303,9 +580,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://recruiterflow.com/contact"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://recruiterflow.com/contact"
+    ],
+    "domain": "recruiterflow.com"
   },
   {
     "name": "Pitch N Hire",
@@ -314,9 +599,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://pitchnhire.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://pitchnhire.com/contact-us/"
+    ],
+    "domain": "pitchnhire.com"
   },
   {
     "name": "Cutshort",
@@ -325,9 +618,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://cutshort.io/contact"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://cutshort.io/contact"
+    ],
+    "domain": "cutshort.io"
   },
   {
     "name": "Talview",
@@ -336,9 +637,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://www.talview.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://www.talview.com/contact-us/"
+    ],
+    "domain": "talview.com"
   },
   {
     "name": "Peoplebox",
@@ -347,9 +656,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["performance"],
-    "evidence_urls": ["https://www.peoplebox.ai/contact"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "performance"
+    ],
+    "evidence_urls": [
+      "https://www.peoplebox.ai/contact"
+    ],
+    "domain": "peoplebox.ai"
   },
   {
     "name": "Synergita",
@@ -358,9 +675,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500"],
-    "categories": ["performance", "hrms"],
-    "evidence_urls": ["https://www.synergita.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500"
+    ],
+    "categories": [
+      "performance",
+      "hrms"
+    ],
+    "evidence_urls": [
+      "https://www.synergita.com/contact-us/"
+    ],
+    "domain": "synergita.com"
   },
   {
     "name": "Profit.co (India)",
@@ -369,9 +694,17 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["performance"],
-    "evidence_urls": ["https://www.profit.co/contact/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "performance"
+    ],
+    "evidence_urls": [
+      "https://www.profit.co/contact/"
+    ],
+    "domain": "profit.co"
   },
   {
     "name": "Disprz",
@@ -380,9 +713,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.disprz.ai/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.disprz.ai/contact-us/"
+    ],
+    "domain": "disprz.ai"
   },
   {
     "name": "UpsideLMS",
@@ -391,9 +732,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.upgradelms.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.upgradelms.com/contact-us/"
+    ],
+    "domain": "upgradelms.com"
   },
   {
     "name": "TrainerCentral (Zoho)",
@@ -402,9 +751,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.zoho.com/contactus.html"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.zoho.com/contactus.html"
+    ],
+    "domain": "trainercentral.com"
   },
   {
     "name": "Zoho Learn",
@@ -413,9 +770,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.zoho.com/contactus.html"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.zoho.com/contactus.html"
+    ],
+    "domain": "zoho.com"
   },
   {
     "name": "MindTickle",
@@ -424,9 +789,17 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.mindtickle.com/contact/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.mindtickle.com/contact/"
+    ],
+    "domain": "mindtickle.com"
   },
   {
     "name": "WizIQ",
@@ -435,9 +808,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.wiziq.com/contact/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.wiziq.com/contact/"
+    ],
+    "domain": "wiziq.com"
   },
   {
     "name": "AuthBridge",
@@ -446,9 +827,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://authbridge.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://authbridge.com/contact-us/"
+    ],
+    "domain": "authbridge.com"
   },
   {
     "name": "IDfy",
@@ -457,9 +846,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://www.idfy.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://www.idfy.com/contact-us/"
+    ],
+    "domain": "idfy.com"
   },
   {
     "name": "SpringVerify",
@@ -468,9 +865,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://springverify.com/contact/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://springverify.com/contact/"
+    ],
+    "domain": "springverify.com"
   },
   {
     "name": "OnGrid",
@@ -479,9 +884,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://ongrid.in/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://ongrid.in/contact-us/"
+    ],
+    "domain": "ongrid.in"
   },
   {
     "name": "BetterPlace",
@@ -490,9 +903,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://www.betterplace.co.in/contact-us"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://www.betterplace.co.in/contact-us"
+    ],
+    "domain": "betterplace.co.in"
   },
   {
     "name": "Signzy",
@@ -501,9 +922,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://signzy.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://signzy.com/contact-us/"
+    ],
+    "domain": "signzy.com"
   },
   {
     "name": "Karza Technologies",
@@ -512,9 +941,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://www.karza.in/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://www.karza.in/contact-us/"
+    ],
+    "domain": "karza.in"
   },
   {
     "name": "HyperVerge",
@@ -523,9 +960,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://hyperverge.co/contact/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://hyperverge.co/contact/"
+    ],
+    "domain": "hyperverge.co"
   },
   {
     "name": "Digitap",
@@ -534,9 +979,16 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://www.digitap.ai/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://www.digitap.ai/contact-us/"
+    ],
+    "domain": "digitap.ai"
   },
   {
     "name": "Zoop.One",
@@ -545,9 +997,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://zoop.one/contact-us/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://zoop.one/contact-us/"
+    ],
+    "domain": "zoop.one"
   },
   {
     "name": "SAP SuccessFactors (India)",
@@ -556,9 +1016,19 @@
     "registered_country": "DE",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_100_1000"],
-    "categories": ["hrms", "payroll", "performance", "lms"],
-    "evidence_urls": ["https://www.sap.com/india/about/company/office-locations.html"]
+    "supported_size_bands": [
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "performance",
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.sap.com/india/about/company/office-locations.html"
+    ],
+    "domain": "sap.com"
   },
   {
     "name": "Oracle HCM (India)",
@@ -567,9 +1037,18 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_100_1000"],
-    "categories": ["hrms", "payroll", "performance"],
-    "evidence_urls": ["https://www.oracle.com/in/corporate/contact/"]
+    "supported_size_bands": [
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "performance"
+    ],
+    "evidence_urls": [
+      "https://www.oracle.com/in/corporate/contact/"
+    ],
+    "domain": "oracle.com"
   },
   {
     "name": "Workday (India)",
@@ -578,9 +1057,18 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_100_1000"],
-    "categories": ["hrms", "payroll", "performance"],
-    "evidence_urls": ["https://www.workday.com/en-in/company/about-workday/contact-us.html"]
+    "supported_size_bands": [
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "payroll",
+      "performance"
+    ],
+    "evidence_urls": [
+      "https://www.workday.com/en-in/company/about-workday/contact-us.html"
+    ],
+    "domain": "workday.com"
   },
   {
     "name": "UKG (India)",
@@ -589,9 +1077,19 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["hrms", "attendance", "payroll"],
-    "evidence_urls": ["https://www.ukg.com/about-us/contact-us"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "attendance",
+      "payroll"
+    ],
+    "evidence_urls": [
+      "https://www.ukg.com/about-us/contact-us"
+    ],
+    "domain": "ukg.com"
   },
   {
     "name": "Cornerstone OnDemand (India)",
@@ -600,9 +1098,16 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.cornerstoneondemand.com/company/contact/"]
+    "supported_size_bands": [
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.cornerstoneondemand.com/company/contact/"
+    ],
+    "domain": "cornerstoneondemand.com"
   },
   {
     "name": "Docebo (India)",
@@ -611,9 +1116,17 @@
     "registered_country": "CA",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.docebo.com/contact/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.docebo.com/contact/"
+    ],
+    "domain": "docebo.com"
   },
   {
     "name": "HireRight (India)",
@@ -622,9 +1135,17 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://www.hireright.com/about/contact-us"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://www.hireright.com/about/contact-us"
+    ],
+    "domain": "hireright.com"
   },
   {
     "name": "Sterling (India)",
@@ -633,9 +1154,17 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://www.sterlingcheck.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://www.sterlingcheck.com/contact-us/"
+    ],
+    "domain": "sterlingcheck.com"
   },
   {
     "name": "Workstatus",
@@ -644,9 +1173,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["attendance"],
-    "evidence_urls": ["https://www.workstatus.io/contact"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "attendance"
+    ],
+    "evidence_urls": [
+      "https://www.workstatus.io/contact"
+    ],
+    "domain": "workstatus.io"
   },
   {
     "name": "PeopleHum",
@@ -655,9 +1192,21 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500", "EMP_100_1000"],
-    "categories": ["hrms", "ats", "performance", "attendance"],
-    "evidence_urls": ["https://www.peoplehum.com/contact-us"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "hrms",
+      "ats",
+      "performance",
+      "attendance"
+    ],
+    "evidence_urls": [
+      "https://www.peoplehum.com/contact-us"
+    ],
+    "domain": "peoplehum.com"
   },
   {
     "name": "HirePro",
@@ -666,9 +1215,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://hirepro.in/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://hirepro.in/contact-us/"
+    ],
+    "domain": "hirepro.in"
   },
   {
     "name": "Zwayam",
@@ -677,9 +1234,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["ats"],
-    "evidence_urls": ["https://zwayam.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "ats"
+    ],
+    "evidence_urls": [
+      "https://zwayam.com/contact-us/"
+    ],
+    "domain": "zwayam.com"
   },
   {
     "name": "G-Cube LMS",
@@ -688,9 +1253,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.gc-solutions.net/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.gc-solutions.net/contact-us/"
+    ],
+    "domain": "gc-solutions.net"
   },
   {
     "name": "Hurix Digital",
@@ -699,9 +1272,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.hurix.com/contact/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.hurix.com/contact/"
+    ],
+    "domain": "hurix.com"
   },
   {
     "name": "Coursera for Business (India)",
@@ -710,9 +1291,17 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.coursera.org/about/contact/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.coursera.org/about/contact/"
+    ],
+    "domain": "coursera.org"
   },
   {
     "name": "Udemy Business (India)",
@@ -721,9 +1310,17 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://about.udemy.com/company/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://about.udemy.com/company/contact-us/"
+    ],
+    "domain": "business.udemy.com"
   },
   {
     "name": "LinkedIn Learning (India)",
@@ -732,9 +1329,17 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.linkedin.com/help/linkedin/answer/a515549/contact-linkedin-customer-support"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.linkedin.com/help/linkedin/answer/a515549/contact-linkedin-customer-support"
+    ],
+    "domain": "learning.linkedin.com"
   },
   {
     "name": "Simplilearn for Business",
@@ -743,9 +1348,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.simplilearn.com/contact-us"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.simplilearn.com/contact-us"
+    ],
+    "domain": "simplilearn.com"
   },
   {
     "name": "upGrad Enterprise",
@@ -754,9 +1367,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://upgrad.com/contact/" ]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://upgrad.com/contact/"
+    ],
+    "domain": "upgrad.com"
   },
   {
     "name": "Great Learning for Business",
@@ -765,9 +1386,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["lms"],
-    "evidence_urls": ["https://www.mygreatlearning.com/contact-us"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "lms"
+    ],
+    "evidence_urls": [
+      "https://www.mygreatlearning.com/contact-us"
+    ],
+    "domain": "mygreatlearning.com"
   },
   {
     "name": "Digio",
@@ -776,9 +1405,17 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://www.digio.in/contact"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://www.digio.in/contact"
+    ],
+    "domain": "digio.in"
   },
   {
     "name": "SignDesk",
@@ -787,9 +1424,16 @@
     "registered_country": "IN",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://signdesk.com/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://signdesk.com/contact-us/"
+    ],
+    "domain": "signdesk.com"
   },
   {
     "name": "First Advantage (India)",
@@ -798,9 +1442,17 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://fadv.com/contact/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://fadv.com/contact/"
+    ],
+    "domain": "fadv.com"
   },
   {
     "name": "Checkr (India)",
@@ -809,9 +1461,17 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://checkr.com/contact"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://checkr.com/contact"
+    ],
+    "domain": "checkr.com"
   },
   {
     "name": "Onfido (India)",
@@ -820,9 +1480,17 @@
     "registered_country": "GB",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://onfido.com/contact/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://onfido.com/contact/"
+    ],
+    "domain": "onfido.com"
   },
   {
     "name": "Veremark (India)",
@@ -831,9 +1499,17 @@
     "registered_country": "GB",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_20_200", "EMP_50_500"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://www.veremark.com/contact/"]
+    "supported_size_bands": [
+      "EMP_20_200",
+      "EMP_50_500"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://www.veremark.com/contact/"
+    ],
+    "domain": "veremark.com"
   },
   {
     "name": "Experian (India)",
@@ -842,9 +1518,17 @@
     "registered_country": "GB",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://www.experian.in/contact-us"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://www.experian.in/contact-us"
+    ],
+    "domain": "experian.in"
   },
   {
     "name": "Equifax (India)",
@@ -853,10 +1537,16 @@
     "registered_country": "US",
     "verified_in_india": true,
     "multi_state_support": true,
-    "supported_size_bands": ["EMP_50_500", "EMP_100_1000"],
-    "categories": ["bgv"],
-    "evidence_urls": ["https://www.equifax.co.in/about-us/contact-us/"]
+    "supported_size_bands": [
+      "EMP_50_500",
+      "EMP_100_1000"
+    ],
+    "categories": [
+      "bgv"
+    ],
+    "evidence_urls": [
+      "https://www.equifax.co.in/about-us/contact-us/"
+    ],
+    "domain": "equifax.co.in"
   }
 ]
-
-
