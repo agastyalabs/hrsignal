@@ -76,6 +76,12 @@ export default function ResultsClient({
 
   const picks = useMemo(() => result?.tools ?? [], [result]);
 
+  const compareHref = useMemo(() => {
+    const slugs = (result?.tools ?? []).map((t) => t.tool.slug).filter(Boolean).slice(0, 4);
+    if (slugs.length < 2) return null;
+    return `/compare?tools=${encodeURIComponent(slugs.join(","))}`;
+  }, [result]);
+
   return (
     <div className="min-h-screen bg-zinc-50">
       <SiteHeader />
@@ -83,11 +89,18 @@ export default function ResultsClient({
 
       <main className="py-10 sm:py-14">
         <Container className="max-w-5xl">
-        <div className="flex items-baseline justify-between">
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
           <h1 className="text-2xl font-semibold">Your HR stack shortlist</h1>
-          <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/recommend">
-            Start over
-          </Link>
+          <div className="flex items-center gap-3">
+            {compareHref ? (
+              <Link className="text-sm font-medium text-indigo-700 hover:underline" href={compareHref}>
+                Compare
+              </Link>
+            ) : null}
+            <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/recommend">
+              Start over
+            </Link>
+          </div>
         </div>
         <p className="mt-2 text-zinc-600">
           Based on your inputs, here are 3–5 best-fit tools. Want pricing/demo help? Submit your details and we’ll route you to the best-fit

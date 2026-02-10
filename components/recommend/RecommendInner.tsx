@@ -19,6 +19,23 @@ const CATEGORY_OPTIONS = [
   { slug: "performance", label: "Performance/OKR" },
 ] as const;
 
+const PAYROLL_COMPLIANCE_OPTIONS = [
+  { slug: "PF", label: "PF" },
+  { slug: "ESI", label: "ESI" },
+  { slug: "PT", label: "PT" },
+  { slug: "LWF", label: "LWF" },
+  { slug: "TDS", label: "TDS" },
+  { slug: "Form16", label: "Form 16" },
+  { slug: "24Q", label: "24Q" },
+] as const;
+
+const SUPPORT_CHANNEL_OPTIONS = [
+  { slug: "whatsapp", label: "WhatsApp" },
+  { slug: "phone", label: "Phone" },
+  { slug: "ticket", label: "Ticket" },
+  { slug: "email", label: "Email" },
+] as const;
+
 const INTEGRATION_OPTIONS = [
   { slug: "tally", label: "Tally" },
   { slug: "zoho-books", label: "Zoho Books" },
@@ -45,14 +62,25 @@ export default function RecommendInner({
   const [role, setRole] = useState("");
   const [sizeBand, setSizeBand] = useState<SizeBand>("11-50");
   const [industry, setIndustry] = useState("");
-  const [deployment, setDeployment] = useState<"cloud" | "on-prem" | "hybrid" | "">("");
+  const [deployment] = useState<"cloud" | "on-prem" | "hybrid" | "">("");
   const [budgetBand, setBudgetBand] = useState<"lt_50" | "50_100" | "100_200" | "quote" | "unknown" | "">("");
 
   const [states, setStates] = useState("");
-  const [categories, setCategories] = useState<string[]>(["hrms", "payroll", "attendance"]);
+  const [categories, setCategories] = useState<string[]>(["payroll"]);
   const [integrations, setIntegrations] = useState<string[]>([]);
   const [budgetNote, setBudgetNote] = useState("");
   const [timelineNote, setTimelineNote] = useState("30 days");
+
+  // Payroll decision inputs (stored in notes for now; recommendations API unchanged)
+  const [statutoryComplexity, setStatutoryComplexity] = useState<"basic" | "multi-state" | "multi-entity">("basic");
+  const [payrollCompliance, setPayrollCompliance] = useState<string[]>(["PF", "ESI", "PT", "TDS"]);
+  const [attendanceSource, setAttendanceSource] = useState<"built-in" | "biometric" | "third-party" | "manual">("third-party");
+  const [edgeCases, setEdgeCases] = useState<string[]>(["arrears", "reversals"]);
+  const [makerCheckerRequired, setMakerCheckerRequired] = useState(false);
+
+  const [gstRequired, setGstRequired] = useState<"yes" | "no" | "unsure">("unsure");
+  const [dataResidency, setDataResidency] = useState<"india-required" | "india-preferred" | "not-required">("india-preferred");
+  const [supportChannels, setSupportChannels] = useState<string[]>(["whatsapp", "ticket"]);
 
   const [step, setStep] = useState(1);
 
@@ -100,14 +128,27 @@ export default function RecommendInner({
                   e.preventDefault();
                   setError(null);
 
-                  // Client-side step guard
-                  if (step !== 3) {
-                    setStep((s) => Math.min(3, s + 1));
+                  // Client-side step guard (V1 payroll decision wizard)
+                  const FINAL_STEP = mode === "recommend" ? 7 : 3;
+                  if (step !== FINAL_STEP) {
+                    setStep((s) => Math.min(FINAL_STEP, s + 1));
                     return;
                   }
 
                   setLoading(true);
                   try {
+                    const payrollNotes = [
+                      `Category: Payroll & Compliance`,
+                      `Statutory complexity: ${statutoryComplexity}`,
+                      `Compliance needed: ${payrollCompliance.join(", ") || "-"}`,
+                      `Attendance source: ${attendanceSource}`,
+                      `Edge cases: ${edgeCases.join(", ") || "-"}`,
+                      `Maker-checker required: ${makerCheckerRequired ? "yes" : "no"}`,
+                      `GST invoicing required: ${gstRequired}`,
+                      `Data residency: ${dataResidency}`,
+                      `Preferred support: ${supportChannels.join(", ") || "-"}`,
+                    ].join("\n");
+
                     const payload = {
                       companyName,
                       buyerEmail: email,
@@ -120,9 +161,10 @@ export default function RecommendInner({
                         .split(",")
                         .map((s) => s.trim())
                         .filter(Boolean),
-                      categoriesNeeded: categories.slice(0, 5),
+                      // Scope strictly to Payroll & Compliance for V1 lead magnet.
+                      categoriesNeeded: mode === "recommend" ? ["payroll"] : categories.slice(0, 5),
                       mustHaveIntegrations: integrations,
-                      budgetNote,
+                      budgetNote: [budgetNote?.trim(), payrollNotes].filter(Boolean).join("\n\n"),
                       timelineNote,
                     };
 
@@ -158,15 +200,20 @@ export default function RecommendInner({
                   }
                 }}
               >
-                <div className="flex items-center justify-between gap-3">
-                  <div className="text-xs font-semibold text-zinc-500">Step {step} of 3</div>
-                  <div className="h-2 w-full max-w-[260px] overflow-hidden rounded-full bg-zinc-100">
-                    <div
-                      className="h-full bg-indigo-600 transition-[width] motion-reduce:transition-none"
-                      style={{ width: `${(step / 3) * 100}%` }}
-                    />
-                  </div>
-                </div>
+                {(() => {
+                  const total = mode === "recommend" ? 7 : 3;
+                  return (
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="text-xs font-semibold text-zinc-500">Step {step} of {total}</div>
+                      <div className="h-2 w-full max-w-[260px] overflow-hidden rounded-full bg-zinc-100">
+                        <div
+                          className="h-full bg-indigo-600 transition-[width] motion-reduce:transition-none"
+                          style={{ width: `${(step / total) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })()}
 
                 {step === 1 ? (
                   <>
@@ -179,14 +226,16 @@ export default function RecommendInner({
                         <input className="input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                       </Field>
                       <Field label="Your role (optional)">
-                        <input
-                          className="input"
-                          value={role}
-                          onChange={(e) => setRole(e.target.value)}
-                          placeholder="Founder / HR / Ops"
-                        />
+                        <input className="input" value={role} onChange={(e) => setRole(e.target.value)} placeholder="Founder / HR / Finance" />
                       </Field>
                     </div>
+
+                    {mode === "recommend" ? (
+                      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4 text-sm text-[var(--text-muted)]">
+                        <div className="font-semibold text-[var(--text)]">Scope</div>
+                        <div className="mt-1">This V1 decision flow is focused on <b>Payroll & Compliance</b>.</div>
+                      </div>
+                    ) : null}
                   </>
                 ) : null}
 
@@ -205,41 +254,108 @@ export default function RecommendInner({
                           <option value="10000+">10,000+</option>
                         </select>
                       </Field>
-                      <Field label="States (optional, comma separated)">
-                        <input className="input" value={states} onChange={(e) => setStates(e.target.value)} />
+                      <Field label="Industry (optional)">
+                        <input className="input" value={industry} onChange={(e) => setIndustry(e.target.value)} placeholder="e.g., Manufacturing, Services, Retail" />
                       </Field>
                     </div>
 
-                    <Field label="What do you need? (pick 1–5 categories)">
-                      <MultiSelect options={CATEGORY_OPTIONS} value={categories} onChange={setCategories} max={5} min={1} />
+                    <Field label="States of operation (optional, comma separated)">
+                      <input className="input" value={states} onChange={(e) => setStates(e.target.value)} placeholder="e.g., KA, MH, DL" />
                     </Field>
 
-                    <Field label="Must-have integrations">
-                      <MultiSelect options={INTEGRATION_OPTIONS} value={integrations} onChange={setIntegrations} max={3} />
-                    </Field>
+                    {mode !== "recommend" ? (
+                      <>
+                        <Field label="What do you need? (pick 1–5 categories)">
+                          <MultiSelect options={CATEGORY_OPTIONS} value={categories} onChange={setCategories} max={5} min={1} />
+                        </Field>
+                      </>
+                    ) : null}
                   </>
                 ) : null}
 
                 {step === 3 ? (
                   <>
+                    <Field label="Statutory complexity">
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                        {([
+                          { k: "basic", t: "Basic", d: "Single state, minimal edge cases" },
+                          { k: "multi-state", t: "Multi-state", d: "PT/LWF variance" },
+                          { k: "multi-entity", t: "Multi-entity", d: "Higher compliance" },
+                        ] as const).map((x) => (
+                          <button
+                            key={x.k}
+                            type="button"
+                            className={`rounded-xl border p-4 text-left text-sm ${
+                              statutoryComplexity === x.k
+                                ? "border-[var(--primary)] bg-[rgba(111,66,193,0.12)] text-[var(--text)]"
+                                : "border-[var(--border)] bg-[var(--surface-2)] text-[var(--text-muted)]"
+                            }`}
+                            onClick={() => setStatutoryComplexity(x.k)}
+                          >
+                            <div className="font-semibold text-[var(--text)]">{x.t}</div>
+                            <div className="mt-1 text-xs leading-relaxed">{x.d}</div>
+                          </button>
+                        ))}
+                      </div>
+                    </Field>
+
+                    <Field label="Compliance you need (select all that apply)">
+                      <MultiSelect options={PAYROLL_COMPLIANCE_OPTIONS} value={payrollCompliance} onChange={setPayrollCompliance} max={7} min={1} />
+                    </Field>
+                  </>
+                ) : null}
+
+                {step === 4 ? (
+                  <>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <Field label="Industry (optional)">
-                        <input
+                      <Field label="Attendance source">
+                        <select
                           className="input"
-                          value={industry}
-                          onChange={(e) => setIndustry(e.target.value)}
-                          placeholder="e.g., Manufacturing, Services, Retail"
-                        />
-                      </Field>
-                      <Field label="Deployment (optional)">
-                        <select className="input" value={deployment} onChange={(e) => setDeployment(e.target.value as typeof deployment)}>
-                          <option value="">No preference</option>
-                          <option value="cloud">Cloud</option>
-                          <option value="on-prem">On-prem</option>
-                          <option value="hybrid">Hybrid</option>
+                          value={attendanceSource}
+                          onChange={(e) =>
+                            setAttendanceSource(e.target.value as "built-in" | "biometric" | "third-party" | "manual")
+                          }
+                        >
+                          <option value="built-in">Built-in</option>
+                          <option value="biometric">Biometric integration</option>
+                          <option value="third-party">Third-party system</option>
+                          <option value="manual">Manual / spreadsheets</option>
                         </select>
                       </Field>
+                      <Field label="Controls">
+                        <label className="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+                          <input
+                            type="checkbox"
+                            checked={makerCheckerRequired}
+                            onChange={(e) => setMakerCheckerRequired(e.target.checked)}
+                          />
+                          Maker-checker required
+                        </label>
+                      </Field>
                     </div>
+
+                    <Field label="Edge cases to demo">
+                      <MultiSelect
+                        options={[
+                          { slug: "arrears", label: "Arrears" },
+                          { slug: "reversals", label: "Reversals" },
+                          { slug: "fnf", label: "FnF" },
+                          { slug: "transfers", label: "Transfers" },
+                          { slug: "multi-structures", label: "Multiple salary structures" },
+                        ]}
+                        value={edgeCases}
+                        onChange={setEdgeCases}
+                        max={5}
+                      />
+                    </Field>
+                  </>
+                ) : null}
+
+                {step === 5 ? (
+                  <>
+                    <Field label="Must-have integrations">
+                      <MultiSelect options={INTEGRATION_OPTIONS} value={integrations} onChange={setIntegrations} max={3} />
+                    </Field>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <Field label="Budget band (optional)">
@@ -253,23 +369,73 @@ export default function RecommendInner({
                         </select>
                       </Field>
                       <Field label="Timeline (optional)">
-                        <input
-                          className="input"
-                          value={timelineNote}
-                          onChange={(e) => setTimelineNote(e.target.value)}
-                          placeholder="e.g., 30 days"
-                        />
+                        <input className="input" value={timelineNote} onChange={(e) => setTimelineNote(e.target.value)} placeholder="e.g., 30 days" />
                       </Field>
                     </div>
 
-                    <Field label="Budget notes (optional)">
-                      <input
-                        className="input"
-                        value={budgetNote}
-                        onChange={(e) => setBudgetNote(e.target.value)}
-                        placeholder="e.g., we need implementation + payroll + attendance"
-                      />
+                    <Field label="Notes (optional)">
+                      <input className="input" value={budgetNote} onChange={(e) => setBudgetNote(e.target.value)} placeholder="e.g., multi-state payroll + attendance integration" />
                     </Field>
+                  </>
+                ) : null}
+
+                {step === 6 ? (
+                  <>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <Field label="GST invoicing required?">
+                        <select
+                          className="input"
+                          value={gstRequired}
+                          onChange={(e) => setGstRequired(e.target.value as "yes" | "no" | "unsure")}
+                        >
+                          <option value="unsure">Not sure</option>
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                        </select>
+                      </Field>
+                      <Field label="Data residency">
+                        <select
+                          className="input"
+                          value={dataResidency}
+                          onChange={(e) =>
+                            setDataResidency(e.target.value as "india-required" | "india-preferred" | "not-required")
+                          }
+                        >
+                          <option value="india-preferred">India preferred</option>
+                          <option value="india-required">India required</option>
+                          <option value="not-required">Not required</option>
+                        </select>
+                      </Field>
+                    </div>
+
+                    <Field label="Preferred support channels (optional)">
+                      <MultiSelect options={SUPPORT_CHANNEL_OPTIONS} value={supportChannels} onChange={setSupportChannels} max={4} />
+                    </Field>
+
+                    <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4 text-sm text-[var(--text-muted)]">
+                      <div className="font-semibold text-[var(--text)]">Trust & evidence</div>
+                      <div className="mt-1">We prioritize verified listings with sources and recent checks. Unknown fields will be flagged for validation.</div>
+                    </div>
+                  </>
+                ) : null}
+
+                {step === 7 ? (
+                  <>
+                    <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-5">
+                      <div className="text-sm font-semibold text-[var(--text)]">Review</div>
+                      <div className="mt-3 grid grid-cols-1 gap-2 text-sm text-[var(--text-muted)] sm:grid-cols-2">
+                        <KV label="Category" value="Payroll & Compliance" />
+                        <KV label="Company size" value={sizeBand} />
+                        <KV label="States" value={states || "—"} />
+                        <KV label="Complexity" value={statutoryComplexity} />
+                        <KV label="Compliance" value={payrollCompliance.join(", ") || "—"} />
+                        <KV label="Integrations" value={integrations.join(", ") || "—"} />
+                      </div>
+                    </div>
+
+                    <div className="text-xs text-[var(--text-muted)]">
+                      By continuing, you’ll get an explainable shortlist. We won’t blast your details to multiple vendors.
+                    </div>
                   </>
                 ) : null}
 
@@ -290,7 +456,12 @@ export default function RecommendInner({
                   </button>
 
                   <Button className="w-full" disabled={loading}>
-                    {loading ? "Getting your shortlist…" : step === 3 ? "Get recommendations" : "Next"}
+                    {(() => {
+                      const finalStep = mode === "recommend" ? 7 : 3;
+                      if (loading) return "Getting your shortlist…";
+                      if (step === finalStep) return "Generate shortlist";
+                      return "Next";
+                    })()}
                   </Button>
                 </div>
 
@@ -321,6 +492,15 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
     <div>
       <label className="text-sm font-medium text-zinc-800">{label}</label>
       <div className="mt-1">{children}</div>
+    </div>
+  );
+}
+
+function KV({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] px-3 py-2">
+      <div className="text-xs font-semibold text-[var(--text-muted)]">{label}</div>
+      <div className="text-sm font-semibold text-[var(--text)]">{value}</div>
     </div>
   );
 }
