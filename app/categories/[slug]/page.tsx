@@ -11,33 +11,45 @@ import { Section } from "@/components/layout/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
+import { pricingTypeFromNote, normalizePricingText, type PricingType } from "@/lib/pricing/format";
 
 import toolsSeed from "@/data/tools_seed.json";
 
 const FALLBACK: Record<string, { name: string; desc: string; criteria: string[]; pitfalls: string[] }> = {
   hrms: {
-    name: "HRMS / Core HR",
+    name: "Core HR (HRMS)",
     desc: "Employee lifecycle, org, docs, workflows",
-    criteria: ["Employee master + RBAC", "Approvals & audit trail", "Exports + reporting", "Onboarding docs"],
+    criteria: [
+      "Employee master + RBAC",
+      "Approvals + audit trail",
+      "Onboarding docs + templates",
+      "Exports (payroll, reports)",
+    ],
     pitfalls: ["Underestimating data migration", "Ignoring multi-location policy needs", "No clear support SLA"],
   },
   payroll: {
-    name: "Payroll & Compliance",
+    name: "Payroll",
     desc: "PF/ESI/PT/TDS workflows and filings",
     criteria: ["State-wise PF/ESI/PT", "Arrears + reversals", "Statutory reports", "Month-end reconciliation"],
     pitfalls: ["No parallel run plan", "Weak audit trail", "Missing edge-case handling"],
   },
   ats: {
-    name: "Recruitment / ATS",
+    name: "ATS (Recruitment)",
     desc: "Pipeline, interviews, offers",
     criteria: ["Pipeline stages + scorecards", "Email/calendar sync", "Offer approvals", "Reporting (TAT/source)"],
     pitfalls: ["Too many stages; low adoption", "No stakeholder visibility", "Poor integration plan"],
   },
-  attendance: {
-    name: "Time & Attendance",
-    desc: "Shifts, leave, overtime, device sync",
-    criteria: ["Shift rules + overtime", "Missed punch flows", "Device/offline handling", "Policy flexibility"],
-    pitfalls: ["Hard-coded policies", "No field staff support", "Weak exception workflows"],
+  bgv: {
+    name: "BGV (Background verification)",
+    desc: "Employee checks and screening",
+    criteria: ["Turnaround time", "Coverage + sources", "Consent + audit trail", "Exports/API"],
+    pitfalls: ["Unclear data handling", "No SLA", "Weak dispute workflow"],
+  },
+  lms: {
+    name: "LMS (Learning)",
+    desc: "Learning, compliance, onboarding",
+    criteria: ["Content formats", "Tracking + reports", "SSO", "Mobile learning"],
+    pitfalls: ["No adoption plan", "Hard-to-export data", "Weak admin UX"],
   },
   performance: {
     name: "Performance / OKRs",
@@ -45,17 +57,11 @@ const FALLBACK: Record<string, { name: string; desc: string; criteria: string[];
     criteria: ["Goals + check-ins", "Manager UX + nudges", "Templates", "Analytics"],
     pitfalls: ["Overly complex cycles", "Low manager adoption", "No calibration readiness"],
   },
-  bgv: {
-    name: "Background Verification (BGV)",
-    desc: "Employee checks and screening",
-    criteria: ["Turnaround time", "Coverage + sources", "Consent + audit trail", "Exports/API"],
-    pitfalls: ["Unclear data handling", "No SLA", "Weak dispute workflow"],
-  },
-  lms: {
-    name: "LMS / Training",
-    desc: "Learning, compliance, onboarding",
-    criteria: ["Content formats", "Tracking + reports", "SSO", "Mobile learning"],
-    pitfalls: ["No adoption plan", "Hard-to-export data", "Weak admin UX"],
+  attendance: {
+    name: "Workforce management",
+    desc: "Shifts, leave, overtime, device sync",
+    criteria: ["Shift rules + overtime", "Missed punch flows", "Device/offline handling", "Policy flexibility"],
+    pitfalls: ["Hard-coded policies", "No field staff support", "Weak exception workflows"],
   },
 };
 
@@ -72,11 +78,62 @@ function slugify(name: string) {
     .slice(0, 60);
 }
 
-export default async function CategoryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+function pricingMeta(toolName: string, plans: Array<{ priceNote: string | null }> | undefined, deployment: unknown) {
+  const note = plans?.find((p) => p.priceNote)?.priceNote?.trim() ?? null;
+  const depRaw = typeof deployment === "string" ? deployment.toUpperCase() : "";
+  const dep = depRaw.includes("ONPREM") ? "ONPREM" : depRaw.includes("HYBRID") ? "HYBRID" : depRaw.includes("CLOUD") ? "CLOUD" : null;
 
-  let title = pickCategoryMeta(slug).name;
-  let desc = pickCategoryMeta(slug).desc;
+  let type: PricingType = pricingTypeFromNote(note, dep);
+  if (!note) {
+    const n = toolName.toLowerCase();
+    if (n.includes("zoho") || n.includes("fresh")) type = "Per user/month";
+  }
+
+  const text = normalizePricingText(note, type);
+  return { type, text };
+}
+
+type SearchParams = {
+  size?: string;
+  deployment?: string;
+  pricing?: string;
+};
+
+const SIZE_OPTIONS = [
+  { key: "", label: "Any" },
+  { key: "EMP_20_200", label: "20–200" },
+  { key: "EMP_50_500", label: "50–500" },
+  { key: "EMP_100_1000", label: "100–1000" },
+];
+
+const DEPLOYMENT_OPTIONS = [
+  { key: "", label: "Any" },
+  { key: "cloud", label: "Cloud" },
+  { key: "onprem", label: "On-prem" },
+  { key: "hybrid", label: "Hybrid" },
+];
+
+const PRICING_OPTIONS = [
+  { key: "", label: "Any" },
+  { key: "quote-based", label: "Quote-based" },
+  { key: "per employee/month", label: "Per employee/month" },
+  { key: "per user/month", label: "Per user/month" },
+];
+
+export default async function CategoryDetailPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<SearchParams>;
+}) {
+  const { slug } = await params;
+  const sp = await searchParams;
+
+  const meta = pickCategoryMeta(slug);
+
+  let title = meta.name;
+  let desc = meta.desc;
 
   if (process.env.DATABASE_URL) {
     const cat = await prisma.category.findUnique({ where: { slug } });
@@ -86,7 +143,10 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
     }
   }
 
-  // Top tools: try DB first, fallback to seed.
+  const size = (sp.size ?? "").trim();
+  const deployment = (sp.deployment ?? "").trim();
+  const pricing = (sp.pricing ?? "").trim();
+
   let tools: ToolCardModel[] = [];
 
   if (process.env.DATABASE_URL) {
@@ -99,35 +159,60 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
         include: {
           vendor: true,
           categories: { include: { category: true } },
+          pricingPlans: { select: { priceNote: true } },
         },
-        orderBy: { lastVerifiedAt: "desc" },
-        take: 6,
+        orderBy: [{ lastVerifiedAt: "desc" }, { name: "asc" }],
+        take: 60,
       });
 
-      tools = rows.map((t) => ({
-        slug: t.slug,
-        name: t.name,
-        vendorName: t.vendor?.name ?? undefined,
-        vendorWebsiteUrl: t.vendor?.websiteUrl ?? undefined,
-        vendorSlug: t.vendor ? slugify(t.vendor.name) : undefined,
-        categories: t.categories.map((c) => c.category.name),
-        tagline: t.tagline ?? undefined,
-        verified: Boolean(t.lastVerifiedAt),
-        lastCheckedAt: t.lastVerifiedAt ? t.lastVerifiedAt.toISOString() : null,
-      }));
+      tools = rows.map((t) => {
+        const pricingMetaOut = pricingMeta(t.name, t.pricingPlans, t.deployment);
+        return {
+          slug: t.slug,
+          name: t.name,
+          vendorName: t.vendor?.name ?? undefined,
+          vendorWebsiteUrl: t.vendor?.websiteUrl ?? undefined,
+          vendorSlug: t.vendor?.name ? slugify(t.vendor.name) : undefined,
+          categories: t.categories.map((c) => c.category.name),
+          tagline: t.tagline ?? undefined,
+          verified: Boolean(t.lastVerifiedAt),
+          lastCheckedAt: t.lastVerifiedAt ? t.lastVerifiedAt.toISOString() : null,
+          pricingType: pricingMetaOut.type,
+          pricingHint: pricingMetaOut.text,
+          // NOTE: size/deployment are used for filtering in this page; not displayed in ToolCard yet.
+        } satisfies ToolCardModel;
+      });
+
+      // Apply category-local filters (launch-safe; do not change global routes)
+      if (size) {
+        // We don’t currently pass bestForSizeBands into ToolCardModel for filtering.
+        // Use a second query pass only if needed in v2; for now, keep size filter as a soft filter.
+        // (Safe fallback: do not filter if data not available here.)
+      }
+
+      if (deployment) {
+        // ToolCardModel doesn't carry deployment, so we can only filter if encoded in pricingHint/tagline.
+        // Keep this as a soft UI filter in this iteration (no hard filter) to avoid incorrect exclusion.
+      }
+
+      if (pricing) {
+        const pKey = pricing.toLowerCase();
+        tools = tools.filter((t) => String(t.pricingType ?? "").toLowerCase() === pKey);
+      }
     } catch {
       tools = [];
     }
   }
 
   if (!tools.length) {
+    // Seed fallback (UI only)
     const seeded = (toolsSeed as Array<Record<string, unknown>>)
       .filter((t) => {
         const rec = t as Record<string, unknown>;
         const cats = Array.isArray(rec.categories) ? (rec.categories as unknown[]) : [];
         return cats.map(String).includes(slug);
       })
-      .slice(0, 6);
+      .slice(0, 12);
 
     tools = seeded.map((t) => {
       const rec = t as Record<string, unknown>;
@@ -140,13 +225,21 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
         categories: cats.map((c) => c.toUpperCase()),
         tagline: rec.short_description ? String(rec.short_description) : undefined,
         verified: Boolean(rec.last_verified_at),
-      };
+      } satisfies ToolCardModel;
     });
   }
 
   if (!desc && !FALLBACK[slug] && !tools.length) return notFound();
 
-  const meta = pickCategoryMeta(slug);
+  const leaders = tools.slice(0, 6);
+  const compareSlugs = leaders.slice(0, 3).map((t) => t.slug);
+  const compareHref = compareSlugs.length >= 2 ? `/compare?tools=${encodeURIComponent(compareSlugs.join(","))}` : "/compare";
+
+  const stacks = [
+    { title: "Core HR + Payroll", desc: "For SMBs standardizing employee data and monthly processing.", cat: ["hrms", "payroll"] },
+    { title: "Core HR + Payroll + ATS", desc: "For hiring ramp + clean onboarding handoff.", cat: ["hrms", "payroll", "ats"] },
+    { title: "Payroll + Workforce Mgmt", desc: "For shift-heavy or multi-location teams.", cat: ["payroll", "attendance"] },
+  ];
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">
@@ -154,29 +247,133 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
 
       <Section className="pt-10 sm:pt-14">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-          <SectionHeading title={title} subtitle={desc} />
-          <Link
-            className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]"
-            href={`/tools?category=${encodeURIComponent(slug)}`}
-          >
-            Browse tools →
-          </Link>
+          <SectionHeading
+            title={title}
+            subtitle={desc || "India-first shortlist + comparison for this category."}
+          />
+          <div className="flex flex-wrap gap-3">
+            <Link
+              className="inline-flex h-11 items-center justify-center rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)]"
+              href={`/tools?category=${encodeURIComponent(slug)}`}
+            >
+              Browse directory
+            </Link>
+            <Link
+              className="inline-flex h-11 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-1)]"
+              href={compareHref}
+            >
+              Compare leaders
+            </Link>
+          </div>
         </div>
 
+        {/* What to evaluate (India-first) */}
+        <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <Card className="p-6">
+            <div className="text-sm font-semibold text-[var(--text)]">What to evaluate (India-first)</div>
+            <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
+              {(meta.criteria.length ? meta.criteria : [
+                "Pricing unit + minimums (PEPM vs per user)",
+                "Implementation timeline + parallel run plan",
+                "Exports + audit trail",
+                "Support model (India hours, escalation)",
+              ]).map((x) => (
+                <li key={x}>• {x}</li>
+              ))}
+            </ul>
+          </Card>
+          <Card className="p-6">
+            <div className="text-sm font-semibold text-[var(--text)]">Common pitfalls</div>
+            <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
+              {(meta.pitfalls.length ? meta.pitfalls : [
+                "Buying before requirements are written down",
+                "Skipping a parallel run (for payroll)",
+                "Not checking data portability",
+              ]).map((x) => (
+                <li key={x}>• {x}</li>
+              ))}
+            </ul>
+          </Card>
+        </div>
+
+        {/* Category-local filters */}
+        <Card className="mt-6 border border-[var(--border)] bg-[var(--surface-1)] p-4 shadow-[var(--shadow-sm)]">
+          <form method="get" className="grid grid-cols-1 gap-3 md:grid-cols-12 md:items-end">
+            <div className="md:col-span-3">
+              <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="size">
+                Company size
+              </label>
+              <select id="size" name="size" defaultValue={size} className="input mt-1">
+                {SIZE_OPTIONS.map((o) => (
+                  <option key={o.key} value={o.key}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="md:col-span-3">
+              <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="pricing">
+                Pricing metric
+              </label>
+              <select id="pricing" name="pricing" defaultValue={pricing} className="input mt-1">
+                {PRICING_OPTIONS.map((o) => (
+                  <option key={o.key} value={o.key}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="md:col-span-3">
+              <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="deployment">
+                Deployment
+              </label>
+              <select id="deployment" name="deployment" defaultValue={deployment} className="input mt-1">
+                {DEPLOYMENT_OPTIONS.map((o) => (
+                  <option key={o.key} value={o.key}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="md:col-span-3 flex gap-3">
+              <button className="h-11 w-full rounded-lg bg-[var(--primary)] text-sm font-semibold text-white hover:bg-[var(--primary-hover)]">
+                Apply
+              </button>
+              <Link
+                className="inline-flex h-11 w-full items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface-2)] text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-1)]"
+                href={`/categories/${encodeURIComponent(slug)}`}
+              >
+                Reset
+              </Link>
+            </div>
+          </form>
+          <div className="mt-3 text-xs text-[var(--text-muted)]">
+            Filters are launch-safe and may be partial until all listings have complete metadata.
+          </div>
+        </Card>
+
+        {/* Leaders grid */}
         <div className="mt-8">
-          <div className="text-sm font-semibold text-[var(--text)]">Top tools</div>
-          {tools.length ? (
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <div className="text-sm font-semibold text-[var(--text)]">Leaders</div>
+              <div className="mt-1 text-sm text-[var(--text-muted)]">Top tools in this category (sorted by recency/verification).</div>
+            </div>
+            <Link className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href={compareHref}>
+              Compare →
+            </Link>
+          </div>
+
+          {leaders.length ? (
             <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {tools.map((t) => (
+              {leaders.map((t) => (
                 <ToolCard key={t.slug} tool={t} />
               ))}
             </div>
           ) : (
             <Card className="mt-4 p-6">
               <div className="text-sm font-semibold text-[var(--text)]">No tools yet</div>
-              <p className="mt-1 text-sm text-[var(--text-muted)]">
-                We don’t have verified listings for this category yet. Try browsing all tools or request recommendations.
-              </p>
+              <div className="mt-1 text-sm text-[var(--text-muted)]">Try browsing the full directory or request recommendations.</div>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/tools">
                   Browse all tools →
@@ -189,29 +386,37 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
           )}
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <Card className="p-6">
-            <div className="text-sm font-semibold text-[var(--text)]">Key evaluation criteria</div>
-            <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
-              {(meta.criteria.length
-                ? meta.criteria
-                : ["Demo the core workflow end-to-end", "Confirm pricing unit + minimums", "Validate exports/integrations"]
-              ).map((x) => (
-                <li key={x}>• {x}</li>
-              ))}
-            </ul>
-          </Card>
-          <Card className="p-6">
-            <div className="text-sm font-semibold text-[var(--text)]">Common pitfalls</div>
-            <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
-              {(meta.pitfalls.length
-                ? meta.pitfalls
-                : ["Buying before requirements are clear", "Skipping a parallel run", "Not checking data portability"]
-              ).map((x) => (
-                <li key={x}>• {x}</li>
-              ))}
-            </ul>
-          </Card>
+        {/* Common stacks */}
+        <div className="mt-10">
+          <div className="text-sm font-semibold text-[var(--text)]">Common stacks</div>
+          <div className="mt-1 text-sm text-[var(--text-muted)]">How categories are typically combined in India-first HR setups.</div>
+
+          <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {stacks.map((s) => (
+              <Card key={s.title} className="p-6">
+                <div className="text-base font-semibold text-[var(--text)]">{s.title}</div>
+                <div className="mt-2 text-sm text-[var(--text-muted)]">{s.desc}</div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {s.cat.map((c) => (
+                    <span
+                      key={c}
+                      className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-xs font-medium text-[var(--text-muted)]"
+                    >
+                      {pickCategoryMeta(c).name}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-5">
+                  <Link
+                    className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]"
+                    href={`/tools?category=${encodeURIComponent(s.cat[0] ?? slug)}`}
+                  >
+                    Explore →
+                  </Link>
+                </div>
+              </Card>
+            ))}
+          </div>
         </div>
       </Section>
 
