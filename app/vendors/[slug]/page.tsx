@@ -430,8 +430,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
   const displayTitle = slug === "freshteam" ? "Freshteam (Freshworks)" : vendor.name;
   const confusionLine =
     slug === "freshteam" ? "Not to be confused with Freshservice (HR service delivery workflows)." : null;
-  const websiteUrl =
-    vendor.websiteUrl || (slug === "freshteam" ? "https://www.freshworks.com/hrms/freshteam/" : null);
+  const websiteUrl = slug === "freshteam" ? "https://www.freshworks.com/hrms/freshteam/" : vendor.websiteUrl;
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">
