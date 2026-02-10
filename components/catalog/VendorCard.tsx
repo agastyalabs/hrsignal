@@ -15,19 +15,14 @@ export type VendorCardModel = {
   tagline: string | null;
   pricingType?: import("@/lib/pricing/format").PricingType;
   pricingText?: string;
+
+  // Trust mini-row
+  verifiedInIndia?: boolean;
+  freshnessLabel?: string | null;
+  sourcesCount?: number | null;
 };
 
-function pseudoVendorQuality(slug: string) {
-  let h = 0;
-  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) % 1000;
-  const rating = 4.1 + (h % 7) / 10; // 4.1–4.7
-  const reviews = 30 + (h % 220);
-  return { rating, reviews };
-}
-
 export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
-  const { rating, reviews } = pseudoVendorQuality(vendor.slug);
-
   return (
     <Link href={`/vendors/${vendor.slug}`} className="block">
       <Card className="h-full p-6">
@@ -53,8 +48,7 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
           <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
             {vendor.toolsCount} tools
           </span>
-          <span className="text-xs font-semibold text-[var(--text)]">★ {rating.toFixed(1)}</span>
-          <span className="text-xs text-[var(--text-muted)]">({reviews} reviews)</span>
+          <span className="text-xs text-[var(--text-muted)]">No ratings yet</span>
         </div>
 
         {vendor.categories.length ? (
@@ -76,6 +70,17 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
         ) : null}
 
         <div className="mt-4 grid grid-cols-1 gap-2 text-xs text-[var(--text-muted)]">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">
+              {vendor.verifiedInIndia ? "Verified" : "Unverified"}
+            </span>
+            <span className="text-[11px] text-[var(--text-muted)]">
+              {vendor.freshnessLabel ? vendor.freshnessLabel : "Updated: —"}
+            </span>
+            <span className="text-[11px] text-[var(--text-muted)]">
+              Sources: {typeof vendor.sourcesCount === "number" ? vendor.sourcesCount : "—"}
+            </span>
+          </div>
           <div className="flex items-center gap-2">
             <span className="font-semibold text-[var(--text)]">Pricing:</span>
             <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">

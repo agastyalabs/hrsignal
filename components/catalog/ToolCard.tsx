@@ -24,8 +24,6 @@ export type ToolCardModel = {
 };
 
 export function ToolCard({ tool }: { tool: ToolCardModel }) {
-  const { rating, reviews } = pseudoRating(tool.slug);
-
   return (
     <Link href={`/tools/${tool.slug}`} className="block">
       <Card className="h-full p-6">
@@ -51,12 +49,12 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
         </div>
 
         <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-          <Stars value={rating} />
-          <span className="font-semibold text-[var(--text)]">{rating.toFixed(1)}</span>
-          <span className="text-[var(--text-muted)]">({reviews} reviews)</span>
-          <span className="ml-auto rounded-full border border-[rgba(39,211,188,0.35)] bg-[rgba(39,211,188,0.10)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
-            India-ready
-          </span>
+          <span className="text-xs text-[var(--text-muted)]">No ratings yet</span>
+          {tool.verified ? (
+            <span className="ml-auto rounded-full border border-[rgba(39,211,188,0.35)] bg-[rgba(39,211,188,0.10)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
+              Verified
+            </span>
+          ) : null}
         </div>
 
         {tool.tagline ? (
@@ -121,31 +119,3 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
   );
 }
 
-function pseudoRating(slug: string) {
-  // Deterministic placeholder ratings (until we add real reviews).
-  let h = 0;
-  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) % 1000;
-  const rating = 3.9 + (h % 11) / 10; // 3.9–5.0
-  const reviews = 35 + (h % 260); // 35–294
-  return { rating: Math.min(4.9, rating), reviews };
-}
-
-function Stars({ value }: { value: number }) {
-  const full = Math.floor(value);
-  const half = value - full >= 0.5;
-  const total = 5;
-
-  return (
-    <div className="flex items-center gap-0.5 text-amber-400" aria-label={`Rating ${value.toFixed(1)} out of 5`}>
-      {Array.from({ length: total }).map((_, i) => {
-        const idx = i + 1;
-        const on = idx <= full || (idx === full + 1 && half);
-        return (
-          <span key={idx} className={on ? "opacity-100" : "opacity-20"}>
-            ★
-          </span>
-        );
-      })}
-    </div>
-  );
-}

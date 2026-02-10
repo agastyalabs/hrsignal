@@ -12,6 +12,8 @@ import { VendorCard } from "@/components/catalog/VendorCard";
 
 import { indiaOnlyFromSearchParams } from "@/lib/india/mode";
 import { normalizePricingText, pricingTypeFromNote, type PricingType } from "@/lib/pricing/format";
+import { canonicalVendorSlug } from "@/lib/vendors/slug";
+import { getVendorBrief } from "@/lib/vendors/brief";
 
 export default async function VendorsPage({
   searchParams,
@@ -40,32 +42,34 @@ export default async function VendorsPage({
           isActive: true,
           ...(indiaOnly ? { registeredCountry: "IN", verifiedInIndia: true } : {}),
         },
-        orderBy: { name: "asc" },
+        orderBy: [{ verifiedInIndia: "desc" }, { name: "asc" }],
         include: {
           _count: { select: { tools: true } },
-          categories: true,
+          categories: { select: { slug: true, name: true } },
           tools: {
             where: { status: "PUBLISHED" },
             select: {
+              slug: true,
               tagline: true,
               deployment: true,
+              lastVerifiedAt: true,
               pricingPlans: { select: { priceNote: true, setupFeeNote: true }, take: 2 },
             },
-            take: 3,
+            take: 4,
           },
         },
         take: 200,
       });
-      function slugify(name: string) {
-        return String(name)
-          .toLowerCase()
-          .replace(/&/g, "and")
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, "")
-          .slice(0, 60);
-      }
 
-      vendors = rows.map((v) => {
+      const vendorsWithBriefMeta = await Promise.all(
+        rows.map(async (v) => {
+          const slug = canonicalVendorSlug({ vendorName: v.name, toolSlugs: v.tools.map((t) => t.slug) });
+          const brief = await getVendorBrief({ vendorName: v.name, urlSlug: slug, toolSlugs: v.tools.map((t) => t.slug) });
+          return { v, slug, brief };
+        })
+      );
+
+      vendors = vendorsWithBriefMeta.map(({ v, slug, brief }) => {
         const firstPlan = v.tools
           .flatMap((t) =>
             (t.pricingPlans ?? []).map((p) => ({
@@ -81,9 +85,14 @@ export default async function VendorsPage({
           ? normalizePricingText(firstPlan.priceNote, type)
           : "Contact vendor / request quote";
 
+        const newest = v.tools
+          .map((t) => (t.lastVerifiedAt ? new Date(t.lastVerifiedAt).getTime() : 0))
+          .reduce((a, b) => Math.max(a, b), 0);
+        const freshnessLabel = newest ? `Updated: ${new Date(newest).toISOString().slice(0, 10)}` : null;
+
         return {
           id: v.id,
-          slug: slugify(v.name),
+          slug,
           name: v.name,
           websiteUrl: v.websiteUrl ?? null,
           toolsCount: v._count.tools,
@@ -91,6 +100,9 @@ export default async function VendorsPage({
           tagline: v.tools[0]?.tagline ?? null,
           pricingType: type,
           pricingText: text,
+          verifiedInIndia: v.verifiedInIndia,
+          freshnessLabel: brief.updatedAt ? `Updated: ${brief.updatedAt.toISOString().slice(0, 10)}` : freshnessLabel,
+          sourcesCount: brief.urls.length ? brief.urls.length : null,
         };
       });
     } catch {
@@ -110,24 +122,24 @@ export default async function VendorsPage({
           />
           <div className="flex flex-wrap items-center gap-3">
             <form method="get" action="/vendors" className="flex items-center gap-2">
-              <label className="text-xs font-medium text-[#CBD5E1]" htmlFor="india-mode">
+              <label className="text-xs font-medium text-[var(--text-muted)]" htmlFor="india-mode">
                 India-first
               </label>
               <select
                 id="india-mode"
                 name="india"
                 defaultValue={indiaOnly ? "1" : "0"}
-                className="h-11 rounded-lg border border-[#1F2937] bg-[#111827] px-3 text-sm text-[#F9FAFB]"
+                className="input mt-0"
                 aria-label="India-first mode"
               >
                 <option value="1">On</option>
                 <option value="0">Off</option>
               </select>
-              <button className="h-11 rounded-lg bg-[#8B5CF6] px-3 text-sm font-medium text-[#0B1220] hover:bg-[#7C3AED]">
+              <button className="h-11 rounded-lg bg-[var(--primary)] px-3 text-sm font-semibold text-white hover:bg-[var(--primary-hover)]">
                 Apply
               </button>
             </form>
-            <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED] hover:underline" href="/tools">
+            <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline" href="/tools">
               Browse tools
             </Link>
           </div>
