@@ -130,7 +130,12 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                     Not to be confused with Freshservice (HR service delivery workflows).
                   </div>
                 ) : null}
-                <p className="mt-2 text-sm text-[var(--text-muted)]">Website: Info pending</p>
+                <p className="mt-2 text-sm text-[var(--text-muted)]">
+                  Website:{" "}
+                  <a className="underline" href={slug === "freshteam" ? "https://www.freshworks.com/hrms/freshteam/" : "#"} target="_blank" rel="noreferrer">
+                    {slug === "freshteam" ? "www.freshworks.com/hrms/freshteam" : "Info pending"}
+                  </a>
+                </p>
               </div>
               {slugBrief.updatedAt ? (
                 <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-4 py-3 text-sm text-[var(--text-muted)]">
@@ -425,6 +430,8 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
   const displayTitle = slug === "freshteam" ? "Freshteam (Freshworks)" : vendor.name;
   const confusionLine =
     slug === "freshteam" ? "Not to be confused with Freshservice (HR service delivery workflows)." : null;
+  const websiteUrl =
+    vendor.websiteUrl || (slug === "freshteam" ? "https://www.freshworks.com/hrms/freshteam/" : null);
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">
@@ -453,10 +460,10 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
               <div className="min-w-0">
                 <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">{displayTitle}</h1>
                 {confusionLine ? <div className="mt-2 text-sm text-[var(--text-muted)]">{confusionLine}</div> : null}
-                {vendor.websiteUrl ? (
+                {websiteUrl ? (
                   <p className="mt-2 text-sm text-[var(--text-muted)]">
-                    <a className="underline" href={vendor.websiteUrl} target="_blank" rel="noreferrer">
-                      {vendor.websiteUrl.replace(/^https?:\/\//, "")}
+                    <a className="underline" href={websiteUrl} target="_blank" rel="noreferrer">
+                      {websiteUrl.replace(/^https?:\/\//, "")}
                     </a>
                   </p>
                 ) : null}
