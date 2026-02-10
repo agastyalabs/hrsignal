@@ -11,6 +11,8 @@ import { Card } from "@/components/ui/Card";
 import { VendorLogo } from "@/components/VendorLogo";
 import { domainFromUrl } from "@/lib/brand/logo";
 import { normalizePricingText, pricingTypeFromNote } from "@/lib/pricing/format";
+import { getVendorBrief } from "@/lib/vendors/brief";
+import { Markdownish } from "@/app/resources/Markdownish";
 
 export default async function VendorDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -167,6 +169,13 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
     )
     .filter((x) => x.note);
 
+  const brief = await getVendorBrief({
+    vendorName: v.name,
+    toolSlugs: v.tools.map((t) => t.slug),
+  });
+
+  const briefHas = (key: string) => Boolean(brief.exists && brief.sections[key]);
+
   const alternatives = await prisma.vendor.findMany({
     where: {
       id: { not: vendor.id },
@@ -223,11 +232,22 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
             <div className="text-sm font-semibold text-[var(--text)]">Overview</div>
             <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-3">
               <Card className="border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)] lg:col-span-2">
-                <div className="space-y-2 text-sm leading-relaxed text-[var(--text-muted)]">
-                  {overviewLines.map((line, idx) => (
-                    <p key={idx}>{line}</p>
-                  ))}
-                </div>
+                {briefHas("overview") ? (
+                  <div>
+                    <Markdownish content={brief.sections["overview"]} />
+                    {brief.updatedAt ? (
+                      <div className="mt-4 text-xs font-medium text-[var(--text-muted)]">
+                        Last updated: {brief.updatedAt.toISOString().slice(0, 10)}
+                      </div>
+                    ) : null}
+                  </div>
+                ) : (
+                  <div className="space-y-2 text-sm leading-relaxed text-[var(--text-muted)]">
+                    {overviewLines.map((line, idx) => (
+                      <p key={idx}>{line}</p>
+                    ))}
+                  </div>
+                )}
 
                 <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-3">
@@ -286,21 +306,27 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
           <div className="mt-10 pt-8 border-t border-[var(--border)]">
             <div className="text-sm font-semibold text-[var(--text)]">Key modules / features</div>
             <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-              <ul className="grid grid-cols-1 gap-2 text-sm text-[var(--text-muted)] sm:grid-cols-2">
-                {modules.map((x, idx) => (
-                  <li key={`${x}-${idx}`}>• {x}</li>
-                ))}
-              </ul>
-              {!vendor.tools.length ? (
-                <div className="mt-4 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-4">
-                  <div className="text-xs font-semibold text-[var(--text)]">Buyer checklist (until info is verified)</div>
-                  <ul className="mt-2 space-y-2 text-sm text-[var(--text-muted)]">
-                    {qa.map((q, idx) => (
-                      <li key={`${q}-${idx}`}>• {q}</li>
+              {briefHas("key modules") || briefHas("key modules features") || briefHas("modules") ? (
+                <Markdownish content={brief.sections["key modules"] ?? brief.sections["key modules features"] ?? brief.sections["modules"]} />
+              ) : (
+                <>
+                  <ul className="grid grid-cols-1 gap-2 text-sm text-[var(--text-muted)] sm:grid-cols-2">
+                    {modules.map((x, idx) => (
+                      <li key={`${x}-${idx}`}>• {x}</li>
                     ))}
                   </ul>
-                </div>
-              ) : null}
+                  {!vendor.tools.length ? (
+                    <div className="mt-4 rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-4">
+                      <div className="text-xs font-semibold text-[var(--text)]">Buyer checklist (until info is verified)</div>
+                      <ul className="mt-2 space-y-2 text-sm text-[var(--text-muted)]">
+                        {qa.map((q, idx) => (
+                          <li key={`${q}-${idx}`}>• {q}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </>
+              )}
             </Card>
           </div>
 
@@ -330,7 +356,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
           <div className="mt-10 pt-8 border-t border-[var(--border)]">
             <div className="text-sm font-semibold text-[var(--text)]">Pricing</div>
             <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-              {pricingNotes.length ? (
+              {briefHas("pricing") || briefHas("pricing model") ? (
+                <Markdownish content={brief.sections["pricing"] ?? brief.sections["pricing model"]} />
+              ) : pricingNotes.length ? (
                 <ul className="space-y-2 text-sm text-[var(--text-muted)]">
                   {pricingNotes.slice(0, 6).map((p) => (
                     <li key={`${p.tool}-${p.name}`} className="flex flex-wrap items-center gap-2">
@@ -355,7 +383,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
             <div>
               <div className="text-sm font-semibold text-[var(--text)]">Integrations</div>
               <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-                {integrationNames.length ? (
+                {briefHas("integrations") ? (
+                  <Markdownish content={brief.sections["integrations"]} />
+                ) : integrationNames.length ? (
                   <div className="flex flex-wrap gap-2">
                     {integrationNames.slice(0, 14).map((n) => (
                       <span key={n} className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-2.5 py-1 text-xs font-medium text-[var(--text-muted)]">
@@ -409,7 +439,15 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ i
             <div>
               <div className="text-sm font-semibold text-[var(--text)]">Compliance & security</div>
               <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-                {complianceTags.length ? (
+                {briefHas("compliance and security") || briefHas("compliance") || briefHas("compliance security") ? (
+                  <Markdownish
+                    content={
+                      brief.sections["compliance and security"] ??
+                      brief.sections["compliance security"] ??
+                      brief.sections["compliance"]
+                    }
+                  />
+                ) : complianceTags.length ? (
                   <div>
                     <div className="text-sm text-[var(--text-muted)]">Compliance tags seen on published tools:</div>
                     <div className="mt-3 flex flex-wrap gap-2">

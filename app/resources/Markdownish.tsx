@@ -38,7 +38,7 @@ function Inline({ text }: { text: string }) {
     if (!m) break;
     if (m.index > last) parts.push(text.slice(last, m.index));
     parts.push(
-      <strong key={`${m.index}-${m[1]}`} className="font-semibold text-[#F9FAFB]">
+      <strong key={`${m.index}-${m[1]}`} className="font-semibold text-[var(--text)]">
         {m[1]}
       </strong>,
     );
@@ -62,7 +62,7 @@ export function Markdownish({ content }: { content: string }) {
       rendered.push(
         <pre
           key={`code-${i}`}
-          className="overflow-x-auto rounded-xl border border-[#1F2937] bg-[#0F172A] p-4 text-xs leading-relaxed text-[#E2E8F0]"
+          className="overflow-x-auto rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4 text-xs leading-relaxed text-[var(--text)]"
         >
           <code>{code}</code>
         </pre>,
@@ -78,19 +78,19 @@ export function Markdownish({ content }: { content: string }) {
       const text = stripHeading(lines[0]);
       if (level === 1) {
         rendered.push(
-          <h1 key={`h1-${i}`} className="text-3xl font-semibold tracking-tight text-[#F9FAFB] sm:text-4xl">
+          <h1 key={`h1-${i}`} className="text-3xl font-semibold tracking-tight text-[var(--text)] sm:text-4xl">
             <Inline text={text} />
           </h1>,
         );
       } else if (level === 2) {
         rendered.push(
-          <h2 key={`h2-${i}`} className="mt-6 text-xl font-semibold tracking-tight text-[#F9FAFB]">
+          <h2 key={`h2-${i}`} className="mt-6 text-xl font-semibold tracking-tight text-[var(--text)]">
             <Inline text={text} />
           </h2>,
         );
       } else {
         rendered.push(
-          <h3 key={`h3-${i}`} className="mt-5 text-base font-semibold text-[#F9FAFB]">
+          <h3 key={`h3-${i}`} className="mt-5 text-base font-semibold text-[var(--text)]">
             <Inline text={text} />
           </h3>,
         );
@@ -101,7 +101,7 @@ export function Markdownish({ content }: { content: string }) {
     // Unordered list (one or many lines starting with '-')
     if (lines.every((l) => isUnorderedListItem(l))) {
       rendered.push(
-        <ul key={`ul-${i}`} className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-[#CBD5E1]">
+        <ul key={`ul-${i}`} className="mt-3 list-disc space-y-2 pl-5 text-sm leading-relaxed text-[var(--text-muted)]">
           {lines.map((l, idx) => (
             <li key={idx}>
               <Inline text={stripUnordered(l)} />
@@ -114,7 +114,7 @@ export function Markdownish({ content }: { content: string }) {
 
     // Default paragraph
     rendered.push(
-      <p key={`p-${i}`} className="mt-3 text-sm leading-relaxed text-[#CBD5E1]">
+      <p key={`p-${i}`} className="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">
         <Inline text={lines.join(" ")} />
       </p>,
     );
