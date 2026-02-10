@@ -102,7 +102,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
     // Redirect any alias slug to its normalized form.
     if (rawSlug !== slug) redirect(`/vendors/${slug}`);
 
-    const minimalName = slug;
+    const minimalName = slug === "freshteam" ? "Freshteam (Freshworks)" : slug;
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
@@ -119,6 +119,11 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">{minimalName}</h1>
+                {slug === "freshteam" ? (
+                  <div className="mt-2 text-sm text-[var(--text-muted)]">
+                    Not to be confused with Freshservice (HR service delivery workflows).
+                  </div>
+                ) : null}
                 <p className="mt-2 text-sm text-[var(--text-muted)]">Website: Info pending</p>
               </div>
               {slugBrief.updatedAt ? (
@@ -411,6 +416,10 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
     select: { id: true, name: true },
   });
 
+  const displayTitle = slug === "freshteam" ? "Freshteam (Freshworks)" : vendor.name;
+  const confusionLine =
+    slug === "freshteam" ? "Not to be confused with Freshservice (HR service delivery workflows)." : null;
+
   return (
     <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
@@ -436,7 +445,8 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
               </div>
 
               <div className="min-w-0">
-                <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">{vendor.name}</h1>
+                <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">{displayTitle}</h1>
+                {confusionLine ? <div className="mt-2 text-sm text-[var(--text-muted)]">{confusionLine}</div> : null}
                 {vendor.websiteUrl ? (
                   <p className="mt-2 text-sm text-[var(--text-muted)]">
                     <a className="underline" href={vendor.websiteUrl} target="_blank" rel="noreferrer">
