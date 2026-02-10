@@ -3,8 +3,8 @@ import * as React from "react";
 type Variant = "neutral" | "verified";
 
 const variants: Record<Variant, string> = {
-  neutral: "border border-zinc-200 bg-zinc-50 text-zinc-700",
-  verified: "border border-emerald-200 bg-emerald-50 text-emerald-700",
+  neutral: "border border-[var(--border)] bg-[var(--surface-2)] text-[var(--text)]",
+  verified: "border border-[rgba(39,211,188,0.35)] bg-[rgba(39,211,188,0.12)] text-[var(--text)]",
 };
 
 export function Badge({

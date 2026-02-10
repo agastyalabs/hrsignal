@@ -5,17 +5,15 @@ type Variant = "primary" | "secondary" | "tertiary";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none";
+  "inline-flex items-center justify-center rounded-[var(--radius-sm)] font-semibold transition-all duration-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none";
 
 const variants: Record<Variant, string> = {
-  // Primary CTA: purple bg + off-white text
   primary:
-    "bg-[var(--primary)] text-[#F9FAFB] hover:bg-[var(--primary-hover)] active:bg-[var(--primary-hover)] hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(116,65,242,0.20)] active:translate-y-0 disabled:bg-[#2A2E55] disabled:text-[#94A3B8]",
-  // Secondary CTA: outlined
+    "bg-[var(--primary)] text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] hover:bg-[var(--primary-hover)] hover:-translate-y-0.5 hover:shadow-[0_16px_48px_rgba(124,77,255,0.18)] active:translate-y-0 active:shadow-[0_10px_30px_rgba(0,0,0,0.22)] disabled:bg-[rgba(255,255,255,0.10)] disabled:text-[rgba(247,249,255,0.55)]",
   secondary:
-    "border border-[var(--border)] bg-transparent text-[#F9FAFB] hover:bg-[var(--surface-2)] active:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.14)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.25)] active:translate-y-0 disabled:text-[#94A3B8]",
+    "border border-[var(--border)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.18)] hover:shadow-[0_14px_40px_rgba(0,0,0,0.30)] active:translate-y-0 disabled:text-[var(--text-muted)]",
   tertiary:
-    "text-[#CBD5E1] hover:bg-[var(--surface-2)] hover:text-[#F9FAFB] active:bg-[var(--surface-2)] disabled:text-[#94A3B8]",
+    "text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] active:bg-[var(--surface-2)]",
 };
 
 const sizes: Record<Size, string> = {
