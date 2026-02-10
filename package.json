@@ -10,7 +10,6 @@
     "test:telegram": "node --test tests/telegram-update.test.mjs",
     "test:lead": "node scripts/test-lead.mjs",
     "test:recommendations": "node scripts/test-recommendations.mjs",
-    "check:vendor-briefs": "node scripts/check-vendor-briefs.mjs",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
