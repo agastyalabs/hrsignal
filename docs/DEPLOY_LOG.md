@@ -5,7 +5,7 @@ This file tracks production deployments for UX plan work.
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
-- **Resolved production deployment (Vercel):** https://hrsignal-f6kahr8rd-agastyalabs-projects.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-mn4qys27u-agastyalabs-projects.vercel.app
 
 ### Hotfix — vendor page crash digest 1288604524
 
@@ -38,3 +38,4 @@ This file tracks production deployments for UX plan work.
 - `8120745` — P0(vendors): slug normalization + alias handling (e.g. freshteam-freshworks → freshteam) and canonical freshteam redirect; added dev unit test for normalization.
 - `61b6fc1` — P0(vendors): implement UI_VENDOR_PAGE_BENCHMARK mapping (brief headings → cards), avoid full markdown dump, add Sources & data quality accordion.
 - `f0cce37` — P0(vendors): remove any "Vendor brief" full-markdown blob; keep brief content mapped into cards only; move transparency into a collapsed Sources & data quality accordion; reduce repeated "Info pending" per card.
+- `5c6d942` — P0(vendors): add product-family collision guardrail on Freshteam vendor page + display title "Freshteam (Freshworks)"; confirm alias slugs redirect to /vendors/freshteam.
