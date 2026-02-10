@@ -45,14 +45,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <body className={`${inter.variable} antialiased`}>
-        <script
-          // Theme pre-hydration (avoid flash)
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('hrsignal_theme');if(t!=='dark'&&t!=='light'){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}document.documentElement.dataset.theme=t}catch(e){}})();`,
-          }}
-        />
         {children}
       </body>
     </html>

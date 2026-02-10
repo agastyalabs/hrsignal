@@ -130,7 +130,7 @@ export default function ResultsClient({
   }, [picks]);
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <SiteHeader />
       <ToastViewport toasts={toasts} dismiss={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))} />
 
@@ -138,8 +138,8 @@ export default function ResultsClient({
         <Container className="max-w-5xl">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl">Your shortlist</h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
+              <h1 className="text-2xl font-semibold tracking-tight text-[var(--text)] sm:text-3xl">Your shortlist</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
                 We picked 3–5 best-fit tools and surfaced trust signals (verification freshness) so you can move forward with confidence.
               </p>
             </div>
@@ -165,12 +165,12 @@ export default function ResultsClient({
           <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-2">
               {submission.categoriesNeeded.slice(0, 5).map((c) => (
-                <span key={c} className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-semibold text-zinc-700">
+                <span key={c} className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
                   {prettyCategory(c)}
                 </span>
               ))}
               {submission.mustHaveIntegrations.length ? (
-                <span className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-semibold text-zinc-700">
+                <span className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
                   Integrations: {submission.mustHaveIntegrations.join(", ")}
                 </span>
               ) : null}
@@ -186,7 +186,7 @@ export default function ResultsClient({
               {primaryPick ? (
                 <Link
                   href={`/tools/${primaryPick.tool.slug}`}
-                  className="inline-flex h-10 items-center justify-center rounded-lg border border-zinc-200 bg-white px-4 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                  className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)]"
                 >
                   View top pick
                 </Link>
@@ -195,20 +195,20 @@ export default function ResultsClient({
           </div>
 
         {decisionInputs ? (
-          <div className="mt-6 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
+          <div className="mt-6 rounded-2xl border border-[var(--border)] bg-[var(--surface-1)] p-5 shadow-sm">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <div className="text-sm font-semibold text-zinc-900">Payroll decision context</div>
-                <div className="mt-1 text-xs leading-5 text-zinc-500">
+                <div className="text-sm font-semibold text-[var(--text)]">Payroll decision context</div>
+                <div className="mt-1 text-xs leading-5 text-[var(--text-muted)]">
                   This is what we’ll optimize for. If a tool’s evidence is missing or stale, we’ll call it out.
                 </div>
               </div>
-              <div className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-semibold text-zinc-700">
+              <div className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
                 Trust: evidence + recency
               </div>
             </div>
 
-            <div className="mt-4 grid grid-cols-1 gap-2 text-sm text-zinc-700 sm:grid-cols-2">
+            <div className="mt-4 grid grid-cols-1 gap-2 text-sm text-[var(--text)] sm:grid-cols-2">
               <Chip label="Compliance" value={decisionInputs.complianceNeeded.join(", ") || "—"} />
               <Chip label="Complexity" value={decisionInputs.statutoryComplexity || "—"} />
               <Chip label="GST invoicing" value={decisionInputs.gstRequired || "—"} />
@@ -220,8 +220,8 @@ export default function ResultsClient({
         <div className="mt-8 space-y-4">
           {picks.length === 0 ? (
             <Card className="shadow-sm">
-              <div className="text-base font-semibold text-zinc-900">No matches yet</div>
-              <p className="mt-2 text-sm leading-6 text-zinc-600">
+              <div className="text-base font-semibold text-[var(--text)]">No matches yet</div>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
                 We couldn’t find published tools that match your selected categories/integrations. Try removing an integration requirement, or
                 browse the directory.
               </p>
@@ -229,7 +229,7 @@ export default function ResultsClient({
                 <Link className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white" href="/recommend">
                   Update answers
                 </Link>
-                <Link className="rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm font-medium" href="/tools">
+                <Link className="rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-4 py-2 text-sm font-medium text-[var(--text)] hover:bg-[var(--surface-2)]" href="/tools">
                   Browse tools
                 </Link>
               </div>
@@ -237,18 +237,18 @@ export default function ResultsClient({
           ) : null}
 
           {primaryPick ? (
-            <Card className="relative overflow-hidden border border-zinc-200 bg-white shadow-sm">
+            <Card className="relative overflow-hidden border border-[var(--border)] bg-[var(--surface-1)] shadow-sm">
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500" />
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-800">
                     Primary recommendation
                   </div>
-                  <div className="mt-3 text-2xl font-semibold tracking-tight text-zinc-950">{primaryPick.tool.name}</div>
+                  <div className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text)]">{primaryPick.tool.name}</div>
                   {(() => {
                     const meta = toolMeta[primaryPick.tool.slug];
                     const vendorName = meta?.vendorName ?? primaryPick.tool.vendorName;
-                    return vendorName ? <div className="mt-1 text-sm text-zinc-600">by {vendorName}</div> : null;
+                    return vendorName ? <div className="mt-1 text-sm text-[var(--text-muted)]">by {vendorName}</div> : null;
                   })()}
                 </div>
 
@@ -258,24 +258,24 @@ export default function ResultsClient({
                     const freshness = meta?.lastVerifiedAt ? freshnessLabel(meta.lastVerifiedAt) : null;
                     if (!freshness)
                       return (
-                        <span className="rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-semibold text-zinc-600">
+                        <span className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-2.5 py-1 text-xs font-semibold text-[var(--text-muted)]">
                           Verification: unknown
                         </span>
                       );
                     return <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${freshness.tone}`}>{freshness.label}</span>;
                   })()}
-                  <span className="text-xs text-zinc-500">Score {primaryPick.score}</span>
+                  <span className="text-xs text-[var(--text-muted)]">Score {primaryPick.score}</span>
                 </div>
               </div>
 
-              {primaryPick.tool.tagline ? <div className="mt-3 text-zinc-700">{primaryPick.tool.tagline}</div> : null}
+              {primaryPick.tool.tagline ? <div className="mt-3 text-[var(--text)]">{primaryPick.tool.tagline}</div> : null}
 
               <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
                 <div className="sm:col-span-2">
-                  <div className="text-sm font-semibold text-zinc-900">Why shortlisted</div>
+                  <div className="text-sm font-semibold text-[var(--text)]">Why shortlisted</div>
                   <ul className="mt-3 space-y-2">
                     {primaryPick.why.slice(0, 7).map((w) => (
-                      <li key={w} className="flex gap-2 text-sm leading-6 text-zinc-800">
+                      <li key={w} className="flex gap-2 text-sm leading-6 text-[var(--text)]">
                         <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-emerald-50 text-emerald-700">
                           ✓
                         </span>
@@ -286,12 +286,12 @@ export default function ResultsClient({
                 </div>
 
                 <div>
-                  <div className="text-sm font-semibold text-zinc-900">Decision-ready checks</div>
+                  <div className="text-sm font-semibold text-[var(--text)]">Decision-ready checks</div>
                   <div className="mt-3 space-y-2">
                     <MiniRow label="Compliance" value={decisionInputs?.complianceNeeded?.length ? decisionInputs.complianceNeeded.join(", ") : "Validate"} />
                     <MiniRow label="GST" value={decisionInputs?.gstRequired ?? "Validate"} />
                     <MiniRow label="Residency" value={decisionInputs?.dataResidency ?? "Validate"} />
-                    <div className="text-xs leading-5 text-zinc-500">
+                    <div className="text-xs leading-5 text-[var(--text-muted)]">
                       Use tool details to verify sources. Unknowns are highlighted so you can validate fast.
                     </div>
                   </div>
@@ -305,7 +305,7 @@ export default function ResultsClient({
                 <div className="flex flex-wrap gap-2">
                   {compareHref ? (
                     <Link
-                      className="inline-flex h-10 items-center justify-center rounded-lg border border-zinc-200 bg-white px-4 text-sm font-semibold text-zinc-900 hover:bg-zinc-50"
+                      className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)]"
                       href={compareHref}
                     >
                       Compare
@@ -325,8 +325,8 @@ export default function ResultsClient({
           {alternatives.length ? (
             <div className="pt-2">
               <div className="mb-3 flex items-baseline justify-between gap-3">
-                <h2 className="text-base font-semibold text-zinc-900">Alternatives</h2>
-                <div className="text-xs text-zinc-500">Useful to sanity-check pricing, payroll edge cases, and support</div>
+                <h2 className="text-base font-semibold text-[var(--text)]">Alternatives</h2>
+                <div className="text-xs text-[var(--text-muted)]">Useful to sanity-check pricing, payroll edge cases, and support</div>
               </div>
 
               <div className="space-y-4">
@@ -339,29 +339,29 @@ export default function ResultsClient({
                     <Card key={p.tool.slug} className="shadow-sm">
                       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                         <div>
-                          <div className="text-lg font-semibold text-zinc-950">{p.tool.name}</div>
-                          {vendorName ? <div className="mt-1 text-sm text-zinc-600">by {vendorName}</div> : null}
+                          <div className="text-lg font-semibold text-[var(--text)]">{p.tool.name}</div>
+                          {vendorName ? <div className="mt-1 text-sm text-[var(--text-muted)]">by {vendorName}</div> : null}
                         </div>
                         <div className="flex items-center gap-2">
                           {freshness ? (
                             <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${freshness.tone}`}>{freshness.label}</span>
                           ) : (
-                            <span className="rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-semibold text-zinc-600">
+                            <span className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-2.5 py-1 text-xs font-semibold text-[var(--text-muted)]">
                               Verification: unknown
                             </span>
                           )}
-                          <span className="text-xs text-zinc-500">Score {p.score}</span>
+                          <span className="text-xs text-[var(--text-muted)]">Score {p.score}</span>
                         </div>
                       </div>
 
-                      {p.tool.tagline ? <div className="mt-2 text-sm text-zinc-700">{p.tool.tagline}</div> : null}
+                      {p.tool.tagline ? <div className="mt-2 text-sm text-[var(--text)]">{p.tool.tagline}</div> : null}
 
                       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
                         <div className="sm:col-span-2">
-                          <div className="text-sm font-semibold text-zinc-900">Why shortlisted</div>
+                          <div className="text-sm font-semibold text-[var(--text)]">Why shortlisted</div>
                           <ul className="mt-2 space-y-2">
                             {p.why.slice(0, 4).map((w) => (
-                              <li key={w} className="flex gap-2 text-sm leading-6 text-zinc-700">
+                              <li key={w} className="flex gap-2 text-sm leading-6 text-[var(--text-muted)]">
                                 <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-100 text-zinc-700">
                                   •
                                 </span>
@@ -371,7 +371,7 @@ export default function ResultsClient({
                           </ul>
                         </div>
                         <div>
-                          <div className="text-sm font-semibold text-zinc-900">Next to validate</div>
+                          <div className="text-sm font-semibold text-[var(--text)]">Next to validate</div>
                           <div className="mt-2 space-y-2">
                             <MiniRow label="Payroll" value="Edge cases" />
                             <MiniRow label="Compliance" value="Evidence" />
@@ -395,26 +395,26 @@ export default function ResultsClient({
           {picks.length ? (
             <Card className="shadow-sm">
               <details>
-                <summary className="cursor-pointer text-sm font-semibold text-zinc-900">Why not others?</summary>
-                <div className="mt-3 text-sm text-zinc-700">
-                  <p className="text-zinc-600">
+                <summary className="cursor-pointer text-sm font-semibold text-[var(--text)]">Why not others?</summary>
+                <div className="mt-3 text-sm text-[var(--text)]">
+                  <p className="text-[var(--text-muted)]">
                     HRSignal shows the top 3–5 tools for your inputs. Tools that are not shown typically fall into one (or more) buckets:
                   </p>
                   <ul className="mt-3 space-y-2">
                     <li className="flex gap-2">
-                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-100 text-zinc-700">•</span>
+                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[var(--surface-2)] text-[var(--text)]">•</span>
                       <span>Lower overall fit score for your size/integrations/requirements.</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-100 text-zinc-700">•</span>
+                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[var(--surface-2)] text-[var(--text)]">•</span>
                       <span>Missing evidence for critical payroll/compliance claims (we’ll say “validate”).</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-100 text-zinc-700">•</span>
+                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[var(--surface-2)] text-[var(--text)]">•</span>
                       <span>Stale or unknown verification freshness (we surface “verified recently” when dates exist).</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-zinc-100 text-zinc-700">•</span>
+                      <span className="mt-[2px] inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-[var(--surface-2)] text-[var(--text)]">•</span>
                       <span>Doesn’t match must-have integrations (if selected).</span>
                     </li>
                   </ul>
@@ -428,12 +428,12 @@ export default function ResultsClient({
           <Card className="shadow-sm">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <h2 className="text-lg font-semibold text-zinc-900">Get pricing & vendor intro</h2>
-                <p className="mt-1 text-sm text-zinc-600">
+                <h2 className="text-lg font-semibold text-[var(--text)]">Get pricing & vendor intro</h2>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">
                   We’ll review and share your requirement with one best-fit vendor (not blasted to everyone).
                 </p>
               </div>
-              <div className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-semibold text-zinc-700">
+              <div className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
                 Momentum: shortlist → intro → demo
               </div>
             </div>
@@ -508,7 +508,7 @@ export default function ResultsClient({
                   placeholder="you@company.com"
                   required={!contactPhone}
                 />
-                <p className="mt-1 text-xs text-zinc-500">Email preferred (or share a phone number below).</p>
+                <p className="mt-1 text-xs text-[var(--text-muted)]">Email preferred (or share a phone number below).</p>
               </div>
             </div>
 
@@ -526,7 +526,7 @@ export default function ResultsClient({
                   placeholder="Eg: Need payroll + attendance, demo next week"
                   required
                 />
-                <p className="mt-1 text-xs text-zinc-500">A short note helps us pick one best-fit vendor.</p>
+                <p className="mt-1 text-xs text-[var(--text-muted)]">A short note helps us pick one best-fit vendor.</p>
               </div>
             </div>
 
@@ -575,18 +575,18 @@ function MomentumStep({
   return (
     <div
       className={`rounded-2xl border px-4 py-3 shadow-sm ${
-        active ? "border-indigo-200 bg-indigo-50" : "border-zinc-200 bg-white"
+        active ? "border-indigo-200 bg-indigo-50" : "border-[var(--border)] bg-[var(--surface-1)]"
       }`}
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <div className={`text-xs font-semibold ${active ? "text-indigo-800" : "text-zinc-500"}`}>Step {step}</div>
-          <div className="mt-1 text-sm font-semibold text-zinc-950">{title}</div>
-          <div className="mt-1 text-xs leading-5 text-zinc-600">{desc}</div>
+          <div className={`text-xs font-semibold ${active ? "text-indigo-800" : "text-[var(--text-muted)]"}`}>Step {step}</div>
+          <div className="mt-1 text-sm font-semibold text-[var(--text)]">{title}</div>
+          <div className="mt-1 text-xs leading-5 text-[var(--text-muted)]">{desc}</div>
         </div>
         <div
           className={`inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
-            active ? "bg-indigo-700 text-white" : "bg-zinc-100 text-zinc-700"
+            active ? "bg-indigo-700 text-white" : "bg-[var(--surface-2)] text-[var(--text)]"
           }`}
         >
           {step}

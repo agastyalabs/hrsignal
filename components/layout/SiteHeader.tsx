@@ -9,20 +9,20 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { ButtonLink } from "@/components/ui/Button";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
+// Theme is locked (single dark theme).
 import { useCompare } from "@/lib/compare/useCompare";
 
 function navItemClass(active: boolean) {
-  return `relative rounded-md px-2 py-1 transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/35 ${
+  return `relative rounded-md px-2 py-1 transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-[color:rgba(111,66,193,0.35)] ${
     active
-      ? "text-[#F9FAFB]"
-      : "text-[#CBD5E1] hover:bg-[#0F172A] hover:text-[#F9FAFB]"
+      ? "text-[var(--text)]"
+      : "text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
   }`;
 }
 
 function activeUnderline(active: boolean) {
   return active
-    ? "after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:bg-[#8B5CF6]"
+    ? "after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:bg-[var(--primary)]"
     : "";
 }
 
@@ -73,7 +73,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-[#1F2937] bg-[#0B1220]/90 backdrop-blur transition-shadow motion-reduce:transition-none ${
+      className={`sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--header-bg)] backdrop-blur transition-shadow motion-reduce:transition-none ${
         scrolled ? "shadow-sm" : "shadow-none"
       }`}
     >
@@ -89,7 +89,7 @@ export function SiteHeader() {
         {pathname !== "/" ? (
           <form action="/tools" className="hidden w-full max-w-md lg:flex">
             <input
-              className="h-11 w-full rounded-lg border border-[#1F2937] bg-[#111827] px-3 text-sm text-[#F9FAFB] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/35"
+              className="h-11 w-full rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[color:rgba(111,66,193,0.35)]"
               name="q"
               placeholder="Search tools (e.g., payroll, attendance, Keka…)"
               aria-label="Search tools"
@@ -118,15 +118,12 @@ export function SiteHeader() {
               aria-current={active.compare ? "page" : undefined}
             >
               Compare
-              <span className="ml-2 rounded-full bg-[#8B5CF6] px-2 py-0.5 text-xs font-semibold text-[#0B1220]">
-                {count}
+              <span className="ml-2 rounded-full bg-[var(--accent)] px-2 py-0.5 text-xs font-semibold text-[var(--bg)]">                {count}
               </span>
             </Link>
           ) : null}
 
-          <div className="ml-2 hidden sm:block">
-            <ThemeToggle />
-          </div>
+          {/* Theme toggle removed (single theme). */}
 
           <div className="ml-2">
             <ButtonLink href="/recommend" variant="primary" size="sm">
