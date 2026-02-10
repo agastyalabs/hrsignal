@@ -5,7 +5,7 @@ This file tracks production deployments for UX plan work.
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
-- **Resolved production deployment (Vercel):** https://hrsignal-i2ogrfpl8-agastyalabs-projects.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-c6f4p91mw-agastyalabs-projects.vercel.app
 
 ### Hotfix — vendor page crash digest 1288604524
 
@@ -34,3 +34,4 @@ This file tracks production deployments for UX plan work.
 - `2e25991` — P0(theme): dark theme readability polish using tokens only (lifted surfaces + muted text contrast; vendor page token colors + subtle section dividers).
 - `97e9c40` — P0(vendors): vendor detail pages can render markdown briefs from `docs/vendors/<slug>.md` into existing sections + show Last updated.
 - `8a049ac` — chore: revert package.json script change (vendor briefs require no package.json edits).
+- `4df425a` — P0(vendors): vendor detail route now uses `/vendors/<slug>` and renders from markdown briefs when present (no 404 if `docs/vendors/<slug>.md` exists). Freshteam supported.
