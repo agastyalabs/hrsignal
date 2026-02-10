@@ -128,49 +128,108 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
               ) : null}
             </div>
 
-            <div className="mt-10">
-              <div className="text-sm font-semibold text-[var(--text)]">Vendor brief</div>
-              <div className="mt-3">
-                <Markdownish content={slugBrief.sections["overview"] ?? slugBrief.raw ?? ""} />
-              </div>
-
-              <div className="mt-6">
-                <Card className="border border-[var(--border)] bg-[var(--surface-2)] shadow-[var(--shadow-sm)]">
-                  <details>
-                    <summary className="cursor-pointer select-none text-sm font-semibold text-[var(--text)]">Sources & data quality</summary>
-                    <div className="mt-3 space-y-4 text-sm text-[var(--text-muted)]">
-                      <div>
-                        <div className="text-xs font-semibold text-[var(--text)]">Sources checked</div>
-                        {slugBrief.urls.length ? (
-                          <ul className="mt-2 list-disc space-y-1 pl-5">
-                            {slugBrief.urls.slice(0, 10).map((u) => (
-                              <li key={u}>
-                                <a className="underline" href={u} target="_blank" rel="noreferrer">
-                                  {u}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <div className="mt-1">Info pending.</div>
-                        )}
-                      </div>
-                      <div>
-                        <div className="text-xs font-semibold text-[var(--text)]">Data gaps</div>
-                        {slugBrief.dataGaps.length ? (
-                          <ul className="mt-2 list-disc space-y-1 pl-5">
-                            {slugBrief.dataGaps.slice(0, 10).map((g) => (
-                              <li key={g}>{g}</li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <div className="mt-1">None listed.</div>
-                        )}
-                      </div>
-                    </div>
-                  </details>
+            <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
+              <div>
+                <div className="text-sm font-semibold text-[var(--text)]">Overview</div>
+                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                  <Markdownish content={slugBrief.sections["overview"] ?? slugBrief.sections["snapshot"] ?? ""} />
                 </Card>
               </div>
+
+              <div>
+                <div className="text-sm font-semibold text-[var(--text)]">Features</div>
+                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                  <Markdownish
+                    content={
+                      slugBrief.sections["what it does feature summary"] ??
+                      slugBrief.sections["what it does"] ??
+                      slugBrief.sections["products tools"] ??
+                      ""
+                    }
+                  />
+                </Card>
+              </div>
+
+              <div>
+                <div className="text-sm font-semibold text-[var(--text)]">Pricing</div>
+                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                  <Markdownish content={slugBrief.sections["pricing"] ?? slugBrief.sections["pricing model"] ?? ""} />
+                </Card>
+              </div>
+
+              <div>
+                <div className="text-sm font-semibold text-[var(--text)]">Integrations</div>
+                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                  <Markdownish content={slugBrief.sections["integrations"] ?? ""} />
+                </Card>
+              </div>
+
+              <div>
+                <div className="text-sm font-semibold text-[var(--text)]">Compliance & security</div>
+                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                  <Markdownish
+                    content={
+                      slugBrief.sections["compliance, security, and privacy"] ??
+                      slugBrief.sections["compliance and security"] ??
+                      slugBrief.sections["compliance"] ??
+                      ""
+                    }
+                  />
+                </Card>
+              </div>
+
+              <div>
+                <div className="text-sm font-semibold text-[var(--text)]">Implementation / onboarding</div>
+                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                  <Markdownish
+                    content={
+                      slugBrief.sections["deployment & implementation"] ??
+                      slugBrief.sections["deployment and implementation"] ??
+                      slugBrief.sections["implementation onboarding"] ??
+                      ""
+                    }
+                  />
+                </Card>
+              </div>
+            </div>
+
+            <div className="mt-10 pt-8 border-t border-[var(--border)]">
+              <div className="text-sm font-semibold text-[var(--text)]">Sources & data quality</div>
+              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+                <details>
+                  <summary className="cursor-pointer select-none text-sm font-semibold text-[var(--text)]">Sources checked & info pending</summary>
+                  <div className="mt-4 grid grid-cols-1 gap-6 text-sm text-[var(--text-muted)] lg:grid-cols-2">
+                    <div>
+                      <div className="text-xs font-semibold text-[var(--text)]">Sources checked</div>
+                      {slugBrief.urls.length ? (
+                        <ul className="mt-2 list-disc space-y-1 pl-5">
+                          {slugBrief.urls.slice(0, 10).map((u) => (
+                            <li key={u}>
+                              <a className="underline" href={u} target="_blank" rel="noreferrer">
+                                {u}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div className="mt-2">Info pending.</div>
+                      )}
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-[var(--text)]">Data gaps / Info pending</div>
+                      {slugBrief.dataGaps.length ? (
+                        <ul className="mt-2 list-disc space-y-1 pl-5">
+                          {slugBrief.dataGaps.slice(0, 10).map((g) => (
+                            <li key={g}>{g}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <div className="mt-2">No explicit gaps listed.</div>
+                      )}
+                    </div>
+                  </div>
+                </details>
+              </Card>
             </div>
           </Card>
         </Section>
@@ -428,13 +487,13 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                   <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-3">
                     <div className="text-[11px] font-semibold text-[var(--text-muted)]">Integrations</div>
                     <div className="mt-1 text-xs font-semibold text-[var(--text)]">
-                      {integrationNames.length ? `${integrationNames.length}+ listed` : "Info pending"}
+                      {integrationNames.length ? `${integrationNames.length}+ listed` : "—"}
                     </div>
                   </div>
                   <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-1)] p-3">
                     <div className="text-[11px] font-semibold text-[var(--text-muted)]">Compliance</div>
                     <div className="mt-1 text-xs font-semibold text-[var(--text)]">
-                      {complianceTags.length ? `${complianceTags.length}+ tags` : vendor.verifiedInIndia ? "India-first" : "Info pending"}
+                      {complianceTags.length ? `${complianceTags.length}+ tags` : vendor.verifiedInIndia ? "India-first" : "—"}
                     </div>
                   </div>
                 </div>
@@ -446,7 +505,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                     </span>
                   ))}
                   {toolCategories.length === 0 && vendor.categories.length === 0 ? (
-                    <span className="text-xs text-[var(--text-muted)]">Info pending</span>
+                    <span className="text-xs text-[var(--text-muted)]">—</span>
                   ) : null}
                 </div>
               </Card>
@@ -456,18 +515,18 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                 <dl className="mt-3 space-y-3 text-sm">
                   <div>
                     <dt className="text-xs font-semibold text-[var(--text-muted)]">Company size</dt>
-                    <dd className="mt-1 text-[var(--text-muted)]">{bestForSizes ?? "Info pending"}</dd>
+                    <dd className="mt-1 text-[var(--text-muted)]">{bestForSizes ?? "—"}</dd>
                   </div>
                   <div>
                     <dt className="text-xs font-semibold text-[var(--text-muted)]">India coverage</dt>
                     <dd className="mt-1 text-[var(--text-muted)]">
-                      {vendor.verifiedInIndia ? "India-first listing" : "Info pending"}
+                      {vendor.verifiedInIndia ? "India-first listing" : "—"}
                       {vendor.multiStateSupport ? " • Multi-state" : ""}
                     </dd>
                   </div>
                   <div>
                     <dt className="text-xs font-semibold text-[var(--text-muted)]">States</dt>
-                    <dd className="mt-1 text-[var(--text-muted)]">{bestForStates ?? "Info pending"}</dd>
+                    <dd className="mt-1 text-[var(--text-muted)]">{bestForStates ?? "—"}</dd>
                   </div>
                 </dl>
               </Card>
@@ -575,11 +634,11 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                   </div>
                 ) : (
                   <div>
-                    <div className="text-sm text-[var(--text-muted)]">Info pending.</div>
-                    <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
-                      <li>• Ask for a current integration list (HRIS/payroll/ATS/accounting)</li>
-                      <li>• Confirm exports (CSV, Tally, Zoho Books, bank files) and API availability</li>
-                      <li>• Validate SSO, SCIM, and webhooks if you need enterprise integration</li>
+                    <div className="text-xs font-semibold text-[var(--text)]">Missing info (we’re verifying)</div>
+                    <ul className="mt-2 space-y-2 text-sm text-[var(--text-muted)]">
+                      <li>• Current integration list (HRIS/payroll/ATS/accounting)</li>
+                      <li>• Exports (CSV, Tally/Books, bank files) and API availability</li>
+                      <li>• SSO/SCIM/webhooks (plan-dependent)</li>
                     </ul>
                   </div>
                 )}
@@ -612,9 +671,9 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                       </>
                     ) : (
                       <>
-                        Info pending. Use the checklist below to scope onboarding during evaluation:
-                        <ul className="mt-3 space-y-2">
-                          {qa.map((q, idx) => (
+                        <div className="text-xs font-semibold text-[var(--text)]">Missing info (we’re verifying)</div>
+                        <ul className="mt-2 space-y-2">
+                          {qa.slice(0, 4).map((q, idx) => (
                             <li key={`${q}-${idx}`}>• {q}</li>
                           ))}
                         </ul>
@@ -654,12 +713,11 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                   </div>
                 ) : (
                   <div>
-                    <div className="text-sm text-[var(--text-muted)]">Info pending.</div>
-                    <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
-                      <li>• Confirm India compliance scope (PF/ESI/PT/TDS/LWF) and reporting formats</li>
-                      <li>• Ask about audit trails, role-based access, and data retention</li>
-                      <li>• Validate security posture (SSO, IP restrictions, backups, incident response)</li>
-                      <li>• For multi-state: confirm state-specific rules and statutory register coverage</li>
+                    <div className="text-xs font-semibold text-[var(--text)]">Missing info (we’re verifying)</div>
+                    <ul className="mt-2 space-y-2 text-sm text-[var(--text-muted)]">
+                      <li>• India compliance scope (PF/ESI/PT/TDS/LWF) and statutory registers</li>
+                      <li>• Audit trails, role-based access, data retention</li>
+                      <li>• Security controls (SSO, backups, incident response)</li>
                     </ul>
                   </div>
                 )}
@@ -678,7 +736,13 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                     ))}
                   </ul>
                 ) : (
-                  <div className="text-sm text-[var(--text-muted)]">Info pending.</div>
+                  <div>
+                    <div className="text-xs font-semibold text-[var(--text)]">Missing info (we’re verifying)</div>
+                    <ul className="mt-2 space-y-2 text-sm text-[var(--text-muted)]">
+                      <li>• Category-based alternatives for this vendor</li>
+                      <li>• India-first shortlists for similar workflows</li>
+                    </ul>
+                  </div>
                 )}
                 <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
                   {vendor.tools.length >= 2 ? (
