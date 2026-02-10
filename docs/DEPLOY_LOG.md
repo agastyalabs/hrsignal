@@ -5,7 +5,7 @@ This file tracks production deployments for UX plan work.
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
-- **Resolved production deployment (Vercel):** https://hrsignal-naoyvb075-agastyalabs-projects.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-79p9oda63-agastyalabs-projects.vercel.app
 
 ### Hotfix — vendor page crash digest 1288604524
 
@@ -41,3 +41,4 @@ This file tracks production deployments for UX plan work.
 - `5c6d942` — P0(vendors): add product-family collision guardrail on Freshteam vendor page + display title "Freshteam (Freshworks)"; confirm alias slugs redirect to /vendors/freshteam.
 - `9d255e8` — P0(vendors): resolve Freshteam catalog vendor by canonical slug (tool slug based), so /vendors/freshteam uses full vendor record when present.
 - `9fb6332` — P0(vendors): always use the official Freshteam URL on the vendor page (not just freshworks.com root).
+- `06cdd1b` — infra: set Cache-Control no-store/max-age=0,must-revalidate for HTML routes to avoid stale pages after deploy (Safari/iOS normal refresh); keep hashed static assets cached normally.
