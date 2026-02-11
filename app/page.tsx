@@ -57,11 +57,11 @@ export default async function Home() {
 
       {/* Hero (bento) */}
       <Section className="pt-10 sm:pt-14">
-        <div className="relative overflow-hidden rounded-3xl border border-[var(--border-soft)] bg-[var(--surface-1)]/65 shadow-none">
+        <div className="relative overflow-hidden rounded-[1.2rem] border border-[var(--border-soft)] bg-[var(--surface-1)]/65 shadow-none">
           {/* Subtle brand wash (no decorative illustration) */}
           <div className="pointer-events-none absolute inset-0 opacity-90">
-            <div className="absolute -top-40 right-[-180px] h-[520px] w-[520px] rounded-full bg-[color:var(--primary)]/16 blur-3xl" />
-            <div className="absolute -bottom-44 left-[-200px] h-[560px] w-[560px] rounded-full bg-[color:var(--accent)]/10 blur-3xl" />
+            <div className="absolute -top-40 right-[-180px] h-[520px] w-[520px] rounded-full bg-[color:var(--primary)]/11 blur-3xl" />
+            <div className="absolute -bottom-44 left-[-200px] h-[560px] w-[560px] rounded-full bg-[color:var(--accent)]/7 blur-3xl" />
           </div>
 
           <div className="relative grid grid-cols-1 gap-10 p-8 sm:p-12 lg:grid-cols-12 lg:gap-12">

@@ -221,8 +221,7 @@ export default async function VendorsPage({
           </Link>
         </div>
 
-        <div className="mt-6 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)]/70 p-4">
-          <form method="get" action="/vendors" className="grid grid-cols-1 gap-3 md:grid-cols-12 md:items-end">
+        <form method="get" action="/vendors" className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-12 md:items-end">
             <div className="md:col-span-2">
               <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="sort">
                 Sort
@@ -298,7 +297,7 @@ export default async function VendorsPage({
               </select>
             </div>
 
-            <div className="md:col-span-12 flex flex-col gap-2 pt-1 sm:flex-row sm:items-center sm:justify-between">
+            <div className="md:col-span-12 flex flex-wrap items-end justify-between gap-2 pt-0">
               <input type="hidden" name="india" value={indiaOnly ? "1" : "0"} />
               <div className="flex flex-wrap items-center gap-2">
                 <button className="h-11 rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)]">
@@ -311,7 +310,7 @@ export default async function VendorsPage({
                   Clear all
                 </Link>
               </div>
-              <div className="text-xs text-[var(--text-muted)]">{filtered.length} results</div>
+              <div className="ml-auto text-xs text-[var(--text-muted)]">{filtered.length} results</div>
             </div>
 
             {activePills.length ? (
@@ -326,8 +325,7 @@ export default async function VendorsPage({
                 ))}
               </div>
             ) : null}
-          </form>
-        </div>
+        </form>
 
         {!process.env.DATABASE_URL ? (
           <Card className="mt-6 shadow-sm">
