@@ -1,5 +1,11 @@
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  title: "HR Tools Directory (India) | HRSignal",
+  description: "Browse and compare HRMS, payroll & compliance, attendance, ATS and performance tools. Evidence-first shortlists.",
+  alternates: { canonical: "https://hrsignal.vercel.app/tools" },
+};
+
 import Link from "next/link";
 
 import { prisma } from "@/lib/db";
@@ -302,8 +308,20 @@ export default async function ToolsPage({
     }
   }
 
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: tools.slice(0, 50).map((t, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: t.name,
+      url: `https://hrsignal.vercel.app/tools/${t.slug}`,
+    })),
+  };
+
   return (
     <div className="min-h-screen bg-[var(--bg)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">

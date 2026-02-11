@@ -11,6 +11,22 @@ import { CompareToggle } from "@/components/compare/CompareToggle";
 import { VendorLogo } from "@/components/VendorLogo";
 import { domainFromUrl } from "@/lib/brand/logo";
 import { normalizePricingText, pricingTypeFromNote } from "@/lib/pricing/format";
+import type { Metadata } from "next";
+import { absUrl } from "@/lib/seo/url";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const title = `${slug} — Tool details | HRSignal`;
+  const description = `Research and compare ${slug}. See fit notes, trust signals, and request demos without vendor spam.`;
+  const url = absUrl(`/tools/${slug}`);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url },
+  };
+}
 
 export default async function ToolDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

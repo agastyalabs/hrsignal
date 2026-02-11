@@ -1,5 +1,11 @@
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  title: "HR Vendors in India — Directory | HRSignal",
+  description: "Browse HR software vendors. Filter by category, size, India readiness, and pricing metric.",
+  alternates: { canonical: "https://hrsignal.vercel.app/vendors" },
+};
+
 import Link from "next/link";
 
 import { prisma } from "@/lib/db";
@@ -207,8 +213,20 @@ export default async function VendorsPage({
   if (pricing) activePills.push({ key: "pricing", label: `Pricing: ${prettyPricingKey(pricing)}` });
   if (sort && sort !== "recent") activePills.push({ key: "sort", label: `Sort: ${sort}` });
 
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: filtered.slice(0, 50).map((v, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: v.name,
+      url: `https://hrsignal.vercel.app/vendors/${v.slug}`,
+    })),
+  };
+
   return (
     <div className="min-h-screen bg-[var(--bg)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">

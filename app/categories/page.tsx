@@ -1,5 +1,11 @@
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  title: "HR Software Categories | HRSignal",
+  description: "Browse HR software by category: payroll & compliance, HRMS, ATS, attendance, performance and more.",
+  alternates: { canonical: "https://hrsignal.vercel.app/categories" },
+};
+
 import Link from "next/link";
 
 import { prisma } from "@/lib/db";
@@ -85,8 +91,20 @@ export default async function CategoriesPage() {
     getToolCountsByCategorySafe(slugs),
   ]);
 
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: categories.slice(0, 50).map((c, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: c.name,
+      url: `https://hrsignal.vercel.app/categories/${c.slug}`,
+    })),
+  };
+
   return (
     <div className="min-h-screen bg-[var(--bg)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">

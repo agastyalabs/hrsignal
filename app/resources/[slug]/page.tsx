@@ -7,6 +7,8 @@ import { Section } from "@/components/layout/Section";
 import { ButtonLink } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { getResourceArticle, listResourceArticles } from "@/lib/resources/articles";
+import type { Metadata } from "next";
+import { absUrl } from "@/lib/seo/url";
 import { Markdownish } from "../Markdownish";
 
 export function generateStaticParams() {
@@ -60,6 +62,22 @@ async function getRelatedTools(article: { category: string; tags: string[]; slug
     }));
 
   return tools;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const article = getResourceArticle(slug);
+
+  const title = article ? `${article.title} | HRSignal Resources` : `Resource | HRSignal`;
+  const description = article?.summary ?? "Buyer guides and playbooks for Indian SME HR teams.";
+  const url = absUrl(`/resources/${slug}`);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url },
+  };
 }
 
 export default async function ResourceArticlePage({ params }: { params: Promise<{ slug: string }> }) {

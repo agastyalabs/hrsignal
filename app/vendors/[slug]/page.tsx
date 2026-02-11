@@ -18,6 +18,8 @@ import { getVendorBrief } from "@/lib/vendors/brief";
 import { Markdownish } from "@/app/resources/Markdownish";
 import { EvidenceLinks } from "@/components/vendors/EvidenceLinks";
 import { getResearchedVendorProfile } from "@/lib/vendors/researched";
+import type { Metadata } from "next";
+import { absUrl } from "@/lib/seo/url";
 
 function slugify(name: string) {
   return String(name)
@@ -26,6 +28,21 @@ function slugify(name: string) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "")
     .slice(0, 60);
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug: rawSlug } = await params;
+  const slug = normalizeVendorSlug(rawSlug);
+  const title = `${slug} — Vendor profile | HRSignal`;
+  const description = `Evidence-first vendor profile for ${slug}. Compare modules, India readiness, implementation notes, and sources.`;
+  const url = absUrl(`/vendors/${slug}`);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url },
+  };
 }
 
 export default async function VendorDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -112,6 +129,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
 
     const profile = getResearchedVendorProfile(slug);
     const title = profile?.displayName ?? (slug === "freshteam" ? "Freshteam (Freshworks)" : slug);
+
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
@@ -386,8 +404,32 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
     slug === "freshteam" ? "Not to be confused with Freshservice (HR service delivery workflows)." : null;
   const websiteUrl = slug === "freshteam" ? "https://www.freshworks.com/hrms/freshteam/" : vendor.websiteUrl;
 
+  const softwareJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: vendor.name,
+    applicationCategory: "Human Resources",
+    operatingSystem: "Web",
+    url: `https://hrsignal.vercel.app/vendors/${canon}`,
+    description: profile?.overview ?? `Vendor profile for ${vendor.name}.`,
+  };
+
+  const faqJsonLd = profile?.faqs?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: profile.faqs.slice(0, 10).map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+
   return (
     <div className="min-h-screen bg-[var(--bg)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }} />
+      {faqJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} /> : null}
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">

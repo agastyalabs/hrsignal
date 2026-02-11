@@ -12,6 +12,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
 import { pricingTypeFromNote, normalizePricingText, type PricingType } from "@/lib/pricing/format";
+import type { Metadata } from "next";
+import { absUrl } from "@/lib/seo/url";
 
 import toolsSeed from "@/data/tools_seed.json";
 
@@ -120,6 +122,20 @@ const PRICING_OPTIONS = [
   { key: "one_time", label: "One-time license" },
   { key: "quote_based", label: "Custom quote" },
 ];
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const title = `${slug} — Category shortlist | HRSignal`;
+  const description = `Compare and shortlist ${slug} tools for Indian teams. See verification signals, fit notes, and request demos.`;
+  const url = absUrl(`/categories/${slug}`);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url },
+  };
+}
 
 export default async function CategoryDetailPage({
   params,

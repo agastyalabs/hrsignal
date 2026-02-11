@@ -20,13 +20,31 @@ function formatDate(date: string) {
   }
 }
 
+export const metadata = {
+  title: "Resources — HR Software Buyer Guides (India) | HRSignal",
+  description: "Buyer guides, checklists, and playbooks for Indian SME HR teams.",
+  alternates: { canonical: "https://hrsignal.vercel.app/resources" },
+};
+
 export default function ResourcesPage() {
   const articles = listResourceArticles();
   const featured = articles.find((a) => a.featured);
   const rest = featured ? articles.filter((a) => a.slug !== featured.slug) : articles;
 
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: articles.slice(0, 50).map((a, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: a.title,
+      url: `https://hrsignal.vercel.app/resources/${a.slug}`,
+    })),
+  };
+
   return (
     <div className="min-h-screen bg-[var(--bg)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
