@@ -57,35 +57,14 @@ export default async function Home() {
 
       {/* Hero (bento) */}
       <Section className="pt-10 sm:pt-14">
-        <div className="relative overflow-hidden rounded-3xl border border-[var(--border-soft)] bg-[var(--surface-1)]/70 shadow-none">
-          {/* Signal motif: layered gradients + waveform */}
+        <div className="relative overflow-hidden rounded-3xl border border-[var(--border-soft)] bg-[var(--surface-1)]/65 shadow-none">
+          {/* Subtle brand wash (no decorative illustration) */}
           <div className="pointer-events-none absolute inset-0 opacity-90">
-            <div className="absolute -top-40 right-[-160px] h-[520px] w-[520px] rounded-full bg-[color:var(--primary)]/18 blur-3xl" />
-            <div className="absolute -bottom-44 left-[-180px] h-[560px] w-[560px] rounded-full bg-[#2DD4BF]/10 blur-3xl" />
-            <svg
-              aria-hidden="true"
-              className="absolute -right-24 top-10 h-[340px] w-[640px] opacity-[0.18]"
-              viewBox="0 0 640 340"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0 210 C 80 120, 160 300, 240 210 C 320 120, 400 300, 480 210 C 560 120, 600 190, 640 160"
-                stroke="#6F42C1"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-              <path
-                d="M0 250 C 90 160, 170 330, 250 250 C 330 170, 410 330, 490 250 C 570 170, 610 240, 640 210"
-                stroke="#27D3BC"
-                strokeWidth="2"
-                strokeLinecap="round"
-                opacity="0.8"
-              />
-            </svg>
+            <div className="absolute -top-40 right-[-180px] h-[520px] w-[520px] rounded-full bg-[color:var(--primary)]/16 blur-3xl" />
+            <div className="absolute -bottom-44 left-[-200px] h-[560px] w-[560px] rounded-full bg-[color:var(--accent)]/10 blur-3xl" />
           </div>
 
-          <div className="relative grid grid-cols-1 gap-10 p-7 sm:p-12 lg:grid-cols-12 lg:gap-12">
+          <div className="relative grid grid-cols-1 gap-10 p-8 sm:p-12 lg:grid-cols-12 lg:gap-12">
             {/* Left */}
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-3 py-1 text-xs font-semibold text-[#CBD5E1]">
@@ -94,10 +73,10 @@ export default async function Home() {
                 Explainable shortlists
               </div>
 
-              <h1 className="mt-5 text-[length:var(--h1-size)] font-semibold leading-[1.08] tracking-tight text-[#F9FAFB]">
+              <h1 className="mt-5 text-[length:var(--h1-size)] font-extrabold leading-[1.06] tracking-tight text-[var(--text)]">
                 Discover the right HR tools for your Indian SME.
               </h1>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#CBD5E1]">
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--text-muted)]">
                 HRSignal helps Indian SMEs shortlist HRMS, payroll & compliance, attendance, ATS and performance tools—with clear match reasons.
               </p>
 
@@ -129,113 +108,64 @@ export default async function Home() {
               </div>
             </div>
 
-            {/* Right */}
+            {/* Right: product-driven preview */}
             <div className="lg:col-span-5">
-              {/* HR illustration (inline SVG placeholder, no external deps) */}
-              <div className="relative mb-4 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface-1)] p-5 shadow-[var(--shadow-sm)]">
-                <div className="absolute -right-24 -top-24 h-56 w-56 rounded-full bg-[color:var(--primary)]/14 blur-3xl" />
-                <div className="absolute -left-24 -bottom-24 h-56 w-56 rounded-full bg-[color:var(--accent)]/14 blur-3xl" />
-
-                <div className="relative">
-                  <div className="text-xs font-semibold tracking-wide text-[var(--text-muted)]">VISUAL</div>
-                  <div className="mt-1 text-sm font-semibold text-[var(--text)]">Shortlist clarity, without the noise</div>
-
-                  <svg
-                    aria-label="HRSignal illustration"
-                    role="img"
-                    viewBox="0 0 680 260"
-                    className="mt-4 h-[180px] w-full"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <defs>
-                      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0" stop-color="#6F42C1" stop-opacity="0.55"/>
-                        <stop offset="1" stop-color="#27D3BC" stop-opacity="0.35"/>
-                      </linearGradient>
-                    </defs>
-
-                    <rect x="0" y="0" width="680" height="260" rx="22" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)"/>
-
-                    <path d="M40 170 C 110 70, 200 230, 270 150 C 340 70, 430 240, 500 160 C 570 90, 620 130, 650 110" fill="none" stroke="url(#g)" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M40 200 C 120 115, 210 250, 290 185 C 370 120, 450 260, 530 190 C 600 135, 630 165, 650 150" fill="none" stroke="#27D3BC" stroke-opacity="0.35" stroke-width="3" stroke-linecap="round"/>
-
-                    <g transform="translate(70 55)">
-                      <rect x="0" y="0" width="220" height="150" rx="18" fill="rgba(13,22,63,0.55)" stroke="rgba(255,255,255,0.10)"/>
-                      <rect x="18" y="20" width="120" height="14" rx="7" fill="rgba(255,255,255,0.80)"/>
-                      <rect x="18" y="48" width="170" height="10" rx="5" fill="rgba(255,255,255,0.35)"/>
-                      <rect x="18" y="68" width="150" height="10" rx="5" fill="rgba(255,255,255,0.28)"/>
-                      <rect x="18" y="98" width="110" height="28" rx="14" fill="#6F42C1" opacity="0.9"/>
-                    </g>
-
-                    <g transform="translate(330 78)">
-                      <rect x="0" y="0" width="280" height="128" rx="18" fill="rgba(13,22,63,0.55)" stroke="rgba(255,255,255,0.10)"/>
-                      <circle cx="44" cy="44" r="22" fill="rgba(255,255,255,0.18)"/>
-                      <rect x="80" y="26" width="170" height="12" rx="6" fill="rgba(255,255,255,0.55)"/>
-                      <rect x="80" y="50" width="210" height="10" rx="5" fill="rgba(255,255,255,0.28)"/>
-                      <rect x="24" y="82" width="120" height="24" rx="12" fill="#27D3BC" opacity="0.9"/>
-                      <rect x="154" y="82" width="110" height="24" rx="12" fill="rgba(255,255,255,0.12)"/>
-                    </g>
-                  </svg>
-                </div>
-              </div>
-
-
-              <div className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-2)] p-5 shadow-none sm:p-6">
-                <div className="text-sm font-semibold text-[#F9FAFB]">Get your shortlist</div>
-                <p className="mt-1 text-sm text-[#CBD5E1]">
-                  Choose a fast path or go deeper for more tailored match reasons.
-                </p>
-
-                <div className="mt-5 grid grid-cols-1 gap-3">
-                  <div className="rounded-2xl border border-[#1F2937] bg-[#0F172A] p-4">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <div className="text-sm font-semibold text-[#F9FAFB]">Get Quick Recommendation</div>
-                        <div className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
-                          2–3 minutes. Ideal if you want a starting shortlist.
-                        </div>
-                      </div>
-                      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[#CBD5E1]">
-                        Quick
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <ButtonLink href="/recommend?mode=quick" variant="primary" size="md" className="w-full justify-center">
-                        Start quick →
-                      </ButtonLink>
-                    </div>
+              <div className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-2)]/70 p-6">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="text-xs font-semibold tracking-wide text-[var(--text-muted)]">PREVIEW</div>
+                    <div className="mt-1 text-sm font-semibold text-[var(--text)]">Payroll & Compliance shortlist</div>
                   </div>
-
-                  <div className="rounded-2xl border border-[#1F2937] bg-[#0F172A] p-4">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <div className="text-sm font-semibold text-[#F9FAFB]">Start Detailed Recommendation</div>
-                        <div className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
-                          6–10 minutes. Better if compliance, integrations, or rollout complexity matters.
-                        </div>
-                      </div>
-                      <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[#CBD5E1]">
-                        Detailed
-                      </div>
-                    </div>
-                    <div className="mt-4">
-                      <ButtonLink href="/recommend?mode=detailed" variant="secondary" size="md" className="w-full justify-center">
-                        Start detailed →
-                      </ButtonLink>
-                    </div>
+                  <div className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
+                    Evidence-first
                   </div>
                 </div>
 
-                <div className="mt-5 rounded-xl border border-[#1F2937] bg-[var(--surface-2)] p-4">
-                  <div className="text-xs font-semibold text-[#F9FAFB]">Pro tip</div>
-                  <div className="mt-1 text-xs leading-relaxed text-[#94A3B8]">
-                    If you already have 2–3 tools in mind, add them to Compare and evaluate exports, workflows, and month-end reliability.
+                <div className="mt-4 rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
+                  <div className="text-xs font-semibold text-[var(--text-muted)]">Top pick</div>
+                  <div className="mt-2 flex items-start justify-between gap-3">
+                    <div>
+                      <div className="text-sm font-semibold text-[var(--text)]">Keka</div>
+                      <div className="mt-1 text-xs text-[var(--text-muted)]">PF/ESI/PT + month-end controls</div>
+                    </div>
+                    <div className="rounded-full border border-[rgba(39,211,188,0.35)] bg-[rgba(39,211,188,0.12)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
+                      Verified recently
+                    </div>
                   </div>
-                  <div className="mt-3">
-                    <ButtonLink href="/tools" variant="tertiary" size="sm" className="w-full justify-center">
-                      Browse tools →
-                    </ButtonLink>
+
+                  <div className="mt-3 grid grid-cols-1 gap-2">
+                    {[
+                      "Matches your state complexity",
+                      "Supports payroll edge cases",
+                      "Evidence-backed compliance claims",
+                    ].map((x) => (
+                      <div key={x} className="flex items-start gap-2 text-xs text-[var(--text-muted)]">
+                        <span className="mt-[2px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-[rgba(124,77,255,0.18)] text-[var(--text)]">✓</span>
+                        <span>{x}</span>
+                      </div>
+                    ))}
                   </div>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {["Per employee / month", "India-ready", "GST"].map((x) => (
+                      <span key={x} className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text)]">
+                        {x}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  <ButtonLink href="/recommend" size="md" className="w-full justify-center">
+                    Get recommendations
+                  </ButtonLink>
+                  <ButtonLink href="/tools" variant="secondary" size="md" className="w-full justify-center">
+                    Browse directory
+                  </ButtonLink>
+                </div>
+
+                <div className="mt-4 text-xs leading-relaxed text-[var(--text-muted)]">
+                  Privacy-first: we don’t blast your details to every vendor.
                 </div>
               </div>
 
@@ -259,6 +189,30 @@ export default async function Home() {
         </div>
 
         <div className="mt-10 space-y-6">
+          <div className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-1)]/60 p-5 sm:p-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              {[
+                {
+                  k: "Verified signals",
+                  v: "Badges reflect evidence + freshness — not marketing claims.",
+                },
+                {
+                  k: "Explainable fit",
+                  v: "Every pick includes ‘why shortlisted’ + what to validate next.",
+                },
+                {
+                  k: "No vendor spam",
+                  v: "We route you to one best-fit vendor after review.",
+                },
+              ].map((x) => (
+                <div key={x.k} className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-2)]/70 p-4">
+                  <div className="text-sm font-semibold text-[var(--text)]">{x.k}</div>
+                  <div className="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">{x.v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <TrustStrip />
           <VendorLogoStrip title="Popular vendors" subtitle="A few commonly evaluated vendors in the India-first HR stack." />
         </div>

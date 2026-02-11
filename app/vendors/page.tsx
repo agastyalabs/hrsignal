@@ -30,8 +30,8 @@ function prettyPricingKey(key: string) {
   const map: Record<string, string> = {
     per_employee_month: "Per employee / month",
     per_company_month: "Per company / month",
-    one_time: "One-time",
-    quote_based: "Quote-based",
+    one_time: "One-time license",
+    quote_based: "Custom quote",
   };
   return map[key] ?? key;
 }
@@ -283,8 +283,8 @@ export default async function VendorsPage({
                 <option value="">All</option>
                 <option value="per_employee_month">Per employee / month</option>
                 <option value="per_company_month">Per company / month</option>
-                <option value="one_time">One-time</option>
-                <option value="quote_based">Quote-based</option>
+                <option value="one_time">One-time license</option>
+                <option value="quote_based">Custom quote</option>
               </select>
             </div>
 
@@ -366,8 +366,8 @@ export default async function VendorsPage({
         ) : null}
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((v) => (
-            <VendorCard key={v.id} vendor={v} />
+          {filtered.map((v, idx) => (
+            <VendorCard key={v.id} vendor={{ ...v, rank: idx + 1 }} />
           ))}
         </div>
       </Section>

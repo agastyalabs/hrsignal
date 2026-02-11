@@ -11,9 +11,9 @@ export function pricingTypeLabel(type: PricingType): string {
     case "per_company_month":
       return "Per company / month";
     case "one_time":
-      return "One-time";
+      return "One-time license";
     case "quote_based":
-      return "Quote-based";
+      return "Custom quote";
   }
 }
 

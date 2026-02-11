@@ -18,6 +18,9 @@ export type VendorCardModel = {
   pricingType?: import("@/lib/pricing/format").PricingType;
   pricingText?: string;
 
+  // Optional UI ranking metadata (list page only)
+  rank?: number;
+
   // Trust mini-row
   verifiedInIndia?: boolean;
   trustLevel?: "verified" | "partial" | "unverified";
@@ -50,7 +53,7 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
           </div>
 
           <div className="min-w-0">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <Link
                 href={`/vendors/${vendor.slug}`}
                 className="truncate text-base font-semibold text-[var(--text)] hover:underline"
@@ -58,6 +61,18 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
                 {vendor.name}
               </Link>
               <span className="text-xs font-semibold text-[var(--text-muted)]">• {vendor.toolsCount} tools</span>
+
+              {typeof vendor.rank === "number" ? (
+                <span className="rounded-full border border-[rgba(124,77,255,0.24)] bg-[rgba(124,77,255,0.14)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">
+                  #{vendor.rank}
+                </span>
+              ) : null}
+
+              {vendor.verifiedInIndia ? (
+                <span className="rounded-full border border-[rgba(39,211,188,0.30)] bg-[rgba(39,211,188,0.12)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">
+                  High fit (India)
+                </span>
+              ) : null}
             </div>
 
             {/* (2) 1-line descriptor */}
