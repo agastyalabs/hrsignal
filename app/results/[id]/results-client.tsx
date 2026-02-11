@@ -485,7 +485,7 @@ export default function ResultsClient({
                 }
 
                 setSent(true);
-                toast({ type: "success", title: "Request received", description: "We’ll share one best-fit vendor shortly." });
+                // Inline success state is shown below; avoid global toast for success.
               } catch {
                 const msg = "Something went wrong on our side. Please try again in a minute.";
                 setError(msg);
@@ -533,7 +533,20 @@ export default function ResultsClient({
             </div>
 
             {error ? <p className="text-sm text-red-600">{error}</p> : null}
-            {sent ? <p className="text-sm text-green-700">Thanks — we’ll share one best-fit vendor shortly.</p> : null}
+            <div className={`transition-opacity duration-200 ${sent ? "opacity-100" : "opacity-0"}`} aria-hidden={!sent}>
+              {sent ? (
+                <div className="flex items-start gap-2 text-sm text-emerald-300">
+                  <svg viewBox="0 0 20 20" fill="currentColor" className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true">
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.707a1 1 0 00-1.414-1.414L9 10.172 7.707 8.879a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <div>Request received. We will share one best-fit vendor shortly.</div>
+                </div>
+              ) : null}
+            </div>
 
             <Button disabled={sending || sent}>
               {sent ? "Submitted" : sending ? "Submitting…" : "Submit"}
