@@ -17,14 +17,49 @@ export type StructuredLeadPayloadV1 = {
   source: "sticky_cta";
 };
 
+function computeDecisionBrief(payload: StructuredLeadPayloadV1): {
+  complexityTier: "Low" | "Medium" | "High";
+  complianceRisk: "Low" | "Medium" | "High";
+  recommendedVendorTier: "SMB" | "Mid" | "Enterprise";
+  checkpoints: string[];
+} {
+  const multiState = payload.statesCount !== "1";
+  const statutory = payload.pfEsiApplicability === "both" || payload.pfEsiApplicability === "pf" || payload.pfEsiApplicability === "esi";
+  const contractors = payload.contractWorkers === "yes";
+
+  let score = 0;
+  if (multiState) score += 2;
+  if (statutory) score += 2;
+  if (contractors) score += 2;
+  if (payload.payrollFrequency !== "monthly") score += 1;
+
+  const complexityTier = score >= 5 ? "High" : score >= 3 ? "Medium" : "Low";
+
+  const complianceRisk =
+    complexityTier === "High" ? "High" :
+    complexityTier === "Medium" ? "Medium" :
+    statutory ? "Medium" : "Low";
+
+  const recommendedVendorTier =
+    payload.headcountRange === "1001+" ? "Enterprise" :
+    payload.headcountRange === "201-1000" ? "Mid" :
+    "SMB";
+
+  const checkpoints = [
+    "Validate arrears/reversals/cutoffs with real month-end scenarios",
+    multiState ? "Confirm state-wise PF/ESI/PT mapping + statutory registers" : "Confirm PF/ESI/PT scope and statutory outputs",
+    contractors ? "Confirm contract worker handling (wage components, compliance, audits)" : "Confirm audit trail + approval workflow for payroll edits",
+  ];
+
+  return { complexityTier, complianceRisk, recommendedVendorTier, checkpoints };
+}
+
 export function StructuredLeadModal({
   open,
   onClose,
-  onSubmitted,
 }: {
   open: boolean;
   onClose: () => void;
-  onSubmitted?: (payload: StructuredLeadPayloadV1) => void;
 }) {
   const [headcountRange, setHeadcountRange] = React.useState("20-200");
   const [statesCount, setStatesCount] = React.useState("1");
@@ -32,6 +67,8 @@ export function StructuredLeadModal({
   const [pfEsiApplicability, setPfEsiApplicability] = React.useState("both");
   const [contractWorkers, setContractWorkers] = React.useState<"yes" | "no">("no");
   const [timeline, setTimeline] = React.useState("30d");
+  const [stage, setStage] = React.useState<"form" | "brief">("form");
+  const [lastPayload, setLastPayload] = React.useState<StructuredLeadPayloadV1 | null>(null);
 
   React.useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -41,6 +78,13 @@ export function StructuredLeadModal({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+
+  React.useEffect(() => {
+    if (!open) return;
+    // Reset whenever the modal opens.
+    setStage("form");
+    setLastPayload(null);
+  }, [open]);
 
   if (!open) return null;
 
@@ -71,16 +115,18 @@ export function StructuredLeadModal({
           <div className="mt-1 text-sm text-[var(--text-muted)]">Share a few constraints so we can tailor the shortlist for India payroll complexity.</div>
         </div>
 
-        <form
-          className="space-y-4 p-5"
-          onSubmit={(e) => {
-            e.preventDefault();
-            // Temporary stub: log structured payload only (no routing/vendor sharing yet).
-            console.log("HRSignal structured lead v1", payload);
-            onSubmitted?.(payload);
-          }}
-        >
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {stage === "form" ? (
+          <form
+            className="space-y-4 p-5"
+            onSubmit={(e) => {
+              e.preventDefault();
+              // Temporary stub: log structured payload only (no routing/vendor sharing yet).
+              console.log("HRSignal structured lead v1", payload);
+              setLastPayload(payload);
+              setStage("brief");
+            }}
+          >
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="text-xs font-semibold text-[var(--text-muted)]">Headcount range</label>
               <Select className="mt-1" value={headcountRange} onChange={(e) => setHeadcountRange(e.target.value)}>
@@ -145,19 +191,74 @@ export function StructuredLeadModal({
             </div>
           </div>
 
-          <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-end">
-            <Button type="button" variant="secondary" className="w-full sm:w-auto" onClick={onClose}>
-              Cancel
-            </Button>
-            <Button type="submit" variant="primary" className="w-full sm:w-auto">
-              Submit
-            </Button>
-          </div>
+            <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-end">
+              <Button type="button" variant="secondary" className="w-full sm:w-auto" onClick={onClose}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="primary" className="w-full sm:w-auto">
+                Submit
+              </Button>
+            </div>
 
-          <div className="text-xs text-[var(--text-muted)]">
-            Privacy-first. This only logs a structured payload for now — no automatic vendor sharing.
+            <div className="text-xs text-[var(--text-muted)]">
+              Privacy-first. This only logs a structured payload for now — no automatic vendor sharing.
+            </div>
+          </form>
+        ) : (
+          <div className="space-y-4 p-5">
+            <div className="text-sm font-semibold text-[var(--text)]">Decision Brief (India payroll context)</div>
+            <div className="text-sm text-[var(--text-muted)]">
+              A quick read based on your inputs — use it to focus your demos on month-end risk.
+            </div>
+
+            {(() => {
+              const p = lastPayload;
+              if (!p) return <div className="text-sm text-[var(--text-muted)]">—</div>;
+              const brief = computeDecisionBrief(p);
+              return (
+                <div className="grid grid-cols-1 gap-3">
+                  <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Complexity tier</div>
+                    <div className="mt-1 text-sm font-semibold text-[var(--text)]">{brief.complexityTier}</div>
+                  </div>
+                  <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Compliance risk level</div>
+                    <div className="mt-1 text-sm font-semibold text-[var(--text)]">{brief.complianceRisk}</div>
+                  </div>
+                  <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Recommended vendor tier</div>
+                    <div className="mt-1 text-sm font-semibold text-[var(--text)]">{brief.recommendedVendorTier}</div>
+                  </div>
+
+                  <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Validation checkpoints</div>
+                    <ul className="mt-2 space-y-2 text-sm text-[var(--text-muted)]">
+                      {brief.checkpoints.slice(0, 3).map((c) => (
+                        <li key={c}>• {c}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              );
+            })()}
+
+            <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-end">
+              <Button type="button" variant="secondary" className="w-full sm:w-auto" onClick={onClose}>
+                Close
+              </Button>
+              <Button
+                type="button"
+                variant="primary"
+                className="w-full sm:w-auto"
+                onClick={() => {
+                  window.location.assign("/recommend");
+                }}
+              >
+                See matched vendors
+              </Button>
+            </div>
           </div>
-        </form>
+        )}
       </Card>
     </div>
   );

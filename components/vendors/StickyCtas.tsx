@@ -7,7 +7,6 @@ import { StructuredLeadModal } from "@/components/leads/StructuredLeadModal";
 
 export function StickyCtas({
   compareHref,
-  shortlistHref,
 }: {
   compareHref: string | null;
   shortlistHref: string;
@@ -43,15 +42,7 @@ export function StickyCtas({
 
       <div className="mt-3 text-xs leading-5 text-[var(--text-muted)]">Tip: export works best from desktop Chrome/Edge.</div>
 
-      <StructuredLeadModal
-        open={open}
-        onClose={() => setOpen(false)}
-        onSubmitted={() => {
-          setOpen(false);
-          // Keep existing routing: proceed to the shortlist flow.
-          window.location.assign(shortlistHref);
-        }}
-      />
+      <StructuredLeadModal open={open} onClose={() => setOpen(false)} />
     </div>
   );
 }
