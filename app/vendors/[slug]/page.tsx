@@ -19,6 +19,7 @@ import { Markdownish } from "@/app/resources/Markdownish";
 import { EvidenceLinks } from "@/components/vendors/EvidenceLinks";
 import { StickyCtas } from "@/components/vendors/StickyCtas";
 import { ScorePill } from "./ScorePill";
+import { FitWeightRow } from "./FitWeightRow";
 import { getResearchedVendorProfile } from "@/lib/vendors/researched";
 import type { Metadata } from "next";
 import { absUrl } from "@/lib/seo/url";
@@ -527,6 +528,32 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                       ))}
                     </ul>
                   </div>
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="text-sm font-semibold text-[var(--text)]">How this score is calculated</div>
+                    <div className="mt-1 text-sm text-[var(--text-muted)]">
+                      Weighted for India payroll context.
+                    </div>
+                  </div>
+                  <span
+                    className="mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] text-xs font-semibold text-[var(--text-muted)]"
+                    title="Weights are tuned for India payroll context and prioritize statutory edge cases and verification signals."
+                    aria-label="About fit score weights"
+                  >
+                    ?
+                  </span>
+                </div>
+
+                <div className="mt-4 space-y-3">
+                  <FitWeightRow label="India compliance" weight={30} />
+                  <FitWeightRow label="Evidence depth" weight={20} />
+                  <FitWeightRow label="Integration visibility" weight={15} />
+                  <FitWeightRow label="Freshness" weight={10} />
+                  <FitWeightRow label="Payroll edge-case readiness" weight={25} />
                 </div>
               </div>
             </div>
