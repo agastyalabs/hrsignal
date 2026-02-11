@@ -12,7 +12,7 @@ export function HomeSection({
   containerClassName?: string;
 }) {
   return (
-    <section className={`py-12 sm:py-16 lg:py-20 ${className}`}>
+    <section className={`py-10 sm:py-12 lg:py-14 ${className}`}>
       <Container className={containerClassName}>{children}</Container>
     </section>
   );

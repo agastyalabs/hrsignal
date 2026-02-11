@@ -79,7 +79,7 @@ export function CompareTray() {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--border-soft)] bg-[rgba(15,24,66,0.82)] text-[var(--text)] backdrop-blur"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--border-soft)] bg-[rgba(10,14,24,0.86)] text-[var(--text)] backdrop-blur"
       role="region"
       aria-label="Comparison tray"
     >
@@ -87,12 +87,12 @@ export function CompareTray() {
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <div className="text-sm font-semibold text-[var(--text)]">Compare</div>
-            <span className="rounded-full bg-[var(--accent)] px-2 py-0.5 text-xs font-semibold text-[var(--bg)]" aria-label={`${count} tools selected`}>
+            <span className="rounded-full bg-[var(--primary)] px-2 py-0.5 text-xs font-semibold text-white" aria-label={`${count} tools selected`}>
               {count}
             </span>
             <button
               type="button"
-              className="ml-2 text-xs font-medium text-[var(--text-muted)] underline decoration-[rgba(255,255,255,0.25)] underline-offset-2 hover:text-[var(--text)]"
+              className="ml-2 text-xs font-medium text-[var(--text-muted)] underline decoration-[var(--border-soft)] underline-offset-2 hover:text-[var(--text)]"
               onClick={() => {
                 clearCompare();
               }}

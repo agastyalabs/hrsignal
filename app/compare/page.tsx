@@ -226,12 +226,12 @@ export default async function ComparePage({
         <Container>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">Compare tools</h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
+              <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">Compare tools</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
                 Compare up to 5 tools side-by-side. Use “differences only” to scan faster.
               </p>
             </div>
-            <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/tools">
+            <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline" href="/tools">
               Browse tools
             </Link>
           </div>
@@ -240,17 +240,17 @@ export default async function ComparePage({
 
           <div className="mt-6 overflow-x-auto rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-1)]">
             <table className="min-w-[880px] w-full text-sm">
-              <thead className="sticky top-[64px] z-10 bg-white">
-                <tr className="border-b border-zinc-200">
-                  <th className="sticky left-0 w-56 bg-white p-4 text-left text-xs font-semibold text-zinc-500">
+              <thead className="sticky top-[64px] z-10 bg-[var(--surface-1)]">
+                <tr className="border-b border-[var(--border-soft)]">
+                  <th className="sticky left-0 w-56 bg-[var(--surface-1)] p-4 text-left text-xs font-semibold text-[var(--text-muted)]">
                     Attribute
                   </th>
                   {tools.map((t) => (
                     <th key={t.slug} className="p-4 text-left align-top">
-                      <div className="text-sm font-semibold text-zinc-900">{t.name}</div>
-                      {t.vendorName ? <div className="mt-1 text-xs text-zinc-500">by {t.vendorName}</div> : null}
+                      <div className="text-sm font-semibold text-[var(--text)]">{t.name}</div>
+                      {t.vendorName ? <div className="mt-1 text-xs text-[var(--text-muted)]">by {t.vendorName}</div> : null}
                       <div className="mt-3">
-                        <Link className="text-xs font-medium text-indigo-700 hover:underline" href={`/tools/${t.slug}`}>
+                        <Link className="text-xs font-medium text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline" href={`/tools/${t.slug}`}>
                           View details →
                         </Link>
                       </div>
@@ -261,10 +261,10 @@ export default async function ComparePage({
               <tbody>
                 {sectionsFiltered.flatMap((section) => {
                   const header = (
-                    <tr key={section.id} className="border-b border-zinc-200">
+                    <tr key={section.id} className="border-b border-[var(--border-soft)]">
                       <td
                         colSpan={tools.length + 1}
-                        className="bg-zinc-50 px-4 py-2 text-xs font-semibold text-zinc-700"
+                        className="bg-[var(--surface-2)] px-4 py-2 text-xs font-semibold text-[var(--text)]"
                       >
                         {section.label}
                       </td>
@@ -272,13 +272,13 @@ export default async function ComparePage({
                   );
 
                   const rows = section.rows.map((r) => (
-                    <tr key={`${section.id}:${r.key}`} className="border-b border-zinc-200 last:border-0">
-                      <td className="sticky left-0 bg-white p-4 align-top text-xs font-semibold text-zinc-500">
+                    <tr key={`${section.id}:${r.key}`} className="border-b border-[var(--border-soft)] last:border-0">
+                      <td className="sticky left-0 bg-[var(--surface-1)] p-4 align-top text-xs font-semibold text-[var(--text-muted)]">
                         {r.label}
                       </td>
                       {tools.map((t) => (
-                        <td key={t.slug} className="p-4 align-top text-zinc-700">
-                          <pre className="whitespace-pre-wrap font-sans text-sm">{r.value(t)}</pre>
+                        <td key={t.slug} className="p-4 align-top text-[var(--text)]">
+                          <pre className="whitespace-pre-wrap font-sans text-sm text-[var(--text)]">{r.value(t)}</pre>
                         </td>
                       ))}
                     </tr>
