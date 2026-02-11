@@ -9,6 +9,7 @@ import { Section } from "@/components/layout/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { VendorCard } from "@/components/catalog/VendorCard";
+import { Button, ButtonLink } from "@/components/ui/Button";
 import { VendorCompareTray } from "@/components/vendor-compare/VendorCompareTray";
 
 import { indiaOnlyFromSearchParams } from "@/lib/india/mode";
@@ -301,17 +302,12 @@ export default async function VendorsPage({
             <input type="hidden" name="india" value={indiaOnly ? "1" : "0"} />
 
             <div className="flex items-end gap-3">
-              <button
-                className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 py-2.5 text-sm font-semibold leading-tight text-white hover:bg-[var(--primary-hover)]"
-              >
+              <Button type="submit" size="md" variant="primary">
                 Apply
-              </button>
-              <Link
-                className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 py-2.5 text-sm font-semibold leading-tight text-[var(--text)] hover:bg-[var(--surface-2)]"
-                href="/vendors"
-              >
+              </Button>
+              <ButtonLink href="/vendors" size="md" variant="secondary">
                 Clear all
-              </Link>
+              </ButtonLink>
             </div>
 
             <div className="ml-auto pb-[2px] text-xs font-semibold text-[var(--text-muted)]">
