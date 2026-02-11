@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="180" viewBox="0 0 840 180" fill="none">
+  <defs>
+    <linearGradient id="g" x1="24" y1="24" x2="156" y2="156" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C4DFF"/>
+      <stop offset="1" stop-color="#7C4DFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Mark: hex + bold S -->
+  <path d="M90 24l57 33v66l-57 33-57-33V57l57-33z" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.10)"/>
+  <path d="M124 62c-9-10-22-16-38-16-21 0-36 10-36 25 0 14 10 21 30 25l16 3c11 2 16 6 16 12 0 9-9 14-23 14-14 0-24-5-31-13" stroke="#FAFBFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M60 124c9 10 22 16 38 16 23 0 38-11 38-27" stroke="#27D3BC" stroke-width="10" stroke-linecap="round" opacity="0.95"/>
+
+  <!-- Wordmark -->
+  <g transform="translate(190 0)">
+    <text x="0" y="112" fill="#FAFBFF" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="72" font-weight="800" letter-spacing="-0.02em">HRSignal</text>
+    <text x="2" y="146" fill="rgba(250,251,255,0.72)" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="18" font-weight="600" letter-spacing="0.02em">Explainable HR software recommendations</text>
+  </g>
+</svg>

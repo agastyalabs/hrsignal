@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="180" viewBox="0 0 840 180" fill="none">
+  <defs>
+    <linearGradient id="g" x1="36" y1="24" x2="156" y2="156" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C4DFF"/>
+      <stop offset="1" stop-color="#27D3BC"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Mark -->
+  <g filter="url(#shadow)">
+    <rect x="24" y="24" width="132" height="132" rx="36" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.10)"/>
+    <path d="M120 64c-9-10-22-16-38-16-22 0-38 10-38 26 0 14 11 21 31 25l18 3c12 2 17 6 17 12 0 9-10 14-24 14-14 0-25-5-32-14" stroke="url(#g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M52 118c8 11 23 18 40 18 24 0 40-11 40-28 0-14-10-22-31-26l-18-3c-11-2-17-5-17-11 0-8 9-13 22-13 12 0 22 4 29 12" stroke="#FAFBFF" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(190 0)">
+    <text x="0" y="112" fill="#FAFBFF" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="72" font-weight="800" letter-spacing="-0.02em">HRSignal</text>
+    <text x="2" y="146" fill="rgba(250,251,255,0.72)" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="18" font-weight="600" letter-spacing="0.02em">India-first HR software discovery</text>
+  </g>
+</svg>

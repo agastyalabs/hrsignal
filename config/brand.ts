@@ -1,6 +1,9 @@
 export const BRAND = {
   name: "HRSignal",
-  logo: "/brand/hrsignal-logo.svg",
-  logoDark: "/brand/hrsignal-logo-dark.svg",
-  mark: "/brand/hrsignal-mark.svg",
+
+  // Premium logo pack (Feb 2026)
+  // Options live in /public/brand/hrsignal-v2-option-*.svg
+  logo: "/brand/hrsignal-v2-option-a.svg",
+  logoDark: "/brand/hrsignal-v2-option-a.svg",
+  mark: "/brand/hrsignal-v2-mark.svg",
 } as const;
