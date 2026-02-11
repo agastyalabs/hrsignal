@@ -9,17 +9,23 @@ import { Input, Select } from "@/components/ui/Input";
 type SizeBand = "20-50" | "51-200" | "201-500" | "501-1000";
 type Role = "HR" | "Finance" | "Founder";
 
+type SourcePage = "homepage" | "payroll-india" | "scanner";
+
 export function ChecklistDownloadCard({
   title = "India Payroll Risk Checklist (PDF)",
   description = "Get a practical checklist to validate PF/ESI/PT/TDS scope, month-end controls, and audit readiness.",
+  sourcePage,
 }: {
   title?: string;
   description?: string;
+  sourcePage: SourcePage;
 }) {
   const [email, setEmail] = React.useState("");
   const [size, setSize] = React.useState<SizeBand>("51-200");
   const [role, setRole] = React.useState<Role>("HR");
   const [submitted, setSubmitted] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   return (
     <Card className="border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none">
@@ -33,10 +39,35 @@ export function ChecklistDownloadCard({
       {!submitted ? (
         <form
           className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-12 lg:items-end"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            // No backend yet (v1). Keep local state only.
-            setSubmitted(true);
+            setError(null);
+            setLoading(true);
+            try {
+              const res = await fetch("/api/leads/checklist", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({
+                  email,
+                  companySize: size,
+                  role,
+                  sourcePage,
+                }),
+              });
+
+              const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+              if (!res.ok || !data?.ok) {
+                setError(data?.error || "Something went wrong. Please try again.");
+                return;
+              }
+
+              setSubmitted(true);
+            } catch (e2) {
+              const msg = e2 instanceof Error ? e2.message : "Network error";
+              setError(msg);
+            } finally {
+              setLoading(false);
+            }
           }}
         >
           <div className="lg:col-span-6">
@@ -71,8 +102,10 @@ export function ChecklistDownloadCard({
           </div>
 
           <div className="lg:col-span-12">
-            <Button type="submit" variant="primary" className="w-full justify-center sm:w-auto">
-              Email me the checklist
+            {error ? <div className="text-sm text-red-300">{error}</div> : null}
+
+            <Button type="submit" variant="primary" className="w-full justify-center sm:w-auto" disabled={loading}>
+              {loading ? "Sending…" : "Email me the checklist"}
             </Button>
             <div className="mt-2 text-xs text-[var(--text-muted)]">No spam. No paid ranking. Unsubscribe anytime.</div>
           </div>

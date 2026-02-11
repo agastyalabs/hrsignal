@@ -219,7 +219,7 @@ export default function PayrollRiskScannerPage() {
                 </div>
               </Card>
 
-              <ChecklistDownloadCard />
+              <ChecklistDownloadCard sourcePage="scanner" />
 
               <div className="text-xs text-[var(--text-muted)]">
                 Note: this scanner estimates evaluation complexity. Always validate evidence links, last-verified recency, and month-end edge cases.

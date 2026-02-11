@@ -257,7 +257,7 @@ export default function PayrollIndiaPillarPage() {
               </section>
 
               <section className="space-y-3">
-                <ChecklistDownloadCard />
+                <ChecklistDownloadCard sourcePage="payroll-india" />
               </section>
 
               <section className="space-y-3">

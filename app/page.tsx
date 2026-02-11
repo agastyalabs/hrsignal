@@ -226,7 +226,7 @@ export default async function Home() {
           </div>
 
           <div className="mt-6">
-            <ChecklistDownloadCard />
+            <ChecklistDownloadCard sourcePage="homepage" />
           </div>
         </div>
       </HomeSection>
