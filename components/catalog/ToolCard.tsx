@@ -32,7 +32,7 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
 
   return (
     <Link href={`/tools/${tool.slug}`} className="block">
-      <Card className="h-full p-6">
+      <Card className="h-full p-5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 items-start gap-3">
             <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-2)]">

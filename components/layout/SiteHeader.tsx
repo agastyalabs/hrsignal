@@ -79,9 +79,18 @@ export function SiteHeader() {
     >
       <Container className="flex items-center justify-between gap-4 py-4">
         <Link href="/" className="shrink-0" aria-label="HRSignal home">
-          <span className="flex items-center gap-2">
-            <Image src={BRAND.logo} alt={BRAND.name} width={160} height={32} priority className="h-8 w-auto" />
-            <span className="hidden text-sm font-semibold text-[#F9FAFB] sm:inline">{BRAND.name}</span>
+          <span className="flex items-center gap-3">
+            <Image
+              src={BRAND.logo}
+              alt={BRAND.name}
+              width={196}
+              height={40}
+              priority
+              className="h-9 w-auto drop-shadow-[0_6px_24px_rgba(0,0,0,0.35)] sm:h-10"
+            />
+            <span className="hidden text-sm font-semibold tracking-tight text-[var(--text)] sm:inline">
+              {BRAND.name}
+            </span>
           </span>
         </Link>
 

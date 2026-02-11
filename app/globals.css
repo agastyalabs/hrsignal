@@ -20,7 +20,8 @@
   /* Text + borders */
   --text: #F7F9FF;
   --text-muted: rgba(247, 249, 255, 0.78);
-  --border: rgba(255, 255, 255, 0.14);
+  --border: rgba(255, 255, 255, 0.12);
+  --border-soft: rgba(255, 255, 255, 0.10);
 
   /* Focus */
   --ring: rgba(124, 77, 255, 0.42);
@@ -39,7 +40,11 @@
 /* Palette is locked for launch (dark UI). */
 
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(1200px 800px at 14% -10%, rgba(124, 77, 255, 0.16), transparent 55%),
+    radial-gradient(900px 700px at 92% 10%, rgba(39, 211, 188, 0.10), transparent 55%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 22%),
+    var(--bg);
   color: var(--text);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji";
@@ -129,7 +134,7 @@ textarea.input {
 }
 .u-card-hover:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.16);
   box-shadow: var(--glow);
 }
 
