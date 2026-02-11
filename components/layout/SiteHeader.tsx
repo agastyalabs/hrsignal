@@ -86,9 +86,9 @@ export function SiteHeader() {
               width={208}
               height={44}
               priority
-              className="h-9 w-auto drop-shadow-[0_8px_28px_rgba(0,0,0,0.45)] sm:h-10"
+              className="h-9 w-auto sm:h-10"
             />
-            <span className="hidden text-base font-semibold tracking-tight text-[var(--text)] drop-shadow-[0_2px_10px_rgba(0,0,0,0.50)] sm:inline">
+            <span className="hidden text-base font-semibold tracking-tight text-[var(--text)] sm:inline">
               {BRAND.name}
             </span>
           </span>
