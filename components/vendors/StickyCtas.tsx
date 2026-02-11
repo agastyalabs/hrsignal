@@ -1,6 +1,9 @@
 "use client";
 
+import * as React from "react";
+
 import { Button, ButtonLink } from "@/components/ui/Button";
+import { StructuredLeadModal } from "@/components/leads/StructuredLeadModal";
 
 export function StickyCtas({
   compareHref,
@@ -9,6 +12,8 @@ export function StickyCtas({
   compareHref: string | null;
   shortlistHref: string;
 }) {
+  const [open, setOpen] = React.useState(false);
+
   return (
     <div className="sticky top-24 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
       <div className="text-sm font-semibold text-[var(--text)]">Next actions</div>
@@ -21,9 +26,9 @@ export function StickyCtas({
           </ButtonLink>
         ) : null}
 
-        <ButtonLink href={shortlistHref} variant="primary" size="md" className="w-full justify-center">
+        <Button type="button" variant="primary" size="md" className="w-full justify-center" onClick={() => setOpen(true)}>
           Shortlist / get intro
-        </ButtonLink>
+        </Button>
 
         <Button
           type="button"
@@ -36,9 +41,17 @@ export function StickyCtas({
         </Button>
       </div>
 
-      <div className="mt-3 text-xs leading-5 text-[var(--text-muted)]">
-        Tip: export works best from desktop Chrome/Edge.
-      </div>
+      <div className="mt-3 text-xs leading-5 text-[var(--text-muted)]">Tip: export works best from desktop Chrome/Edge.</div>
+
+      <StructuredLeadModal
+        open={open}
+        onClose={() => setOpen(false)}
+        onSubmitted={() => {
+          setOpen(false);
+          // Keep existing routing: proceed to the shortlist flow.
+          window.location.assign(shortlistHref);
+        }}
+      />
     </div>
   );
 }
