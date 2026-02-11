@@ -3,7 +3,6 @@ import * as React from "react";
 
 import { Card } from "@/components/ui/Card";
 import { VendorLogo } from "@/components/VendorLogo";
-import { VendorCompareToggle } from "@/components/vendor-compare/VendorCompareToggle";
 import { domainFromUrl } from "@/lib/brand/logo";
 import { TrustRatingRow } from "@/components/trust/TrustRatingRow";
 
@@ -84,7 +83,6 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
 
         <div className="flex shrink-0 items-center gap-2">
           {/* keep compare toggle as a secondary control; primary CTA is below */}
-          <VendorCompareToggle slug={vendor.slug} label={vendor.name} />
         </div>
       </div>
 

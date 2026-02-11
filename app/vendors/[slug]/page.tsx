@@ -606,8 +606,20 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
               <StickyCtas compareHref={compareHref} shortlistHref="/recommend" />
 
               <div className="mt-4 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                <div className="text-sm font-semibold text-[var(--text)]">Comparison preview</div>
-                <div className="mt-1 text-sm text-[var(--text-muted)]">Common alternatives evaluated alongside {vendor.name}.</div>
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="text-sm font-semibold text-[var(--text)]">Comparison preview</div>
+                    <div className="mt-1 text-sm text-[var(--text-muted)]">Common alternatives evaluated alongside {vendor.name}.</div>
+                  </div>
+                  <Link
+                    className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline"
+                    href={`/compare/vendors?vendors=${encodeURIComponent(
+                      [slug, ...alternatives.slice(0, 2).map((a) => canonicalVendorSlug({ vendorName: a.name }))].join(",")
+                    )}`}
+                  >
+                    Compare vendors →
+                  </Link>
+                </div>
                 <div className="mt-3 space-y-2">
                   {alternatives.slice(0, 5).map((a) => {
                     const altSlug = canonicalVendorSlug({ vendorName: a.name });

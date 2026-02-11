@@ -16,7 +16,6 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { VendorCard } from "@/components/catalog/VendorCard";
 import { Button, ButtonLink } from "@/components/ui/Button";
-import { VendorCompareTray } from "@/components/vendor-compare/VendorCompareTray";
 
 import { indiaOnlyFromSearchParams } from "@/lib/india/mode";
 import { normalizePricingText, pricingTypeFromNote, type PricingType } from "@/lib/pricing/format";
@@ -403,9 +402,7 @@ export default async function VendorsPage({
           ))}
         </div>
       </Section>
-
-      <VendorCompareTray />
-      <SiteFooter />
+<SiteFooter />
     </div>
   );
 }
