@@ -247,6 +247,46 @@ export default async function CategoryDetailPage({
 
   if (!desc && !FALLBACK[slug] && !tools.length) return notFound();
 
+  const vendorLinksBySlug: Record<string, Array<{ name: string; slug: string }>> = {
+    payroll: [
+      { name: "Keka", slug: "keka" },
+      { name: "greytHR", slug: "greythr" },
+      { name: "Freshteam (Freshworks)", slug: "freshteam" },
+    ],
+    hrms: [
+      { name: "Keka", slug: "keka" },
+      { name: "Freshteam (Freshworks)", slug: "freshteam" },
+      { name: "greytHR", slug: "greythr" },
+    ],
+    attendance: [
+      { name: "Keka", slug: "keka" },
+      { name: "greytHR", slug: "greythr" },
+      { name: "Zoho People", slug: "zoho-people" },
+    ],
+    ats: [
+      { name: "Freshteam (Freshworks)", slug: "freshteam" },
+      { name: "Keka", slug: "keka" },
+      { name: "Zoho People", slug: "zoho-people" },
+    ],
+    performance: [
+      { name: "Keka", slug: "keka" },
+      { name: "greytHR", slug: "greythr" },
+      { name: "Zoho People", slug: "zoho-people" },
+    ],
+    bgv: [
+      { name: "Keka", slug: "keka" },
+      { name: "greytHR", slug: "greythr" },
+      { name: "Freshteam (Freshworks)", slug: "freshteam" },
+    ],
+    lms: [
+      { name: "Keka", slug: "keka" },
+      { name: "Zoho People", slug: "zoho-people" },
+      { name: "greytHR", slug: "greythr" },
+    ],
+  };
+
+  const vendorLinks = vendorLinksBySlug[slug] ?? [];
+
   const leaders = tools.slice(0, 6);
   const compareSlugs = leaders.slice(0, 3).map((t) => t.slug);
   const compareHref = compareSlugs.length >= 2 ? `/compare?tools=${encodeURIComponent(compareSlugs.join(","))}` : "/compare";
@@ -282,6 +322,26 @@ export default async function CategoryDetailPage({
             </Link>
           </div>
         </div>
+
+        {/* Vendor shortcuts */}
+        {vendorLinks.length ? (
+          <Card className="mt-6 border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-none">
+            <div className="text-sm font-semibold text-[var(--text)]">Vendor shortcuts</div>
+            <div className="mt-1 text-sm text-[var(--text-muted)]">Jump into vendor profiles for India payroll context and verification signals.</div>
+            <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3">
+              {vendorLinks.slice(0, 3).map((v) => (
+                <Link
+                  key={v.slug}
+                  href={`/vendors/${v.slug}`}
+                  className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 py-2 text-sm hover:bg-[var(--surface-1)]"
+                >
+                  <div className="font-semibold text-[var(--text)]">{v.name}</div>
+                  <div className="mt-0.5 text-xs text-[var(--text-muted)]">View vendor →</div>
+                </Link>
+              ))}
+            </div>
+          </Card>
+        ) : null}
 
         {/* What to evaluate (India-first) */}
         <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">

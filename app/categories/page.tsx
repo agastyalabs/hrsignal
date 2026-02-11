@@ -18,6 +18,7 @@ import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { getToolCountsByCategorySafe } from "./get-tool-counts";
 
 const FALLBACK = [
+  { slug: "payroll-india", name: "Payroll India (Guide)", desc: "India payroll complexity + vendor shortlisting guide" },
   { slug: "hrms", name: "Core HRMS", desc: "Employee lifecycle, org, docs, workflows" },
   { slug: "payroll", name: "Payroll & Compliance", desc: "PF/ESI/PT/TDS workflows and filings" },
   { slug: "attendance", name: "Attendance / Leave / Time", desc: "Shifts, biometric, field staff" },

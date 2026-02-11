@@ -113,9 +113,31 @@ export function SiteHeader() {
           <NavLink href="/vendors" active={active.vendors}>
             Vendors
           </NavLink>
-          <NavLink href="/categories" active={active.categories}>
-            Categories
-          </NavLink>
+          <details className="relative">
+            <summary className={`${navItemClass(active.categories)} ${activeUnderline(active.categories)} cursor-pointer list-none`}>Categories</summary>
+            <div className="absolute left-0 mt-2 w-64 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none">
+              <Link className="block rounded-md px-3 py-2 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)]" href="/categories">
+                View all categories
+              </Link>
+              <div className="mt-1 h-px w-full bg-[var(--border-soft)]" />
+              {[
+                { slug: "payroll-india", label: "Payroll India (Guide)" },
+                { slug: "payroll", label: "Payroll & Compliance" },
+                { slug: "hrms", label: "Core HRMS" },
+                { slug: "attendance", label: "Attendance / Leave" },
+                { slug: "ats", label: "ATS / Hiring" },
+                { slug: "performance", label: "Performance / OKR" },
+              ].map((c) => (
+                <Link
+                  key={c.slug}
+                  className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
+                  href={`/categories/${c.slug}`}
+                >
+                  {c.label}
+                </Link>
+              ))}
+            </div>
+          </details>
           <NavLink href="/resources" active={active.resources}>
             Resources
           </NavLink>
@@ -136,7 +158,7 @@ export function SiteHeader() {
 
           <div className="ml-2">
             <ButtonLink href="/recommend" variant="primary" size="sm">
-              Get recommendations
+              Find my vendor
             </ButtonLink>
           </div>
         </nav>

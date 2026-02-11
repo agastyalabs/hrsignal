@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ButtonLink } from "@/components/ui/Button";
 import { HomeSection } from "@/components/marketing/HomeSection";
 import { TalkToPayrollSpecialistSection } from "@/components/conversion/TalkToPayrollSpecialistSection";
+import { CategoryCard } from "@/components/catalog/CategoryCard";
 
 export default async function Home() {
   return (
@@ -56,7 +57,31 @@ export default async function Home() {
         <TalkToPayrollSpecialistSection href="/recommend" />
       </HomeSection>
 
-      {/* 3) Trust & proof strip */}
+      {/* 3) Browse by category */}
+      <HomeSection className="pt-0">
+        <SectionTitle title="Browse by category" subtitle="Start with the module you need — then shortlist vendors with deterministic reasons." />
+
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {[ 
+            { slug: "payroll", name: "Payroll & Compliance", desc: "PF/ESI/PT/TDS workflows and month-end controls" },
+            { slug: "hrms", name: "Core HRMS", desc: "Employee master, org, docs, approvals" },
+            { slug: "attendance", name: "Attendance / Leave", desc: "Shifts, overtime, biometric/device flows" },
+            { slug: "ats", name: "ATS / Hiring", desc: "Pipeline, interviews, offers" },
+            { slug: "performance", name: "Performance / OKR", desc: "Goals, check-ins, reviews" },
+            { slug: "payroll-india", name: "Payroll India (Guide)", desc: "India payroll complexity + shortlisting guide" },
+          ].map((c) => (
+            <CategoryCard key={c.slug} slug={c.slug} name={c.name} description={c.desc} />
+          ))}
+        </div>
+
+        <div className="mt-6">
+          <ButtonLink href="/categories" variant="secondary" size="md" className="w-full justify-center sm:w-auto">
+            View all categories
+          </ButtonLink>
+        </div>
+      </HomeSection>
+
+      {/* 4) Trust & proof strip */}
       <HomeSection className="pt-0">
         <SectionTitle
           title="Why trust HRSignal?"

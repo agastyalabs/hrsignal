@@ -814,12 +814,18 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                 </div>
                 <div className="mt-4 text-xs font-semibold text-[var(--text-muted)]">Categories</div>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  {(toolCategories.length ? toolCategories : vendor.categories.map((c) => c.name)).slice(0, 10).map((x) => (
-                    <span key={x} className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-2.5 py-1 text-xs font-medium text-[var(--text-muted)]">
-                      {x}
-                    </span>
-                  ))}
-                  {toolCategories.length === 0 && vendor.categories.length === 0 ? (
+                  {Array.from(new Map(v.tools.flatMap((t) => t.categories.map((c) => [c.category.slug, c.category.name] as const))).entries())
+                    .slice(0, 10)
+                    .map(([slug, name]) => (
+                      <Link
+                        key={slug}
+                        href={`/categories/${slug}`}
+                        className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-1)] px-2.5 py-1 text-xs font-medium text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                      >
+                        {name}
+                      </Link>
+                    ))}
+                  {v.tools.length === 0 && vendor.categories.length === 0 ? (
                     <span className="text-xs text-[var(--text-muted)]">—</span>
                   ) : null}
                 </div>

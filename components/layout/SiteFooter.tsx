@@ -55,7 +55,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/recommend">
-                  Get recommendations
+                  Find my vendor
                 </Link>
               </li>
             </ul>

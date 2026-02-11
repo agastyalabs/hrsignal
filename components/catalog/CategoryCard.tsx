@@ -44,7 +44,7 @@ export function CategoryCard({
   const Icon = iconBySlug[slug] ?? Sparkles;
 
   return (
-    <Link href={`/tools?category=${encodeURIComponent(slug)}`} className="block">
+    <Link href={`/categories/${encodeURIComponent(slug)}`} className="block">
       <Card className="h-full p-6">
         <div className="flex items-start justify-between gap-4">
           <div className="flex min-w-0 items-start gap-3">
