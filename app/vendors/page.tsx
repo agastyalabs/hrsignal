@@ -22,6 +22,13 @@ import { indiaOnlyFromSearchParams } from "@/lib/india/mode";
 import { normalizePricingText, pricingTypeFromNote, type PricingType } from "@/lib/pricing/format";
 import { canonicalVendorSlug } from "@/lib/vendors/slug";
 import { getVendorBrief } from "@/lib/vendors/brief";
+import {
+  normalizeSizeParam,
+  normalizeDeploymentParam,
+  normalizePricingMetricParam,
+  pricingTypeToMetric,
+  sizeLabel,
+} from "@/lib/filters/taxonomy";
 
 type VendorsSearchParams = {
   india?: string;
@@ -34,10 +41,11 @@ type VendorsSearchParams = {
 };
 
 function prettyPricingKey(key: string) {
+  // key is PricingMetricV1
   const map: Record<string, string> = {
-    per_employee_month: "PEPM",
+    pepm: "PEPM",
     per_company_month: "Per company / month",
-    one_time: "One-time",
+    one_time: "On‑prem one-time",
     quote_based: "Quote-based",
   };
   return map[key] ?? key;
@@ -51,10 +59,10 @@ export default async function VendorsPage({
   const sp = await searchParams;
   const indiaOnly = indiaOnlyFromSearchParams(sp);
 
-  const size = sp.size ? String(sp.size) : "";
+  const size = normalizeSizeParam(sp.size) ?? "";
   const category = sp.category ? String(sp.category) : "";
-  const deployment = sp.deployment ? String(sp.deployment) : "";
-  const pricing = sp.pricing ? String(sp.pricing) : "";
+  const deployment = normalizeDeploymentParam(sp.deployment) ?? "";
+  const pricing = normalizePricingMetricParam(sp.pricing) ?? "";
   const indiaReady = sp.indiaReady ? String(sp.indiaReady) : "";
   const sort = sp.sort ? String(sp.sort) : "recent";
 
@@ -78,10 +86,10 @@ export default async function VendorsPage({
     supportedSizeBands: string[];
   }> = [];
 
-  const sizeLabel = (band: string) => {
-    if (band === "EMP_20_200") return "51–200";
-    if (band === "EMP_50_500") return "201–500";
-    if (band === "EMP_100_1000") return "501–1000";
+  const legacyBandLabel = (band: string) => {
+    if (band === "EMP_20_200") return "20–200";
+    if (band === "EMP_50_500") return "20–200";
+    if (band === "EMP_100_1000") return "201–1000";
     return band;
   };
 
@@ -160,7 +168,7 @@ export default async function VendorsPage({
           new Set(v.tools.map((t) => normalizeDeploymentKey(t.deployment)).filter(Boolean))
         );
 
-        const pricingKey = String(type ?? "quote_based");
+        const pricingKey = pricingTypeToMetric(type ?? "quote_based");
 
         return {
           id: v.id,
@@ -180,7 +188,7 @@ export default async function VendorsPage({
           freshnessSortKey,
           sourcesCount: brief.urls.length ? brief.urls.length : null,
           lastCheckedAt: freshnessSortKey ? new Date(freshnessSortKey).toISOString() : null,
-          supportedSizeBands: (v.supportedSizeBands ?? []).map((b) => sizeLabel(String(b))),
+          supportedSizeBands: (v.supportedSizeBands ?? []).map((b) => legacyBandLabel(String(b))),
         };
       });
     } catch {
@@ -207,7 +215,9 @@ export default async function VendorsPage({
   const activePills: Array<{ key: string; label: string }> = [];
   if (indiaOnly) activePills.push({ key: "india", label: "India-first" });
   if (indiaReady === "1") activePills.push({ key: "indiaReady", label: "India-ready" });
-  if (size) activePills.push({ key: "size", label: `Size: ${size}` });
+  if (size === "smb" || size === "mid" || size === "enterprise") {
+    activePills.push({ key: "size", label: `Size: ${sizeLabel(size)}` });
+  }
   if (category) activePills.push({ key: "category", label: `Category: ${category}` });
   if (deployment) activePills.push({ key: "deployment", label: `Deployment: ${deployment}` });
   if (pricing) activePills.push({ key: "pricing", label: `Pricing: ${prettyPricingKey(pricing)}` });
@@ -260,9 +270,11 @@ export default async function VendorsPage({
               </label>
               <select id="size" name="size" defaultValue={size} className="input mt-1">
                 <option value="">All</option>
-                <option value="51–200">51–200</option>
-                <option value="201–500">201–500</option>
-                <option value="501–1000">501–1000</option>
+                <option value="smb">SMB (20–200)</option>
+                <option value="mid">Mid‑Market (201–1000)</option>
+                <option value="enterprise" disabled>
+                  Enterprise (1001+) — needs validation
+                </option>
               </select>
             </div>
 
@@ -288,9 +300,9 @@ export default async function VendorsPage({
               </label>
               <select id="deployment" name="deployment" defaultValue={deployment} className="input mt-1">
                 <option value="">All</option>
-                <option value="cloud">Cloud</option>
-                <option value="hybrid">Hybrid</option>
+                <option value="cloud">Cloud / SaaS</option>
                 <option value="onprem">On‑prem</option>
+                <option value="hybrid">Hybrid</option>
               </select>
             </div>
 
@@ -300,10 +312,10 @@ export default async function VendorsPage({
               </label>
               <select id="pricing" name="pricing" defaultValue={pricing} className="input mt-1">
                 <option value="">All</option>
-                <option value="per_employee_month">PEPM</option>
-                <option value="per_company_month">Per company / month</option>
-                <option value="one_time">One-time</option>
+                <option value="pepm">PEPM</option>
+                <option value="one_time">On‑prem one-time</option>
                 <option value="quote_based">Quote-based</option>
+                <option value="per_company_month">Per company / month</option>
               </select>
             </div>
 

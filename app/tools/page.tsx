@@ -71,48 +71,16 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
 
 import { clampCsv, indiaOnlyFromSearchParams } from "@/lib/india/mode";
 
-const SIZE_BUCKETS = [
-  "1-10",
-  "11-50",
-  "51-200",
-  "201-500",
-  "501-1000",
-  "1001-5000",
-  "5001-10000",
-  "10000+",
-] as const;
-
-type SizeBucket = (typeof SIZE_BUCKETS)[number];
-
-function isSizeBucket(v: string): v is SizeBucket {
-  return (SIZE_BUCKETS as readonly string[]).includes(v);
-}
-
-function prettySizeBucket(v: string): string {
-  if (!isSizeBucket(v)) return v;
-  if (v === "10000+") return "10,000+";
-  const [a, b] = v.split("-");
-  if (a && b) {
-    const left = a === "5001" ? "5001" : a;
-    const right = b === "10000" ? "10,000" : b;
-    return `${left}–${right}`;
-  }
-  return v;
-}
-
-function mapSizeBucketToLegacyBands(v: string): string[] {
-  // IMPORTANT: we keep DB enums as-is (legacy BuyerSizeBand values).
-  // These buckets are a P0 UX improvement; matching is best-effort.
-  if (!isSizeBucket(v)) return [];
-
-  if (v === "1-10" || v === "11-50" || v === "51-200") return ["EMP_20_200"];
-  if (v === "201-500") return ["EMP_50_500"];
-  if (v === "501-1000") return ["EMP_100_1000"];
-
-  // For 1001+ buckets we don't have a dedicated band in DB yet.
-  // Best-effort: include the largest available legacy band.
-  return ["EMP_100_1000"];
-}
+import {
+  normalizeSizeParam,
+  mapSizeBucketToLegacyBands,
+  sizeLabel,
+  normalizeDeploymentParam,
+  deploymentToPrismaEnum,
+  normalizePricingMetricParam,
+  pricingTypeToMetric,
+  normalizeEvidenceParam,
+} from "@/lib/filters/taxonomy";
 
 
 export default async function ToolsPage({
@@ -136,10 +104,14 @@ export default async function ToolsPage({
   const q = sp.q?.trim();
   const sort = sp.sort?.trim() === "recent" ? "recent" : "name";
 
-  const sizeBucket = (sp.size ?? "").trim();
+  const sizeBucket = normalizeSizeParam(sp.size) ?? null;
   const sizeQueryBands = sizeBucket ? mapSizeBucketToLegacyBands(sizeBucket) : [];
-  const sizeLabel = sizeBucket ? prettySizeBucket(sizeBucket) : "Any";
-  const deployment = sp.deployment?.trim() || "";
+  const sizeLabelText = sizeBucket ? sizeLabel(sizeBucket) : "Any";
+
+  const deployment = normalizeDeploymentParam(sp.deployment) ?? null;
+  const pricingMetric = normalizePricingMetricParam((sp as Record<string, unknown>).pricing as string | undefined) ?? null;
+  const evidence = normalizeEvidenceParam((sp as Record<string, unknown>).evidence as string | undefined) ?? null;
+
   const modules = clampCsv(sp.modules, 10);
   const compliance = clampCsv(sp.compliance, 20);
   const region = sp.region?.trim() || "";
@@ -196,7 +168,7 @@ export default async function ToolsPage({
             : {}),
           ...(deployment
             ? {
-                deployment: deployment as never,
+                deployment: deploymentToPrismaEnum(deployment) as never,
               }
             : {}),
           ...(compliance.length
@@ -204,6 +176,15 @@ export default async function ToolsPage({
                 indiaComplianceTags: { hasSome: compliance },
               }
             : {}),
+          ...(evidence === "verified"
+            ? {
+                lastVerifiedAt: { not: null },
+              }
+            : evidence === "needs_validation"
+              ? {
+                  lastVerifiedAt: null,
+                }
+              : {}),
           ...(region === "multi"
             ? {
                 vendor: {
@@ -272,35 +253,64 @@ export default async function ToolsPage({
         return { type, text };
       }
 
-      tools = rows.map((t) => {
-        const categories = t.categories.map((c) => c.category.name);
-        const keyFeatures = [
-          ...new Set([
-            ...categories.slice(0, 2),
-            t.deployment ? String(t.deployment).toLowerCase() === "cloud" ? "Cloud" : "Deployment options" : null,
-            t.indiaComplianceTags?.length ? "India compliance" : null,
-          ].filter(Boolean) as string[]),
-        ].slice(0, 3);
+      tools = rows
+        .map((t) => {
+          const categories = t.categories.map((c) => c.category.name);
+          const keyFeatures = [
+            ...new Set(
+              [
+                ...categories.slice(0, 2),
+                t.deployment ? (String(t.deployment).toLowerCase() === "cloud" ? "Cloud" : "Deployment options") : null,
+                t.indiaComplianceTags?.length ? "India compliance" : null,
+              ].filter(Boolean) as string[]
+            ),
+          ].slice(0, 3);
 
-        const pricing = pricingMeta(t.name, t.pricingPlans, t.deployment);
+          const pricing = pricingMeta(t.name, t.pricingPlans, t.deployment);
 
-        return {
-          slug: t.slug,
-          name: t.name,
-          vendorName: t.vendor?.name ?? undefined,
-          vendorWebsiteUrl: t.vendor?.websiteUrl ?? undefined,
-          vendorSlug: t.vendor?.name ? slugify(t.vendor.name) : undefined,
-          categories,
-          tagline: t.tagline ?? undefined,
-          verified: Boolean(t.lastVerifiedAt),
-          lastCheckedAt: t.lastVerifiedAt ? t.lastVerifiedAt.toISOString() : null,
-          bestFor: bestForLabels(t.bestForSizeBands),
-          keyFeatures,
-          implementationTime: implementationTime(categories),
-          pricingHint: pricing.text,
-          pricingType: pricing.type,
-        } satisfies ToolCardModel;
-      });
+          return {
+            slug: t.slug,
+            name: t.name,
+            vendorName: t.vendor?.name ?? undefined,
+            vendorWebsiteUrl: t.vendor?.websiteUrl ?? undefined,
+            vendorSlug: t.vendor?.name ? slugify(t.vendor.name) : undefined,
+            categories,
+            tagline: t.tagline ?? undefined,
+            verified: Boolean(t.lastVerifiedAt),
+            lastCheckedAt: t.lastVerifiedAt ? t.lastVerifiedAt.toISOString() : null,
+            bestFor: bestForLabels(t.bestForSizeBands),
+            keyFeatures,
+            implementationTime: implementationTime(categories),
+            pricingHint: pricing.text,
+            pricingType: pricing.type,
+            // used only for in-memory filter after DB fetch
+            _pricingMetric: pricingTypeToMetric(pricing.type),
+          } as ToolCardModel & { _pricingMetric: string };
+        })
+        .filter((t) => {
+          if (!pricingMetric) return true;
+          return (t as unknown as { _pricingMetric: string })._pricingMetric === pricingMetric;
+        })
+        .map((t) => {
+          const x = t as ToolCardModel & { _pricingMetric: string };
+          const rest: ToolCardModel = {
+            slug: x.slug,
+            name: x.name,
+            vendorName: x.vendorName,
+            vendorWebsiteUrl: x.vendorWebsiteUrl,
+            vendorSlug: x.vendorSlug,
+            categories: x.categories,
+            tagline: x.tagline,
+            verified: x.verified,
+            bestFor: x.bestFor,
+            keyFeatures: x.keyFeatures,
+            implementationTime: x.implementationTime,
+            pricingHint: x.pricingHint,
+            pricingType: x.pricingType,
+          };
+          return rest;
+        });
+
       if (!tools.length) mode = "empty";
     } catch {
       mode = "fallback";
@@ -366,27 +376,45 @@ export default async function ToolsPage({
 
                 <div>
                   <label className="text-xs font-medium text-[#CBD5E1]">Company size</label>
-                  <select className="input mt-1" name="size" defaultValue={sizeBucket} aria-label="Company size">
+                  <select className="input mt-1" name="size" defaultValue={sizeBucket ?? ""} aria-label="Company size">
                     <option value="">Any</option>
-                    <option value="1-10">1–10 employees</option>
-                    <option value="11-50">11–50 employees</option>
-                    <option value="51-200">51–200 employees</option>
-                    <option value="201-500">201–500 employees</option>
-                    <option value="501-1000">501–1000 employees</option>
-                    <option value="1001-5000">1001–5000 employees</option>
-                    <option value="5001-10000">5001–10,000 employees</option>
-                    <option value="10000+">10,000+ employees</option>
+                    <option value="smb">SMB (20–200)</option>
+                    <option value="mid">Mid‑Market (201–1000)</option>
+                    <option value="enterprise" disabled>
+                      Enterprise (1001+) — needs validation
+                    </option>
                   </select>
-                  <div className="mt-1 text-xs text-[#94A3B8]">Selected: {sizeLabel}</div>
+                  <div className="mt-1 text-xs text-[#94A3B8]">Selected: {sizeLabelText}</div>
                 </div>
 
                 <div>
                   <label className="text-xs font-medium text-[#CBD5E1]">Deployment</label>
-                  <select className="input mt-1" name="deployment" defaultValue={deployment} aria-label="Deployment">
+                  <select className="input mt-1" name="deployment" defaultValue={deployment ?? ""} aria-label="Deployment">
                     <option value="">Any</option>
-                    <option value="CLOUD">Cloud</option>
-                    <option value="ONPREM">On-prem</option>
-                    <option value="HYBRID">Hybrid</option>
+                    <option value="cloud">Cloud / SaaS</option>
+                    <option value="onprem">On‑prem</option>
+                    <option value="hybrid">Hybrid</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-[#CBD5E1]">Pricing metric</label>
+                  <select className="input mt-1" name="pricing" defaultValue={pricingMetric ?? ""} aria-label="Pricing metric">
+                    <option value="">Any</option>
+                    <option value="pepm">PEPM</option>
+                    <option value="one_time">On‑prem one-time</option>
+                    <option value="quote_based">Quote-based</option>
+                    <option value="per_company_month">Per company / month</option>
+                  </select>
+                  <div className="mt-1 text-xs text-[#94A3B8]">Cloud pricing is typically PEPM. On‑prem is typically one‑time (+ AMC).</div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-[#CBD5E1]">Evidence</label>
+                  <select className="input mt-1" name="evidence" defaultValue={evidence ?? ""} aria-label="Evidence">
+                    <option value="">Any</option>
+                    <option value="verified">Verified</option>
+                    <option value="needs_validation">Needs validation</option>
                   </select>
                 </div>
 

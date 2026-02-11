@@ -127,15 +127,12 @@ export default async function CategoriesPage() {
           <form action="/tools" className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-4">
             <div className="sm:col-span-1">
               <label className="text-xs font-medium text-[var(--text-muted)]">Company size</label>
-              <select className="input mt-1" name="size" defaultValue="11-50">
-                <option value="1-10">1–10</option>
-                <option value="11-50">11–50</option>
-                <option value="51-200">51–200</option>
-                <option value="201-500">201–500</option>
-                <option value="501-1000">501–1000</option>
-                <option value="1001-5000">1001–5000</option>
-                <option value="5001-10000">5001–10,000</option>
-                <option value="10000+">10,000+</option>
+              <select className="input mt-1" name="size" defaultValue="smb">
+                <option value="smb">SMB (20–200)</option>
+                <option value="mid">Mid‑Market (201–1000)</option>
+                <option value="enterprise" disabled>
+                  Enterprise (1001+) — needs validation
+                </option>
               </select>
             </div>
             <div className="sm:col-span-1">
