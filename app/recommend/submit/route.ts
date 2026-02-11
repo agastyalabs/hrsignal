@@ -34,6 +34,22 @@ export async function POST(req: Request) {
     timelineNote: null as string | null,
   };
 
+  // Unified lead capture (best-effort; no DB writes here beyond questionnaire submission).
+  try {
+    await fetch(new URL("/api/leads/submit", req.url), {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        email: buyerEmail,
+        role: buyerRole || undefined,
+        companySize: input.sizeBand,
+        source: "recommend_form",
+      }),
+    });
+  } catch {
+    // Non-blocking
+  }
+
   const submission = await prisma.questionnaireSubmission.create({
     data: {
       answers: input,

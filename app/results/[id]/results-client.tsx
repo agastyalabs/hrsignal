@@ -654,8 +654,17 @@ export default function ResultsClient({
                         return;
                       }
                       setUnlocking(true);
-                      // No backend yet. Simulate async.
-                      await new Promise((r) => setTimeout(r, 250));
+                      // No database yet. Capture via unified lead pipeline.
+                      await fetch("/api/leads/submit", {
+                        method: "POST",
+                        headers: { "content-type": "application/json" },
+                        body: JSON.stringify({
+                          email,
+                          source: "shortlist_unlock",
+                          tool: runId,
+                        }),
+                      }).catch(() => null);
+
                       setUnlocked(true);
                       track("shortlist_unlocked", { runId });
                       setUnlocking(false);
@@ -707,25 +716,16 @@ export default function ResultsClient({
               setError(null);
               setSending(true);
               try {
-                const res = await fetch("/api/leads", {
+                const res = await fetch("/api/leads/submit", {
                   method: "POST",
                   headers: { "content-type": "application/json" },
                   body: JSON.stringify({
-                    submissionId: submission.id,
-                    runId,
-                    source: "results-cta",
-                    companyName: submission.companyName,
-                    name: contactName,
                     email: contactEmail,
-                    phone: contactPhone,
-                    useCase,
-                    buyerRole: submission.buyerRole,
-                    sizeBand: submission.sizeBand,
-                    states: submission.states,
-                    categoriesNeeded: submission.categoriesNeeded,
-                    mustHaveIntegrations: submission.mustHaveIntegrations,
-                    budgetNote: submission.budgetNote,
-                    timelineNote: submission.timelineNote,
+                    name: contactName,
+                    companySize: submission.sizeBand ?? undefined,
+                    role: submission.buyerRole ?? undefined,
+                    source: "results_intro",
+                    tool: primaryPick?.tool?.slug ?? undefined,
                   }),
                 });
 
@@ -771,7 +771,7 @@ export default function ResultsClient({
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                   placeholder="you@company.com"
-                  required={!contactPhone}
+                  required
                 />
                 <p className="mt-1 text-xs text-[var(--text-muted)]">Email preferred (or share a phone number below).</p>
               </div>

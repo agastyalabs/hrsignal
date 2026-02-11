@@ -45,14 +45,15 @@ export function ChecklistDownloadCard({
             setError(null);
             setLoading(true);
             try {
-              const res = await fetch("/api/leads/checklist", {
+              const res = await fetch("/api/leads/submit", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify({
                   email,
                   companySize: size,
                   role,
-                  sourcePage,
+                  source: `checklist:${sourcePage}`,
+                  tool: "india_payroll_risk_checklist",
                 }),
               });
 
