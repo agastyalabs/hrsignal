@@ -251,7 +251,19 @@ export function StructuredLeadModal({
                 variant="primary"
                 className="w-full sm:w-auto"
                 onClick={() => {
-                  window.location.assign("/recommend");
+                  if (!lastPayload) return;
+                  const brief = computeDecisionBrief(lastPayload);
+                  const qp = new URLSearchParams({
+                    ct: brief.complexityTier.toLowerCase(),
+                    headcount: lastPayload.headcountRange,
+                    states: lastPayload.statesCount,
+                    freq: lastPayload.payrollFrequency,
+                    pfesi: lastPayload.pfEsiApplicability,
+                    contractors: lastPayload.contractWorkers,
+                    timeline: lastPayload.timeline,
+                    src: lastPayload.source,
+                  });
+                  window.location.assign(`/recommend?${qp.toString()}`);
                 }}
               >
                 See matched vendors
