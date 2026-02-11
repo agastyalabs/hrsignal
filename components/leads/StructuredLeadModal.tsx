@@ -70,23 +70,61 @@ export function StructuredLeadModal({
   const [stage, setStage] = React.useState<"form" | "brief">("form");
   const [lastPayload, setLastPayload] = React.useState<StructuredLeadPayloadV1 | null>(null);
 
+  const [present, setPresent] = React.useState(false);
+  const [shown, setShown] = React.useState(false);
+
   React.useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") requestClose();
     }
     if (!open) return;
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
-
-  React.useEffect(() => {
-    if (!open) return;
-    // Reset whenever the modal opens.
-    setStage("form");
-    setLastPayload(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  if (!open) return null;
+  React.useEffect(() => {
+    if (open) {
+      setPresent(true);
+      // Reset whenever the modal opens.
+      setStage("form");
+      setLastPayload(null);
+      // Ensure transition runs (avoid layout shift / paint-jank).
+      requestAnimationFrame(() => setShown(true));
+      return;
+    }
+
+    // Animate out, then unmount.
+    setShown(false);
+    const t = window.setTimeout(() => setPresent(false), 110);
+    return () => window.clearTimeout(t);
+  }, [open]);
+
+  React.useEffect(() => {
+    if (!present) return;
+
+    // Lock body scroll + prevent scrollbar layout shift.
+    const body = document.body;
+    const prevOverflow = body.style.overflow;
+    const prevPaddingRight = body.style.paddingRight;
+    const scrollbarW = window.innerWidth - document.documentElement.clientWidth;
+
+    body.style.overflow = "hidden";
+    if (scrollbarW > 0) body.style.paddingRight = `${scrollbarW}px`;
+
+    return () => {
+      body.style.overflow = prevOverflow;
+      body.style.paddingRight = prevPaddingRight;
+    };
+  }, [present]);
+
+  function requestClose() {
+    // Symmetric close animation.
+    setShown(false);
+    window.setTimeout(() => onClose(), 100);
+  }
+
+  if (!present) return null;
 
   const payload: StructuredLeadPayloadV1 = {
     headcountRange,
@@ -101,15 +139,22 @@ export function StructuredLeadModal({
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-end justify-center bg-black/60 p-4 sm:items-center"
+      className={`fixed inset-0 z-[60] flex items-end justify-center p-4 sm:items-center ${
+        shown ? "opacity-100" : "opacity-0"
+      } transition-opacity ${shown ? "duration-[120ms] ease-out" : "duration-[100ms] ease-in"} bg-black/25 backdrop-blur-sm`}
       role="dialog"
       aria-modal="true"
       aria-label="Shortlist request"
       onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget) requestClose();
       }}
     >
-      <Card className="w-full max-w-lg p-0 shadow-none">
+      <div
+        className={`w-full max-w-lg ${
+          shown ? "opacity-100 scale-100" : "opacity-0 scale-[0.98]"
+        } transition-[opacity,transform] ${shown ? "duration-[120ms] ease-out" : "duration-[100ms] ease-in"}`}
+      >
+        <Card className="w-full p-0 shadow-none">
         <div className="border-b border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
           <div className="text-base font-semibold text-[var(--text)]">Shortlist / get intro</div>
           <div className="mt-1 text-sm text-[var(--text-muted)]">Share a few constraints so we can tailor the shortlist for India payroll complexity.</div>
@@ -271,7 +316,8 @@ export function StructuredLeadModal({
             </div>
           </div>
         )}
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 }
