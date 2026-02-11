@@ -12,7 +12,8 @@ export function HomeSection({
   containerClassName?: string;
 }) {
   return (
-    <section className={`py-10 sm:py-12 lg:py-14 ${className}`}>
+    // Global vertical rhythm: 48px mobile / 64px tablet / 96px desktop.
+    <section className={`py-12 sm:py-16 lg:py-24 ${className}`}>
       <Container className={containerClassName}>{children}</Container>
     </section>
   );

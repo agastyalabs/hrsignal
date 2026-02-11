@@ -27,7 +27,7 @@ export default async function Home() {
                 Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
               </p>
 
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-start">
                 <div className="flex flex-col gap-2">
                   <ButtonLink href="/recommend" size="lg" className="w-full justify-center sm:w-auto">
                     Get my India-ready shortlist
@@ -37,7 +37,7 @@ export default async function Home() {
 
                 <Link
                   href="/tools?category=payroll"
-                  className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                  className="pt-1 text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
                 >
                   Browse HRMS & payroll tools →
                 </Link>
@@ -58,57 +58,92 @@ export default async function Home() {
 
       {/* 2) HRSignal Coverage Snapshot */}
       <HomeSection className="pt-0">
-        <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
-          <div className="text-sm font-semibold text-[var(--text)]">HRSignal Coverage Snapshot</div>
+        <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6">
+          <div className="text-base font-semibold text-[var(--text)]">HRSignal Coverage Snapshot</div>
           <div className="mt-1 text-sm text-[var(--text-muted)]">Static snapshot of marketplace coverage (v1).</div>
 
-          <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-5">
+          {/* 2x2 grid + last full-width freshness card */}
+          <div className="mt-6 grid grid-cols-2 gap-4">
             {[
               { label: "Payroll vendors", value: "12+" },
               { label: "India-verified listings", value: "25+" },
               { label: "Evidence links tracked", value: "120+" },
               { label: "Categories", value: "8" },
-              { label: "Freshness signals", value: "Last verified" },
             ].map((m) => (
               <div
                 key={m.label}
-                className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4"
+                className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5"
               >
-                <div className="text-lg font-semibold text-[var(--text)]">{m.value}</div>
-                <div className="mt-1 text-xs font-semibold text-[var(--text-muted)]">{m.label}</div>
+                <div className="text-3xl font-extrabold tracking-tight text-[var(--text)] sm:text-4xl">{m.value}</div>
+                <div className="mt-2 text-xs font-semibold text-[var(--text-muted)]">{m.label}</div>
               </div>
             ))}
+
+            <div className="col-span-2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <div className="text-3xl font-extrabold tracking-tight text-[var(--text)] sm:text-4xl">Last verified</div>
+                  <div className="mt-2 text-xs font-semibold text-[var(--text-muted)]">Freshness signal</div>
+                </div>
+                <div className="text-sm text-[var(--text-muted)]">We show verification recency so you can spot what needs re-checking.</div>
+              </div>
+            </div>
           </div>
         </div>
       </HomeSection>
 
       {/* 3) Who HRSignal is built for */}
       <HomeSection className="pt-0">
-        <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-transparent">
-          <div className="text-sm font-semibold text-[var(--text)]">Who HRSignal is built for</div>
-          <div className="mt-1 text-sm text-[var(--text-muted)]">Teams evaluating India payroll with multi-state complexity.</div>
+        <div>
+          <h2 className="text-xl font-semibold tracking-tight text-[var(--text)] sm:text-2xl">Who HRSignal is built for</h2>
+          <p className="mt-2 text-sm text-[var(--text-muted)]">Teams evaluating India payroll with multi-state complexity.</p>
 
-          <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
             {[
               {
                 title: "Multi-state payroll teams (20–1000 employees)",
                 desc: "Handling PF / ESI / PT / TDS across states and entities.",
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-[var(--text-muted)]" aria-hidden="true">
+                    <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                  </svg>
+                ),
               },
               {
                 title: "HR leaders in growing Indian orgs",
                 desc: "Scaling from 20 to 500+ employees without compliance surprises.",
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-[var(--text-muted)]" aria-hidden="true">
+                    <path d="M7 14c1.2 1.2 2.8 2 5 2s3.8-.8 5-2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                    <path d="M12 3a6 6 0 016 6v2a6 6 0 11-12 0V9a6 6 0 016-6z" stroke="currentColor" strokeWidth="1.8" />
+                  </svg>
+                ),
               },
               {
                 title: "Finance & founders reviewing payroll risk",
                 desc: "Needing audit-ready outputs and implementation clarity.",
+                icon: (
+                  <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 text-[var(--text-muted)]" aria-hidden="true">
+                    <path d="M7 7h10v14H7z" stroke="currentColor" strokeWidth="1.8" />
+                    <path d="M9 11h6M9 15h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                    <path d="M9 7V5a3 3 0 016 0v2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                  </svg>
+                ),
               },
             ].map((c) => (
               <div
                 key={c.title}
-                className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5"
+                className="h-full rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-7 transition-transform duration-150 hover:-translate-y-0.5 hover:shadow-sm"
               >
-                <div className="text-sm font-semibold text-[var(--text)]">{c.title}</div>
-                <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{c.desc}</div>
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)]">
+                    {c.icon}
+                  </div>
+                  <div>
+                    <div className="text-base font-semibold text-[var(--text)]">{c.title}</div>
+                    <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{c.desc}</div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -409,10 +444,10 @@ function DecisionSnapshotCard() {
 
       <div className="mt-4 flex items-end justify-between gap-3">
         <div className="text-sm font-medium text-[var(--text-muted)]">Fit score</div>
-        <div className="text-3xl font-extrabold tracking-tight text-[var(--text)]">92 / 100</div>
+        <div className="text-4xl font-extrabold tracking-tight text-[var(--text)] sm:text-5xl">92 / 100</div>
       </div>
 
-      <div className="mt-4 space-y-2 text-sm leading-relaxed text-[var(--text-muted)]">
+      <div className="mt-5 space-y-3 text-sm leading-6 text-[var(--text-muted)]">
         <div>• Matches multi-state payroll + branch complexity</div>
         <div>• Covers PF / ESI / PT / TDS workflows</div>
         <div>• Claims backed by evidence links (docs + pricing)</div>
