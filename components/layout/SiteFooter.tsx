@@ -5,118 +5,126 @@ import { BRAND } from "@/config/brand";
 import { Container } from "@/components/layout/Container";
 import { CompareTray } from "@/components/compare/CompareTray";
 
+function FooterLink({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      className="text-[var(--text-muted)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      href={href}
+    >
+      {label}
+    </Link>
+  );
+}
+
 export function SiteFooter() {
   return (
     <>
       <CompareTray />
-      <footer className="border-t border-[#1F2937] bg-[#0B1220]">
+      <footer className="border-t border-[var(--border-soft)] bg-[var(--surface-1)]">
         <Container className="py-12">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <Image src={BRAND.logo} alt={BRAND.name} width={150} height={28} className="h-6 w-auto" />
-              <div className="text-base font-semibold text-[#F9FAFB]">{BRAND.name}</div>
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Column 1 */}
+            <div>
+              <div className="flex items-center gap-2">
+                <Image src={BRAND.logo} alt={BRAND.name} width={150} height={28} className="h-6 w-auto" />
+                <div className="text-base font-semibold text-[var(--text)]">{BRAND.name}</div>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
+                India-first HR software discovery for SMEs — compare tools, get explainable recommendations, and request demos without vendor spam.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
+                  Privacy-first
+                </span>
+                <span className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
+                  Explainable shortlists
+                </span>
+              </div>
             </div>
-            <p className="mt-2 text-sm leading-relaxed text-[#CBD5E1]">
-              India-first HR software discovery for SMEs — compare tools, get explainable recommendations, and request demos.
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <span className="rounded-full border border-[#1F2937] bg-[#111827] px-3 py-1 text-xs font-medium text-[#CBD5E1]">
-                Privacy-first
-              </span>
-              <span className="rounded-full border border-[#1F2937] bg-[#0F172A] px-3 py-1 text-xs font-medium text-[#CBD5E1]">
-                India-first SME fit
-              </span>
+
+            {/* Column 2 */}
+            <div>
+              <div className="text-sm font-semibold text-[var(--text)]">Product</div>
+              <ul className="mt-3 space-y-2 text-sm">
+                <li>
+                  <FooterLink href="/tools" label="Tools" />
+                </li>
+                <li>
+                  <FooterLink href="/vendors" label="Vendors" />
+                </li>
+                <li>
+                  <FooterLink href="/categories" label="Categories" />
+                </li>
+                <li>
+                  <FooterLink href="/compare" label="Compare" />
+                </li>
+                <li>
+                  <FooterLink href="/recommend" label="Get a shortlist" />
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 3 */}
+            <div>
+              <div className="text-sm font-semibold text-[var(--text)]">Resources</div>
+              <div className="mt-3 space-y-4 text-sm">
+                <div>
+                  <div className="text-xs font-semibold tracking-wide text-[var(--text-muted)]">Buyer guides</div>
+                  <ul className="mt-2 space-y-2">
+                    <li>
+                      <FooterLink href="/resources" label="Browse all resources" />
+                    </li>
+                    <li>
+                      <FooterLink href="/methodology" label="Methodology" />
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div className="text-xs font-semibold tracking-wide text-[var(--text-muted)]">Checklists & tools</div>
+                  <ul className="mt-2 space-y-2">
+                    <li>
+                      <FooterLink href="/india-payroll-risk-checklist" label="India payroll risk checklist" />
+                    </li>
+                    <li>
+                      <FooterLink href="/payroll-risk-scanner" label="Payroll risk scanner" />
+                    </li>
+                    <li>
+                      <FooterLink href="/hrms-fit-score" label="HRMS fit score" />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 4 */}
+            <div>
+              <div className="text-sm font-semibold text-[var(--text)]">Company & legal</div>
+              <ul className="mt-3 space-y-2 text-sm">
+                <li>
+                  <FooterLink href="/privacy" label="Privacy" />
+                </li>
+                <li>
+                  <FooterLink href="/terms" label="Terms" />
+                </li>
+              </ul>
+              <div className="mt-4 text-sm text-[var(--text-muted)]">
+                Contact: {" "}
+                <a
+                  className="font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                  href="mailto:hello@hrsignal.in"
+                >
+                  hello@hrsignal.in
+                </a>
+              </div>
             </div>
           </div>
 
-          <div>
-            <div className="text-sm font-semibold text-[#F9FAFB]">Product</div>
-            <ul className="mt-3 space-y-2 text-sm">
-              <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/tools">
-                  Tools
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/vendors">
-                  Vendors
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/categories">
-                  Categories
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/resources">
-                  Resources
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/recommend">
-                  Find my vendor
-                </Link>
-              </li>
-            </ul>
+          <div className="mt-10 flex flex-col gap-2 border-t border-[var(--border-soft)] pt-6 text-xs text-[var(--text-muted)] sm:flex-row sm:items-center sm:justify-between">
+            <div>© {BRAND.name}</div>
+            <div>We don’t share your details without consent.</div>
           </div>
-
-          <div>
-            <div className="text-sm font-semibold text-[#F9FAFB]">Resources</div>
-            <ul className="mt-3 space-y-2 text-sm">
-              <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/resources/best-hrms-india-sme-2026">
-                  Best HRMS (India, 2026)
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/resources/payroll-compliance-checklist-india-2026">
-                  Payroll compliance checklist
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/resources">
-                  Browse all resources
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <div className="text-sm font-semibold text-[#F9FAFB]">Legal</div>
-            <ul className="mt-3 space-y-2 text-sm">
-              <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/privacy">
-                  Privacy
-                </Link>
-              </li>
-              <li>
-                <Link className="text-[#CBD5E1] hover:text-[#F9FAFB]" href="/terms">
-                  Terms
-                </Link>
-              </li>
-            </ul>
-            <p className="mt-4 text-xs leading-relaxed text-[#94A3B8]">
-              Privacy-first: we don’t share your details without consent.
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-10 flex flex-col gap-2 border-t border-[#1F2937] pt-6 text-xs text-[#94A3B8] sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            © {new Date().getFullYear()} {BRAND.name}
-            <span className="ml-3 align-middle text-[10px] text-[#94A3B8]/70">
-              build: {process.env.NEXT_PUBLIC_BUILD_BRANCH ?? "?"} {process.env.NEXT_PUBLIC_BUILD_SHA ?? "?"} {process.env.NEXT_PUBLIC_BUILD_TIME ?? "?"}
-            </span>
-          </div>
-          <div>
-            Questions? Email{" "}
-            <a className="text-[#CBD5E1] underline decoration-[#1F2937]" href="mailto:hello@hrsignal.in">
-              hello@hrsignal.in
-            </a>
-          </div>
-        </div>
-      </Container>
+        </Container>
       </footer>
     </>
   );
