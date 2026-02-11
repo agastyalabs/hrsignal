@@ -221,8 +221,9 @@ export default async function VendorsPage({
           </Link>
         </div>
 
-        <form method="get" action="/vendors" className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-12 md:items-end">
-            <div className="md:col-span-2">
+        <div className="mt-6 border-b border-[var(--border-soft)] pb-4">
+          <form method="get" action="/vendors" className="flex flex-wrap items-end gap-3">
+            <div className="min-w-[180px] flex-1 sm:flex-none">
               <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="sort">
                 Sort
               </label>
@@ -234,7 +235,7 @@ export default async function VendorsPage({
               </select>
             </div>
 
-            <div className="md:col-span-2">
+            <div className="min-w-[180px] flex-1 sm:flex-none">
               <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="size">
                 Company size
               </label>
@@ -246,7 +247,7 @@ export default async function VendorsPage({
               </select>
             </div>
 
-            <div className="md:col-span-2">
+            <div className="min-w-[180px] flex-1 sm:flex-none">
               <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="category">
                 Category
               </label>
@@ -262,7 +263,7 @@ export default async function VendorsPage({
               </select>
             </div>
 
-            <div className="md:col-span-2">
+            <div className="min-w-[180px] flex-1 sm:flex-none">
               <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="deployment">
                 Deployment
               </label>
@@ -274,7 +275,7 @@ export default async function VendorsPage({
               </select>
             </div>
 
-            <div className="md:col-span-2">
+            <div className="min-w-[200px] flex-1 sm:flex-none">
               <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="pricing">
                 Pricing metric
               </label>
@@ -287,7 +288,7 @@ export default async function VendorsPage({
               </select>
             </div>
 
-            <div className="md:col-span-2">
+            <div className="min-w-[160px] flex-1 sm:flex-none">
               <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="indiaReady">
                 India-ready
               </label>
@@ -297,35 +298,42 @@ export default async function VendorsPage({
               </select>
             </div>
 
-            <div className="md:col-span-12 flex flex-wrap items-end justify-between gap-2 pt-0">
-              <input type="hidden" name="india" value={indiaOnly ? "1" : "0"} />
-              <div className="flex flex-wrap items-center gap-2">
-                <button className="h-11 rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)]">
-                  Apply
-                </button>
-                <Link
-                  className="h-11 rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)]"
-                  href="/vendors"
-                >
-                  Clear all
-                </Link>
-              </div>
-              <div className="ml-auto text-xs text-[var(--text-muted)]">{filtered.length} results</div>
+            <input type="hidden" name="india" value={indiaOnly ? "1" : "0"} />
+
+            <div className="flex items-end gap-3">
+              <button
+                className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 py-2.5 text-sm font-semibold leading-tight text-white hover:bg-[var(--primary-hover)]"
+              >
+                Apply
+              </button>
+              <Link
+                className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 py-2.5 text-sm font-semibold leading-tight text-[var(--text)] hover:bg-[var(--surface-2)]"
+                href="/vendors"
+              >
+                Clear all
+              </Link>
+            </div>
+
+            <div className="ml-auto pb-[2px] text-xs font-semibold text-[var(--text-muted)]">
+              {filtered.length} results
             </div>
 
             {activePills.length ? (
-              <div className="md:col-span-12 flex flex-wrap gap-2">
-                {activePills.map((p) => (
-                  <span
-                    key={p.key}
-                    className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]"
-                  >
-                    {p.label}
-                  </span>
-                ))}
+              <div className="w-full pt-2">
+                <div className="flex flex-wrap gap-2">
+                  {activePills.map((p) => (
+                    <span
+                      key={p.key}
+                      className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 py-1 text-xs font-medium text-[var(--text-muted)]"
+                    >
+                      {p.label}
+                    </span>
+                  ))}
+                </div>
               </div>
             ) : null}
-        </form>
+          </form>
+        </div>
 
         {!process.env.DATABASE_URL ? (
           <Card className="mt-6 shadow-sm">
