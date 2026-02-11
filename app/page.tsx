@@ -52,7 +52,33 @@ export default async function Home() {
         </div>
       </HomeSection>
 
-      {/* 2) Authority + specialist CTA */}
+      {/* 2) HRSignal Coverage Snapshot */}
+      <HomeSection className="pt-0">
+        <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+          <div className="text-sm font-semibold text-[var(--text)]">HRSignal Coverage Snapshot</div>
+          <div className="mt-1 text-sm text-[var(--text-muted)]">Static snapshot of marketplace coverage (v1).</div>
+
+          <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-5">
+            {[
+              { label: "Payroll vendors", value: "12+" },
+              { label: "India-verified listings", value: "25+" },
+              { label: "Evidence links tracked", value: "120+" },
+              { label: "Categories", value: "8" },
+              { label: "Freshness signals", value: "Last verified" },
+            ].map((m) => (
+              <div
+                key={m.label}
+                className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4"
+              >
+                <div className="text-lg font-semibold text-[var(--text)]">{m.value}</div>
+                <div className="mt-1 text-xs font-semibold text-[var(--text-muted)]">{m.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </HomeSection>
+
+      {/* 3) Authority + specialist CTA */}
       <HomeSection className="pt-0">
         <TalkToPayrollSpecialistSection href="/recommend" />
       </HomeSection>
