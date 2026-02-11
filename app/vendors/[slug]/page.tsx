@@ -532,6 +532,50 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
               </div>
 
               <div className="mt-4 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+                <div className="text-sm font-semibold text-[var(--text)]">Risk flags / What to validate before buying</div>
+                <div className="mt-1 text-sm text-[var(--text-muted)]">
+                  Focus your demo on statutory edge cases, audit readiness, and state complexity.
+                </div>
+
+                <div className="mt-4 grid grid-cols-1 gap-3">
+                  {[
+                    {
+                      title: "Multi-state statutory edge cases",
+                      body: "Confirm PF/ESI/PT rules across your states (branch/registration mapping, exemptions, and register outputs).",
+                    },
+                    {
+                      title: "Month-end controls (arrears/reversals/cutoffs)",
+                      body: "Validate arrears, reversals, LOP retro changes, and payroll cutoffs with real scenarios and sample outputs.",
+                    },
+                    {
+                      title: "Audit trail + approvals",
+                      body: "Ask for evidence of role-based access, audit logs for payroll edits, and approval workflows for sensitive changes.",
+                    },
+                    {
+                      title: "Exports + reconciliation",
+                      body: "Verify statutory exports (challans/returns where applicable), accounting exports, and reconciliation workflow for corrections.",
+                    },
+                    {
+                      title: "Integrations (API vs files)",
+                      body: "Confirm how attendance/leave inputs and accounting outputs integrate (API/webhooks vs file exports vs manual).",
+                    },
+                    {
+                      title: "Data residency + security scope",
+                      body: "If required, confirm India data residency options and plan-tier availability for SSO/audit controls.",
+                    },
+                  ].slice(0, 6).map((x) => (
+                    <div
+                      key={x.title}
+                      className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4"
+                    >
+                      <div className="text-sm font-semibold text-[var(--text)]">{x.title}</div>
+                      <div className="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">{x.body}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="text-sm font-semibold text-[var(--text)]">How this score is calculated</div>
