@@ -22,7 +22,7 @@ export default async function Home() {
               </h1>
 
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--text-muted)]">
-                Get 3–5 best-fit tools based on company size, modules, integrations, and compliance complexity — with explainable fit scores, verification freshness, and demo checklists. No vendor blast. You choose when to connect.
+                Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -253,10 +253,10 @@ function DecisionSnapshotCard() {
       </div>
 
       <div className="mt-4 space-y-2 text-sm leading-relaxed text-[var(--text-muted)]">
-        <div>• Matches multi-state complexity</div>
+        <div>• Matches multi-state payroll + branch complexity</div>
         <div>• Covers PF / ESI / PT / TDS workflows</div>
-        <div>• Evidence-backed claims (docs linked)</div>
-        <div>• Demo checklist flags edge cases</div>
+        <div>• Claims backed by evidence links (docs + pricing)</div>
+        <div>• Demo checklist flags edge cases (arrears, reversals, cutoffs)</div>
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2 text-xs font-medium text-[var(--text-muted)]">
