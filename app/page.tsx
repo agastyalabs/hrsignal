@@ -28,9 +28,13 @@ export default async function Home() {
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <ButtonLink href="/recommend" size="lg" className="w-full justify-center sm:w-auto">
-                  Get my shortlist
-                </ButtonLink>
+                <div className="flex flex-col gap-2">
+                  <ButtonLink href="/recommend" size="lg" className="w-full justify-center sm:w-auto">
+                    Get my India-ready shortlist
+                  </ButtonLink>
+                  <div className="text-xs text-[var(--text-muted)]">Takes 60 seconds · No vendor spam · No paid ranking</div>
+                </div>
+
                 <Link
                   href="/tools?category=payroll"
                   className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
