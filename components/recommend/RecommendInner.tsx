@@ -106,10 +106,10 @@ export default function RecommendInner({
           <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h1 className="text-3xl font-semibold tracking-tight text-[#F9FAFB]">
-                {mode === "recommend" ? "Get recommendations" : "Build your HR stack"}
+                {mode === "recommend" ? "Find my payroll-ready vendor" : "Build your HR stack"}
               </h1>
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#CBD5E1]">
-                Answer a few questions. HRSignal will recommend 3–5 best-fit tools and explain why each fits.
+                Answer a few questions. HRSignal will shortlist 3–5 payroll-ready tools and explain why each fits.
               </p>
               {prefillHint ? <p className="mt-2 text-sm text-zinc-500">{prefillHint}</p> : null}
             </div>

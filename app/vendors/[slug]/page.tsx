@@ -19,6 +19,7 @@ import { Markdownish } from "@/app/resources/Markdownish";
 import { EvidenceLinks } from "@/components/vendors/EvidenceLinks";
 import { StickyCtas } from "@/components/vendors/StickyCtas";
 import { ScorePill } from "./ScorePill";
+import { TalkToPayrollSpecialistRail } from "@/components/conversion/TalkToPayrollSpecialistRail";
 import { FitWeightRow } from "./FitWeightRow";
 import { getResearchedVendorProfile } from "@/lib/vendors/researched";
 import type { Metadata } from "next";
@@ -136,6 +137,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
+        <TalkToPayrollSpecialistRail href="/recommend" />
         <SiteHeader />
 
         <Section className="pt-10 sm:pt-14">
@@ -501,6 +503,14 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                   <div className="mt-2 flex items-end justify-between gap-3">
                     <div className="text-3xl font-extrabold tracking-tight text-[var(--text)]">{overallFit}</div>
                     <div className="text-xs font-semibold text-[var(--text-muted)]">/ 100</div>
+                  </div>
+                  <div className="mt-3">
+                    <Link
+                      href="/recommend"
+                      className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Check if this fits your org →
+                    </Link>
                   </div>
                   <div className="mt-3 h-2 w-full rounded-full bg-[rgba(255,255,255,0.08)]">
                     <div className="h-2 rounded-full bg-[var(--primary)]" style={{ width: `${overallFit}%` }} />

@@ -6,11 +6,13 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ButtonLink } from "@/components/ui/Button";
 import { HomeSection } from "@/components/marketing/HomeSection";
+import { TalkToPayrollSpecialistRail } from "@/components/conversion/TalkToPayrollSpecialistRail";
 
 export default async function Home() {
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <SiteHeader />
+      <TalkToPayrollSpecialistRail href="/recommend" />
 
       {/* 1) Hero + decision snapshot */}
       <HomeSection className="pt-10 sm:pt-14">
@@ -51,7 +53,20 @@ export default async function Home() {
         </div>
       </HomeSection>
 
-      {/* 2) Trust & proof strip */}
+      {/* 2) Trust strip (authority) */}
+      <HomeSection className="pt-0">
+        <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-5 py-4 text-sm text-[var(--text-muted)]">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>Used by HR leaders evaluating multi-state payroll in India</div>
+            <div className="hidden sm:block text-[var(--text-muted)]">•</div>
+            <div>Deterministic scoring</div>
+            <div className="hidden sm:block text-[var(--text-muted)]">•</div>
+            <div>No paid ranking</div>
+          </div>
+        </div>
+      </HomeSection>
+
+      {/* 3) Trust & proof strip */}
       <HomeSection className="pt-0">
         <SectionTitle
           title="Why trust HRSignal?"

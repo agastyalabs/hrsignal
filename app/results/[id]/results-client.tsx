@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { TalkToPayrollSpecialistRail } from "@/components/conversion/TalkToPayrollSpecialistRail";
 
 type Submission = {
   id: string;
@@ -197,6 +198,7 @@ export default function ResultsClient({
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <SiteHeader />
+      <TalkToPayrollSpecialistRail href={`?step=intro`} />
 
       <main className="py-8 sm:py-12">
         <Container className="max-w-5xl">
@@ -445,6 +447,26 @@ export default function ResultsClient({
                     Request intro
                   </a>
                 </div>
+              </div>
+            </Card>
+          ) : null}
+
+          {primaryPick ? (
+            <Card className="border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-none">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <div className="text-sm font-semibold text-[var(--text)]">Want faster vendor intro? Skip comparison.</div>
+                  <div className="mt-1 text-sm text-[var(--text-muted)]">
+                    Tell us your constraints and we’ll route you to one best-fit vendor (not blasted to everyone).
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setStep("intro")}
+                  className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                >
+                  Get intro →
+                </button>
               </div>
             </Card>
           ) : null}
