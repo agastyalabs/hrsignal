@@ -47,7 +47,46 @@ export default async function Home() {
         </div>
       </HomeSection>
 
-      {/* 2) Problem framing */}
+      {/* 2) Trust & proof strip */}
+      <HomeSection className="pt-0">
+        <SectionTitle
+          title="Why trust HRSignal?"
+          subtitle="Evidence-backed shortlists for India payroll—freshness, compliance depth, and demo edge cases made explicit."
+        />
+
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
+          <TrustTile
+            label="Evidence links included"
+            desc="Key claims are tied to source links (docs, pricing pages, compliance notes) so you can verify fast."
+            href="/tools"
+            linkLabel="Browse tools →"
+          />
+          <TrustTile
+            label="Freshness is visible"
+            desc="Listings show “verified/updated” recency so you can spot what needs re-checking before month‑end."
+            href="/vendors"
+            linkLabel="Browse vendors →"
+          />
+          <TrustTile
+            label="India payroll context"
+            desc="Shortlists consider PF / ESI / PT / TDS scope and multi‑state complexity—not just feature checkboxes."
+            href="/categories/payroll"
+            linkLabel="Payroll category →"
+          />
+          <TrustTile
+            label="Demo checklist for edge cases"
+            desc="We surface what to validate (arrears, reversals, cutoffs, exports) so demos focus on risk."
+            href="/recommend"
+            linkLabel="Get shortlist →"
+          />
+        </div>
+
+        <div className="mt-4 text-sm text-[var(--text-muted)]">
+          <span className="font-semibold text-[var(--text)]">Verified</span> = key metadata checked against evidence links + freshness date shown.
+        </div>
+      </HomeSection>
+
+      {/* 3) Problem framing */}
       <HomeSection className="pt-0">
         <SectionTitle
           title="Buying HR software in India is not a feature comparison."
@@ -209,6 +248,30 @@ function SectionTitle({ title, subtitle }: { title: string; subtitle?: string })
     <div>
       <div className="text-[length:var(--h2-size)] font-medium tracking-tight text-[var(--text)]">{title}</div>
       {subtitle ? <div className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)]">{subtitle}</div> : null}
+    </div>
+  );
+}
+
+function TrustTile({
+  label,
+  desc,
+  href,
+  linkLabel,
+}: {
+  label: string;
+  desc: string;
+  href: string;
+  linkLabel: string;
+}) {
+  return (
+    <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+      <div className="text-sm font-semibold text-[var(--text)]">{label}</div>
+      <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{desc}</div>
+      <div className="mt-3">
+        <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href={href}>
+          {linkLabel}
+        </Link>
+      </div>
     </div>
   );
 }
