@@ -75,7 +75,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Please select your role." }, { status: 400 });
   }
 
-  if (!sourcePage || !["homepage", "payroll-india", "scanner"].includes(sourcePage)) {
+  if (!sourcePage || !["homepage", "payroll-india", "scanner", "checklist-landing"].includes(sourcePage)) {
     return NextResponse.json({ ok: false, error: "Invalid source page." }, { status: 400 });
   }
 

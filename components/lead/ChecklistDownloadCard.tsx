@@ -10,7 +10,7 @@ import { Input, Select } from "@/components/ui/Input";
 type SizeBand = "20-50" | "51-200" | "201-500" | "501-1000";
 type Role = "HR" | "Finance" | "Founder";
 
-type SourcePage = "homepage" | "payroll-india" | "scanner";
+type SourcePage = "homepage" | "payroll-india" | "scanner" | "checklist-landing";
 
 export function ChecklistDownloadCard({
   title = "India Payroll Risk Checklist (PDF)",
