@@ -16,6 +16,8 @@ import { domainFromUrl } from "@/lib/brand/logo";
 import { normalizePricingText, pricingTypeFromNote } from "@/lib/pricing/format";
 import { getVendorBrief } from "@/lib/vendors/brief";
 import { Markdownish } from "@/app/resources/Markdownish";
+import { EvidenceLinks } from "@/components/vendors/EvidenceLinks";
+import { getResearchedVendorProfile } from "@/lib/vendors/researched";
 
 function slugify(name: string) {
   return String(name)
@@ -101,14 +103,15 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
     }
   }
 
-  // If vendor isn't in catalog but a brief exists, render a minimal profile.
+  // If vendor isn't in catalog but a brief exists, render a researched template with strong fallbacks.
   if (!vendor) {
     if (!slugBrief.exists) return notFound();
 
     // Redirect any alias slug to its normalized form.
     if (rawSlug !== slug) redirect(`/vendors/${slug}`);
 
-    const minimalName = slug === "freshteam" ? "Freshteam (Freshworks)" : slug;
+    const profile = getResearchedVendorProfile(slug);
+    const title = profile?.displayName ?? (slug === "freshteam" ? "Freshteam (Freshworks)" : slug);
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
@@ -121,133 +124,83 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
             </Link>
           </div>
 
-          <Card className="border border-[var(--border)] bg-[var(--surface-1)] shadow-[var(--shadow-sm)]">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-              <div>
-                <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">{minimalName}</h1>
-                {slug === "freshteam" ? (
-                  <div className="mt-2 text-sm text-[var(--text-muted)]">
-                    Not to be confused with Freshservice (HR service delivery workflows).
+          <div className="flex flex-col gap-8">
+            <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">{title}</h1>
+                  <p className="mt-2 text-sm text-[var(--text-muted)]">
+                    {profile?.descriptor ?? "A vendor profile template with evidence links and evaluation guidance."}
+                  </p>
+                </div>
+
+                {slugBrief.updatedAt ? (
+                  <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3 text-sm text-[var(--text-muted)]">
+                    Last updated: <span className="font-semibold text-[var(--text)]">{slugBrief.updatedAt.toISOString().slice(0, 10)}</span>
                   </div>
                 ) : null}
-                <p className="mt-2 text-sm text-[var(--text-muted)]">
-                  Website:{" "}
-                  <a className="underline" href={slug === "freshteam" ? "https://www.freshworks.com/hrms/freshteam/" : "#"} target="_blank" rel="noreferrer">
-                    {slug === "freshteam" ? "www.freshworks.com/hrms/freshteam" : "Info pending"}
-                  </a>
-                </p>
-              </div>
-              {slugBrief.updatedAt ? (
-                <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-4 py-3 text-sm text-[var(--text-muted)]">
-                  Last updated: <span className="font-semibold text-[var(--text)]">{slugBrief.updatedAt.toISOString().slice(0, 10)}</span>
-                </div>
-              ) : null}
-            </div>
-
-            <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
-              <div>
-                <div className="text-sm font-semibold text-[var(--text)]">Overview</div>
-                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-                  <Markdownish content={slugBrief.sections["overview"] ?? slugBrief.sections["snapshot"] ?? ""} />
-                </Card>
               </div>
 
-              <div>
-                <div className="text-sm font-semibold text-[var(--text)]">Features</div>
-                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-                  <Markdownish
-                    content={
-                      slugBrief.sections["what it does feature summary"] ??
-                      slugBrief.sections["what it does"] ??
-                      slugBrief.sections["products tools"] ??
-                      ""
-                    }
-                  />
-                </Card>
-              </div>
+              <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+                <div className="lg:col-span-2">
+                  <div className="text-sm font-semibold text-[var(--text)]">Overview</div>
+                  <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
+                    {profile?.overview ??
+                      "We’re upgrading this vendor profile into a researched template. Use the Evidence links below to validate pricing, security, and support."}
+                  </div>
 
-              <div>
-                <div className="text-sm font-semibold text-[var(--text)]">Pricing</div>
-                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-                  <Markdownish content={slugBrief.sections["pricing"] ?? slugBrief.sections["pricing model"] ?? ""} />
-                </Card>
-              </div>
-
-              <div>
-                <div className="text-sm font-semibold text-[var(--text)]">Integrations</div>
-                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-                  <Markdownish content={slugBrief.sections["integrations"] ?? ""} />
-                </Card>
-              </div>
-
-              <div>
-                <div className="text-sm font-semibold text-[var(--text)]">Compliance & security</div>
-                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-                  <Markdownish
-                    content={
-                      slugBrief.sections["compliance, security, and privacy"] ??
-                      slugBrief.sections["compliance and security"] ??
-                      slugBrief.sections["compliance"] ??
-                      ""
-                    }
-                  />
-                </Card>
-              </div>
-
-              <div>
-                <div className="text-sm font-semibold text-[var(--text)]">Implementation / onboarding</div>
-                <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-                  <Markdownish
-                    content={
-                      slugBrief.sections["deployment & implementation"] ??
-                      slugBrief.sections["deployment and implementation"] ??
-                      slugBrief.sections["implementation onboarding"] ??
-                      ""
-                    }
-                  />
-                </Card>
-              </div>
-            </div>
-
-            <div className="mt-10 pt-8 border-t border-[var(--border)]">
-              <div className="text-sm font-semibold text-[var(--text)]">Sources & data quality</div>
-              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
-                <details>
-                  <summary className="cursor-pointer select-none text-sm font-semibold text-[var(--text)]">Sources checked & info pending</summary>
-                  <div className="mt-4 grid grid-cols-1 gap-6 text-sm text-[var(--text-muted)] lg:grid-cols-2">
-                    <div>
-                      <div className="text-xs font-semibold text-[var(--text)]">Sources checked</div>
-                      {slugBrief.urls.length ? (
-                        <ul className="mt-2 list-disc space-y-1 pl-5">
-                          {slugBrief.urls.slice(0, 10).map((u) => (
-                            <li key={u}>
-                              <a className="underline" href={u} target="_blank" rel="noreferrer">
-                                {u}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <div className="mt-2">Info pending.</div>
-                      )}
+                  {slugBrief.sections["overview"] || slugBrief.sections["snapshot"] ? (
+                    <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                      <Markdownish content={slugBrief.sections["overview"] ?? slugBrief.sections["snapshot"] ?? ""} />
                     </div>
-                    <div>
-                      <div className="text-xs font-semibold text-[var(--text)]">Data gaps / Info pending</div>
-                      {slugBrief.dataGaps.length ? (
-                        <ul className="mt-2 list-disc space-y-1 pl-5">
-                          {slugBrief.dataGaps.slice(0, 10).map((g) => (
-                            <li key={g}>{g}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <div className="mt-2">No explicit gaps listed.</div>
-                      )}
+                  ) : null}
+                </div>
+
+                <div>
+                  <div className="text-sm font-semibold text-[var(--text)]">CTA</div>
+                  <div className="mt-2 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-sm font-semibold text-[var(--text)]">Generate an explainable shortlist</div>
+                    <div className="mt-1 text-sm text-[var(--text-muted)]">
+                      Answer a few questions and we’ll shortlist 3–5 tools with match reasons.
+                    </div>
+                    <div className="mt-4">
+                      <Link className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/recommend">
+                        Get recommendations →
+                      </Link>
                     </div>
                   </div>
-                </details>
-              </Card>
+                </div>
+              </div>
             </div>
-          </Card>
+
+            <div>
+              <div className="text-sm font-semibold text-[var(--text)]">Evidence</div>
+              <p className="mt-1 text-sm text-[var(--text-muted)]">Primary sources (docs, pricing, security, support).</p>
+              <div className="mt-3">
+                <EvidenceLinks links={profile?.evidence ?? []} />
+              </div>
+            </div>
+
+            <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6">
+              <div className="text-sm font-semibold text-[var(--text)]">FAQs</div>
+              <div className="mt-3 space-y-3">
+                {(profile?.faqs?.length
+                  ? profile.faqs
+                  : [
+                      {
+                        q: "How should I evaluate this vendor quickly?",
+                        a: "Start with Pricing + Security + Support evidence links, then request a focused demo for your payroll/implementation edge cases.",
+                      },
+                    ]
+                ).map((f) => (
+                  <details key={f.q} className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-[var(--text)]">{f.q}</summary>
+                    <div className="mt-2 text-sm text-[var(--text-muted)]">{f.a}</div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </div>
         </Section>
 
         <SiteFooter />
@@ -261,6 +214,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
   if (maybeRedirect) redirect(`/vendors/${maybeRedirect}`);
 
   const v = vendor;
+  const profile = getResearchedVendorProfile(normalizeVendorSlug(canon));
 
   const toolCategories = Array.from(new Set(v.tools.flatMap((t) => t.categories.map((c) => c.category.name))));
 
@@ -591,20 +545,20 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
 
           <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
             <div>
-              <div className="text-sm font-semibold text-[var(--text)]">Pros</div>
-              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+              <div className="text-sm font-semibold text-[var(--text)]">Best for</div>
+              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-none">
                 <ul className="space-y-2 text-sm text-[var(--text-muted)]">
-                  {pros.map((x, idx) => (
+                  {(profile?.bestFor?.length ? profile.bestFor : pros).slice(0, 10).map((x, idx) => (
                     <li key={`${x}-${idx}`}>• {x}</li>
                   ))}
                 </ul>
               </Card>
             </div>
             <div>
-              <div className="text-sm font-semibold text-[var(--text)]">Cons</div>
-              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+              <div className="text-sm font-semibold text-[var(--text)]">Not for</div>
+              <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-none">
                 <ul className="space-y-2 text-sm text-[var(--text-muted)]">
-                  {cons.map((x, idx) => (
+                  {(profile?.notFor?.length ? profile.notFor : cons).slice(0, 10).map((x, idx) => (
                     <li key={`${x}-${idx}`}>• {x}</li>
                   ))}
                 </ul>
@@ -784,8 +738,19 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
           </div>
 
           <div className="mt-10 pt-8 border-t border-[var(--border)]">
-            <div className="text-sm font-semibold text-[var(--text)]">Sources & data quality</div>
-            <Card className="mt-3 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)]">
+            <div className="text-sm font-semibold text-[var(--text)]">Evidence links</div>
+            <p className="mt-1 text-sm text-[var(--text-muted)]">Primary sources to validate pricing, docs, security, and support.</p>
+            <div className="mt-3">
+              <EvidenceLinks
+                links={
+                  (profile?.evidence ?? []).length
+                    ? (profile?.evidence ?? [])
+                    : brief.urls.slice(0, 8).map((u) => ({ kind: "Other", label: "Source", url: u }))
+                }
+              />
+            </div>
+
+            <Card className="mt-4 border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-none">
               <details>
                 <summary className="cursor-pointer select-none text-sm font-semibold text-[var(--text)]">
                   Sources checked & info pending
