@@ -25,6 +25,7 @@ export function ChecklistDownloadCard({
   const [size, setSize] = React.useState<SizeBand>("51-200");
   const [role, setRole] = React.useState<Role>("HR");
   const [submitted, setSubmitted] = React.useState(false);
+  const [downloadUrl, setDownloadUrl] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -45,24 +46,24 @@ export function ChecklistDownloadCard({
             setError(null);
             setLoading(true);
             try {
-              const res = await fetch("/api/leads/submit", {
+              const res = await fetch("/api/leads/checklist", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify({
                   email,
                   companySize: size,
                   role,
-                  source: `checklist:${sourcePage}`,
-                  tool: "india_payroll_risk_checklist",
+                  sourcePage,
                 }),
               });
 
-              const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+              const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; downloadUrl?: string } | null;
               if (!res.ok || !data?.ok) {
                 setError(data?.error || "Something went wrong. Please try again.");
                 return;
               }
 
+              setDownloadUrl(data?.downloadUrl || "/downloads/india-payroll-risk-checklist.pdf");
               setSubmitted(true);
             } catch (e2) {
               const msg = e2 instanceof Error ? e2.message : "Network error";
@@ -124,16 +125,16 @@ export function ChecklistDownloadCard({
             </svg>
             <div>
               <div className="text-sm font-semibold text-[var(--text)]">Request received</div>
-              <div className="mt-1 text-sm text-[var(--text-muted)]">Your checklist link is ready.</div>
+              <div className="mt-1 text-sm text-[var(--text-muted)]">Check your email for the download link.</div>
               <div className="mt-3">
                 <a
-                  href="#"
+                  href={downloadUrl || "/downloads/india-payroll-risk-checklist.pdf"}
                   onClick={() => {
                     track("checklist_download", { sourcePage });
                   }}
                   className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
                 >
-                  Download PDF (placeholder) →
+                  Download PDF →
                 </a>
               </div>
             </div>
