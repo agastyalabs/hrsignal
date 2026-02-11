@@ -9,6 +9,7 @@ import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Input";
+import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
 
 type EmployeesRange = "1-49" | "50-200" | "201-1000" | "1001+";
 type StatesRange = "1" | "2-5" | "6+";
@@ -217,6 +218,8 @@ export default function PayrollRiskScannerPage() {
                   </Button>
                 </div>
               </Card>
+
+              <ChecklistDownloadCard />
 
               <div className="text-xs text-[var(--text-muted)]">
                 Note: this scanner estimates evaluation complexity. Always validate evidence links, last-verified recency, and month-end edge cases.

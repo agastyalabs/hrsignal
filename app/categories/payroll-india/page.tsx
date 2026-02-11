@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { ButtonLink } from "@/components/ui/Button";
+import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
 
 export const dynamic = "force-dynamic";
 
@@ -253,6 +254,10 @@ export default function PayrollIndiaPillarPage() {
                 <p className="text-sm leading-relaxed text-[var(--text-muted)]">
                   Read the full breakdown here: <Link href="/methodology" className="font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100">How scoring works</Link>.
                 </p>
+              </section>
+
+              <section className="space-y-3">
+                <ChecklistDownloadCard />
               </section>
 
               <section className="space-y-3">

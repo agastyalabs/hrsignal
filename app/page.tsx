@@ -9,6 +9,7 @@ import { HomeSection } from "@/components/marketing/HomeSection";
 import { TalkToPayrollSpecialistSection } from "@/components/conversion/TalkToPayrollSpecialistSection";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { Card } from "@/components/ui/Card";
+import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
 
 export default async function Home() {
   return (
@@ -222,6 +223,10 @@ export default async function Home() {
                 </div>
               </Card>
             </div>
+          </div>
+
+          <div className="mt-6">
+            <ChecklistDownloadCard />
           </div>
         </div>
       </HomeSection>
