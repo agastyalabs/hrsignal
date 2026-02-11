@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -6,6 +7,7 @@ import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
+import { CopyShareableLinkButton } from "@/components/ui/CopyShareableLinkButton";
 
 import { prisma } from "@/lib/db";
 import { canonicalVendorSlug } from "@/lib/vendors/slug";
@@ -98,6 +100,111 @@ function topSignals(args: {
     .slice(0, 3);
 }
 
+async function computeRankedVendors(args: { complexityTier: "low" | "medium" | "high" }) {
+  if (!process.env.DATABASE_URL) return [] as Array<{ slug: string; name: string; score: number; signals: string[] }>;
+
+  const dbVendors = await prisma.vendor.findMany({
+    where: { isActive: true },
+    select: {
+      id: true,
+      name: true,
+      tools: {
+        where: { status: "PUBLISHED" },
+        select: {
+          slug: true,
+          name: true,
+          lastVerifiedAt: true,
+          indiaComplianceTags: true,
+          integrations: { select: { integration: { select: { name: true } } } },
+        },
+        orderBy: { name: "asc" },
+        take: 40,
+      },
+    },
+    take: 900,
+  });
+
+  const vendors: Array<{ slug: string; name: string; score: number; signals: string[] }> = [];
+
+  for (const v of dbVendors) {
+    const slug = canonicalVendorSlug({ vendorName: v.name, toolSlugs: v.tools.map((t) => t.slug) });
+
+    const complianceTags = Array.from(new Set(v.tools.flatMap((t) => t.indiaComplianceTags ?? []))).filter(Boolean);
+    const integrations = Array.from(new Set(v.tools.flatMap((t) => t.integrations.map((i) => i.integration.name)))).filter(Boolean);
+
+    const newestVerificationMs = v.tools
+      .map((t) => (t.lastVerifiedAt ? new Date(t.lastVerifiedAt).getTime() : 0))
+      .reduce((a, b) => Math.max(a, b), 0);
+    const verifiedAt = newestVerificationMs ? new Date(newestVerificationMs) : null;
+
+    const brief = await getVendorBrief({
+      vendorName: v.name,
+      urlSlug: slug,
+      toolSlugs: v.tools.map((t) => t.slug),
+    });
+
+    const missingSignalsCount = [
+      !verifiedAt,
+      brief.urls.length === 0,
+      integrations.length === 0,
+      complianceTags.length === 0,
+      v.tools.length === 0,
+    ].filter(Boolean).length;
+
+    const totalSignals = 5;
+    const score = computeVendorScore({
+      tier: args.complexityTier,
+      complianceTagsCount: complianceTags.length,
+      evidenceLinksCount: brief.urls.length,
+      verifiedAt,
+      integrationsCount: integrations.length,
+      missingSignalsCount,
+      totalSignals,
+    });
+
+    vendors.push({
+      slug,
+      name: slug === "freshteam" ? "Freshteam (Freshworks)" : v.name,
+      score,
+      signals: topSignals({
+        complianceTagsCount: complianceTags.length,
+        evidenceLinksCount: brief.urls.length,
+        integrationsCount: integrations.length,
+        verifiedAt,
+        missingSignalsCount,
+      }),
+    });
+  }
+
+  return vendors.sort((a, b) => b.score - a.score).slice(0, 12);
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}): Promise<Metadata> {
+  const sp = (await searchParams) ?? {};
+  const rawTier = sp.ct;
+  const tier = (Array.isArray(rawTier) ? rawTier[0] : rawTier) as string | undefined;
+  const complexityTier = tier === "high" || tier === "medium" || tier === "low" ? tier : null;
+
+  if (!complexityTier) {
+    return {
+      title: "Decision report • HRSignal",
+      description: "Printable decision report for India payroll context.",
+    };
+  }
+
+  const ranked = await computeRankedVendors({ complexityTier });
+  const top2 = ranked.slice(0, 2).map((v) => v.name);
+
+  const title = `Decision report (${complexityTier}) • ${top2.join(" vs ") || "HRSignal"}`;
+  const description = `India payroll decision report • Complexity: ${complexityTier}. Top picks: ${top2.join(", ") || "—"}. Deterministic scoring; no ML.`;
+
+  return { title, description };
+}
+
 export default async function ReportPage({
   searchParams,
 }: {
@@ -117,93 +224,15 @@ export default async function ReportPage({
     timeline: (Array.isArray(sp.timeline) ? sp.timeline[0] : sp.timeline) ?? "—",
   };
 
+  const rawShare = sp.share;
+  const shareVal = (Array.isArray(rawShare) ? rawShare[0] : rawShare) ?? "false";
+  const isShare = shareVal === "true";
+
   const rawPremium = sp.premium;
   const premiumVal = (Array.isArray(rawPremium) ? rawPremium[0] : rawPremium) ?? "false";
-  const isPremium = premiumVal === "true";
+  const isPremium = isShare ? true : premiumVal === "true";
 
-  const ranked = complexityTier && process.env.DATABASE_URL
-    ? await (async () => {
-        const dbVendors = await prisma.vendor.findMany({
-          where: { isActive: true },
-          select: {
-            id: true,
-            name: true,
-            tools: {
-              where: { status: "PUBLISHED" },
-              select: {
-                slug: true,
-                name: true,
-                lastVerifiedAt: true,
-                indiaComplianceTags: true,
-                integrations: { select: { integration: { select: { name: true } } } },
-              },
-              orderBy: { name: "asc" },
-              take: 40,
-            },
-          },
-          take: 900,
-        });
-
-        const vendors = [] as Array<{
-          slug: string;
-          name: string;
-          score: number;
-          signals: string[];
-        }>;
-
-        for (const v of dbVendors) {
-          const slug = canonicalVendorSlug({ vendorName: v.name, toolSlugs: v.tools.map((t) => t.slug) });
-
-          const complianceTags = Array.from(new Set(v.tools.flatMap((t) => t.indiaComplianceTags ?? []))).filter(Boolean);
-          const integrations = Array.from(new Set(v.tools.flatMap((t) => t.integrations.map((i) => i.integration.name)))).filter(Boolean);
-
-          const newestVerificationMs = v.tools
-            .map((t) => (t.lastVerifiedAt ? new Date(t.lastVerifiedAt).getTime() : 0))
-            .reduce((a, b) => Math.max(a, b), 0);
-          const verifiedAt = newestVerificationMs ? new Date(newestVerificationMs) : null;
-
-          const brief = await getVendorBrief({
-            vendorName: v.name,
-            urlSlug: slug,
-            toolSlugs: v.tools.map((t) => t.slug),
-          });
-
-          const missingSignalsCount = [
-            !verifiedAt,
-            brief.urls.length === 0,
-            integrations.length === 0,
-            complianceTags.length === 0,
-            v.tools.length === 0,
-          ].filter(Boolean).length;
-
-          const totalSignals = 5;
-          const score = computeVendorScore({
-            tier: complexityTier,
-            complianceTagsCount: complianceTags.length,
-            evidenceLinksCount: brief.urls.length,
-            verifiedAt,
-            integrationsCount: integrations.length,
-            missingSignalsCount,
-            totalSignals,
-          });
-
-          vendors.push({
-            slug,
-            name: slug === "freshteam" ? "Freshteam (Freshworks)" : v.name,
-            score,
-            signals: topSignals({
-              complianceTagsCount: complianceTags.length,
-              evidenceLinksCount: brief.urls.length,
-              integrationsCount: integrations.length,
-              verifiedAt,
-              missingSignalsCount,
-            }),
-          });
-        }
-
-        return vendors.sort((a, b) => b.score - a.score).slice(0, 12);
-      })()
-    : [];
+  const ranked = complexityTier ? await computeRankedVendors({ complexityTier }) : [];
 
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
@@ -220,6 +249,7 @@ export default async function ReportPage({
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
+                <CopyShareableLinkButton />
                 <ButtonLink href="/recommend" variant="secondary" size="md">
                   Back
                 </ButtonLink>
