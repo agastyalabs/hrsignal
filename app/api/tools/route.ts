@@ -29,20 +29,45 @@ export async function POST(req: Request) {
     take: 5,
   });
 
-  const tools = rows.map((t) => ({
-    slug: t.slug,
-    name: t.name,
-    tagline: t.tagline,
-    vendorName: t.vendor?.name ?? null,
-    lastVerifiedAt: t.lastVerifiedAt,
-    categories: t.categories.map((c) => c.category.name),
-    integrations: t.integrations.map((i) => i.integration.name),
-    pricingPlans: t.pricingPlans.map((p) => ({
-      name: p.name,
-      priceNote: p.priceNote,
-      setupFeeNote: p.setupFeeNote,
-    })),
-  }));
+  // Vendor brief evidence (docs/vendors/<slug>.md) → evidence URLs.
+  const { canonicalVendorSlug } = await import("@/lib/vendors/slug");
+  const { getVendorBrief } = await import("@/lib/vendors/brief");
+
+  const tools = await Promise.all(
+    rows.map(async (t) => {
+      const vendorName = t.vendor?.name ?? null;
+      const vendorSlug = vendorName ? canonicalVendorSlug({ vendorName, toolSlugs: [t.slug] }) : null;
+      const brief = vendorName && vendorSlug ? await getVendorBrief({ vendorName, urlSlug: vendorSlug, toolSlugs: [t.slug] }) : null;
+      const evidenceLinksCount = brief?.urls?.length ?? 0;
+      const pricingPageVerified = Boolean(
+        brief?.urls?.some((u) => {
+          const s = String(u).toLowerCase();
+          return s.includes("pricing") || s.includes("plans") || s.includes("price");
+        }),
+      );
+
+      const complianceTagsCount = Array.isArray(t.indiaComplianceTags) ? t.indiaComplianceTags.filter(Boolean).length : 0;
+
+      return {
+        slug: t.slug,
+        name: t.name,
+        tagline: t.tagline,
+        vendorName,
+        lastVerifiedAt: t.lastVerifiedAt,
+        categories: t.categories.map((c) => c.category.name),
+        integrations: t.integrations.map((i) => i.integration.name),
+        integrationsCount: t.integrations.length,
+        complianceTagsCount,
+        evidenceLinksCount,
+        pricingPageVerified,
+        pricingPlans: t.pricingPlans.map((p) => ({
+          name: p.name,
+          priceNote: p.priceNote,
+          setupFeeNote: p.setupFeeNote,
+        })),
+      };
+    }),
+  );
 
   // preserve input order
   const bySlug = new Map(tools.map((t) => [t.slug, t] as const));

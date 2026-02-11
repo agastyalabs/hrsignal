@@ -509,6 +509,81 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                 </div>
               </div>
 
+              {(() => {
+                const complianceOk = complianceTags.length > 0;
+                const pricingOk = brief.urls.some((u) => {
+                  const s = String(u).toLowerCase();
+                  return s.includes("pricing") || s.includes("plans") || s.includes("price");
+                });
+                const integrationsOk = integrationNames.length > 0;
+                const evidenceCount = brief.urls.length;
+                const evidenceOk = evidenceCount > 0;
+
+                const newestVerificationMs = v.tools
+                  .map((t) => (t.lastVerifiedAt ? new Date(t.lastVerifiedAt).getTime() : 0))
+                  .reduce((a, b) => Math.max(a, b), 0);
+                const verificationDate = newestVerificationMs ? new Date(newestVerificationMs) : null;
+
+                const verifiedOk = Boolean(verificationDate);
+                const depthScore = [complianceOk, pricingOk, integrationsOk, evidenceOk, verifiedOk].filter(Boolean).length;
+
+                return (
+                  <details className="mt-4 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-5 py-4">
+                    <summary className="cursor-pointer select-none list-none">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="text-sm font-semibold text-[var(--text)]">HRSignal Verification</div>
+                        <span className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
+                          Depth {depthScore}/5
+                        </span>
+                      </div>
+                      <div className="mt-1 text-xs text-[var(--text-muted)]">What we’ve verified vs what you should validate.</div>
+                    </summary>
+
+                    <div className="mt-4 space-y-2 text-sm text-[var(--text-muted)]">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-2">
+                          <span className={`mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${complianceOk ? "border-[rgba(34,197,94,0.35)] bg-[rgba(34,197,94,0.12)] text-emerald-300" : "border-[rgba(148,163,184,0.25)] bg-[rgba(148,163,184,0.08)] text-[var(--text-muted)]"}`} aria-hidden="true">{complianceOk ? "✓" : "·"}</span>
+                          <div className="text-sm text-[var(--text)]">Compliance scope verified</div>
+                        </div>
+                        <div className="text-xs text-[var(--text-muted)]">{complianceOk ? "Tags present" : "Tags missing"}</div>
+                      </div>
+
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-2">
+                          <span className={`mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${pricingOk ? "border-[rgba(34,197,94,0.35)] bg-[rgba(34,197,94,0.12)] text-emerald-300" : "border-[rgba(148,163,184,0.25)] bg-[rgba(148,163,184,0.08)] text-[var(--text-muted)]"}`} aria-hidden="true">{pricingOk ? "✓" : "·"}</span>
+                          <div className="text-sm text-[var(--text)]">Pricing page verified</div>
+                        </div>
+                        <div className="text-xs text-[var(--text-muted)]">{pricingOk ? "Evidence link present" : "No pricing evidence link"}</div>
+                      </div>
+
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-2">
+                          <span className={`mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${integrationsOk ? "border-[rgba(34,197,94,0.35)] bg-[rgba(34,197,94,0.12)] text-emerald-300" : "border-[rgba(148,163,184,0.25)] bg-[rgba(148,163,184,0.08)] text-[var(--text-muted)]"}`} aria-hidden="true">{integrationsOk ? "✓" : "·"}</span>
+                          <div className="text-sm text-[var(--text)]">Integration list validated</div>
+                        </div>
+                        <div className="text-xs text-[var(--text-muted)]">{integrationsOk ? `${integrationNames.length} listed` : "None listed"}</div>
+                      </div>
+
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-2">
+                          <span className={`mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${evidenceOk ? "border-[rgba(34,197,94,0.35)] bg-[rgba(34,197,94,0.12)] text-emerald-300" : "border-[rgba(148,163,184,0.25)] bg-[rgba(148,163,184,0.08)] text-[var(--text-muted)]"}`} aria-hidden="true">{evidenceOk ? "✓" : "·"}</span>
+                          <div className="text-sm text-[var(--text)]">Evidence links</div>
+                        </div>
+                        <div className="text-xs text-[var(--text-muted)]">{evidenceCount} link{evidenceCount === 1 ? "" : "s"}</div>
+                      </div>
+
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-start gap-2">
+                          <span className={`mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${verifiedOk ? "border-[rgba(34,197,94,0.35)] bg-[rgba(34,197,94,0.12)] text-emerald-300" : "border-[rgba(148,163,184,0.25)] bg-[rgba(148,163,184,0.08)] text-[var(--text-muted)]"}`} aria-hidden="true">{verifiedOk ? "✓" : "·"}</span>
+                          <div className="text-sm text-[var(--text)]">Last verified</div>
+                        </div>
+                        <div className="text-xs text-[var(--text-muted)]">{verificationDate ? verificationDate.toISOString().slice(0, 10) : "—"}</div>
+                      </div>
+                    </div>
+                  </details>
+                );
+              })()}
+
               <div className="mt-4 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
                 <div className="text-sm font-semibold text-[var(--text)]">Decision snapshot</div>
                 <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">

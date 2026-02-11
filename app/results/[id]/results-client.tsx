@@ -48,6 +48,10 @@ type ToolMeta = {
   slug: string;
   lastVerifiedAt: string | null;
   vendorName: string | null;
+  integrationsCount?: number;
+  complianceTagsCount?: number;
+  evidenceLinksCount?: number;
+  pricingPageVerified?: boolean;
 };
 
 type PayrollDecisionInputs = {
@@ -152,8 +156,24 @@ export default function ResultsClient({
       if (!res?.ok || !data?.ok || !Array.isArray(data.tools)) return;
 
       const next: Record<string, ToolMeta> = {};
-      for (const t of data.tools as Array<{ slug: string; lastVerifiedAt: string | null; vendorName: string | null }>) {
-        next[t.slug] = { slug: t.slug, lastVerifiedAt: t.lastVerifiedAt, vendorName: t.vendorName };
+      for (const t of data.tools as Array<{
+        slug: string;
+        lastVerifiedAt: string | null;
+        vendorName: string | null;
+        integrationsCount?: number;
+        complianceTagsCount?: number;
+        evidenceLinksCount?: number;
+        pricingPageVerified?: boolean;
+      }>) {
+        next[t.slug] = {
+          slug: t.slug,
+          lastVerifiedAt: t.lastVerifiedAt,
+          vendorName: t.vendorName,
+          integrationsCount: t.integrationsCount,
+          complianceTagsCount: t.complianceTagsCount,
+          evidenceLinksCount: t.evidenceLinksCount,
+          pricingPageVerified: t.pricingPageVerified,
+        };
       }
 
       if (!cancelled) setToolMeta(next);
@@ -339,6 +359,40 @@ export default function ResultsClient({
               </div>
 
               {primaryPick.tool.tagline ? <div className="mt-3 text-[var(--text)]">{primaryPick.tool.tagline}</div> : null}
+
+              {(() => {
+                const meta = toolMeta[primaryPick.tool.slug];
+                const complianceOk = (meta?.complianceTagsCount ?? 0) > 0;
+                const pricingOk = Boolean(meta?.pricingPageVerified);
+                const integrationsOk = (meta?.integrationsCount ?? 0) > 0;
+                const evidenceCount = meta?.evidenceLinksCount ?? 0;
+                const evidenceOk = evidenceCount > 0;
+                const verifiedOk = Boolean(meta?.lastVerifiedAt);
+
+                const depthScore = [complianceOk, pricingOk, integrationsOk, evidenceOk, verifiedOk].filter(Boolean).length;
+
+                return (
+                  <details className="mt-5 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3">
+                    <summary className="cursor-pointer select-none list-none">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="text-sm font-semibold text-[var(--text)]">HRSignal Verification</div>
+                        <span className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-1)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
+                          Depth {depthScore}/5
+                        </span>
+                      </div>
+                      <div className="mt-1 text-xs text-[var(--text-muted)]">Expandable checklist of what’s verified vs needs validation.</div>
+                    </summary>
+
+                    <div className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
+                      <ChecklistRow ok={complianceOk} label="Compliance scope verified" meta={complianceOk ? "Tags present" : "Tags missing"} />
+                      <ChecklistRow ok={pricingOk} label="Pricing page verified" meta={pricingOk ? "Evidence link present" : "No pricing evidence link"} />
+                      <ChecklistRow ok={integrationsOk} label="Integration list validated" meta={integrationsOk ? `${meta?.integrationsCount ?? 0} listed` : "None listed"} />
+                      <ChecklistRow ok={evidenceOk} label="Evidence links" meta={`${evidenceCount} link${evidenceCount === 1 ? "" : "s"}`} />
+                      <ChecklistRow ok={verifiedOk} label="Last verified" meta={meta?.lastVerifiedAt ? meta.lastVerifiedAt.slice(0, 10) : "—"} />
+                    </div>
+                  </details>
+                );
+              })()}
 
               <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
                 <div className="sm:col-span-2">
@@ -721,6 +775,35 @@ export default function ResultsClient({
 
     <SiteFooter />
   </div>
+  );
+}
+
+function ChecklistRow({
+  ok,
+  label,
+  meta,
+}: {
+  ok: boolean;
+  label: string;
+  meta: string;
+}) {
+  return (
+    <div className="flex items-start justify-between gap-3">
+      <div className="flex items-start gap-2">
+        <span
+          className={`mt-[2px] inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border ${
+            ok
+              ? "border-[rgba(34,197,94,0.35)] bg-[rgba(34,197,94,0.12)] text-emerald-300"
+              : "border-[rgba(148,163,184,0.25)] bg-[rgba(148,163,184,0.08)] text-[var(--text-muted)]"
+          }`}
+          aria-hidden="true"
+        >
+          {ok ? "✓" : "·"}
+        </span>
+        <div className="text-sm text-[var(--text)]">{label}</div>
+      </div>
+      <div className="text-xs text-[var(--text-muted)]">{meta}</div>
+    </div>
   );
 }
 
