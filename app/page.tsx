@@ -5,6 +5,7 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ButtonLink } from "@/components/ui/Button";
+import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { HomeSection } from "@/components/marketing/HomeSection";
 import { TalkToPayrollSpecialistSection } from "@/components/conversion/TalkToPayrollSpecialistSection";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
@@ -33,9 +34,14 @@ export default async function Home() {
 
               <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-start">
                 <div className="flex flex-col gap-3">
-                  <ButtonLink href="/recommend" size="lg" className="w-full justify-center sm:w-auto">
+                  <TrackedButtonLink
+                    event="primary_cta_click"
+                    href="/recommend"
+                    size="lg"
+                    className="w-full justify-center sm:w-auto"
+                  >
                     Get my India-ready shortlist
-                  </ButtonLink>
+                  </TrackedButtonLink>
 
                   <div className="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
                     <span>Takes 60 seconds</span>

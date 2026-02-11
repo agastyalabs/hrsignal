@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { track } from "@vercel/analytics";
 
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -126,6 +127,9 @@ export function ChecklistDownloadCard({
               <div className="mt-3">
                 <a
                   href="#"
+                  onClick={() => {
+                    track("checklist_download", { sourcePage });
+                  }}
                   className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
                 >
                   Download PDF (placeholder) →

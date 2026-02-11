@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import * as React from "react";
 
@@ -40,15 +42,17 @@ export function ButtonLink({
   size = "md",
   className = "",
   children,
+  onClick,
 }: {
   href: string;
   variant?: Variant;
   size?: Size;
   className?: string;
   children: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }) {
   return (
-    <Link href={href} className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}>
+    <Link href={href} onClick={onClick} className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}>
       {children}
     </Link>
   );

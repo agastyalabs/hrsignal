@@ -10,6 +10,7 @@ import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Select } from "@/components/ui/Input";
 import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
+import { track } from "@vercel/analytics";
 
 type EmployeesRange = "1-49" | "50-200" | "201-1000" | "1001+";
 type StatesRange = "1" | "2-5" | "6+";
@@ -201,6 +202,7 @@ export default function PayrollRiskScannerPage() {
                     variant="primary"
                     className="w-full sm:w-auto"
                     onClick={() => {
+                      track("risk_scanner_completed", { tier: complexityTier, score });
                       const qp = new URLSearchParams({
                         ct: complexityTier,
                         headcount: employees,

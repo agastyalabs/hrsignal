@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { track } from "@vercel/analytics";
 
 type Submission = {
   id: string;
@@ -656,6 +657,7 @@ export default function ResultsClient({
                       // No backend yet. Simulate async.
                       await new Promise((r) => setTimeout(r, 250));
                       setUnlocked(true);
+                      track("shortlist_unlocked", { runId });
                       setUnlocking(false);
                     }}
                   >
