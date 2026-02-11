@@ -19,11 +19,11 @@ export default async function Home() {
         <div className="rounded-[1.2rem] border border-[var(--border-soft)] bg-[var(--surface-1)]">
           <div className="grid grid-cols-1 gap-8 p-5 sm:p-8 lg:grid-cols-12 lg:gap-10 lg:p-10">
             <div className="lg:col-span-7">
-              <h1 className="text-4xl font-extrabold leading-[1.04] tracking-tight text-[var(--text)] sm:text-5xl lg:text-6xl">
+              <h1 className="text-5xl font-extrabold leading-[1.02] tracking-[-0.03em] text-[var(--text)] sm:text-6xl lg:text-7xl">
                 Shortlist India-ready HRMS & Payroll — without month-end surprises.
               </h1>
 
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--text-muted)]">
+              <p className="mt-4 max-w-[68ch] text-base leading-7 text-[var(--text-muted)]">
                 Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
               </p>
 
@@ -57,7 +57,7 @@ export default async function Home() {
       </HomeSection>
 
       {/* 2) HRSignal Coverage Snapshot */}
-      <HomeSection className="pt-0">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6">
           <div className="text-base font-semibold text-[var(--text)]">HRSignal Coverage Snapshot</div>
           <div className="mt-1 text-sm text-[var(--text-muted)]">Static snapshot of marketplace coverage (v1).</div>
@@ -74,7 +74,7 @@ export default async function Home() {
                 key={m.label}
                 className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5"
               >
-                <div className="text-3xl font-extrabold tracking-tight text-[var(--text)] sm:text-4xl">{m.value}</div>
+                <div className="text-5xl font-extrabold tracking-tight text-[var(--text)] sm:text-6xl">{m.value}</div>
                 <div className="mt-2 text-xs font-semibold text-[var(--text-muted)]">{m.label}</div>
               </div>
             ))}
@@ -82,7 +82,7 @@ export default async function Home() {
             <div className="col-span-2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <div className="text-3xl font-extrabold tracking-tight text-[var(--text)] sm:text-4xl">Last verified</div>
+                  <div className="text-5xl font-extrabold tracking-tight text-[var(--text)] sm:text-6xl">Last verified</div>
                   <div className="mt-2 text-xs font-semibold text-[var(--text-muted)]">Freshness signal</div>
                 </div>
                 <div className="text-sm text-[var(--text-muted)]">We show verification recency so you can spot what needs re-checking.</div>
@@ -93,7 +93,7 @@ export default async function Home() {
       </HomeSection>
 
       {/* 3) Who HRSignal is built for */}
-      <HomeSection className="pt-0">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <div>
           <h2 className="text-xl font-semibold tracking-tight text-[var(--text)] sm:text-2xl">Who HRSignal is built for</h2>
           <p className="mt-2 text-sm text-[var(--text-muted)]">Teams evaluating India payroll with multi-state complexity.</p>
@@ -133,7 +133,7 @@ export default async function Home() {
             ].map((c) => (
               <div
                 key={c.title}
-                className="h-full rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-7 transition-transform duration-150 hover:-translate-y-0.5 hover:shadow-sm"
+                className="h-full rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-8"
               >
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)]">
@@ -141,7 +141,7 @@ export default async function Home() {
                   </div>
                   <div>
                     <div className="text-base font-semibold text-[var(--text)]">{c.title}</div>
-                    <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{c.desc}</div>
+                    <div className="mt-2 max-w-[52ch] text-sm leading-7 text-[var(--text-muted)]">{c.desc}</div>
                   </div>
                 </div>
               </div>
@@ -151,12 +151,12 @@ export default async function Home() {
       </HomeSection>
 
       {/* 4) Authority + specialist CTA */}
-      <HomeSection className="pt-0">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <TalkToPayrollSpecialistSection href="/recommend" />
       </HomeSection>
 
-      {/* 3) Browse by category */}
-      <HomeSection className="pt-0">
+      {/* 5) Browse by category */}
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <SectionTitle title="Browse by category" subtitle="Start with the module you need — then shortlist vendors with deterministic reasons." />
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -179,8 +179,8 @@ export default async function Home() {
         </div>
       </HomeSection>
 
-      {/* 4) Trust & proof strip */}
-      <HomeSection className="pt-0">
+      {/* 6) Trust & proof strip */}
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <SectionTitle
           title="Why trust HRSignal?"
           subtitle="Evidence-backed shortlists for India payroll—freshness, compliance depth, and demo edge cases made explicit."
@@ -436,31 +436,28 @@ function StepCardV5({ icon, title, body }: { icon: string; title: string; body: 
 
 function DecisionSnapshotCard() {
   return (
-    <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5">
-      <div className="text-xs font-medium tracking-wide text-[var(--text-muted)]">
-        Decision snapshot · India payroll context
-      </div>
+    <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-6">
+      <div className="text-xs font-medium tracking-wide text-[var(--text-muted)]">Decision snapshot · India payroll context</div>
       <div className="mt-2 text-base font-medium text-[var(--text)]">Payroll &amp; Compliance shortlist preview</div>
 
-      <div className="mt-4 flex items-end justify-between gap-3">
+      <div className="mt-5 flex items-end justify-between gap-3">
         <div className="text-sm font-medium text-[var(--text-muted)]">Fit score</div>
-        <div className="text-4xl font-extrabold tracking-tight text-[var(--text)] sm:text-5xl">92 / 100</div>
+        <div className="text-5xl font-extrabold tracking-tight text-[var(--text)] sm:text-6xl">92 / 100</div>
       </div>
 
-      <div className="mt-5 space-y-3 text-sm leading-6 text-[var(--text-muted)]">
+      <div className="mt-6 space-y-3 text-sm leading-7 text-[var(--text-muted)]">
         <div>• Matches multi-state payroll + branch complexity</div>
         <div>• Covers PF / ESI / PT / TDS workflows</div>
         <div>• Claims backed by evidence links (docs + pricing)</div>
-        <div>• Demo checklist flags edge cases (arrears, reversals, cutoffs)</div>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2 text-xs font-medium text-[var(--text-muted)]">
+      <div className="mt-5 flex flex-wrap gap-2 text-xs font-medium text-[var(--text-muted)]">
         <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">PEPM</span>
         <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">India-ready</span>
-        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">Freshness verified</span>
+        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">Evidence-backed</span>
       </div>
 
-      <div className="mt-4 text-sm text-[var(--text-muted)]">Privacy-first. No automatic vendor sharing.</div>
+      <div className="mt-5 text-sm leading-7 text-[var(--text-muted)]">Privacy-first. No automatic vendor sharing.</div>
     </div>
   );
 }
