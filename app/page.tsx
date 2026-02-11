@@ -20,7 +20,9 @@ export default async function Home() {
         <div className="rounded-[1.2rem] border border-[var(--border-soft)] bg-[var(--surface-1)]">
           <div className="grid grid-cols-1 gap-8 p-5 sm:p-8 lg:grid-cols-12 lg:gap-10 lg:p-10">
             <div className="lg:col-span-7">
-              <h1 className="text-5xl font-extrabold leading-[1.02] tracking-[-0.03em] text-[var(--text)] sm:text-6xl lg:text-7xl">
+              <div className="text-xs font-semibold tracking-[0.12em] text-[var(--text-muted)]">DECISION INTELLIGENCE FOR INDIA HR SOFTWARE</div>
+
+              <h1 className="mt-3 text-5xl font-extrabold leading-[1.02] tracking-[-0.03em] text-[var(--text)] sm:text-6xl lg:text-7xl">
                 Shortlist India-ready HRMS & Payroll — without month-end surprises.
               </h1>
 
@@ -29,11 +31,18 @@ export default async function Home() {
               </p>
 
               <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-start">
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-3">
                   <ButtonLink href="/recommend" size="lg" className="w-full justify-center sm:w-auto">
                     Get my India-ready shortlist
                   </ButtonLink>
-                  <div className="text-xs text-[var(--text-muted)]">Takes 60 seconds · No vendor spam · No paid ranking</div>
+
+                  <div className="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
+                    <span>Takes 60 seconds</span>
+                    <span className="text-[var(--text-muted)]">•</span>
+                    <span>No vendor spam</span>
+                    <span className="text-[var(--text-muted)]">•</span>
+                    <span>No paid ranking</span>
+                  </div>
                 </div>
 
                 <Link
@@ -44,8 +53,8 @@ export default async function Home() {
                 </Link>
               </div>
 
-              <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3 text-sm text-[var(--text-muted)]">
-                Used by HR leaders evaluating multi-state payroll in India.
+              <div className="mt-6 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
+                Trusted by HR leaders in 20–1000 employee Indian orgs evaluating multi-state compliance risk.
               </div>
 
             </div>
