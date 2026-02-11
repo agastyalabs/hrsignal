@@ -82,7 +82,40 @@ export default async function Home() {
         </div>
       </HomeSection>
 
-      {/* 3) Authority + specialist CTA */}
+      {/* 3) Who HRSignal is built for */}
+      <HomeSection className="pt-0">
+        <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-transparent">
+          <div className="text-sm font-semibold text-[var(--text)]">Who HRSignal is built for</div>
+          <div className="mt-1 text-sm text-[var(--text-muted)]">Teams evaluating India payroll with multi-state complexity.</div>
+
+          <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {[
+              {
+                title: "Multi-state payroll teams (20–1000 employees)",
+                desc: "Handling PF / ESI / PT / TDS across states and entities.",
+              },
+              {
+                title: "HR leaders in growing Indian orgs",
+                desc: "Scaling from 20 to 500+ employees without compliance surprises.",
+              },
+              {
+                title: "Finance & founders reviewing payroll risk",
+                desc: "Needing audit-ready outputs and implementation clarity.",
+              },
+            ].map((c) => (
+              <div
+                key={c.title}
+                className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5"
+              >
+                <div className="text-sm font-semibold text-[var(--text)]">{c.title}</div>
+                <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{c.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </HomeSection>
+
+      {/* 4) Authority + specialist CTA */}
       <HomeSection className="pt-0">
         <TalkToPayrollSpecialistSection href="/recommend" />
       </HomeSection>
