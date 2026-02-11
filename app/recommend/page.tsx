@@ -240,6 +240,19 @@ export default async function RecommendPage({
                     <div className="text-xs text-[var(--text-muted)]">Showing top {ranked.length} vendors</div>
                   </div>
 
+                  <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="text-sm text-[var(--text-muted)]">Export a printable decision report for internal review.</div>
+                    <Link
+                      href={`/report?${new URLSearchParams(Object.entries(sp).flatMap(([k, v]) => {
+                        const val = Array.isArray(v) ? v[0] : v;
+                        return typeof val === "string" ? [[k, val]] : [];
+                      })).toString()}`}
+                      className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] transition-all duration-200 hover:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.18)] hover:shadow-[0_14px_40px_rgba(0,0,0,0.30)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Export report (PDF)
+                    </Link>
+                  </div>
+
                   <div className="mt-4 space-y-3">
                     {ranked.map((v) => (
                       <div key={v.slug} className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
