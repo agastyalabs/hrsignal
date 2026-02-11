@@ -57,7 +57,7 @@ export default async function Home() {
 
       {/* Hero (bento) */}
       <Section className="pt-10 sm:pt-14">
-        <div className="relative overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--surface-1)] shadow-[var(--shadow-sm)]">
+        <div className="relative overflow-hidden rounded-3xl border border-[var(--border-soft)] bg-[var(--surface-1)]/70 shadow-none">
           {/* Signal motif: layered gradients + waveform */}
           <div className="pointer-events-none absolute inset-0 opacity-90">
             <div className="absolute -top-40 right-[-160px] h-[520px] w-[520px] rounded-full bg-[color:var(--primary)]/18 blur-3xl" />
@@ -105,7 +105,7 @@ export default async function Home() {
                 {["Export-ready reporting", "RBAC + audit trail", "Month-end reality checks", "No vendor spam by default"].map((x) => (
                   <div
                     key={x}
-                    className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-4 text-sm font-medium text-[#CBD5E1]"
+                    className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-2)] p-4 text-sm font-medium text-[var(--text-muted)]"
                   >
                     {x}
                   </div>
@@ -180,7 +180,7 @@ export default async function Home() {
               </div>
 
 
-              <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-5 shadow-[var(--shadow-sm)] sm:p-6">
+              <div className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-2)] p-5 shadow-none sm:p-6">
                 <div className="text-sm font-semibold text-[#F9FAFB]">Get your shortlist</div>
                 <p className="mt-1 text-sm text-[#CBD5E1]">
                   Choose a fast path or go deeper for more tailored match reasons.
@@ -247,7 +247,7 @@ export default async function Home() {
                 ].map((m) => (
                   <div
                     key={m.k}
-                    className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-3 text-center shadow-[var(--shadow-sm)]"
+                    className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-2)] p-3 text-center shadow-none"
                   >
                     <div className="text-xs font-medium text-[#94A3B8]">{m.k}</div>
                     <div className="mt-1 text-sm font-semibold text-[#F9FAFB]">{m.v}</div>
@@ -354,8 +354,8 @@ export default async function Home() {
         />
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-6 shadow-[var(--shadow-sm)]">
-            <div className="text-sm font-semibold text-[#F9FAFB]">Starter</div>
+          <div className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-2)] p-6 shadow-none">
+            <div className="text-sm font-semibold text-[var(--text)]">Starter</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight">Free</div>
             <p className="mt-2 text-sm text-[#CBD5E1]">Get recommendations + shortlist with reasons.</p>
             <ul className="mt-4 space-y-2 text-sm text-[#CBD5E1]">
@@ -370,11 +370,11 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[var(--primary)]/30 bg-[#0F172A] p-6 shadow-[var(--shadow-sm)]">
-            <div className="text-sm font-semibold text-[#F9FAFB]">Teams</div>
-            <div className="mt-2 text-3xl font-semibold tracking-tight text-[#F9FAFB]">Early access</div>
-            <p className="mt-2 text-sm text-[#CBD5E1]">We’ll set this up with you (white-glove).</p>
-            <ul className="mt-4 space-y-2 text-sm text-[#CBD5E1]">
+          <div className="rounded-2xl border border-[rgba(124,77,255,0.22)] bg-[rgba(124,77,255,0.10)] p-6 shadow-none">
+            <div className="text-sm font-semibold text-[var(--text)]">Teams</div>
+            <div className="mt-2 text-3xl font-semibold tracking-tight text-[var(--text)]">Early access</div>
+            <p className="mt-2 text-sm text-[var(--text-muted)]">We’ll set this up with you (white-glove).</p>
+            <ul className="mt-4 space-y-2 text-sm text-[var(--text-muted)]">
               <li>• Custom filters (states, compliance, integrations)</li>
               <li>• Vendor screening and intro</li>
               <li>• Priority support</li>
@@ -386,8 +386,8 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-6 shadow-[var(--shadow-sm)]">
-            <div className="text-sm font-semibold text-[#F9FAFB]">Enterprise</div>
+          <div className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-2)] p-6 shadow-none">
+            <div className="text-sm font-semibold text-[var(--text)]">Enterprise</div>
             <div className="mt-2 text-3xl font-semibold tracking-tight">Talk to us</div>
             <p className="mt-2 text-sm text-[#CBD5E1]">For larger teams and multi-entity compliance needs.</p>
             <ul className="mt-4 space-y-2 text-sm text-[#CBD5E1]">
@@ -426,7 +426,7 @@ export default async function Home() {
               a: "Add details in the note and we’ll refine the shortlist manually before making an intro.",
             },
           ].map((f) => (
-            <div key={f.q} className="rounded-2xl border border-[var(--border)] bg-[var(--surface-2)] p-6 shadow-[var(--shadow-sm)]">
+            <div key={f.q} className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-2)] p-6 shadow-none">
               <div className="text-sm font-semibold text-[#F9FAFB]">{f.q}</div>
               <div className="mt-2 text-sm leading-relaxed text-[#CBD5E1]">{f.a}</div>
             </div>

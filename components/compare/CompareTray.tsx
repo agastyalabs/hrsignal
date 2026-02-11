@@ -79,20 +79,20 @@ export function CompareTray() {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-zinc-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/75"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--border-soft)] bg-[rgba(15,24,66,0.82)] text-[var(--text)] backdrop-blur"
       role="region"
       aria-label="Comparison tray"
     >
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <div className="text-sm font-semibold text-zinc-900">Compare</div>
-            <span className="rounded-full bg-indigo-600 px-2 py-0.5 text-xs font-semibold text-white" aria-label={`${count} tools selected`}>
+            <div className="text-sm font-semibold text-[var(--text)]">Compare</div>
+            <span className="rounded-full bg-[var(--accent)] px-2 py-0.5 text-xs font-semibold text-[var(--bg)]" aria-label={`${count} tools selected`}>
               {count}
             </span>
             <button
               type="button"
-              className="ml-2 text-xs font-medium text-zinc-600 underline decoration-zinc-300 underline-offset-2 hover:text-zinc-900"
+              className="ml-2 text-xs font-medium text-[var(--text-muted)] underline decoration-[rgba(255,255,255,0.25)] underline-offset-2 hover:text-[var(--text)]"
               onClick={() => {
                 clearCompare();
               }}
@@ -106,15 +106,15 @@ export function CompareTray() {
             {(tools ?? slugs.map((s) => ({ slug: s, name: s, vendorName: null }))).map((t) => (
               <span
                 key={t.slug}
-                className="inline-flex max-w-full items-center gap-2 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs text-zinc-800"
+                className="inline-flex max-w-full items-center gap-2 rounded-full border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1 text-xs text-[var(--text)]"
               >
                 <span className="truncate">
                   {t.name}
-                  {t.vendorName ? <span className="text-zinc-500"> · {t.vendorName}</span> : null}
+                  {t.vendorName ? <span className="text-[var(--text-muted)]"> · {t.vendorName}</span> : null}
                 </span>
                 <button
                   type="button"
-                  className="rounded-full px-1 text-zinc-500 hover:text-zinc-900 focus:outline-none focus:ring-4 focus:ring-indigo-500/20"
+                  className="rounded-full px-1 text-[var(--text-muted)] hover:text-[var(--text)] focus:outline-none focus:ring-4 focus:ring-[var(--ring)]"
                   onClick={() => set(slugs.filter((s) => s !== t.slug))}
                   aria-label={`Remove ${t.name} from compare`}
                 >
@@ -124,7 +124,7 @@ export function CompareTray() {
             ))}
           </div>
 
-          <div className="mt-2 text-xs text-zinc-500">
+          <div className="mt-2 text-xs text-[var(--text-muted)]">
             Tip: max 4 tools on mobile, 5 on desktop.
           </div>
         </div>
@@ -132,14 +132,14 @@ export function CompareTray() {
         <div className="flex shrink-0 items-center gap-2">
           <Link
             href={href}
-            className="inline-flex h-10 items-center justify-center rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-500/20"
+            className="inline-flex h-10 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-4 focus:ring-[var(--ring)]"
             aria-label="Open compare page"
           >
             Compare now
           </Link>
           <button
             type="button"
-            className="inline-flex h-10 items-center justify-center rounded-lg border border-zinc-200 bg-white px-4 text-sm font-medium text-zinc-800 hover:bg-zinc-50 focus:outline-none focus:ring-4 focus:ring-indigo-500/20"
+            className="inline-flex h-10 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus:outline-none focus:ring-4 focus:ring-[var(--ring)]"
             onClick={() => {
               setDismissedKey(selectionKey);
             }}

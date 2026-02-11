@@ -19,13 +19,13 @@ export function Toast({ toast, onDone }: { toast: ToastModel; onDone: (id: strin
   const tone = toast.type ?? "info";
   const styles =
     tone === "success"
-      ? "border-emerald-200 bg-emerald-50 text-emerald-900"
+      ? "border-[rgba(39,211,188,0.35)] bg-[rgba(39,211,188,0.12)] text-[var(--text)]"
       : tone === "error"
-        ? "border-rose-200 bg-rose-50 text-rose-900"
-        : "border-zinc-200 bg-white text-zinc-900";
+        ? "border-[rgba(244,63,94,0.35)] bg-[rgba(244,63,94,0.12)] text-[var(--text)]"
+        : "border-[var(--border-soft)] bg-[var(--surface-1)] text-[var(--text)]";
 
   return (
-    <div className={`w-[min(92vw,420px)] rounded-xl border px-4 py-3 shadow-sm ${styles}`}>
+    <div className={`w-[min(92vw,420px)] rounded-[var(--radius-lg)] border px-4 py-3 shadow-[var(--shadow-md)] ${styles}`}>
       <div className="text-sm font-semibold">{toast.title}</div>
       {toast.description ? <div className="mt-1 text-sm opacity-90">{toast.description}</div> : null}
     </div>

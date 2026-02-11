@@ -31,12 +31,12 @@ export function CompareToggle({ slug }: { slug: string }) {
       type="button"
       disabled={full}
       aria-disabled={full}
-      className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors motion-reduce:transition-none focus:outline-none focus:ring-4 focus:ring-indigo-500/20 ${
+      className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors motion-reduce:transition-none focus:outline-none focus:ring-4 focus:ring-[var(--ring)] ${
         active
-          ? "border-indigo-200 bg-indigo-50 text-indigo-700"
+          ? "border-[rgba(124,77,255,0.35)] bg-[rgba(124,77,255,0.16)] text-[var(--text)]"
           : full
-            ? "cursor-not-allowed border-zinc-200 bg-white text-zinc-400"
-            : "border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50"
+            ? "cursor-not-allowed border-[var(--border-soft)] bg-[var(--surface-1)] text-[rgba(247,249,255,0.45)]"
+            : "border-[var(--border-soft)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)]"
       }`}
       onClick={(e) => {
         e.preventDefault();

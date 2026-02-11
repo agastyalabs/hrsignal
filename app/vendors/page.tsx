@@ -211,7 +211,7 @@ export default async function VendorsPage({
           </Link>
         </div>
 
-        <Card className="mt-6 border border-[var(--border-soft)] bg-[var(--surface-1)] p-4 shadow-none">
+        <div className="mt-6 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)]/70 p-4">
           <form method="get" action="/vendors" className="grid grid-cols-1 gap-3 md:grid-cols-12 md:items-end">
             <div className="md:col-span-2">
               <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="sort">
@@ -311,7 +311,7 @@ export default async function VendorsPage({
               </div>
             ) : null}
           </form>
-        </Card>
+        </div>
 
         {!process.env.DATABASE_URL ? (
           <Card className="mt-6 shadow-sm">
