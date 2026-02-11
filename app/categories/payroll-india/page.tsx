@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "India Payroll Software (2026) — Complexity, Compliance & Shortlisting | HRSignal",
   description:
-    "Understand India payroll complexity (multi-state compliance, PF/ESI/PT/TDS) and compare top payroll vendors. Get a deterministic shortlist with HRSignal Readiness Score.",
+    "Understand India payroll complexity (multi-state compliance, PF/ESI/PT/TDS) and compare top payroll vendors. Get a deterministic shortlist with HRSignal Readiness Score™.",
   alternates: { canonical: "https://hrsignal.vercel.app/categories/payroll-india" },
 };
 
@@ -200,7 +200,7 @@ export default function PayrollIndiaPillarPage() {
                     <thead className="bg-[var(--surface-1)]">
                       <tr className="border-b border-[var(--border-soft)]">
                         <th className="p-4 text-left text-xs font-semibold text-[var(--text-muted)]">Vendor</th>
-                        <th className="p-4 text-left text-xs font-semibold text-[var(--text-muted)]">HRSignal Readiness Score</th>
+                        <th className="p-4 text-left text-xs font-semibold text-[var(--text-muted)]">HRSignal Readiness Score™</th>
                         <th className="p-4 text-left text-xs font-semibold text-[var(--text-muted)]">Best for</th>
                         <th className="p-4 text-left text-xs font-semibold text-[var(--text-muted)]">Watch-outs</th>
                       </tr>
@@ -245,9 +245,9 @@ export default function PayrollIndiaPillarPage() {
               </section>
 
               <section className="space-y-3">
-                <h2 className="text-xl font-semibold text-[var(--text)]">Methodology: HRSignal Readiness Score</h2>
+                <h2 className="text-xl font-semibold text-[var(--text)]">Methodology: HRSignal Readiness Score™</h2>
                 <p className="text-sm leading-relaxed text-[var(--text-muted)]">
-                  HRSignal Readiness Score is deterministic and explainable. It prioritizes India payroll signal quality: compliance depth, evidence
+                  HRSignal Readiness Score™ is deterministic and explainable. It prioritizes India payroll signal quality: compliance depth, evidence
                   links, integration visibility, and freshness/verification indicators.
                 </p>
                 <p className="text-sm leading-relaxed text-[var(--text-muted)]">

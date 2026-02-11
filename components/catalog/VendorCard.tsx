@@ -28,7 +28,7 @@ export type VendorCardModel = {
   // Back-compat (avoid breaking callers)
   freshnessLabel?: string | null;
 
-  // HRSignal Readiness Score (0–100) when available
+  // HRSignal Readiness Score™ (0–100) when available
   readinessIndex?: number | null;
 };
 
@@ -75,14 +75,14 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
                   className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]"
                   title="India-specific payroll compliance + verification intelligence score (0–100)"
                 >
-                  HRSignal Readiness {vendor.readinessIndex}
+                  HRSignal Readiness Score™ {vendor.readinessIndex}
                 </span>
               ) : vendor.verifiedInIndia ? (
                 <span
                   className="rounded-full border border-[rgba(39,211,188,0.30)] bg-[rgba(39,211,188,0.12)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]"
                   title="India-specific payroll compliance + verification intelligence score (0–100)"
                 >
-                  HRSignal Readiness
+                  HRSignal Readiness Score™
                 </span>
               ) : null}
             </div>

@@ -393,7 +393,7 @@ export default function ResultsClient({
                     className="rounded-full border border-[rgba(255,255,255,0.16)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]"
                     title="India-specific payroll compliance + verification intelligence score (0–100)"
                   >
-                    HRSignal Readiness {primaryPick.score}
+                    HRSignal Readiness Score™ {primaryPick.score}
                   </span>
                 </div>
               </div>

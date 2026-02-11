@@ -264,7 +264,7 @@ export default async function VendorComparePage({
   }
 
   const rows: Array<{ id: keyof VendorCompareModel; label: string }> = [
-    { id: "overallFit", label: "HRSignal Readiness Score" },
+    { id: "overallFit", label: "HRSignal Readiness Score™" },
     { id: "toolsConsidered", label: "Tools considered" },
     { id: "indiaComplianceTags", label: "India compliance tags (union)" },
     { id: "integrations", label: "Integrations (union)" },
@@ -374,7 +374,7 @@ export default async function VendorComparePage({
                   <div className="mt-1 text-xs text-[var(--text-muted)]">{v.slug}</div>
                 </div>
                 <span title="India-specific payroll compliance + verification intelligence score (0–100)">
-                  <Badge variant={v.overallFit >= 80 ? "verified" : "neutral"}>HRSignal Readiness {v.overallFit}/100</Badge>
+                  <Badge variant={v.overallFit >= 80 ? "verified" : "neutral"}>HRSignal Readiness Score™ {v.overallFit}/100</Badge>
                 </span>
               </div>
 
@@ -414,7 +414,7 @@ export default async function VendorComparePage({
                       <div className="mt-1 text-xs text-[var(--text-muted)]">{v.slug}</div>
                       <div className="mt-3">
                         <span title="India-specific payroll compliance + verification intelligence score (0–100)">
-                          <Badge variant={v.overallFit >= 80 ? "verified" : "neutral"}>HRSignal Readiness {v.overallFit}/100</Badge>
+                          <Badge variant={v.overallFit >= 80 ? "verified" : "neutral"}>HRSignal Readiness Score™ {v.overallFit}/100</Badge>
                         </span>
                       </div>
                     </th>

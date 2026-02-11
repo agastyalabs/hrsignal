@@ -489,11 +489,11 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
                   <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-muted)]">
-                    <span>HRSignal Readiness Score</span>
+                    <span>HRSignal Readiness Score™</span>
                     <span
                       className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[var(--border-soft)] bg-[var(--surface-1)] text-[10px] font-semibold text-[var(--text-muted)]"
                       title="India-specific payroll compliance + verification intelligence score (0–100)"
-                      aria-label="About HRSignal Readiness Score"
+                      aria-label="About HRSignal Readiness Score™"
                     >
                       i
                     </span>

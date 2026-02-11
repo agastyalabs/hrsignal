@@ -242,7 +242,7 @@ export default async function RecommendPage({
                 <Card className="p-5">
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <div className="text-sm font-semibold text-[var(--text)]">HRSignal Readiness Score (no ML)</div>
+                      <div className="text-sm font-semibold text-[var(--text)]">HRSignal Readiness Score™ (no ML)</div>
                       <div className="mt-1 text-sm text-[var(--text-muted)]">
                         Complexity tier: <span className="font-semibold text-[var(--text)]">{complexityTier}</span>. Ranked using compliance, evidence, freshness, integrations, and missing-signal penalty.
                       </div>
