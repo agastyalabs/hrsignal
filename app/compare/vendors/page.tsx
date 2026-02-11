@@ -264,7 +264,7 @@ export default async function VendorComparePage({
   }
 
   const rows: Array<{ id: keyof VendorCompareModel; label: string }> = [
-    { id: "overallFit", label: "Overall fit" },
+    { id: "overallFit", label: "India Payroll Readiness Index™" },
     { id: "toolsConsidered", label: "Tools considered" },
     { id: "indiaComplianceTags", label: "India compliance tags (union)" },
     { id: "integrations", label: "Integrations (union)" },
@@ -373,7 +373,9 @@ export default async function VendorComparePage({
                   <div className="truncate text-base font-semibold text-[var(--text)]">{v.name}</div>
                   <div className="mt-1 text-xs text-[var(--text-muted)]">{v.slug}</div>
                 </div>
-                <Badge variant={v.overallFit >= 80 ? "verified" : "neutral"}>{v.overallFit}/100</Badge>
+                <span title="India-specific payroll compliance + verification intelligence score (0–100)">
+                  <Badge variant={v.overallFit >= 80 ? "verified" : "neutral"}>IPRI™ {v.overallFit}/100</Badge>
+                </span>
               </div>
 
               <div className="mt-4 space-y-3">
@@ -411,7 +413,9 @@ export default async function VendorComparePage({
                       <div className="text-sm font-semibold text-[var(--text)]">{v.name}</div>
                       <div className="mt-1 text-xs text-[var(--text-muted)]">{v.slug}</div>
                       <div className="mt-3">
-                        <Badge variant={v.overallFit >= 80 ? "verified" : "neutral"}>{v.overallFit}/100</Badge>
+                        <span title="India-specific payroll compliance + verification intelligence score (0–100)">
+                          <Badge variant={v.overallFit >= 80 ? "verified" : "neutral"}>IPRI™ {v.overallFit}/100</Badge>
+                        </span>
                       </div>
                     </th>
                   ))}

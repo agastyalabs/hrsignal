@@ -352,8 +352,11 @@ export default function ResultsClient({
                       );
                     return <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${freshness.tone}`}>{freshness.label}</span>;
                   })()}
-                  <span className="rounded-full border border-[rgba(255,255,255,0.16)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
-                    Score {primaryPick.score}
+                  <span
+                    className="rounded-full border border-[rgba(255,255,255,0.16)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]"
+                    title="India-specific payroll compliance + verification intelligence score (0–100)"
+                  >
+                    IPRI™ {primaryPick.score}
                   </span>
                 </div>
               </div>

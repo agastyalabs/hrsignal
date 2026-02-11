@@ -83,6 +83,7 @@ export default async function VendorsPage({
     freshnessSortKey: number;
     sourcesCount: number | null;
     supportedSizeBands: string[];
+    readinessIndex: number;
   }> = [];
 
   const legacyBandLabel = (band: string) => {
@@ -123,6 +124,8 @@ export default async function VendorsPage({
               tagline: true,
               deployment: true,
               lastVerifiedAt: true,
+              indiaComplianceTags: true,
+              integrations: { select: { integration: { select: { name: true } } } },
               pricingPlans: { select: { priceNote: true, setupFeeNote: true }, take: 2 },
             },
             take: 6,
@@ -169,6 +172,21 @@ export default async function VendorsPage({
 
         const pricingKey = pricingTypeToMetric(type ?? "quote_based");
 
+        const complianceTagsCount = Array.from(new Set(v.tools.flatMap((t) => t.indiaComplianceTags ?? []))).filter(Boolean).length;
+        const integrationsCount = Array.from(new Set(v.tools.flatMap((t) => t.integrations.map((i) => i.integration.name)))).filter(Boolean).length;
+        const evidenceLinksCount = brief.urls.length;
+
+        const hasPayroll = v.categories.some((c) => c.slug === "payroll") || v.tools.some((t) => t.slug.includes("payroll"));
+        const hasComplianceSignals = complianceTagsCount > 0;
+        const verified = Boolean(newestTool);
+
+        const india = Math.min(30, complianceTagsCount * 7.5);
+        const evidence = Math.min(20, evidenceLinksCount * 4);
+        const integrationsScore = Math.min(15, integrationsCount * 3);
+        const freshnessScore = verified ? 10 : 0;
+        const edge = hasPayroll ? (hasComplianceSignals ? 25 : 10) : hasComplianceSignals ? 15 : 5;
+        const readinessIndex = Math.max(0, Math.min(100, Math.round(india + evidence + integrationsScore + freshnessScore + edge)));
+
         return {
           id: v.id,
           slug,
@@ -188,6 +206,7 @@ export default async function VendorsPage({
           sourcesCount: brief.urls.length ? brief.urls.length : null,
           lastCheckedAt: freshnessSortKey ? new Date(freshnessSortKey).toISOString() : null,
           supportedSizeBands: (v.supportedSizeBands ?? []).map((b) => legacyBandLabel(String(b))),
+          readinessIndex,
         };
       });
     } catch {

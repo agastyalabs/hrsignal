@@ -488,7 +488,16 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
             <div className="lg:col-span-8">
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
-                  <div className="text-xs font-semibold text-[var(--text-muted)]">Overall fit</div>
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-muted)]">
+                    <span>India Payroll Readiness Index™</span>
+                    <span
+                      className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[var(--border-soft)] bg-[var(--surface-1)] text-[10px] font-semibold text-[var(--text-muted)]"
+                      title="India-specific payroll compliance + verification intelligence score (0–100)"
+                      aria-label="About India Payroll Readiness Index"
+                    >
+                      i
+                    </span>
+                  </div>
                   <div className="mt-2 flex items-end justify-between gap-3">
                     <div className="text-3xl font-extrabold tracking-tight text-[var(--text)]">{overallFit}</div>
                     <div className="text-xs font-semibold text-[var(--text-muted)]">/ 100</div>
