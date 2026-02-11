@@ -314,8 +314,16 @@ export default async function ReportPage({
             <Card className="mt-5 p-6">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <div className="text-sm font-semibold text-[var(--text)]">Ranked vendors</div>
+                  <div className="text-sm font-semibold text-[var(--text)]">HRSignal Intelligence Score™ rankings</div>
                   <div className="mt-1 text-sm text-[var(--text-muted)]">Sorted by deterministic score for India payroll context.</div>
+                  <div className="mt-2 print:hidden">
+                    <Link
+                      href="/methodology"
+                      className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      How scoring works
+                    </Link>
+                  </div>
                 </div>
                 <div className="text-xs text-[var(--text-muted)]">Top {ranked.length}</div>
               </div>

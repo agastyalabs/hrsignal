@@ -34,6 +34,10 @@ export default async function Home() {
                 </ButtonLink>
               </div>
 
+              <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3 text-sm text-[var(--text-muted)]">
+                Used by HR leaders evaluating multi-state payroll in India.
+              </div>
+
               {/* Mobile: snapshot immediately after CTAs */}
               <div className="mt-6 lg:hidden">
                 <DecisionSnapshotCard />

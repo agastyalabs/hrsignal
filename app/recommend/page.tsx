@@ -227,14 +227,26 @@ export default async function RecommendPage({
               Answer a few questions. HRSignal recommends 3–5 best‑fit tools with clear match reasons.
             </p>
 
+            <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 py-3 text-sm text-[var(--text-muted)]">
+              Used by HR leaders evaluating multi-state payroll in India.
+            </div>
+
             {showRanking ? (
               <div className="mt-6">
                 <Card className="p-5">
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <div className="text-sm font-semibold text-[var(--text)]">Deterministic vendor ranking (no ML)</div>
+                      <div className="text-sm font-semibold text-[var(--text)]">HRSignal Intelligence Score™ (no ML)</div>
                       <div className="mt-1 text-sm text-[var(--text-muted)]">
                         Complexity tier: <span className="font-semibold text-[var(--text)]">{complexityTier}</span>. Ranked using compliance, evidence, freshness, integrations, and missing-signal penalty.
+                      </div>
+                      <div className="mt-2">
+                        <Link
+                          href="/methodology"
+                          className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                        >
+                          How scoring works
+                        </Link>
                       </div>
                     </div>
                     <div className="text-xs text-[var(--text-muted)]">Showing top {ranked.length} vendors</div>
