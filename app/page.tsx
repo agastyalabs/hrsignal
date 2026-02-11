@@ -17,20 +17,20 @@ export default async function Home() {
         <div className="rounded-[1.2rem] border border-[var(--border-soft)] bg-[var(--surface-1)]">
           <div className="grid grid-cols-1 gap-8 p-5 sm:p-8 lg:grid-cols-12 lg:gap-10 lg:p-10">
             <div className="lg:col-span-7">
-              <h1 className="text-[length:var(--h1-size)] font-extrabold leading-[1.06] tracking-tight text-[var(--text)]">
-                Make HR software decisions with clarity.
+              <h1 className="text-4xl font-extrabold leading-[1.04] tracking-tight text-[var(--text)] sm:text-5xl lg:text-6xl">
+                Shortlist India-ready HRMS & Payroll — without month-end surprises.
               </h1>
 
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--text-muted)]">
-                Structured shortlists for Indian payroll & HR — with explainable fit scores and compliance depth built in.
+                Get 3–5 best-fit tools based on company size, modules, integrations, and compliance complexity — with explainable fit scores, verification freshness, and demo checklists. No vendor blast. You choose when to connect.
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <ButtonLink href="/recommend" size="lg" className="w-full justify-center sm:w-auto">
-                  Get your shortlist
+                  Get my shortlist
                 </ButtonLink>
-                <ButtonLink href="/vendors" variant="secondary" size="lg" className="w-full justify-center sm:w-auto">
-                  Explore vendors
+                <ButtonLink href="/tools?category=payroll" variant="secondary" size="lg" className="w-full justify-center sm:w-auto">
+                  Browse HRMS & payroll tools
                 </ButtonLink>
               </div>
 
@@ -242,23 +242,30 @@ function StepCardV5({ icon, title, body }: { icon: string; title: string; body: 
 function DecisionSnapshotCard() {
   return (
     <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <div className="text-xs font-medium tracking-wide text-[var(--text-muted)]">DECISION SNAPSHOT</div>
-          <div className="mt-2 text-base font-medium text-[var(--text)]">Vendor: Keka</div>
-        </div>
-        <div className="text-3xl font-extrabold tracking-tight text-[var(--text)]">92</div>
+      <div className="text-xs font-medium tracking-wide text-[var(--text-muted)]">
+        Decision snapshot · India payroll context
+      </div>
+      <div className="mt-2 text-base font-medium text-[var(--text)]">Payroll &amp; Compliance shortlist preview</div>
+
+      <div className="mt-4 flex items-end justify-between gap-3">
+        <div className="text-sm font-medium text-[var(--text-muted)]">Fit score</div>
+        <div className="text-3xl font-extrabold tracking-tight text-[var(--text)]">92 / 100</div>
       </div>
 
       <div className="mt-4 space-y-2 text-sm leading-relaxed text-[var(--text-muted)]">
-        <div>• Payroll controls aligned to month-end workflows</div>
-        <div>• Multi-state compliance support cues are available</div>
-        <div>• Integrations are listed (reduces unknowns)</div>
+        <div>• Matches multi-state complexity</div>
+        <div>• Covers PF / ESI / PT / TDS workflows</div>
+        <div>• Evidence-backed claims (docs linked)</div>
+        <div>• Demo checklist flags edge cases</div>
       </div>
 
-      <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4 text-sm text-[var(--text-muted)]">
-        What to validate: exact export formats (bank + accounting) and plan limits for SSO/SCIM/webhooks.
+      <div className="mt-4 flex flex-wrap gap-2 text-xs font-medium text-[var(--text-muted)]">
+        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">PEPM</span>
+        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">India-ready</span>
+        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">Freshness verified</span>
       </div>
+
+      <div className="mt-4 text-sm text-[var(--text-muted)]">Privacy-first. No automatic vendor sharing.</div>
     </div>
   );
 }
