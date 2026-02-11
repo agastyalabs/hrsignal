@@ -164,7 +164,7 @@ export default function ResultsClient({
             <MomentumStep step={4} title="Decide" desc="Compare + demo" />
           </div>
 
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-2">
               {submission.categoriesNeeded.slice(0, 5).map((c) => (
                 <span key={c} className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
@@ -219,7 +219,7 @@ export default function ResultsClient({
           </div>
         ) : null}
 
-        <div className="mt-8 space-y-4">
+        <div className="mt-10 space-y-5">
           {picks.length === 0 ? (
             <Card className="shadow-sm">
               <div className="text-base font-semibold text-[var(--text)]">No matches yet</div>
@@ -243,10 +243,10 @@ export default function ResultsClient({
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500" />
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-800">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(124,77,255,0.28)] bg-[rgba(124,77,255,0.14)] px-3.5 py-1.5 text-sm font-semibold text-violet-100">
                     Primary recommendation
                   </div>
-                  <div className="mt-3 text-2xl font-semibold tracking-tight text-[var(--text)]">{primaryPick.tool.name}</div>
+                  <div className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text)]">{primaryPick.tool.name}</div>
                   {(() => {
                     const meta = toolMeta[primaryPick.tool.slug];
                     const vendorName = meta?.vendorName ?? primaryPick.tool.vendorName;
@@ -266,7 +266,9 @@ export default function ResultsClient({
                       );
                     return <span className={`rounded-full border px-2.5 py-1 text-xs font-semibold ${freshness.tone}`}>{freshness.label}</span>;
                   })()}
-                  <span className="text-xs text-[var(--text-muted)]">Score {primaryPick.score}</span>
+                  <span className="rounded-full border border-[rgba(255,255,255,0.16)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]">
+                    Score {primaryPick.score}
+                  </span>
                 </div>
               </div>
 
@@ -326,6 +328,7 @@ export default function ResultsClient({
 
           {alternatives.length ? (
             <div className="pt-2">
+              <div className="mb-6 mt-8 h-px w-full bg-[var(--border-soft)]" />
               <div className="mb-3 flex items-baseline justify-between gap-3">
                 <h2 className="text-base font-semibold text-[var(--text)]">Alternatives</h2>
                 <div className="text-xs text-[var(--text-muted)]">Useful to sanity-check pricing, payroll edge cases, and support</div>
