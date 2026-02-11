@@ -17,6 +17,8 @@ import { normalizePricingText, pricingTypeFromNote } from "@/lib/pricing/format"
 import { getVendorBrief } from "@/lib/vendors/brief";
 import { Markdownish } from "@/app/resources/Markdownish";
 import { EvidenceLinks } from "@/components/vendors/EvidenceLinks";
+import { StickyCtas } from "@/components/vendors/StickyCtas";
+import { ScorePill } from "./ScorePill";
 import { getResearchedVendorProfile } from "@/lib/vendors/researched";
 import type { Metadata } from "next";
 import { absUrl } from "@/lib/seo/url";
@@ -399,6 +401,17 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
     select: { id: true, name: true },
   });
 
+  const compareHref = vendor.tools.length >= 2 ? `/compare?tools=${encodeURIComponent(vendor.tools.map((t) => t.slug).join(","))}` : null;
+
+  // Fit scoring (heuristic: avoids false precision)
+  const subScores = {
+    india: vendor.verifiedInIndia ? 88 : 58,
+    evidence: brief.urls.length ? 82 : 64,
+    coverage: Math.min(88, 55 + toolCategories.length * 6),
+    integrations: Math.min(88, 55 + Math.min(8, integrationNames.length) * 4),
+  };
+  const overallFit = Math.round((subScores.india + subScores.evidence + subScores.coverage + subScores.integrations) / 4);
+
   const displayTitle = slug === "freshteam" ? "Freshteam (Freshworks)" : vendor.name;
   const confusionLine =
     slug === "freshteam" ? "Not to be confused with Freshservice (HR service delivery workflows)." : null;
@@ -467,6 +480,79 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
 
             <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] px-4 py-3 text-sm text-[var(--text-muted)]">
               Published tools: <span className="font-semibold text-[var(--text)]">{vendor.tools.length}</span>
+            </div>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-12">
+            <div className="lg:col-span-8">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                  <div className="text-xs font-semibold text-[var(--text-muted)]">Overall fit</div>
+                  <div className="mt-2 flex items-end justify-between gap-3">
+                    <div className="text-3xl font-extrabold tracking-tight text-[var(--text)]">{overallFit}</div>
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">/ 100</div>
+                  </div>
+                  <div className="mt-3 h-2 w-full rounded-full bg-[rgba(255,255,255,0.08)]">
+                    <div className="h-2 rounded-full bg-[var(--primary)]" style={{ width: `${overallFit}%` }} />
+                  </div>
+                </div>
+
+                <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                  <div className="text-xs font-semibold text-[var(--text-muted)]">Sub-scores</div>
+                  <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                    <ScorePill label="India" value={subScores.india} />
+                    <ScorePill label="Evidence" value={subScores.evidence} />
+                    <ScorePill label="Coverage" value={subScores.coverage} />
+                    <ScorePill label="Integrations" value={subScores.integrations} />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+                <div className="text-sm font-semibold text-[var(--text)]">Decision snapshot</div>
+                <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div>
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Pros</div>
+                    <ul className="mt-2 space-y-2 text-sm text-[var(--text-muted)]">
+                      {(profile?.bestFor?.length ? profile.bestFor : pros).slice(0, 4).map((x, idx) => (
+                        <li key={`${x}-${idx}`}>• {x}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Cons / risks</div>
+                    <ul className="mt-2 space-y-2 text-sm text-[var(--text-muted)]">
+                      {(profile?.notFor?.length ? profile.notFor : cons).slice(0, 4).map((x, idx) => (
+                        <li key={`${x}-${idx}`}>• {x}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4">
+              <StickyCtas compareHref={compareHref} shortlistHref="/recommend" />
+
+              <div className="mt-4 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
+                <div className="text-sm font-semibold text-[var(--text)]">Comparison preview</div>
+                <div className="mt-1 text-sm text-[var(--text-muted)]">Common alternatives evaluated alongside {vendor.name}.</div>
+                <div className="mt-3 space-y-2">
+                  {alternatives.slice(0, 5).map((a) => {
+                    const altSlug = canonicalVendorSlug({ vendorName: a.name });
+                    return (
+                      <Link
+                        key={a.id}
+                        href={`/vendors/${altSlug}`}
+                        className="flex items-center justify-between gap-3 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 py-2 text-sm"
+                      >
+                        <span className="truncate font-semibold text-[var(--text)]">{a.name}</span>
+                        <span className="text-xs font-semibold text-[var(--text-muted)]">View →</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
 
