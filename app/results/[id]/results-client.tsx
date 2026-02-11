@@ -2,14 +2,14 @@
 
 import type { BuyerSizeBand } from "@prisma/client";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { ToastViewport, type ToastModel } from "@/components/ui/Toast";
 
 type Submission = {
   id: string;
@@ -81,10 +81,23 @@ export default function ResultsClient({
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [toasts, setToasts] = useState<ToastModel[]>([]);
 
-  function toast(t: Omit<ToastModel, "id">) {
-    setToasts((prev) => [{ id: crypto.randomUUID(), ...t }, ...prev].slice(0, 3));
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const stepParam = (searchParams.get("step") || "shortlist") as "shortlist" | "intro" | "decide";
+  const activeStep: "shortlist" | "intro" | "decide" =
+    stepParam === "intro" || stepParam === "decide" || stepParam === "shortlist" ? stepParam : "shortlist";
+
+  const shortlistRef = useRef<HTMLDivElement | null>(null);
+  const introRef = useRef<HTMLDivElement | null>(null);
+  const decideRef = useRef<HTMLDivElement | null>(null);
+  const nameInputRef = useRef<HTMLInputElement | null>(null);
+
+  function setStep(next: "shortlist" | "intro" | "decide") {
+    const sp = new URLSearchParams(searchParams.toString());
+    sp.set("step", next);
+    router.push(`?${sp.toString()}`, { scroll: false });
   }
 
   const picks = useMemo(() => result?.tools ?? [], [result]);
@@ -98,6 +111,28 @@ export default function ResultsClient({
   }, [result]);
 
   const decisionInputs = useMemo(() => extractPayrollDecisionInputs(submission.budgetNote || ""), [submission.budgetNote]);
+
+  const reportComplexityTier = useMemo(() => {
+    const raw = decisionInputs?.statutoryComplexity ?? "";
+    if (raw.includes("multi-entity")) return "high" as const;
+    if (raw.includes("multi-state")) return "medium" as const;
+    if (raw) return "low" as const;
+    return null;
+  }, [decisionInputs?.statutoryComplexity]);
+
+  const reportHref = useMemo(() => {
+    if (!reportComplexityTier) return null;
+    const qp = new URLSearchParams({
+      ct: reportComplexityTier,
+      premium: "false",
+      share: "true",
+    });
+    // Carry a few decision inputs when present (optional).
+    if (submission.sizeBand) qp.set("headcount", String(submission.sizeBand));
+    if (submission.states?.length) qp.set("states", submission.states.length > 1 ? "2-3" : "1");
+    if (submission.timelineNote) qp.set("timeline", submission.timelineNote);
+    return `/report?${qp.toString()}`;
+  }, [reportComplexityTier, submission.sizeBand, submission.states, submission.timelineNote]);
 
   const [toolMeta, setToolMeta] = useState<Record<string, ToolMeta>>({});
 
@@ -129,10 +164,19 @@ export default function ResultsClient({
     };
   }, [picks]);
 
+  useEffect(() => {
+    const target = activeStep === "intro" ? introRef.current : activeStep === "decide" ? decideRef.current : shortlistRef.current;
+    if (!target) return;
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    if (activeStep === "intro" && !sent) {
+      window.setTimeout(() => nameInputRef.current?.focus(), 50);
+    }
+  }, [activeStep, sent]);
+
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <SiteHeader />
-      <ToastViewport toasts={toasts} dismiss={(id) => setToasts((prev) => prev.filter((t) => t.id !== id))} />
 
       <main className="py-8 sm:py-12">
         <Container className="max-w-5xl">
@@ -159,36 +203,58 @@ export default function ResultsClient({
           <div className="mt-4 h-px w-full bg-[var(--border-soft)]" />
 
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <MomentumStep step={2} title="Shortlist" desc="Explainable picks" active />
-            <MomentumStep step={3} title="Next" desc="Request intro" />
-            <MomentumStep step={4} title="Decide" desc="Compare + demo" />
+            <MomentumStep
+              step={2}
+              title="Shortlist"
+              desc="Explainable picks"
+              active={activeStep === "shortlist"}
+              onClick={() => setStep("shortlist")}
+            />
+            <MomentumStep
+              step={3}
+              title="Next"
+              desc="Request intro"
+              active={activeStep === "intro"}
+              onClick={() => setStep("intro")}
+            />
+            <MomentumStep
+              step={4}
+              title="Decide"
+              desc="Compare + demo"
+              active={activeStep === "decide"}
+              onClick={() => setStep("decide")}
+            />
           </div>
 
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-2">
               {submission.categoriesNeeded.slice(0, 5).map((c) => (
-                <span key={c} className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
+                <span
+                  key={c}
+                  className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1 text-xs font-semibold text-[var(--text)]"
+                >
                   {prettyCategory(c)}
                 </span>
               ))}
               {submission.mustHaveIntegrations.length ? (
-                <span className="rounded-full border border-[var(--border)] bg-[var(--surface-1)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
+                <span className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
                   Integrations: {submission.mustHaveIntegrations.join(", ")}
                 </span>
               ) : null}
             </div>
 
             <div className="flex flex-wrap gap-2">
-              <a
-                href="#intro"
-                className="inline-flex h-10 items-center justify-center rounded-lg bg-indigo-700 px-4 text-sm font-semibold text-white hover:bg-indigo-800"
+              <button
+                type="button"
+                onClick={() => setStep("intro")}
+                className="inline-flex h-10 items-center justify-center rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
               >
-                Request pricing & intro
-              </a>
+                Get pricing & intro
+              </button>
               {primaryPick ? (
                 <Link
                   href={`/tools/${primaryPick.tool.slug}`}
-                  className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)]"
+                  className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
                 >
                   View top pick
                 </Link>
@@ -219,7 +285,7 @@ export default function ResultsClient({
           </div>
         ) : null}
 
-        <div className="mt-10 space-y-5">
+        <div ref={shortlistRef} className={`mt-10 space-y-5 ${activeStep === "shortlist" ? "" : "hidden"}`}>
           {picks.length === 0 ? (
             <Card className="shadow-sm">
               <div className="text-base font-semibold text-[var(--text)]">No matches yet</div>
@@ -429,7 +495,7 @@ export default function ResultsClient({
           ) : null}
         </div>
 
-        <div className="mt-10" id="intro">
+        <div ref={introRef} className={`mt-10 ${activeStep === "intro" ? "" : "hidden"}`} id="intro">
           <Card className="shadow-sm">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
               <div>
@@ -476,14 +542,12 @@ export default function ResultsClient({
                 if (!res.ok) {
                   const msg = data?.error || "Please check the form and try again.";
                   setError(msg);
-                  toast({ type: "error", title: "Couldn’t submit", description: msg });
                   return;
                 }
 
                 if (!data?.ok) {
                   const msg = data?.error || "Please check the form and try again.";
                   setError(msg);
-                  toast({ type: "error", title: "Couldn’t submit", description: msg });
                   return;
                 }
 
@@ -492,7 +556,6 @@ export default function ResultsClient({
               } catch {
                 const msg = "Something went wrong on our side. Please try again in a minute.";
                 setError(msg);
-                toast({ type: "error", title: "Network error", description: "Please try again in a moment." });
               } finally {
                 setSending(false);
               }
@@ -501,7 +564,13 @@ export default function ResultsClient({
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label className="text-sm font-medium">Your name</label>
-                <input className="input mt-1" value={contactName} onChange={(e) => setContactName(e.target.value)} required />
+                <input
+                  ref={nameInputRef}
+                  className="input mt-1"
+                  value={contactName}
+                  onChange={(e) => setContactName(e.target.value)}
+                  required
+                />
               </div>
               <div>
                 <label className="text-sm font-medium">Work email</label>
@@ -551,10 +620,100 @@ export default function ResultsClient({
               ) : null}
             </div>
 
-            <Button disabled={sending || sent}>
-              {sent ? "Submitted" : sending ? "Submitting…" : "Submit"}
-            </Button>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <Button disabled={sending || sent}>
+                {sent ? "Submitted" : sending ? "Submitting…" : "Submit"}
+              </Button>
+
+              {sent ? (
+                <div className="flex flex-wrap gap-2">
+                  {compareHref ? (
+                    <button
+                      type="button"
+                      onClick={() => setStep("decide")}
+                      className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Compare vendors
+                    </button>
+                  ) : null}
+                  {reportHref ? (
+                    <Link
+                      href={reportHref}
+                      className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Export report
+                    </Link>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
           </form>
+          </Card>
+        </div>
+
+        <div ref={decideRef} className={`mt-10 ${activeStep === "decide" ? "" : "hidden"}`}>
+          <Card className="shadow-sm">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h2 className="text-lg font-semibold text-[var(--text)]">Decide with confidence</h2>
+                <p className="mt-1 text-sm text-[var(--text-muted)]">
+                  Compare picks, export an executive report, and walk into demos with a checklist.
+                </p>
+              </div>
+              <div className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
+                Step 4: decide
+              </div>
+            </div>
+
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-wrap gap-2">
+                {compareHref ? (
+                  <Link
+                    href={compareHref}
+                    className="inline-flex h-10 items-center justify-center rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                  >
+                    Compare tools
+                  </Link>
+                ) : null}
+
+                {reportHref ? (
+                  <Link
+                    href={reportHref}
+                    className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                  >
+                    Export decision report
+                  </Link>
+                ) : (
+                  <Link
+                    href="/recommend"
+                    className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                  >
+                    Export decision report
+                  </Link>
+                )}
+              </div>
+
+              <div className="text-xs text-[var(--text-muted)]">Tip: share the report link in exec mode.</div>
+            </div>
+
+            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                <div className="text-sm font-semibold text-[var(--text)]">Demo checklist (payroll edge cases)</div>
+                <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
+                  <li>• Arrears + reversals + cutoffs: run a real scenario end-to-end</li>
+                  <li>• Statutory outputs: registers, challans, and reconciliation exports</li>
+                  <li>• Audit trail: approvals, maker-checker, and edit history</li>
+                </ul>
+              </div>
+              <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                <div className="text-sm font-semibold text-[var(--text)]">What to validate before you sign</div>
+                <ul className="mt-3 space-y-2 text-sm text-[var(--text-muted)]">
+                  <li>• Multi-state rules mapping (PF/ESI/PT) for your state list</li>
+                  <li>• Payroll exports + GL/Tally workflows</li>
+                  <li>• Implementation plan + data migration + support SLA</li>
+                </ul>
+              </div>
+            </div>
           </Card>
         </div>
       </Container>
@@ -584,18 +743,22 @@ function MomentumStep({
   title,
   desc,
   active,
+  onClick,
 }: {
   step: number;
   title: string;
   desc: string;
   active?: boolean;
+  onClick?: () => void;
 }) {
   return (
-    <div
-      className={`rounded-[var(--radius-lg)] border px-4 py-4 ${
+    <button
+      type="button"
+      onClick={onClick}
+      className={`w-full text-left rounded-[var(--radius-lg)] border px-4 py-4 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] ${
         active
           ? "border-[rgba(255,255,255,0.14)] bg-gradient-to-br from-[var(--primary)] to-[var(--primary-hover)] text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)]"
-          : "border-[var(--border-soft)] bg-[var(--surface-1)]"
+          : "border-[var(--border-soft)] bg-[var(--surface-1)] hover:bg-[var(--surface-2)]"
       }`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -618,24 +781,24 @@ function MomentumStep({
           {step}
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
 function Chip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-baseline justify-between gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2">
-      <div className="text-xs font-semibold text-zinc-500">{label}</div>
-      <div className="text-sm font-semibold text-zinc-900">{value}</div>
+    <div className="flex items-baseline justify-between gap-3 rounded-xl border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 py-2">
+      <div className="text-xs font-semibold text-[var(--text-muted)]">{label}</div>
+      <div className="text-sm font-semibold text-[var(--text)]">{value}</div>
     </div>
   );
 }
 
 function MiniRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-baseline justify-between gap-3 rounded-lg border border-zinc-200 bg-white px-3 py-2">
-      <div className="text-xs font-semibold text-zinc-500">{label}</div>
-      <div className="text-xs font-semibold text-zinc-900">{value}</div>
+    <div className="flex items-baseline justify-between gap-3 rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-2">
+      <div className="text-xs font-semibold text-[var(--text-muted)]">{label}</div>
+      <div className="text-xs font-semibold text-[var(--text)]">{value}</div>
     </div>
   );
 }
