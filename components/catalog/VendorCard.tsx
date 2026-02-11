@@ -30,110 +30,87 @@ export type VendorCardModel = {
 export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
   const trustLevel = vendor.trustLevel ?? (vendor.verifiedInIndia ? "verified" : "unverified");
 
+  const maxChips = 2;
+  const chips = vendor.categories.slice(0, maxChips);
+  const extraCount = Math.max(0, vendor.categories.length - chips.length);
+
   return (
-    <Card className="h-full p-5">
+    <Card className="h-full border-[rgba(255,255,255,0.10)] bg-[var(--surface-1)] p-4 sm:p-5">
+      {/* (1) Logo + name row */}
       <div className="flex items-start justify-between gap-3">
-          <div className="flex min-w-0 items-start gap-3">
-            <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-2)]">
-              <VendorLogo
-                slug={vendor.slug}
-                name={vendor.name}
-                domain={domainFromUrl(vendor.websiteUrl)}
-                className="h-8 w-8 rounded-md"
-                size={32}
-              />
-            </div>
-            <div className="min-w-0">
-              <div className="flex items-center justify-between gap-3">
-                <Link href={`/vendors/${vendor.slug}`} className="truncate text-base font-semibold text-[var(--text)] hover:underline">
-                  {vendor.name}
-                </Link>
-                <VendorCompareToggle slug={vendor.slug} label={vendor.name} />
-              </div>
-              <div className="mt-1 line-clamp-1 text-sm text-[var(--text-muted)]">
-                {vendor.tagline ?? "HR software vendor listing"}
-              </div>
-            </div>
-          </div>
-
-          <div className="shrink-0 text-right text-xs text-[var(--text-muted)] hidden sm:block">
-            {vendor.websiteUrl ? vendor.websiteUrl.replace(/^https?:\/\//, "") : "—"}
-          </div>
-        </div>
-
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text)]">
-            {vendor.toolsCount} tools
-          </span>
-          <TrustRatingRow
-            level={trustLevel}
-            sourcesCount={vendor.sourcesCount}
-            lastCheckedAt={vendor.lastCheckedAt ?? vendor.freshnessLabel}
-          />
-        </div>
-
-        {vendor.categories.length ? (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {vendor.categories.slice(0, 3).map((c) => (
-              <span
-                key={c}
-                className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-xs text-[var(--text-muted)]"
-              >
-                {c}
-              </span>
-            ))}
-            {vendor.categories.length > 3 ? (
-              <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-xs text-[var(--text-muted)]">
-                +{vendor.categories.length - 3}
-              </span>
-            ) : null}
-          </div>
-        ) : null}
-
-        {vendor.categories.length ? (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {vendor.categories.slice(0, 3).map((c) => (
-              <span
-                key={c}
-                className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-xs text-[var(--text-muted)]"
-              >
-                {c}
-              </span>
-            ))}
-            {vendor.categories.length > 3 ? (
-              <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-xs text-[var(--text-muted)]">
-                +{vendor.categories.length - 3}
-              </span>
-            ) : null}
-          </div>
-        ) : null}
-
-        <div className="mt-4 grid grid-cols-1 gap-2 text-xs text-[var(--text-muted)]">
-          <div className="flex flex-wrap items-center gap-2">
-            <TrustRatingRow
-              level={trustLevel}
-              sourcesCount={vendor.sourcesCount}
-              lastCheckedAt={vendor.lastCheckedAt ?? vendor.freshnessLabel}
+        <div className="flex min-w-0 items-start gap-3">
+          <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[rgba(255,255,255,0.12)] bg-[var(--surface-2)]">
+            <VendorLogo
+              slug={vendor.slug}
+              name={vendor.name}
+              domain={domainFromUrl(vendor.websiteUrl)}
+              className="h-8 w-8 rounded-md"
+              size={32}
             />
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-[var(--text)]">Pricing:</span>
-            <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">
-              {vendor.pricingType ?? "Quote-based"}
-            </span>
-            <span className="truncate">{vendor.pricingText ?? "Contact vendor / request quote"}</span>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <Link
+                href={`/vendors/${vendor.slug}`}
+                className="truncate text-base font-semibold text-[var(--text)] hover:underline"
+              >
+                {vendor.name}
+              </Link>
+              <span className="text-xs font-semibold text-[var(--text-muted)]">• {vendor.toolsCount} tools</span>
+            </div>
+
+            {/* (2) 1-line descriptor */}
+            <div className="mt-1 line-clamp-1 text-sm text-[var(--text-muted)]">
+              {vendor.tagline ?? "HR software vendor listing"}
+            </div>
           </div>
         </div>
 
-        <div className="mt-5">
-          <Link
-            href={`/vendors/${vendor.slug}`}
-            className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-4 focus:ring-[rgba(139,92,246,0.25)]"
-          >
-            View vendor
-          </Link>
+        <div className="flex shrink-0 items-center gap-2">
+          {/* keep compare toggle as a secondary control; primary CTA is below */}
+          <VendorCompareToggle slug={vendor.slug} label={vendor.name} />
         </div>
-      </Card>
+      </div>
+
+      {/* (3) Compact trust row */}
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+        <TrustRatingRow level={trustLevel} sourcesCount={null} lastCheckedAt={vendor.lastCheckedAt ?? vendor.freshnessLabel} />
+        {vendor.websiteUrl ? (
+          <span className="hidden max-w-[45%] truncate text-xs text-[var(--text-muted)] sm:inline">
+            {vendor.websiteUrl.replace(/^https?:\/\//, "")}
+          </span>
+        ) : null}
+      </div>
+
+      {/* (4) Chips shown ONCE (max 2 +N) */}
+      {vendor.categories.length ? (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {chips.map((c) => (
+            <span
+              key={c}
+              className="rounded-full border border-[rgba(255,255,255,0.12)] bg-[var(--surface-2)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text)]"
+            >
+              {c}
+            </span>
+          ))}
+          {extraCount ? (
+            <span className="rounded-full border border-[rgba(255,255,255,0.12)] bg-[var(--surface-2)] px-2.5 py-1 text-[11px] font-semibold text-[var(--text-muted)]">
+              +{extraCount}
+            </span>
+          ) : null}
+        </div>
+      ) : null}
+
+      {/* (5) Single clear primary CTA */}
+      <div className="mt-4">
+        <Link
+          href={`/vendors/${vendor.slug}`}
+          className="inline-flex h-11 w-full items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(0,0,0,0.30)] hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-4 focus:ring-[var(--ring)]"
+        >
+          View vendor
+        </Link>
+      </div>
+    </Card>
   );
 }
