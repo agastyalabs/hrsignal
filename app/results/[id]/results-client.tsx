@@ -331,8 +331,45 @@ export default function ResultsClient({
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500" />
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(124,77,255,0.28)] bg-[rgba(124,77,255,0.14)] px-3.5 py-1.5 text-sm font-semibold text-violet-100">
-                    Primary recommendation
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(124,77,255,0.28)] bg-[rgba(124,77,255,0.14)] px-3.5 py-1.5 text-sm font-semibold text-violet-100">
+                      Primary recommendation
+                    </div>
+
+                    {(() => {
+                      const meta = toolMeta[primaryPick.tool.slug];
+                      const compliance = meta?.complianceTagsCount ?? 0;
+                      const integrations = meta?.integrationsCount ?? 0;
+                      const evidence = meta?.evidenceLinksCount ?? 0;
+
+                      const verifiedAtIso = meta?.lastVerifiedAt ?? null;
+                      const verifiedAt = verifiedAtIso ? new Date(verifiedAtIso) : null;
+                      const ageDays = verifiedAt && !Number.isNaN(verifiedAt.getTime()) ? Math.floor((Date.now() - verifiedAt.getTime()) / (1000 * 60 * 60 * 24)) : null;
+                      const freshness = ageDays === null ? 0 : Math.max(0, Math.min(100, Math.round(((365 - Math.min(365, Math.max(0, ageDays - 30))) / 365) * 100)));
+
+                      const complianceScore = Math.max(0, Math.min(100, Math.round((Math.min(5, compliance) / 5) * 100)));
+                      const integrationsScore = Math.max(0, Math.min(100, Math.round((Math.min(8, integrations) / 8) * 100)));
+                      const evidenceScore = Math.max(0, Math.min(100, Math.round((Math.min(8, evidence) / 8) * 100)));
+
+                      const fitScore = Math.round(complianceScore * 0.35 + integrationsScore * 0.25 + evidenceScore * 0.2 + freshness * 0.2);
+                      const tier = fitScore >= 70 ? "High" : fitScore >= 40 ? "Medium" : "Low";
+
+                      const tone =
+                        tier === "High"
+                          ? "border-[rgba(34,197,94,0.30)] bg-[rgba(34,197,94,0.12)] text-emerald-200"
+                          : tier === "Medium"
+                            ? "border-[rgba(245,158,11,0.30)] bg-[rgba(245,158,11,0.12)] text-amber-200"
+                            : "border-[rgba(148,163,184,0.22)] bg-[rgba(148,163,184,0.10)] text-[var(--text)]";
+
+                      return (
+                        <span
+                          className={`rounded-full border px-3 py-1 text-xs font-semibold ${tone}`}
+                          title="Complexity Fit tier derived from compliance, integrations, evidence, and freshness."
+                        >
+                          Complexity Fit: {tier}
+                        </span>
+                      );
+                    })()}
                   </div>
                   <div className="mt-3 text-3xl font-semibold tracking-tight text-[var(--text)]">{primaryPick.tool.name}</div>
                   {(() => {

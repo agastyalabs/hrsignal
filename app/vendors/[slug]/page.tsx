@@ -603,7 +603,43 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                 );
               })()}
 
-              <div className="mt-4 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+              {(() => {
+                const evidenceCount = brief.urls.length;
+                const complianceCount = complianceTags.length;
+                const integrationsCount = integrationNames.length;
+
+                const newestVerificationMs = v.tools
+                  .map((t) => (t.lastVerifiedAt ? new Date(t.lastVerifiedAt).getTime() : 0))
+                  .reduce((a, b) => Math.max(a, b), 0);
+                const verifiedAt = newestVerificationMs ? new Date(newestVerificationMs) : null;
+
+                // Avoid non-deterministic time calls in render; use verified presence as freshness signal.
+                const freshness = verifiedAt ? 100 : 0;
+
+                const complianceScore = Math.max(0, Math.min(100, Math.round((Math.min(5, complianceCount) / 5) * 100)));
+                const integrationsScore = Math.max(0, Math.min(100, Math.round((Math.min(8, integrationsCount) / 8) * 100)));
+                const evidenceScore = Math.max(0, Math.min(100, Math.round((Math.min(8, evidenceCount) / 8) * 100)));
+
+                const fitScore = Math.round(complianceScore * 0.35 + integrationsScore * 0.25 + evidenceScore * 0.2 + freshness * 0.2);
+                const tier = fitScore >= 70 ? "High" : fitScore >= 40 ? "Medium" : "Low";
+
+                const tone =
+                  tier === "High"
+                    ? "border-[rgba(34,197,94,0.30)] bg-[rgba(34,197,94,0.12)] text-emerald-200"
+                    : tier === "Medium"
+                      ? "border-[rgba(245,158,11,0.30)] bg-[rgba(245,158,11,0.12)] text-amber-200"
+                      : "border-[rgba(148,163,184,0.22)] bg-[rgba(148,163,184,0.10)] text-[var(--text)]";
+
+                return (
+                  <div className="mt-4 flex flex-wrap items-center gap-2">
+                    <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${tone}`} title="Complexity Fit tier derived from compliance, integrations, evidence, and freshness.">
+                      Complexity Fit: {tier}
+                    </span>
+                  </div>
+                );
+              })()}
+
+              <div className="mt-3 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
                 <div className="text-sm font-semibold text-[var(--text)]">Decision snapshot</div>
                 <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
