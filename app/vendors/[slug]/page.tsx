@@ -11,6 +11,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
 import { Card } from "@/components/ui/Card";
+import { ButtonLink } from "@/components/ui/Button";
 import { VendorLogo } from "@/components/VendorLogo";
 import { domainFromUrl } from "@/lib/brand/logo";
 import { normalizePricingText, pricingTypeFromNote } from "@/lib/pricing/format";
@@ -1164,6 +1165,20 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                 ))}
               </div>
             )}
+          </div>
+
+          <div className="mt-10 pt-8 border-t border-[var(--border)]">
+            <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6">
+              <div className="text-base font-semibold text-[var(--text)]">Own this profile?</div>
+              <div className="mt-1 text-sm leading-7 text-[var(--text-muted)]">
+                Claim and enhance your HRSignal listing with verified data, integrations, and audit signals.
+              </div>
+              <div className="mt-4">
+                <ButtonLink href={`/vendors/claim?tool=${encodeURIComponent(slug)}`} size="md" className="w-full justify-center sm:w-auto">
+                  Claim profile
+                </ButtonLink>
+              </div>
+            </div>
           </div>
         </Card>
       </Section>
