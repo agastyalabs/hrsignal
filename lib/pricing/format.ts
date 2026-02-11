@@ -7,13 +7,13 @@ export type PricingType =
 export function pricingTypeLabel(type: PricingType): string {
   switch (type) {
     case "per_employee_month":
-      return "Per employee / month";
+      return "PEPM";
     case "per_company_month":
       return "Per company / month";
     case "one_time":
-      return "One-time license";
+      return "One-time";
     case "quote_based":
-      return "Custom quote";
+      return "Quote-based";
   }
 }
 

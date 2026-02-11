@@ -33,7 +33,7 @@ export default async function ComparePage({
 
   if (!slugs.length) {
     return (
-      <div className="min-h-screen bg-zinc-50">
+      <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
         <SiteHeader />
         <CompareHydrate />
 
@@ -41,8 +41,8 @@ export default async function ComparePage({
           <Container>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">Compare tools</h1>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600">
+                <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">Compare tools</h1>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">
                   Add tools to compare from the directory or tool pages.
                 </p>
               </div>
@@ -51,14 +51,14 @@ export default async function ComparePage({
               </Link>
             </div>
 
-            <Card className="mt-6 shadow-sm">
-              <div className="text-base font-semibold text-zinc-900">No tools selected</div>
-              <p className="mt-2 text-sm leading-6 text-zinc-600">
+            <Card className="mt-6">
+              <div className="text-base font-semibold text-[var(--text)]">No tools selected</div>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
                 Use the “Compare” button on tool cards to build a shortlist (up to 5).
               </p>
               <Link
                 href="/tools"
-                className="mt-4 inline-flex h-10 items-center rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white hover:bg-indigo-700"
+                className="mt-4 inline-flex h-10 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)]"
               >
                 Browse tools
               </Link>
@@ -73,13 +73,13 @@ export default async function ComparePage({
 
   if (!process.env.DATABASE_URL) {
     return (
-      <div className="min-h-screen bg-zinc-50">
+      <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
         <SiteHeader />
         <main className="py-10 sm:py-14">
           <Container>
-            <Card className="shadow-sm">
-              <div className="text-base font-semibold text-zinc-900">Catalog not configured</div>
-              <p className="mt-2 text-sm leading-6 text-zinc-600">Set DATABASE_URL to use compare in production.</p>
+            <Card>
+              <div className="text-base font-semibold text-[var(--text)]">Catalog not configured</div>
+              <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">Set DATABASE_URL to use compare in production.</p>
             </Card>
           </Container>
         </main>
@@ -220,7 +220,7 @@ export default async function ComparePage({
     .filter((s) => s.rows.length > 0);
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <SiteHeader />
       <main className="py-10 sm:py-14">
         <Container>
@@ -238,7 +238,7 @@ export default async function ComparePage({
 
           <CompareActions tools={slugs} />
 
-          <div className="mt-6 overflow-x-auto rounded-2xl border border-zinc-200 bg-white">
+          <div className="mt-6 overflow-x-auto rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-1)]">
             <table className="min-w-[880px] w-full text-sm">
               <thead className="sticky top-[64px] z-10 bg-white">
                 <tr className="border-b border-zinc-200">

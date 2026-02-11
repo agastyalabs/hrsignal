@@ -117,10 +117,10 @@ const DEPLOYMENT_OPTIONS = [
 
 const PRICING_OPTIONS = [
   { key: "", label: "Any" },
-  { key: "per_employee_month", label: "Per employee / month" },
+  { key: "per_employee_month", label: "PEPM" },
   { key: "per_company_month", label: "Per company / month" },
-  { key: "one_time", label: "One-time license" },
-  { key: "quote_based", label: "Custom quote" },
+  { key: "one_time", label: "One-time" },
+  { key: "quote_based", label: "Quote-based" },
 ];
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

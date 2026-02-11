@@ -190,6 +190,10 @@ export default async function Home() {
 
         <div className="mt-10 space-y-6">
           <div className="rounded-2xl border border-[var(--border-soft)] bg-[var(--surface-1)]/60 p-5 sm:p-6">
+            <div className="mb-4">
+              <div className="text-sm font-semibold text-[var(--text)]">Why trust HRSignal?</div>
+              <div className="mt-1 text-sm text-[var(--text-muted)]">Authority built on evidence, not hype.</div>
+            </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {[
                 {
@@ -250,7 +254,7 @@ export default async function Home() {
       {/* How it works */}
       <Section>
         <SectionHeading
-          title="How HRSignal helps"
+          title="How HRSignal works"
           subtitle="A simple workflow: discover, shortlist with reasons, and request demos/quotes when you’re ready."
         />
         <div className="mt-6">

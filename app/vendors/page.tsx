@@ -35,10 +35,10 @@ type VendorsSearchParams = {
 
 function prettyPricingKey(key: string) {
   const map: Record<string, string> = {
-    per_employee_month: "Per employee / month",
+    per_employee_month: "PEPM",
     per_company_month: "Per company / month",
-    one_time: "One-time license",
-    quote_based: "Custom quote",
+    one_time: "One-time",
+    quote_based: "Quote-based",
   };
   return map[key] ?? key;
 }
@@ -300,10 +300,10 @@ export default async function VendorsPage({
               </label>
               <select id="pricing" name="pricing" defaultValue={pricing} className="input mt-1">
                 <option value="">All</option>
-                <option value="per_employee_month">Per employee / month</option>
+                <option value="per_employee_month">PEPM</option>
                 <option value="per_company_month">Per company / month</option>
-                <option value="one_time">One-time license</option>
-                <option value="quote_based">Custom quote</option>
+                <option value="one_time">One-time</option>
+                <option value="quote_based">Quote-based</option>
               </select>
             </div>
 
