@@ -51,7 +51,50 @@ type VendorCompareModel = {
   evidenceDepth: string;
   freshness: string;
   riskFlags: string;
+
+  // For deterministic insights
+  _verified: boolean;
+  _verifiedAt: Date | null;
+  _sourceUpdatedAt: Date | null;
+  _evidenceLinksCount: number;
+  _integrationsCount: number;
+  _complianceTagsCount: number;
+  _toolsCount: number;
+  _missingSignalsCount: number;
 };
+
+function daysSince(d: Date | null): number | null {
+  if (!d) return null;
+  const ms = Date.now() - d.getTime();
+  return Math.max(0, Math.floor(ms / (1000 * 60 * 60 * 24)));
+}
+
+function computeDecisionConfidenceScore(args: {
+  verifiedAt: Date | null;
+  evidenceLinksCount: number;
+  missingSignalsCount: number;
+  totalSignals: number;
+}): number {
+  // Deterministic formula (no ML).
+  // 1) Verification recency drives confidence most.
+  // 2) Evidence completeness improves confidence.
+  // 3) Missing data ratio reduces confidence.
+
+  const ageDays = daysSince(args.verifiedAt);
+
+  // Recency: full score if <= 30d, decays to 0 by 365d; missing verification = 0.
+  const recency =
+    ageDays === null ? 0 : clampScore(((365 - Math.min(365, ageDays)) / 365) * 100);
+
+  // Evidence: saturate at 8 links.
+  const evidence = clampScore((Math.min(8, args.evidenceLinksCount) / 8) * 100);
+
+  const missingRatio = args.totalSignals > 0 ? args.missingSignalsCount / args.totalSignals : 1;
+  const completeness = clampScore((1 - missingRatio) * 100);
+
+  // Weighted blend.
+  return clampScore(recency * 0.5 + evidence * 0.3 + completeness * 0.2);
+}
 
 function computeOverallFit(args: {
   verified: boolean;
@@ -191,6 +234,14 @@ export default async function VendorComparePage({
     if (!complianceTags.length) riskFlags.push("India compliance tags not listed");
     if (!brief.urls.length) riskFlags.push("Evidence links missing");
 
+    const missingSignalsCount = [
+      !verified,
+      !brief.urls.length,
+      !integrations.length,
+      !complianceTags.length,
+      !v || v.tools.length === 0,
+    ].filter(Boolean).length;
+
     models.push({
       slug,
       name: slug === "freshteam" ? "Freshteam (Freshworks)" : v?.name ?? slug,
@@ -201,6 +252,14 @@ export default async function VendorComparePage({
       evidenceDepth: brief.urls.length ? String(brief.urls.length) : "—",
       freshness,
       riskFlags: riskFlags.length ? riskFlags.slice(0, 5).join(" • ") : "—",
+      _verified: verified,
+      _verifiedAt: verificationDate,
+      _sourceUpdatedAt: brief.updatedAt,
+      _evidenceLinksCount: brief.urls.length,
+      _integrationsCount: integrations.length,
+      _complianceTagsCount: complianceTags.length,
+      _toolsCount: v?.tools.length ?? 0,
+      _missingSignalsCount: missingSignalsCount,
     });
   }
 
@@ -232,6 +291,78 @@ export default async function VendorComparePage({
             </ButtonLink>
           </div>
         </div>
+
+        {/* Decision Intelligence Layer */}
+        <Card className="p-5">
+          {(() => {
+            const totalSignals = 5;
+            const confidence = computeDecisionConfidenceScore({
+              verifiedAt: models.some((m) => m._verifiedAt) ? new Date(Math.max(...models.map((m) => (m._verifiedAt ? m._verifiedAt.getTime() : 0)))) : null,
+              evidenceLinksCount: models.reduce((a, m) => a + m._evidenceLinksCount, 0),
+              missingSignalsCount: Math.max(...models.map((m) => m._missingSignalsCount)),
+              totalSignals,
+            });
+
+            const strongestCompliance = models.slice().sort((a, b) => b._complianceTagsCount - a._complianceTagsCount)[0];
+            const strongestIntegrations = models.slice().sort((a, b) => b._integrationsCount - a._integrationsCount)[0];
+            const lowestEvidence = models.slice().sort((a, b) => a._evidenceLinksCount - b._evidenceLinksCount)[0];
+            const highestRisk = models.slice().sort((a, b) => b._missingSignalsCount - a._missingSignalsCount)[0];
+
+            return (
+              <div>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <div className="text-sm font-semibold text-[var(--text)]">Comparison Insight (India payroll context)</div>
+                    <div className="mt-1 text-sm text-[var(--text-muted)]">
+                      Deterministic insights from verification, evidence links, and missing listing signals.
+                    </div>
+                  </div>
+
+                  <div className="shrink-0">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Decision confidence score</div>
+                    <div className="mt-1 flex items-center gap-2">
+                      <Badge variant={confidence >= 70 ? "verified" : "neutral"}>{confidence} / 100</Badge>
+                      <span
+                        className="text-xs text-[var(--text-muted)]"
+                        title="Computed from verification recency, evidence completeness, and missing data ratio. Deterministic; no ML."
+                      >
+                        How?
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Strongest compliance depth</div>
+                    <div className="mt-1 text-sm font-semibold text-[var(--text)]">{strongestCompliance?.name ?? "—"}</div>
+                    <div className="mt-1 text-xs text-[var(--text-muted)]">Tags: {strongestCompliance?._complianceTagsCount ?? 0}</div>
+                  </div>
+
+                  <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Strongest integration visibility</div>
+                    <div className="mt-1 text-sm font-semibold text-[var(--text)]">{strongestIntegrations?.name ?? "—"}</div>
+                    <div className="mt-1 text-xs text-[var(--text-muted)]">Integrations: {strongestIntegrations?._integrationsCount ?? 0}</div>
+                  </div>
+
+                  <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Lowest evidence depth</div>
+                    <div className="mt-1 text-sm font-semibold text-[var(--text)]">{lowestEvidence?.name ?? "—"}</div>
+                    <div className="mt-1 text-xs text-[var(--text-muted)]">
+                      Links: {lowestEvidence?._evidenceLinksCount ?? 0}{lowestEvidence && lowestEvidence._evidenceLinksCount === 0 ? " • Flag" : ""}
+                    </div>
+                  </div>
+
+                  <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Highest risk listing</div>
+                    <div className="mt-1 text-sm font-semibold text-[var(--text)]">{highestRisk?.name ?? "—"}</div>
+                    <div className="mt-1 text-xs text-[var(--text-muted)]">Missing signals: {highestRisk?._missingSignalsCount ?? 0} / {totalSignals}</div>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+        </Card>
 
         {/* Mobile-first stacked comparison */}
         <div className="space-y-4 lg:hidden">
