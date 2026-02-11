@@ -330,7 +330,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
 
   function buyerQuestions(): string[] {
     const qs: string[] = [];
-    qs.push("What is the exact pricing unit (PEPM vs per user/month) and minimum billable headcount?");
+    qs.push("What is the exact pricing metric (per employee/month vs per company/month vs quote-based) and minimum billable headcount?");
     if (catSlugs.has("payroll")) qs.push("Which statutory items are covered (PF/ESI/PT/TDS/LWF) and for which states?");
     if (catSlugs.has("attendance")) qs.push("How do shift rules, overtime, and biometric/device integrations work?");
     if (catSlugs.has("ats")) qs.push("Do they support careers page, email templates, and interview scorecards natively?");

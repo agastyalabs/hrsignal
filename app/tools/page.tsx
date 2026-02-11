@@ -22,7 +22,7 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     bestFor: ["20–500 employees"],
     keyFeatures: ["Payroll compliance", "Leave & attendance", "Employee self-serve"],
     implementationTime: "2–4 weeks",
-    pricingType: "Quote-based",
+    pricingType: "quote_based",
     pricingHint: "Contact vendor / request quote",
   },
   {
@@ -34,8 +34,8 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     bestFor: ["50–1000 employees"],
     keyFeatures: ["Core HR", "Payroll", "Performance"],
     implementationTime: "2–6 weeks",
-    pricingType: "PEPM",
-    pricingHint: "Indicative PEPM (request quote)",
+    pricingType: "per_employee_month",
+    pricingHint: "Indicative per employee / month (request quote)",
   },
   {
     slug: "zoho-people",
@@ -46,8 +46,8 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     bestFor: ["20–500 employees"],
     keyFeatures: ["Attendance", "Leave policies", "Workflows"],
     implementationTime: "1–3 weeks",
-    pricingType: "Per user/month",
-    pricingHint: "Per user/month (plan-based)",
+    pricingType: "per_employee_month",
+    pricingHint: "Per employee / month (plan-based)",
   },
   {
     slug: "freshteam",
@@ -58,8 +58,8 @@ const FALLBACK_TOOLS: ToolCardModel[] = [
     bestFor: ["Hiring teams"],
     keyFeatures: ["Pipeline", "Scorecards", "Offer workflow"],
     implementationTime: "1–2 weeks",
-    pricingType: "Per user/month",
-    pricingHint: "Per user/month (plan-based)",
+    pricingType: "per_employee_month",
+    pricingHint: "Per employee / month (plan-based)",
   },
 ];
 
@@ -259,7 +259,7 @@ export default async function ToolsPage({
         // Heuristic for common SaaS vendors when no notes exist.
         if (!note) {
           const n = toolName.toLowerCase();
-          if (n.includes("zoho") || n.includes("fresh")) type = "Per user/month";
+          if (n.includes("zoho") || n.includes("fresh")) type = "per_employee_month";
         }
 
         const text = normalizePricingText(note, type);

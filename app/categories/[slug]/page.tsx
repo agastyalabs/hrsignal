@@ -86,7 +86,7 @@ function pricingMeta(toolName: string, plans: Array<{ priceNote: string | null }
   let type: PricingType = pricingTypeFromNote(note, dep);
   if (!note) {
     const n = toolName.toLowerCase();
-    if (n.includes("zoho") || n.includes("fresh")) type = "Per user/month";
+    if (n.includes("zoho") || n.includes("fresh")) type = "per_employee_month";
   }
 
   const text = normalizePricingText(note, type);
@@ -115,9 +115,10 @@ const DEPLOYMENT_OPTIONS = [
 
 const PRICING_OPTIONS = [
   { key: "", label: "Any" },
-  { key: "quote-based", label: "Quote-based" },
-  { key: "per employee/month", label: "Per employee/month" },
-  { key: "per user/month", label: "Per user/month" },
+  { key: "per_employee_month", label: "Per employee / month" },
+  { key: "per_company_month", label: "Per company / month" },
+  { key: "one_time", label: "One-time" },
+  { key: "quote_based", label: "Quote-based" },
 ];
 
 export default async function CategoryDetailPage({
@@ -196,8 +197,7 @@ export default async function CategoryDetailPage({
       }
 
       if (pricing) {
-        const pKey = pricing.toLowerCase();
-        tools = tools.filter((t) => String(t.pricingType ?? "").toLowerCase() === pKey);
+        tools = tools.filter((t) => String(t.pricingType ?? "") === pricing);
       }
     } catch {
       tools = [];

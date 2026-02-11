@@ -26,6 +26,16 @@ type VendorsSearchParams = {
   sort?: string;
 };
 
+function prettyPricingKey(key: string) {
+  const map: Record<string, string> = {
+    per_employee_month: "Per employee / month",
+    per_company_month: "Per company / month",
+    one_time: "One-time",
+    quote_based: "Quote-based",
+  };
+  return map[key] ?? key;
+}
+
 export default async function VendorsPage({
   searchParams,
 }: {
@@ -143,7 +153,7 @@ export default async function VendorsPage({
           new Set(v.tools.map((t) => normalizeDeploymentKey(t.deployment)).filter(Boolean))
         );
 
-        const pricingKey = String(type ?? "quote").toLowerCase();
+        const pricingKey = String(type ?? "quote_based");
 
         return {
           id: v.id,
@@ -193,7 +203,7 @@ export default async function VendorsPage({
   if (size) activePills.push({ key: "size", label: `Size: ${size}` });
   if (category) activePills.push({ key: "category", label: `Category: ${category}` });
   if (deployment) activePills.push({ key: "deployment", label: `Deployment: ${deployment}` });
-  if (pricing) activePills.push({ key: "pricing", label: `Pricing: ${pricing}` });
+  if (pricing) activePills.push({ key: "pricing", label: `Pricing: ${prettyPricingKey(pricing)}` });
   if (sort && sort !== "recent") activePills.push({ key: "sort", label: `Sort: ${sort}` });
 
   return (
@@ -271,9 +281,10 @@ export default async function VendorsPage({
               </label>
               <select id="pricing" name="pricing" defaultValue={pricing} className="input mt-1">
                 <option value="">All</option>
-                <option value="pepm">PEPM</option>
-                <option value="per user">Per user</option>
-                <option value="quote-based">Quote-based</option>
+                <option value="per_employee_month">Per employee / month</option>
+                <option value="per_company_month">Per company / month</option>
+                <option value="one_time">One-time</option>
+                <option value="quote_based">Quote-based</option>
               </select>
             </div>
 

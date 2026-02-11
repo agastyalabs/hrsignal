@@ -139,7 +139,7 @@ export default async function ComparePage({
           key: "pricing_note",
           label: "Notes",
           value: () =>
-            "Badges indicate unit/type: PEPM (per employee/month), Per user/month, One-time (license; AMC may apply), Quote-based (contact vendor / request quote).",
+            "Badges indicate pricing type: Per employee / month, Per company / month, One-time (license; AMC may apply), Quote-based (contact vendor / request quote).", 
         },
       ],
     },

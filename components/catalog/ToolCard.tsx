@@ -6,6 +6,7 @@ import { TrustRatingRow } from "@/components/trust/TrustRatingRow";
 import { CompareToggle } from "@/components/compare/CompareToggle";
 import { VendorLogo } from "@/components/VendorLogo";
 import { domainFromUrl } from "@/lib/brand/logo";
+import { pricingTypeLabel } from "@/lib/pricing/format";
 
 export type ToolCardModel = {
   slug: string;
@@ -99,7 +100,7 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
           <div className="flex items-center gap-2">
             <span className="font-semibold text-[var(--text)]">Pricing:</span>
             <span className="rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-2 py-0.5 text-[11px] font-semibold text-[var(--text)]">
-              {tool.pricingType ?? "Quote-based"}
+              {tool.pricingType ? pricingTypeLabel(tool.pricingType) : "Quote-based"}
             </span>
             <span className="truncate">{tool.pricingHint ?? "Contact vendor / request quote"}</span>
           </div>
