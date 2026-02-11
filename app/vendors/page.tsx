@@ -298,15 +298,20 @@ export default async function VendorsPage({
               </select>
             </div>
 
-            <div className="md:col-span-12 flex flex-wrap items-center gap-2 pt-1">
+            <div className="md:col-span-12 flex flex-col gap-2 pt-1 sm:flex-row sm:items-center sm:justify-between">
               <input type="hidden" name="india" value={indiaOnly ? "1" : "0"} />
-              <button className="h-11 rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)]">
-                Apply
-              </button>
-              <Link className="h-11 rounded-lg border border-[var(--border)] bg-[var(--surface-2)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-1)]" href="/vendors">
-                Clear all
-              </Link>
-              <div className="ml-auto text-xs text-[var(--text-muted)]">{filtered.length} results</div>
+              <div className="flex flex-wrap items-center gap-2">
+                <button className="h-11 rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)]">
+                  Apply
+                </button>
+                <Link
+                  className="h-11 rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)]"
+                  href="/vendors"
+                >
+                  Clear all
+                </Link>
+              </div>
+              <div className="text-xs text-[var(--text-muted)]">{filtered.length} results</div>
             </div>
 
             {activePills.length ? (

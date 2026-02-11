@@ -73,7 +73,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--header-bg)] backdrop-blur transition-shadow motion-reduce:transition-none ${
+      className={`sticky top-0 z-50 border-b border-[var(--border-soft)] bg-[var(--header-bg)] backdrop-blur transition-shadow motion-reduce:transition-none ${
         scrolled ? "shadow-sm" : "shadow-none"
       }`}
     >
@@ -98,7 +98,7 @@ export function SiteHeader() {
         {pathname !== "/" ? (
           <form action="/tools" className="hidden w-full max-w-md lg:flex">
             <input
-              className="h-11 w-full rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[color:rgba(111,66,193,0.35)]"
+              className="h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-4 focus:ring-[var(--ring)]"
               name="q"
               placeholder="Search tools (e.g., payroll, attendance, Keka…)"
               aria-label="Search tools"

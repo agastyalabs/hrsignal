@@ -85,7 +85,7 @@ export default async function Home() {
             </svg>
           </div>
 
-          <div className="relative grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-10">
+          <div className="relative grid grid-cols-1 gap-10 p-7 sm:p-12 lg:grid-cols-12 lg:gap-12">
             {/* Left */}
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface-2)] px-3 py-1 text-xs font-semibold text-[#CBD5E1]">

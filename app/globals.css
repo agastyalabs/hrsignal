@@ -4,13 +4,13 @@
   color-scheme: dark;
 
   /* Single, locked theme (dark) — premium SaaS */
-  --bg: #0F1842; /* deep navy */
+  --bg: #121F52; /* slightly lighter navy for premium contrast */
 
   /* Depth layers */
-  --surface-1: rgba(255, 255, 255, 0.06); /* surface */
-  --surface-2: rgba(255, 255, 255, 0.10); /* elevated */
-  --surface-3: rgba(255, 255, 255, 0.14); /* popover / emphasis */
-  --header-bg: rgba(15, 24, 66, 0.86);
+  --surface-1: rgba(255, 255, 255, 0.05); /* surface */
+  --surface-2: rgba(255, 255, 255, 0.08); /* elevated */
+  --surface-3: rgba(255, 255, 255, 0.12); /* popover / emphasis */
+  --header-bg: rgba(18, 31, 82, 0.84);
 
   /* Brand */
   --primary: #7C4DFF; /* premium violet */
@@ -18,10 +18,10 @@
   --accent: #27D3BC;
 
   /* Text + borders */
-  --text: #F7F9FF;
-  --text-muted: rgba(247, 249, 255, 0.78);
-  --border: rgba(255, 255, 255, 0.12);
-  --border-soft: rgba(255, 255, 255, 0.10);
+  --text: #FAFBFF;
+  --text-muted: rgba(250, 251, 255, 0.72);
+  --border: rgba(255, 255, 255, 0.11);
+  --border-soft: rgba(255, 255, 255, 0.08);
 
   /* Focus */
   --ring: rgba(124, 77, 255, 0.42);
@@ -59,7 +59,7 @@ body {
   width: 100%;
   height: 2.75rem;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-soft);
   background: var(--surface-1);
   padding: 0.6rem 0.9rem;
   font-size: 0.95rem;
@@ -72,6 +72,25 @@ body {
 .input::placeholder {
   color: var(--text-muted);
   opacity: 1;
+}
+
+/* Selects (remove light/native look where possible) */
+select.input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 2.25rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(250, 251, 255, 0.75) 50%),
+    linear-gradient(135deg, rgba(250, 251, 255, 0.75) 50%, transparent 50%);
+  background-position: calc(100% - 16px) 52%, calc(100% - 11px) 52%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+select.input option {
+  background: var(--bg);
+  color: var(--text);
 }
 
 .input:focus {
@@ -94,13 +113,13 @@ textarea.input {
   --body-size: 1rem;
 
   /* Spacing / radius */
-  --radius-sm: 0.75rem;
-  --radius-md: 1rem;
-  --radius-lg: 1.25rem;
+  --radius-sm: 0.65rem;
+  --radius-md: 0.9rem;
+  --radius-lg: 1.1rem;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.22);
-  --shadow-md: 0 14px 40px rgba(0, 0, 0, 0.36);
+  --shadow-sm: 0 1px 1px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 16px 46px rgba(0, 0, 0, 0.34);
 
   /* Subtle glow for hover/focus */
   --glow: 0 0 0 1px rgba(255, 255, 255, 0.10), 0 14px 48px rgba(124, 77, 255, 0.18);
