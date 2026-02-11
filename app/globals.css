@@ -4,7 +4,7 @@
   color-scheme: dark;
 
   /* Single, locked theme (dark) — premium SaaS */
-  --bg: #121F52; /* slightly lighter navy for premium contrast */
+  --bg: #0E1A3B; /* deeper enterprise navy (less purple) */
 
   /* Depth layers */
   --surface-1: rgba(255, 255, 255, 0.05); /* surface */
@@ -18,8 +18,8 @@
   --accent: #27D3BC;
 
   /* Text + borders */
-  --text: #FAFBFF;
-  --text-muted: rgba(250, 251, 255, 0.72);
+  --text: #FFFFFF;
+  --text-muted: rgba(255, 255, 255, 0.72);
   --border: rgba(255, 255, 255, 0.11);
   --border-soft: rgba(255, 255, 255, 0.08);
 
@@ -41,8 +41,8 @@
 
 body {
   background:
-    radial-gradient(1200px 800px at 14% -10%, rgba(124, 77, 255, 0.11), transparent 55%),
-    radial-gradient(900px 700px at 92% 10%, rgba(39, 211, 188, 0.07), transparent 55%),
+    radial-gradient(1200px 800px at 14% -10%, rgba(124, 77, 255, 0.066), transparent 55%),
+    radial-gradient(900px 700px at 92% 10%, rgba(39, 211, 188, 0.042), transparent 55%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 22%),
     var(--bg);
   color: var(--text);
