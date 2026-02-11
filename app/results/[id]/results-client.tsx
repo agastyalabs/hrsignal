@@ -156,7 +156,9 @@ export default function ResultsClient({
             </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="mt-4 h-px w-full bg-[var(--border-soft)]" />
+
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
             <MomentumStep step={2} title="Shortlist" desc="Explainable picks" active />
             <MomentumStep step={3} title="Next" desc="Request intro" />
             <MomentumStep step={4} title="Decide" desc="Compare + demo" />
@@ -574,19 +576,27 @@ function MomentumStep({
 }) {
   return (
     <div
-      className={`rounded-2xl border px-4 py-3 shadow-sm ${
-        active ? "border-indigo-200 bg-indigo-50" : "border-[var(--border)] bg-[var(--surface-1)]"
+      className={`rounded-[var(--radius-lg)] border px-4 py-4 ${
+        active
+          ? "border-[rgba(255,255,255,0.14)] bg-gradient-to-br from-[var(--primary)] to-[var(--primary-hover)] text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)]"
+          : "border-[var(--border-soft)] bg-[var(--surface-1)]"
       }`}
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <div className={`text-xs font-semibold ${active ? "text-indigo-800" : "text-[var(--text-muted)]"}`}>Step {step}</div>
-          <div className="mt-1 text-sm font-semibold text-[var(--text)]">{title}</div>
-          <div className="mt-1 text-xs leading-5 text-[var(--text-muted)]">{desc}</div>
+          <div
+            className={`text-xs font-medium ${
+              active ? "text-white/85" : "text-[var(--text-muted)]"
+            }`}
+          >
+            Step {step}
+          </div>
+          <div className={`mt-1 text-sm font-medium ${active ? "text-white" : "text-[var(--text)]"}`}>{title}</div>
+          <div className={`mt-1 text-xs leading-5 ${active ? "text-white/85" : "text-[var(--text-muted)]"}`}>{desc}</div>
         </div>
         <div
-          className={`inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
-            active ? "bg-indigo-700 text-white" : "bg-[var(--surface-2)] text-[var(--text)]"
+          className={`inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ${
+            active ? "bg-white/15 text-white" : "border border-[var(--border-soft)] bg-[var(--surface-2)] text-[var(--text)]"
           }`}
         >
           {step}
