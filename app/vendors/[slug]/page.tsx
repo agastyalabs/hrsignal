@@ -835,7 +835,12 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                   <ul className="space-y-2 text-sm text-[var(--text-muted)]">
                     {alternatives.slice(0, 6).map((a) => (
                       <li key={a.id}>
-                        • <Link className="text-[var(--primary)] hover:text-[var(--primary-hover)]" href={`/vendors/${slugify(a.name)}`}>{a.name}</Link>
+                        • <Link
+                          className="text-violet-300 underline decoration-[rgba(255,255,255,0.18)] underline-offset-4 hover:text-violet-200 hover:decoration-[rgba(255,255,255,0.32)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgba(139,92,246,0.25)] visited:text-violet-300"
+                          href={`/vendors/${slugify(a.name)}`}
+                        >
+                          {a.name}
+                        </Link>
                       </li>
                     ))}
                   </ul>
