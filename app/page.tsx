@@ -6,13 +6,12 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ButtonLink } from "@/components/ui/Button";
 import { HomeSection } from "@/components/marketing/HomeSection";
-import { TalkToPayrollSpecialistRail } from "@/components/conversion/TalkToPayrollSpecialistRail";
+import { TalkToPayrollSpecialistSection } from "@/components/conversion/TalkToPayrollSpecialistSection";
 
 export default async function Home() {
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <SiteHeader />
-      <TalkToPayrollSpecialistRail href="/recommend" />
 
       {/* 1) Hero + decision snapshot */}
       <HomeSection className="pt-10 sm:pt-14">
@@ -31,39 +30,30 @@ export default async function Home() {
                 <ButtonLink href="/recommend" size="lg" className="w-full justify-center sm:w-auto">
                   Get my shortlist
                 </ButtonLink>
-                <ButtonLink href="/tools?category=payroll" variant="secondary" size="lg" className="w-full justify-center sm:w-auto">
-                  Browse HRMS & payroll tools
-                </ButtonLink>
+                <Link
+                  href="/tools?category=payroll"
+                  className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                >
+                  Browse HRMS & payroll tools →
+                </Link>
               </div>
 
               <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3 text-sm text-[var(--text-muted)]">
                 Used by HR leaders evaluating multi-state payroll in India.
               </div>
 
-              {/* Mobile: snapshot immediately after CTAs */}
-              <div className="mt-6 lg:hidden">
-                <DecisionSnapshotCard />
-              </div>
             </div>
 
-            <div className="hidden lg:col-span-5 lg:block">
+            <div className="lg:col-span-5">
               <DecisionSnapshotCard />
             </div>
           </div>
         </div>
       </HomeSection>
 
-      {/* 2) Trust strip (authority) */}
+      {/* 2) Authority + specialist CTA */}
       <HomeSection className="pt-0">
-        <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-5 py-4 text-sm text-[var(--text-muted)]">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div>Used by HR leaders evaluating multi-state payroll in India</div>
-            <div className="hidden sm:block text-[var(--text-muted)]">•</div>
-            <div>Deterministic scoring</div>
-            <div className="hidden sm:block text-[var(--text-muted)]">•</div>
-            <div>No paid ranking</div>
-          </div>
-        </div>
+        <TalkToPayrollSpecialistSection href="/recommend" />
       </HomeSection>
 
       {/* 3) Trust & proof strip */}

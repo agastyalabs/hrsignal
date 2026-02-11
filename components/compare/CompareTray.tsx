@@ -79,7 +79,7 @@ export function CompareTray() {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--border-soft)] bg-[rgba(10,14,24,0.86)] text-[var(--text)] backdrop-blur"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--border-soft)] bg-[var(--surface-1)] text-[var(--text)]"
       role="region"
       aria-label="Comparison tray"
     >

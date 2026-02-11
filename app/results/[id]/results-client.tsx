@@ -10,7 +10,6 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { TalkToPayrollSpecialistRail } from "@/components/conversion/TalkToPayrollSpecialistRail";
 
 type Submission = {
   id: string;
@@ -198,7 +197,6 @@ export default function ResultsClient({
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <SiteHeader />
-      <TalkToPayrollSpecialistRail href={`?step=intro`} />
 
       <main className="py-8 sm:py-12">
         <Container className="max-w-5xl">
@@ -395,7 +393,7 @@ export default function ResultsClient({
                     className="rounded-full border border-[rgba(255,255,255,0.16)] bg-[var(--surface-2)] px-2.5 py-1 text-xs font-semibold text-[var(--text)]"
                     title="India-specific payroll compliance + verification intelligence score (0–100)"
                   >
-                    IPRI™ {primaryPick.score}
+                    HRSignal Readiness {primaryPick.score}
                   </span>
                 </div>
               </div>

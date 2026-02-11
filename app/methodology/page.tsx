@@ -15,7 +15,7 @@ export default function MethodologyPage() {
       <main className="py-10 sm:py-14">
         <Container>
           <div className="mx-auto max-w-3xl">
-            <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">How India Payroll Readiness Index™ works</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">How HRSignal Readiness Score works</h1>
             <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
               This score is deterministic (no ML). It is designed for India payroll buyers where the biggest risks show up at month-end and in statutory outputs.
             </p>
@@ -65,7 +65,7 @@ export default function MethodologyPage() {
                 <div className="mt-2 space-y-2 text-sm text-[var(--text-muted)]">
                   <p>
                     India payroll failures often come from edge cases: arrears/reversals, cutoffs, state-wise statutory rules, contract workers, and audit trails.
-                    The India Payroll Readiness Index™ prioritizes signal quality that helps you validate these risks early.
+                    The HRSignal Readiness Score prioritizes signal quality that helps you validate these risks early.
                   </p>
                 </div>
               </Card>

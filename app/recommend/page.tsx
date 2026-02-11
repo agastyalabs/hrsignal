@@ -6,7 +6,7 @@ import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { CopyShareableLinkButton } from "@/components/ui/CopyShareableLinkButton";
-import { TalkToPayrollSpecialistRail } from "@/components/conversion/TalkToPayrollSpecialistRail";
+import { TalkToPayrollSpecialistSection } from "@/components/conversion/TalkToPayrollSpecialistSection";
 
 import { prisma } from "@/lib/db";
 import { canonicalVendorSlug } from "@/lib/vendors/slug";
@@ -224,7 +224,6 @@ export default async function RecommendPage({
   return (
     <div className="min-h-screen bg-[var(--bg)]">
       <SiteHeader />
-      <TalkToPayrollSpecialistRail href="/recommend" />
 
       <main className="py-10 sm:py-14">
         <Container>
@@ -234,8 +233,8 @@ export default async function RecommendPage({
               Answer a few questions. HRSignal recommends 3–5 best‑fit tools with clear match reasons.
             </p>
 
-            <div className="mt-4 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 py-3 text-sm text-[var(--text-muted)]">
-              Used by HR leaders evaluating multi-state payroll in India.
+            <div className="mt-6">
+              <TalkToPayrollSpecialistSection href="/recommend" />
             </div>
 
             {showRanking ? (
@@ -243,7 +242,7 @@ export default async function RecommendPage({
                 <Card className="p-5">
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <div className="text-sm font-semibold text-[var(--text)]">India Payroll Readiness Index™ (no ML)</div>
+                      <div className="text-sm font-semibold text-[var(--text)]">HRSignal Readiness Score (no ML)</div>
                       <div className="mt-1 text-sm text-[var(--text-muted)]">
                         Complexity tier: <span className="font-semibold text-[var(--text)]">{complexityTier}</span>. Ranked using compliance, evidence, freshness, integrations, and missing-signal penalty.
                       </div>

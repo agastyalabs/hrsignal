@@ -19,7 +19,6 @@ import { Markdownish } from "@/app/resources/Markdownish";
 import { EvidenceLinks } from "@/components/vendors/EvidenceLinks";
 import { StickyCtas } from "@/components/vendors/StickyCtas";
 import { ScorePill } from "./ScorePill";
-import { TalkToPayrollSpecialistRail } from "@/components/conversion/TalkToPayrollSpecialistRail";
 import { FitWeightRow } from "./FitWeightRow";
 import { getResearchedVendorProfile } from "@/lib/vendors/researched";
 import type { Metadata } from "next";
@@ -137,7 +136,6 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
 
     return (
       <div className="min-h-screen bg-[var(--bg)]">
-        <TalkToPayrollSpecialistRail href="/recommend" />
         <SiteHeader />
 
         <Section className="pt-10 sm:pt-14">
@@ -491,11 +489,11 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
                   <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-muted)]">
-                    <span>India Payroll Readiness Index™</span>
+                    <span>HRSignal Readiness Score</span>
                     <span
                       className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[var(--border-soft)] bg-[var(--surface-1)] text-[10px] font-semibold text-[var(--text-muted)]"
                       title="India-specific payroll compliance + verification intelligence score (0–100)"
-                      aria-label="About India Payroll Readiness Index"
+                      aria-label="About HRSignal Readiness Score"
                     >
                       i
                     </span>

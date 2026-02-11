@@ -344,7 +344,7 @@ export default async function ReportPage({
             <Card className="mt-5 p-6">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <div className="text-sm font-semibold text-[var(--text)]">India Payroll Readiness Index™ rankings</div>
+                  <div className="text-sm font-semibold text-[var(--text)]">HRSignal Readiness Score rankings</div>
                   <div className="mt-1 text-sm text-[var(--text-muted)]">Sorted by deterministic score for India payroll context.</div>
                   <div className="mt-2 print:hidden">
                     <Link

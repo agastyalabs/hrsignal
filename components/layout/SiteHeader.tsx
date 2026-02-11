@@ -73,7 +73,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-[var(--border-soft)] bg-[var(--header-bg)] backdrop-blur transition-shadow motion-reduce:transition-none ${
+      className={`sticky top-0 z-50 border-b border-[var(--border-soft)] bg-[var(--header-bg)] transition-shadow motion-reduce:transition-none ${
         scrolled ? "shadow-sm" : "shadow-none"
       }`}
     >
