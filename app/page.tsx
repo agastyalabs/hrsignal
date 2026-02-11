@@ -8,6 +8,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { HomeSection } from "@/components/marketing/HomeSection";
 import { TalkToPayrollSpecialistSection } from "@/components/conversion/TalkToPayrollSpecialistSection";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
+import { Card } from "@/components/ui/Card";
 
 export default async function Home() {
   return (
@@ -150,7 +151,73 @@ export default async function Home() {
         </div>
       </HomeSection>
 
-      {/* 4) Authority + specialist CTA */}
+      {/* 4) How HRSignal Readiness Score Works */}
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
+        <div>
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+            {/* Left */}
+            <div className="lg:col-span-6">
+              <Card className="border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none">
+                <h2 className="text-xl font-semibold tracking-tight text-[var(--text)] sm:text-2xl">
+                  How HRSignal Readiness Score Works
+                </h2>
+                <p className="mt-2 max-w-[68ch] text-sm leading-7 text-[var(--text-muted)]">
+                  A deterministic scoring model for India payroll buyers — designed to highlight what’s verified vs what you should validate.
+                </p>
+
+                <ul className="mt-5 space-y-2 text-sm leading-7 text-[var(--text-muted)]">
+                  <li>• Compliance scope verification</li>
+                  <li>• Evidence link depth</li>
+                  <li>• Integration visibility</li>
+                  <li>• Freshness signals</li>
+                </ul>
+              </Card>
+            </div>
+
+            {/* Right */}
+            <div className="lg:col-span-6">
+              <Card className="border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none">
+                <div className="text-sm font-semibold text-[var(--text)]">Model (structured)</div>
+                <div className="mt-1 text-sm text-[var(--text-muted)]">No ML hype — just explainable inputs and weights.</div>
+
+                <div className="mt-5 space-y-4">
+                  <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Inputs</div>
+                    <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
+                      Compliance tags • Evidence links • Integrations listed • Verification freshness
+                    </div>
+                  </div>
+
+                  <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Weighted deterministic scoring</div>
+                    <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
+                      Weights prioritize India payroll verification signals. Missing data is treated as “validate”.
+                    </div>
+                  </div>
+
+                  <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Output</div>
+                    <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
+                      0–100 scale, with transparent reasons you can use in demos and internal review.
+                    </div>
+                  </div>
+
+                  <div className="text-sm">
+                    <Link
+                      href="/methodology"
+                      className="font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      View full methodology →
+                    </Link>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </HomeSection>
+
+      {/* 5) Authority + specialist CTA */}
       <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <TalkToPayrollSpecialistSection href="/recommend" />
       </HomeSection>

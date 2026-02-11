@@ -141,6 +141,9 @@ export function SiteHeader() {
           <NavLink href="/resources" active={active.resources}>
             Resources
           </NavLink>
+          <NavLink href="/methodology" active={pathname === "/methodology"}>
+            Methodology
+          </NavLink>
 
           {count ? (
             <Link
