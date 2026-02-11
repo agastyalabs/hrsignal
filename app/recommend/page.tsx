@@ -240,17 +240,39 @@ export default async function RecommendPage({
                     <div className="text-xs text-[var(--text-muted)]">Showing top {ranked.length} vendors</div>
                   </div>
 
-                  <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="text-sm text-[var(--text-muted)]">Export a printable decision report for internal review.</div>
-                    <Link
-                      href={`/report?${new URLSearchParams(Object.entries(sp).flatMap(([k, v]) => {
-                        const val = Array.isArray(v) ? v[0] : v;
-                        return typeof val === "string" ? [[k, val]] : [];
-                      })).toString()}`}
-                      className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] transition-all duration-200 hover:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.18)] hover:shadow-[0_14px_40px_rgba(0,0,0,0.30)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
-                    >
-                      Export report (PDF)
-                    </Link>
+                  <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <div className="text-sm text-[var(--text-muted)]">Export a printable decision report for internal review.</div>
+                      <div className="mt-1 text-xs text-[var(--text-muted)]">
+                        Free export includes a subtle watermark + blurred ranking weights.
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2 sm:items-end">
+                      <Link
+                        href={`/report?${new URLSearchParams(
+                          Object.entries(sp).flatMap(([k, v]) => {
+                            const val = Array.isArray(v) ? v[0] : v;
+                            return typeof val === "string" ? [[k, val]] : [];
+                          }),
+                        ).toString()}&premium=false`}
+                        className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] transition-all duration-200 hover:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.18)] hover:shadow-[0_14px_40px_rgba(0,0,0,0.30)] active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                      >
+                        Export report (PDF)
+                      </Link>
+
+                      <Link
+                        href={`/report?${new URLSearchParams(
+                          Object.entries(sp).flatMap(([k, v]) => {
+                            const val = Array.isArray(v) ? v[0] : v;
+                            return typeof val === "string" ? [[k, val]] : [];
+                          }),
+                        ).toString()}&premium=true`}
+                        className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                      >
+                        Upgrade for clean executive export
+                      </Link>
+                    </div>
                   </div>
 
                   <div className="mt-4 space-y-3">

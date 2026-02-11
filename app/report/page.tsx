@@ -117,6 +117,10 @@ export default async function ReportPage({
     timeline: (Array.isArray(sp.timeline) ? sp.timeline[0] : sp.timeline) ?? "—",
   };
 
+  const rawPremium = sp.premium;
+  const premiumVal = (Array.isArray(rawPremium) ? rawPremium[0] : rawPremium) ?? "false";
+  const isPremium = premiumVal === "true";
+
   const ranked = complexityTier && process.env.DATABASE_URL
     ? await (async () => {
         const dbVendors = await prisma.vendor.findMany({
@@ -270,10 +274,40 @@ export default async function ReportPage({
               </div>
 
               <div className="mt-5 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
-                <div className="text-xs font-semibold text-[var(--text-muted)]">Ranking logic summary</div>
-                <div className="mt-2 text-sm text-[var(--text-muted)]">
-                  Score = compliance depth (30%) + evidence depth (25%) + freshness (20%) + integration depth (15%) − missing data penalty (10%).
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Ranking logic summary</div>
+                    <div className="mt-2 text-sm text-[var(--text-muted)]">
+                      Score = compliance depth (30%) + evidence depth (25%) + freshness (20%) + integration depth (15%) − missing data penalty (10%).
+                    </div>
+                  </div>
+                  {!isPremium ? (
+                    <div className="text-xs text-[var(--text-muted)]">Premium hides watermark + reveals weights</div>
+                  ) : null}
                 </div>
+
+                {!isPremium ? (
+                  <div className="mt-3">
+                    <div className="relative overflow-hidden rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-3">
+                      <div className="pointer-events-none select-none blur-sm">
+                        <div className="text-xs font-semibold text-[var(--text-muted)]">Detailed weights</div>
+                        <div className="mt-1 text-sm text-[var(--text-muted)]">Compliance 30% • Evidence 25% • Freshness 20% • Integrations 15% • Missing penalty 10%</div>
+                      </div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 py-1 text-xs font-semibold text-[var(--text)]">
+                          Upgrade for clean executive export
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-3 rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-3">
+                    <div className="text-xs font-semibold text-[var(--text-muted)]">Detailed weights</div>
+                    <div className="mt-1 text-sm text-[var(--text-muted)]">
+                      Compliance 30% • Evidence 25% • Freshness 20% • Integrations 15% • Missing penalty 10%
+                    </div>
+                  </div>
+                )}
               </div>
             </Card>
 
@@ -331,9 +365,11 @@ export default async function ReportPage({
               <div className="text-center text-xs text-[var(--text-muted)] opacity-70">
                 HRSignal • Decision report • India payroll context • {new Date().getUTCFullYear()}
               </div>
-              <div className="mt-2 text-center text-[10px] text-[var(--text-muted)] opacity-40">
-                HRSignal watermark — internal use. Verify statutory compliance and month-end scenarios before purchase.
-              </div>
+              {!isPremium ? (
+                <div className="mt-2 text-center text-[10px] text-[var(--text-muted)] opacity-40">
+                  HRSignal watermark — internal use. Verify statutory compliance and month-end scenarios before purchase.
+                </div>
+              ) : null}
             </div>
           </div>
         </Container>
