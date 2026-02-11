@@ -140,6 +140,16 @@ export default function ResultsClient({
 
   const [toolMeta, setToolMeta] = useState<Record<string, ToolMeta>>({});
 
+  const [unlocked, setUnlocked] = useState(false);
+  const [unlockEmail, setUnlockEmail] = useState(submission.buyerEmail ?? "");
+  const [unlocking, setUnlocking] = useState(false);
+  const [unlockError, setUnlockError] = useState<string | null>(null);
+  const unlockEmailRef = useRef<HTMLInputElement | null>(null);
+
+  function isValidEmail(email: string) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
+  }
+
   useEffect(() => {
     const slugs = picks.map((p) => p.tool.slug).filter(Boolean);
     if (!slugs.length) return;
@@ -209,7 +219,7 @@ export default function ResultsClient({
             </div>
 
             <div className="flex items-center gap-3">
-              {compareHref ? (
+              {compareHref && unlocked ? (
                 <Link className="text-sm font-medium text-indigo-700 hover:underline" href={compareHref}>
                   Compare
                 </Link>
@@ -306,23 +316,25 @@ export default function ResultsClient({
         ) : null}
 
         <div ref={shortlistRef} className={`mt-10 space-y-5 ${activeStep === "shortlist" ? "" : "hidden"}`}>
-          {picks.length === 0 ? (
-            <Card className="shadow-sm">
-              <div className="text-base font-semibold text-[var(--text)]">No matches yet</div>
-              <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
-                We couldn’t find published tools that match your selected categories/integrations. Try removing an integration requirement, or
-                browse the directory.
-              </p>
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Link className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white" href="/recommend">
-                  Update answers
-                </Link>
-                <Link className="rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-4 py-2 text-sm font-medium text-[var(--text)] hover:bg-[var(--surface-2)]" href="/tools">
-                  Browse tools
-                </Link>
-              </div>
-            </Card>
-          ) : null}
+          <div className="relative">
+            <div className={unlocked ? "" : "pointer-events-none select-none blur-sm"} aria-hidden={!unlocked}>
+              {picks.length === 0 ? (
+                <Card className="shadow-sm">
+                  <div className="text-base font-semibold text-[var(--text)]">No matches yet</div>
+                  <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
+                    We couldn’t find published tools that match your selected categories/integrations. Try removing an integration requirement, or
+                    browse the directory.
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-3">
+                    <Link className="rounded-lg bg-black px-4 py-2 text-sm font-medium text-white" href="/recommend">
+                      Update answers
+                    </Link>
+                    <Link className="rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-4 py-2 text-sm font-medium text-[var(--text)] hover:bg-[var(--surface-2)]" href="/tools">
+                      Browse tools
+                    </Link>
+                  </div>
+                </Card>
+              ) : null}
 
           {primaryPick ? (
             <Card className="relative overflow-hidden border border-[var(--border)] bg-[var(--surface-1)] shadow-sm">
@@ -468,12 +480,23 @@ export default function ResultsClient({
                 </Link>
                 <div className="flex flex-wrap gap-2">
                   {compareHref ? (
-                    <Link
-                      className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)]"
-                      href={compareHref}
-                    >
-                      Compare
-                    </Link>
+                    unlocked ? (
+                      <Link
+                        className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)]"
+                        href={compareHref}
+                      >
+                        Compare
+                      </Link>
+                    ) : (
+                      <button
+                        type="button"
+                        disabled
+                        className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text-muted)]"
+                        title="Unlock to compare"
+                      >
+                        Compare
+                      </button>
+                    )
                   ) : null}
                   <a
                     href="#intro"
@@ -607,6 +630,58 @@ export default function ResultsClient({
               </details>
             </Card>
           ) : null}
+
+            </div>
+
+            {!unlocked ? (
+              <div className="absolute inset-0 flex items-center justify-center p-4">
+                <div className="w-full max-w-lg rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none">
+                  <div className="text-base font-semibold text-[var(--text)]">Unlock full comparison + export PDF</div>
+                  <div className="mt-1 text-sm leading-7 text-[var(--text-muted)]">
+                    Enter your work email to reveal the full shortlist, enable vendor comparison, and export the decision report.
+                  </div>
+
+                  <form
+                    className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      setUnlockError(null);
+                      const email = String(unlockEmail || "").trim();
+                      if (!isValidEmail(email)) {
+                        setUnlockError("Please enter a valid work email.");
+                        unlockEmailRef.current?.focus();
+                        return;
+                      }
+                      setUnlocking(true);
+                      // No backend yet. Simulate async.
+                      await new Promise((r) => setTimeout(r, 250));
+                      setUnlocked(true);
+                      setUnlocking(false);
+                    }}
+                  >
+                    <div className="flex-1">
+                      <label className="text-xs font-semibold text-[var(--text-muted)]">Work email</label>
+                      <input
+                        ref={unlockEmailRef}
+                        className="input mt-1"
+                        type="email"
+                        value={unlockEmail}
+                        onChange={(e) => setUnlockEmail(e.target.value)}
+                        placeholder="you@company.com"
+                        required
+                      />
+                      {unlockError ? <div className="mt-2 text-sm text-red-300">{unlockError}</div> : null}
+                    </div>
+                    <Button type="submit" className="w-full justify-center sm:w-auto" disabled={unlocking}>
+                      {unlocking ? "Unlocking…" : "Unlock"}
+                    </Button>
+                  </form>
+
+                  <div className="mt-3 text-xs text-[var(--text-muted)]">No vendor spam. No paid ranking.</div>
+                </div>
+              </div>
+            ) : null}
+          </div>
         </div>
 
         <div ref={introRef} className={`mt-10 ${activeStep === "intro" ? "" : "hidden"}`} id="intro">
@@ -751,12 +826,25 @@ export default function ResultsClient({
                     </button>
                   ) : null}
                   {reportHref ? (
-                    <Link
-                      href={reportHref}
-                      className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
-                    >
-                      Export report
-                    </Link>
+                    unlocked ? (
+                      <Link
+                        href={reportHref}
+                        className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                      >
+                        Export report
+                      </Link>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setStep("shortlist");
+                          window.setTimeout(() => unlockEmailRef.current?.focus(), 50);
+                        }}
+                        className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                      >
+                        Unlock to export
+                      </button>
+                    )
                   ) : null}
                 </div>
               ) : null}
@@ -782,21 +870,47 @@ export default function ResultsClient({
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-wrap gap-2">
                 {compareHref ? (
-                  <Link
-                    href={compareHref}
-                    className="inline-flex h-10 items-center justify-center rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
-                  >
-                    Compare tools
-                  </Link>
+                  unlocked ? (
+                    <Link
+                      href={compareHref}
+                      className="inline-flex h-10 items-center justify-center rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Compare tools
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setStep("shortlist");
+                        window.setTimeout(() => unlockEmailRef.current?.focus(), 50);
+                      }}
+                      className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Unlock to compare
+                    </button>
+                  )
                 ) : null}
 
                 {reportHref ? (
-                  <Link
-                    href={reportHref}
-                    className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
-                  >
-                    Export decision report
-                  </Link>
+                  unlocked ? (
+                    <Link
+                      href={reportHref}
+                      className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Export decision report
+                    </Link>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setStep("shortlist");
+                        window.setTimeout(() => unlockEmailRef.current?.focus(), 50);
+                      }}
+                      className="inline-flex h-10 items-center justify-center rounded-lg border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Unlock to export
+                    </button>
+                  )
                 ) : (
                   <Link
                     href="/recommend"
