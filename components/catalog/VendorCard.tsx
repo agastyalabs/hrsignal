@@ -1,5 +1,6 @@
-import Link from "next/link";
 import * as React from "react";
+
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 import { Card } from "@/components/ui/Card";
 import { VendorLogo } from "@/components/VendorLogo";
@@ -56,12 +57,14 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
 
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <Link
+              <TrackedLink
+                event="click_vendor"
+                eventData={{ vendor: vendor.slug, from: "vendor_card" }}
                 href={`/vendors/${vendor.slug}`}
                 className="truncate text-base font-semibold text-[var(--text)] hover:underline"
               >
                 {vendor.name}
-              </Link>
+              </TrackedLink>
               <span className="text-xs font-semibold text-[var(--text-muted)]">• {vendor.toolsCount} tools</span>
 
               {typeof vendor.rank === "number" ? (
@@ -130,12 +133,14 @@ export function VendorCard({ vendor }: { vendor: VendorCardModel }) {
 
       {/* (5) Single clear primary CTA */}
       <div className="mt-4">
-        <Link
+        <TrackedLink
+          event="click_vendor"
+          eventData={{ vendor: vendor.slug, from: "vendor_card_cta" }}
           href={`/vendors/${vendor.slug}`}
           className="inline-flex h-11 w-full items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(0,0,0,0.30)] hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-4 focus:ring-[var(--ring)]"
         >
           View vendor
-        </Link>
+        </TrackedLink>
       </div>
     </Card>
   );

@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
@@ -207,9 +208,14 @@ This page is available in read-only mode until the catalog database is connected
             >
               See if this fits my team
             </Link>
-            <Link className="rounded-lg border border-[#1F2937] bg-transparent px-4 py-2 text-sm font-medium text-[#F9FAFB] hover:bg-[#0F172A]" href={`/tools/${tool.slug}#lead`}>
+            <TrackedLink
+              event="click_request_demo"
+              eventData={{ from: "tool_detail", tool: tool.slug }}
+              className="rounded-lg border border-[#1F2937] bg-transparent px-4 py-2 text-sm font-medium text-[#F9FAFB] hover:bg-[#0F172A]"
+              href={`/tools/${tool.slug}#lead`}
+            >
               Request Demo via HRSignal
-            </Link>
+            </TrackedLink>
             <CompareToggle slug={tool.slug} />
           </div>
 
