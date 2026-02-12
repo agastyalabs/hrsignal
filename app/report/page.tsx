@@ -257,13 +257,30 @@ export default async function ReportPage({
                   type="button"
                   onClick={() => window.print()}
                   className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white transition-all duration-200 hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                  disabled={!complexityTier}
+                  aria-disabled={!complexityTier}
+                  title={!complexityTier ? "Generate a report first" : ""}
                 >
                   Print / Save as PDF
                 </button>
               </div>
             </div>
 
-            <Card className="mt-5 p-6">
+            {!complexityTier ? (
+              <Card className="mt-5 p-6">
+                <div className="text-sm font-semibold text-[var(--text)]">No decision report found.</div>
+                <p className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
+                  This report is generated from your shortlist inputs. Start from recommendations to create a decision brief you can print.
+                </p>
+                <div className="mt-4">
+                  <ButtonLink href="/recommend" variant="primary" size="md" className="w-full justify-center sm:w-auto">
+                    Get a shortlist
+                  </ButtonLink>
+                </div>
+              </Card>
+            ) : (
+              <>
+                <Card className="mt-5 p-6">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <div className="text-sm font-semibold text-[var(--text)]">Decision Brief (India payroll context)</div>
@@ -409,6 +426,8 @@ export default async function ReportPage({
                 </div>
               ) : null}
             </div>
+          </>
+            )}
           </div>
         </Container>
       </main>
