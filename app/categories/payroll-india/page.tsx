@@ -297,6 +297,29 @@ export default function PayrollIndiaPillarPage() {
               </section>
 
               <section className="space-y-3">
+                <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6">
+                  <div className="text-sm font-semibold text-[var(--text)]">Related decision guides</div>
+                  <div className="mt-1 text-sm text-[var(--text-muted)]">Go deeper on evaluation and implementation sequencing.</div>
+                  <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <Link
+                      href="/payroll-software-evaluation-checklist-india"
+                      className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4 text-sm hover:bg-[var(--surface-3)]"
+                    >
+                      <div className="font-semibold text-[var(--text)]">Payroll evaluation checklist (India)</div>
+                      <div className="mt-1 text-sm text-[var(--text-muted)]">Compliance checklist, multi-state risk controls, pricing traps.</div>
+                    </Link>
+                    <Link
+                      href="/hrms-implementation-timeline-india"
+                      className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4 text-sm hover:bg-[var(--surface-3)]"
+                    >
+                      <div className="font-semibold text-[var(--text)]">HRMS implementation timeline (India)</div>
+                      <div className="mt-1 text-sm text-[var(--text-muted)]">Phases, migration risks, payroll cutover, multi-location rollout.</div>
+                    </Link>
+                  </div>
+                </div>
+              </section>
+
+              <section className="space-y-3">
                 <h2 className="text-xl font-semibold text-[var(--text)]">Explore vendor profiles</h2>
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {TOP_VENDORS.map((v) => (

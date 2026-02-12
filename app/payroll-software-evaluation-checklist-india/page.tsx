@@ -132,6 +132,7 @@ export default function PayrollEvaluationChecklistIndiaPage() {
 
               <p className="mt-4 text-sm leading-7 text-[var(--text-muted)]">
                 For a deeper buyer-oriented walkthrough, see the <Link className="underline" href="/categories/payroll-india">Payroll India category guide</Link>.
+                If you’re planning a rollout, also review the <Link className="underline" href="/hrms-implementation-timeline-india">HRMS implementation timeline (India)</Link> to sequence data, workflows, and payroll cutover.
               </p>
             </Card>
 
@@ -224,6 +225,27 @@ export default function PayrollEvaluationChecklistIndiaPage() {
                   className="inline-flex h-11 w-full items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-5 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] sm:w-auto"
                 >
                   Download the free PDF checklist
+                </Link>
+              </div>
+            </Card>
+
+            <Card className="border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none">
+              <div className="text-sm font-semibold text-[var(--text)]">Related decision guides</div>
+              <div className="mt-1 text-sm text-[var(--text-muted)]">Continue through the cluster to build evaluation confidence.</div>
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <Link
+                  href="/categories/payroll-india"
+                  className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4 text-sm hover:bg-[var(--surface-3)]"
+                >
+                  <div className="font-semibold text-[var(--text)]">Payroll India guide</div>
+                  <div className="mt-1 text-sm text-[var(--text-muted)]">Complexity context, vendor shortlisting, and risk checklist.</div>
+                </Link>
+                <Link
+                  href="/hrms-implementation-timeline-india"
+                  className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4 text-sm hover:bg-[var(--surface-3)]"
+                >
+                  <div className="font-semibold text-[var(--text)]">HRMS implementation timeline (India)</div>
+                  <div className="mt-1 text-sm text-[var(--text-muted)]">Phases, data migration risks, payroll cutover, and rollout strategy.</div>
                 </Link>
               </div>
             </Card>

@@ -16,6 +16,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/categories`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/categories/payroll-india`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/resources`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/payroll-software-evaluation-checklist-india`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/hrms-implementation-timeline-india`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/recommend`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },

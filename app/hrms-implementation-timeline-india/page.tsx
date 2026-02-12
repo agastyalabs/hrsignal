@@ -161,6 +161,7 @@ export default function HrmsImplementationTimelineIndiaPage() {
 
               <p className="mt-4 text-sm leading-7 text-[var(--text-muted)]">
                 If you’re still selecting vendors, use the <Link className="underline" href="/payroll-software-evaluation-checklist-india">payroll software evaluation checklist</Link> to standardize your demo and output validation.
+                For India payroll complexity context and vendor shortlisting, also read the <Link className="underline" href="/categories/payroll-india">Payroll India guide</Link>.
               </p>
             </Card>
 
@@ -262,6 +263,27 @@ export default function HrmsImplementationTimelineIndiaPage() {
               <div className="mt-3 text-xs text-[var(--text-muted)]">
                 Related: <Link className="underline" href="/payroll-software-evaluation-checklist-india">Payroll evaluation checklist</Link> •{" "}
                 <Link className="underline" href="/categories/hrms">HRMS category</Link>
+              </div>
+            </Card>
+
+            <Card className="border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none">
+              <div className="text-sm font-semibold text-[var(--text)]">Related decision guides</div>
+              <div className="mt-1 text-sm text-[var(--text-muted)]">Continue through the cluster to plan evaluation and rollout together.</div>
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <Link
+                  href="/categories/payroll-india"
+                  className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4 text-sm hover:bg-[var(--surface-3)]"
+                >
+                  <div className="font-semibold text-[var(--text)]">Payroll India guide</div>
+                  <div className="mt-1 text-sm text-[var(--text-muted)]">India payroll complexity and what to validate before buying.</div>
+                </Link>
+                <Link
+                  href="/payroll-software-evaluation-checklist-india"
+                  className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4 text-sm hover:bg-[var(--surface-3)]"
+                >
+                  <div className="font-semibold text-[var(--text)]">Payroll evaluation checklist (India)</div>
+                  <div className="mt-1 text-sm text-[var(--text-muted)]">Compliance, multi-state risk controls, pricing traps, and comparison framework.</div>
+                </Link>
               </div>
             </Card>
 
