@@ -211,26 +211,32 @@ export default async function ReportPage({
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const sp = (await searchParams) ?? {};
-  const rawTier = sp.ct;
-  const tier = (Array.isArray(rawTier) ? rawTier[0] : rawTier) as string | undefined;
+
+  const first = (k: string): string | undefined => {
+    const v = (sp as Record<string, string | string[] | undefined>)[k];
+    return Array.isArray(v) ? v[0] : v;
+  };
+
+  const tier = first("ct");
   const complexityTier = tier === "high" || tier === "medium" || tier === "low" ? tier : null;
 
   const inputs = {
-    headcount: (Array.isArray(sp.headcount) ? sp.headcount[0] : sp.headcount) ?? "—",
-    states: (Array.isArray(sp.states) ? sp.states[0] : sp.states) ?? "—",
-    payrollFrequency: (Array.isArray(sp.freq) ? sp.freq[0] : sp.freq) ?? "—",
-    pfEsiApplicability: (Array.isArray(sp.pfesi) ? sp.pfesi[0] : sp.pfesi) ?? "—",
-    contractWorkers: (Array.isArray(sp.contractors) ? sp.contractors[0] : sp.contractors) ?? "—",
-    timeline: (Array.isArray(sp.timeline) ? sp.timeline[0] : sp.timeline) ?? "—",
+    headcount: first("headcount") ?? "—",
+    states: first("states") ?? "—",
+    payrollFrequency: first("freq") ?? "—",
+    pfEsiApplicability: first("pfesi") ?? "—",
+    contractWorkers: first("contractors") ?? "—",
+    timeline: first("timeline") ?? "—",
   };
 
-  const rawShare = sp.share;
-  const shareVal = (Array.isArray(rawShare) ? rawShare[0] : rawShare) ?? "false";
+  const shareVal = first("share") ?? "false";
   const isShare = shareVal === "true";
 
-  const rawPremium = sp.premium;
-  const premiumVal = (Array.isArray(rawPremium) ? rawPremium[0] : rawPremium) ?? "false";
+  const premiumVal = first("premium") ?? "false";
   const isPremium = isShare ? true : premiumVal === "true";
+
+  const hasAttempted = Boolean(tier);
+  const tierError = hasAttempted && !complexityTier ? "Please select a valid complexity tier to generate a report." : null;
 
   const ranked = complexityTier ? await computeRankedVendors({ complexityTier }) : [];
 
@@ -245,7 +251,7 @@ export default async function ReportPage({
               <div>
                 <h1 className="text-2xl font-semibold tracking-tight text-[var(--text)]">Decision report</h1>
                 <p className="mt-1 text-sm text-[var(--text-muted)]">
-                  Print to PDF from your browser. Mobile-friendly, but export works best on desktop.
+                  Generate a printable decision brief from your inputs. When ready, use your browser’s Print → Save as PDF.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -257,11 +263,121 @@ export default async function ReportPage({
                   type="button"
                   onClick={() => window.print()}
                   className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white transition-all duration-200 hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                  disabled={!complexityTier}
+                  aria-disabled={!complexityTier}
+                  title={!complexityTier ? "Generate a report first" : ""}
                 >
                   Print / Save as PDF
                 </button>
               </div>
             </div>
+
+            {!complexityTier ? (
+              <Card className="mt-5 border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none">
+                <div className="text-sm font-semibold text-[var(--text)]">Generate your report</div>
+                <p className="mt-1 text-sm leading-7 text-[var(--text-muted)]">
+                  This page becomes a printable report after you provide inputs. Start here, then we’ll generate your rankings.
+                </p>
+
+                {tierError ? (
+                  <div className="mt-4 rounded-[var(--radius-md)] border border-[rgba(244,63,94,0.25)] bg-[rgba(244,63,94,0.10)] p-4 text-sm text-rose-200">
+                    {tierError}
+                  </div>
+                ) : null}
+
+                <form className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2" method="get" action="/report">
+                  <div className="sm:col-span-2">
+                    <label className="text-xs font-semibold text-[var(--text-muted)]">Complexity tier</label>
+                    <select
+                      name="ct"
+                      defaultValue={tier ?? ""}
+                      className="mt-1 h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 text-sm text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                      required
+                    >
+                      <option value="" disabled>
+                        Select tier
+                      </option>
+                      <option value="low">Low</option>
+                      <option value="medium">Medium</option>
+                      <option value="high">High</option>
+                    </select>
+                    <div className="mt-1 text-xs text-[var(--text-muted)]">Tip: Use the Payroll Risk Scanner if you’re unsure.</div>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-[var(--text-muted)]">Headcount</label>
+                    <input
+                      name="headcount"
+                      defaultValue={first("headcount") ?? ""}
+                      placeholder="e.g., 20–200"
+                      className="mt-1 h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-[var(--text-muted)]">States</label>
+                    <input
+                      name="states"
+                      defaultValue={first("states") ?? ""}
+                      placeholder="e.g., 1 or 2–3"
+                      className="mt-1 h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-[var(--text-muted)]">Payroll frequency</label>
+                    <input
+                      name="freq"
+                      defaultValue={first("freq") ?? ""}
+                      placeholder="monthly"
+                      className="mt-1 h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-[var(--text-muted)]">PF/ESI applicability</label>
+                    <input
+                      name="pfesi"
+                      defaultValue={first("pfesi") ?? ""}
+                      placeholder="both"
+                      className="mt-1 h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-semibold text-[var(--text-muted)]">Contract workers</label>
+                    <input
+                      name="contractors"
+                      defaultValue={first("contractors") ?? ""}
+                      placeholder="yes/no"
+                      className="mt-1 h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-[var(--text-muted)]">Timeline</label>
+                    <input
+                      name="timeline"
+                      defaultValue={first("timeline") ?? ""}
+                      placeholder="e.g., 30d"
+                      className="mt-1 h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    />
+                  </div>
+
+                  <input type="hidden" name="premium" value={premiumVal} />
+                  <input type="hidden" name="share" value={shareVal} />
+
+                  <div className="sm:col-span-2">
+                    <button
+                      type="submit"
+                      className="inline-flex h-11 w-full items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Generate report
+                    </button>
+                    <div className="mt-3 text-xs text-[var(--text-muted)]">
+                      Prefer guided inputs? Use <Link className="underline" href="/payroll-risk-scanner">Payroll Risk Scanner</Link> or start from
+                      <Link className="underline" href="/recommend"> /recommend</Link>.
+                    </div>
+                  </div>
+                </form>
+              </Card>
+            ) : null}
 
             <Card className="mt-5 p-6">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
