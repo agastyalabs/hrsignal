@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { BRAND } from "@/config/brand";
 import { Container } from "@/components/layout/Container";
@@ -47,13 +47,7 @@ function NavLink({
   );
 }
 
-function MenuGroup({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function MenuGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
       <div className="px-3 py-2 text-xs font-semibold tracking-wide text-[var(--text-muted)]">{title}</div>
@@ -76,15 +70,14 @@ function MenuLink({
       href={href}
       onClick={onClick}
       className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      role="menuitem"
     >
       {label}
     </Link>
   );
 }
 
-export function SiteHeader() {
-  const rawPathname = usePathname() || "/";
-  const pathname = rawPathname !== "/" ? rawPathname.replace(/\/+$/, "") : rawPathname;
+function HeaderInner({ pathname }: { pathname: string }) {
   const { count, slugs } = useCompare();
 
   const active = useMemo(() => {
@@ -93,11 +86,18 @@ export function SiteHeader() {
       tools: is("/tools"),
       vendors: is("/vendors"),
       categories: is("/categories"),
-      resources: is("/resources") || is("/methodology") || pathname === "/india-payroll-risk-checklist" || pathname === "/payroll-risk-scanner" || pathname === "/hrms-fit-score",
+      resources:
+        is("/resources") ||
+        is("/methodology") ||
+        pathname === "/india-payroll-risk-checklist" ||
+        pathname === "/payroll-risk-scanner" ||
+        pathname === "/hrms-fit-score",
       compare: is("/compare"),
       recommend: is("/recommend"),
     };
   }, [pathname]);
+
+  const compareHref = count ? `/compare?tools=${encodeURIComponent(slugs.join(","))}` : null;
 
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -108,6 +108,44 @@ export function SiteHeader() {
   }, []);
 
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Desktop controlled menus (prevents overlap + improves stability)
+  const [openMenu, setOpenMenu] = useState<null | "categories" | "resources">(null);
+  const headerRef = useRef<HTMLElement | null>(null);
+  const categoriesMenuRef = useRef<HTMLDivElement | null>(null);
+  const resourcesMenuRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!openMenu) return;
+
+    const onDocMouseDown = (e: MouseEvent) => {
+      const t = e.target as Node | null;
+      const inHeader = headerRef.current?.contains(t as Node) ?? false;
+      const inMenu =
+        (categoriesMenuRef.current?.contains(t as Node) ?? false) ||
+        (resourcesMenuRef.current?.contains(t as Node) ?? false);
+      if (!inHeader && !inMenu) setOpenMenu(null);
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpenMenu(null);
+    };
+
+    // Close on scroll to avoid jitter/misalignment.
+    const onScrollClose = () => setOpenMenu(null);
+
+    document.addEventListener("mousedown", onDocMouseDown);
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("scroll", onScrollClose, { passive: true });
+
+    return () => {
+      document.removeEventListener("mousedown", onDocMouseDown);
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("scroll", onScrollClose);
+    };
+  }, [openMenu]);
+
+  // Mobile sheet: Esc to close
   useEffect(() => {
     if (!mobileOpen) return;
     const onKey = (e: KeyboardEvent) => {
@@ -117,8 +155,8 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, [mobileOpen]);
 
+  // Mobile sheet: lock scroll
   useEffect(() => {
-    // Lock scroll when mobile menu is open.
     if (!mobileOpen) return;
     const prev = document.documentElement.style.overflow;
     document.documentElement.style.overflow = "hidden";
@@ -127,16 +165,15 @@ export function SiteHeader() {
     };
   }, [mobileOpen]);
 
-  const compareHref = count ? `/compare?tools=${encodeURIComponent(slugs.join(","))}` : null;
-
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-50 border-b border-[var(--border-soft)] bg-[var(--header-bg)] transition-shadow motion-reduce:transition-none ${
         scrolled ? "shadow-sm" : "shadow-none"
       }`}
     >
       <Container className="flex items-center justify-between gap-4 py-4">
-        <Link href="/" className="shrink-0" aria-label="HRSignal home">
+        <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
           <span className="flex items-center gap-3 whitespace-nowrap">
             <Image src={BRAND.logo} alt={BRAND.name} width={208} height={44} priority className="h-9 w-auto sm:h-10" />
             <span className="hidden text-base font-semibold tracking-tight text-[var(--text)] sm:inline">{BRAND.name}</span>
@@ -145,7 +182,7 @@ export function SiteHeader() {
 
         {/* Header search (non-home pages only) */}
         {pathname !== "/" ? (
-          <form action="/tools" className="hidden w-full max-w-md lg:flex">
+          <form action="/tools" className="hidden w-full max-w-md lg:flex" onSubmit={() => setOpenMenu(null)}>
             <input
               className="h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
               name="q"
@@ -156,65 +193,86 @@ export function SiteHeader() {
         ) : null}
 
         {/* Desktop nav */}
-        <nav className="hidden shrink-0 items-center gap-1 text-sm lg:flex" aria-label="Primary">
-          <NavLink href="/tools" active={active.tools}>
+        <nav className="relative hidden shrink-0 items-center gap-1 text-sm lg:flex" aria-label="Primary">
+          <NavLink href="/tools" active={active.tools} onClick={() => setOpenMenu(null)}>
             Tools
           </NavLink>
-          <NavLink href="/vendors" active={active.vendors}>
+          <NavLink href="/vendors" active={active.vendors} onClick={() => setOpenMenu(null)}>
             Vendors
           </NavLink>
 
-          {/* Categories dropdown */}
-          <details className="relative">
-            <summary
-              className={`${navItemClass(active.categories)} ${activeUnderline(active.categories)} cursor-pointer list-none`}
+          {/* Categories menu */}
+          <div className="relative">
+            <button
+              type="button"
+              className={`${navItemClass(active.categories)} ${activeUnderline(active.categories)}`}
+              aria-haspopup="menu"
+              aria-expanded={openMenu === "categories"}
+              onClick={() => setOpenMenu((v) => (v === "categories" ? null : "categories"))}
             >
               Categories
-            </summary>
-            <div className="absolute left-0 mt-2 w-72 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none">
-              <MenuGroup title="Browse categories">
-                <MenuLink href="/categories" label="View all categories" />
-              </MenuGroup>
-              <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
-              <MenuGroup title="Popular categories">
-                <MenuLink href="/categories/payroll" label="Payroll & compliance" />
-                <MenuLink href="/categories/hrms" label="HRMS / Core HR" />
-                <MenuLink href="/categories/attendance" label="Attendance / Leave" />
-                <MenuLink href="/categories/ats" label="ATS / Hiring" />
-                <MenuLink href="/categories/performance" label="Performance / OKR" />
-              </MenuGroup>
-            </div>
-          </details>
+            </button>
+            {openMenu === "categories" ? (
+              <div
+                ref={categoriesMenuRef}
+                className="absolute left-0 mt-2 w-72 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none"
+                role="menu"
+              >
+                <MenuGroup title="Browse categories">
+                  <MenuLink href="/categories" label="View all categories" onClick={() => setOpenMenu(null)} />
+                </MenuGroup>
+                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
+                <MenuGroup title="Popular categories">
+                  <MenuLink href="/categories/payroll" label="Payroll & compliance" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/categories/hrms" label="HRMS / Core HR" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/categories/attendance" label="Attendance / Leave" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/categories/ats" label="ATS / Hiring" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/categories/performance" label="Performance / OKR" onClick={() => setOpenMenu(null)} />
+                </MenuGroup>
+              </div>
+            ) : null}
+          </div>
 
-          {/* Resources dropdown */}
-          <details className="relative">
-            <summary
-              className={`${navItemClass(active.resources)} ${activeUnderline(active.resources)} cursor-pointer list-none`}
+          {/* Resources menu */}
+          <div className="relative">
+            <button
+              type="button"
+              className={`${navItemClass(active.resources)} ${activeUnderline(active.resources)}`}
+              aria-haspopup="menu"
+              aria-expanded={openMenu === "resources"}
+              onClick={() => setOpenMenu((v) => (v === "resources" ? null : "resources"))}
             >
               Resources
-            </summary>
-            <div className="absolute left-0 mt-2 w-80 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none">
-              <MenuGroup title="Buyer guides">
-                <MenuLink href="/resources" label="Browse all resources" />
-                <MenuLink href="/methodology" label="Methodology" />
-                <MenuLink href="/categories/payroll-india" label="Payroll India guide" />
-                <MenuLink href="/best-payroll-software-small-business-india" label="Best payroll software (SMBs)" />
-              </MenuGroup>
-              <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
-              <MenuGroup title="Checklists & tools">
-                <MenuLink href="/india-payroll-risk-checklist" label="India payroll risk checklist" />
-                <MenuLink href="/payroll-risk-scanner" label="Payroll risk scanner" />
-                <MenuLink href="/hrms-fit-score" label="HRMS fit score" />
-                <MenuLink href="/report" label="Decision report" />
-              </MenuGroup>
-            </div>
-          </details>
+            </button>
+            {openMenu === "resources" ? (
+              <div
+                ref={resourcesMenuRef}
+                className="absolute right-0 mt-2 w-80 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none"
+                role="menu"
+              >
+                <MenuGroup title="Buyer guides">
+                  <MenuLink href="/resources" label="Browse all resources" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/methodology" label="Methodology" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/categories/payroll-india" label="Payroll India guide" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/best-payroll-software-small-business-india" label="Best payroll software (SMBs)" onClick={() => setOpenMenu(null)} />
+                </MenuGroup>
+                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
+                <MenuGroup title="Checklists & tools">
+                  <MenuLink href="/india-payroll-risk-checklist" label="India payroll risk checklist" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/payroll-risk-scanner" label="Payroll risk scanner" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/hrms-fit-score" label="HRMS fit score" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/report" label="Decision report" onClick={() => setOpenMenu(null)} />
+                </MenuGroup>
+              </div>
+            ) : null}
+          </div>
 
           {compareHref ? (
             <Link
               className={`${navItemClass(active.compare)} ${activeUnderline(active.compare)}`}
               href={compareHref}
               aria-current={active.compare ? "page" : undefined}
+              onClick={() => setOpenMenu(null)}
             >
               Compare
               <span className="ml-2 rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-2 py-0.5 text-xs font-semibold text-[var(--text)]">
@@ -224,7 +282,7 @@ export function SiteHeader() {
           ) : null}
 
           <div className="ml-2">
-            <ButtonLink href="/recommend" variant="primary" size="sm">
+            <ButtonLink href="/recommend" variant="primary" size="sm" onClick={() => setOpenMenu(null)}>
               Get a shortlist
             </ButtonLink>
           </div>
@@ -236,7 +294,10 @@ export function SiteHeader() {
           className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] lg:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((v) => !v)}
+          onClick={() => {
+            setOpenMenu(null);
+            setMobileOpen((v) => !v);
+          }}
         >
           <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
             {mobileOpen ? (
@@ -318,9 +379,7 @@ export function SiteHeader() {
                 </details>
 
                 <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">
-                    Tools to speed evaluation
-                  </summary>
+                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Tools to speed evaluation</summary>
                   <div className="mt-3 space-y-1">
                     <MenuLink
                       href="/india-payroll-risk-checklist"
@@ -354,4 +413,12 @@ export function SiteHeader() {
       ) : null}
     </header>
   );
+}
+
+export function SiteHeader() {
+  const rawPathname = usePathname() || "/";
+  const pathname = rawPathname !== "/" ? rawPathname.replace(/\/+$/, "") : rawPathname;
+
+  // Keyed remount ensures menus close on navigation without setState-in-effect.
+  return <HeaderInner key={pathname} pathname={pathname} />;
 }
