@@ -9,8 +9,34 @@ export const metadata = {
 };
 
 export default function IndiaPayrollRiskChecklistLanding() {
+  const howToJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to use the India Payroll Risk Checklist",
+    description: "A short process to download and use the checklist during payroll vendor evaluation.",
+    totalTime: "PT2M",
+    step: [
+      {
+        "@type": "HowToStep",
+        name: "Request the checklist",
+        text: "Enter your work email and basic context to receive the download link.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Download the PDF",
+        text: "Open the email and download the India Payroll Risk Checklist PDF.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Use it in demos",
+        text: "Run month-end scenarios (arrears, reversals, cutoffs) and validate statutory outputs and audit trails.",
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} />
       <main className="py-10 sm:py-14">
         <Container className="max-w-3xl">
           <div className="text-xs font-semibold tracking-[0.12em] text-[var(--text-muted)]">HRSignal • India payroll decision intelligence</div>

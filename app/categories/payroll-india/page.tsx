@@ -66,29 +66,31 @@ function RiskChecklist() {
   );
 }
 
+const PAYROLL_FAQS = [
+  {
+    q: "What makes India payroll more complex than a feature checklist?",
+    a: "Because compliance is contextual: state-wise rules, exemptions, registrations, month-end controls, and statutory outputs matter more than generic modules.",
+  },
+  {
+    q: "How do multi-state teams get burned during implementation?",
+    a: "Teams often discover gaps late: incorrect state mapping, register output mismatches, weak arrears/reversal handling, or reconciliation issues with accounting exports.",
+  },
+  {
+    q: "Is PF/ESI/PT/TDS supported by most payroll tools?",
+    a: "Many tools claim coverage, but the risk is in edge cases and evidence. Always validate outputs, audit trail, and month-end workflows against your scenarios.",
+  },
+  {
+    q: "Why does deterministic scoring matter for buyers?",
+    a: "Deterministic scoring is explainable. You can see which signals (compliance tags, evidence links, integrations, freshness) drive a score and what needs validation.",
+  },
+  {
+    q: "How should I shortlist vendors quickly?",
+    a: "Start with a clear complexity context (states, PF/ESI applicability, contractors, frequency), then compare vendors on evidence depth and verification freshness — not marketing claims.",
+  },
+] as const;
+
 function Faq() {
-  const faqs = [
-    {
-      q: "What makes India payroll more complex than a feature checklist?",
-      a: "Because compliance is contextual: state-wise rules, exemptions, registrations, month-end controls, and statutory outputs matter more than generic modules.",
-    },
-    {
-      q: "How do multi-state teams get burned during implementation?",
-      a: "Teams often discover gaps late: incorrect state mapping, register output mismatches, weak arrears/reversal handling, or reconciliation issues with accounting exports.",
-    },
-    {
-      q: "Is PF/ESI/PT/TDS supported by most payroll tools?",
-      a: "Many tools claim coverage, but the risk is in edge cases and evidence. Always validate outputs, audit trail, and month-end workflows against your scenarios.",
-    },
-    {
-      q: "Why does deterministic scoring matter for buyers?",
-      a: "Deterministic scoring is explainable. You can see which signals (compliance tags, evidence links, integrations, freshness) drive a score and what needs validation.",
-    },
-    {
-      q: "How should I shortlist vendors quickly?",
-      a: "Start with a clear complexity context (states, PF/ESI applicability, contractors, frequency), then compare vendors on evidence depth and verification freshness — not marketing claims.",
-    },
-  ];
+  const faqs = PAYROLL_FAQS;
 
   return (
     <div className="space-y-3">
@@ -103,8 +105,19 @@ function Faq() {
 }
 
 export default function PayrollIndiaPillarPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: PAYROLL_FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
       <SiteHeader />
 
       <main className="py-10 sm:py-14">

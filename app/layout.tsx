@@ -46,9 +46,29 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "HRSignal",
+    url: "https://hrsignal.vercel.app",
+    logo: "https://hrsignal.vercel.app/brand/hrsignal-logo.svg",
+    sameAs: [],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: "hello@hrsignal.in",
+      },
+    ],
+  };
+
   return (
     <html lang="en" data-theme="dark">
       <body className={`${inter.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         {children}
         <Analytics />
       </body>
