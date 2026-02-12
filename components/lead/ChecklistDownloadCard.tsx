@@ -46,24 +46,27 @@ export function ChecklistDownloadCard({
             setError(null);
             setLoading(true);
             try {
-              const res = await fetch("/api/leads/checklist", {
+              const res = await fetch("/api/leads", {
                 method: "POST",
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify({
+                  type: "checklist",
                   email,
-                  companySize: size,
-                  role,
-                  sourcePage,
+                  metadata: {
+                    companySize: size,
+                    role,
+                    sourcePage,
+                  },
                 }),
               });
 
-              const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string; downloadUrl?: string } | null;
-              if (!res.ok || !data?.ok) {
+              const data = (await res.json().catch(() => null)) as { success?: boolean; error?: string } | null;
+              if (!res.ok || !data?.success) {
                 setError(data?.error || "Something went wrong. Please try again.");
                 return;
               }
 
-              setDownloadUrl(data?.downloadUrl || "/downloads/india-payroll-risk-checklist.pdf");
+              setDownloadUrl("/downloads/india-payroll-risk-checklist.pdf");
               setSubmitted(true);
             } catch (e2) {
               const msg = e2 instanceof Error ? e2.message : "Network error";

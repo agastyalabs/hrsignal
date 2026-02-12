@@ -34,16 +34,20 @@ export async function POST(req: Request) {
     timelineNote: null as string | null,
   };
 
-  // Unified lead capture (best-effort; no DB writes here beyond questionnaire submission).
+  // Lead capture (best-effort). This should not block the recommend flow.
   try {
-    await fetch(new URL("/api/leads/submit", req.url), {
+    await fetch(new URL("/api/leads", req.url), {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
+        type: "shortlist",
         email: buyerEmail,
-        role: buyerRole || undefined,
-        companySize: input.sizeBand,
-        source: "recommend_form",
+        metadata: {
+          companyName,
+          role: buyerRole || undefined,
+          companySize: input.sizeBand,
+          source: "recommend_form",
+        },
       }),
     });
   } catch {

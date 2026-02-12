@@ -655,13 +655,16 @@ export default function ResultsClient({
                       }
                       setUnlocking(true);
                       // No database yet. Capture via unified lead pipeline.
-                      await fetch("/api/leads/submit", {
+                      await fetch("/api/leads", {
                         method: "POST",
                         headers: { "content-type": "application/json" },
                         body: JSON.stringify({
+                          type: "shortlist",
                           email,
-                          source: "shortlist_unlock",
-                          tool: runId,
+                          metadata: {
+                            source: "shortlist_unlock",
+                            runId,
+                          },
                         }),
                       }).catch(() => null);
 
@@ -716,16 +719,21 @@ export default function ResultsClient({
               setError(null);
               setSending(true);
               try {
-                const res = await fetch("/api/leads/submit", {
+                const res = await fetch("/api/leads", {
                   method: "POST",
                   headers: { "content-type": "application/json" },
                   body: JSON.stringify({
+                    type: "generic",
                     email: contactEmail,
-                    name: contactName,
-                    companySize: submission.sizeBand ?? undefined,
-                    role: submission.buyerRole ?? undefined,
-                    source: "results_intro",
-                    tool: primaryPick?.tool?.slug ?? undefined,
+                    metadata: {
+                      name: contactName,
+                      companyName: submission.companyName,
+                      role: submission.buyerRole,
+                      companySize: submission.sizeBand,
+                      source: "results_intro",
+                      runId,
+                      tool: primaryPick?.tool?.slug,
+                    },
                   }),
                 });
 
@@ -736,7 +744,7 @@ export default function ResultsClient({
                   return;
                 }
 
-                if (!data?.ok) {
+                if (!data?.success) {
                   const msg = data?.error || "Please check the form and try again.";
                   setError(msg);
                   return;

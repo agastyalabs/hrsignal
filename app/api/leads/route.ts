@@ -1,37 +1,16 @@
 import { NextResponse } from "next/server";
-import { BuyerSizeBand } from "@prisma/client";
+
 import { prisma } from "@/lib/db";
 
-type LeadPayload = {
-  // Canonical fields (preferred)
-  name?: string;
-  email?: string;
-  phone?: string;
-  companyName?: string;
-  company?: string;
-  useCase?: string;
-  message?: string;
+type LeadType = "shortlist" | "checklist" | "report" | "generic";
 
-  // Existing UI fields (back-compat)
-  contactName?: string;
-  contactEmail?: string;
-  contactPhone?: string;
+type Payload = {
+  type?: unknown;
+  email?: unknown;
+  metadata?: unknown;
 
-  submissionId?: string;
-  runId?: string;
-  buyerRole?: string;
-
-  // Optional enrichment
-  sizeBand?: unknown;
-  states?: string[];
-  categoriesNeeded?: string[];
-  mustHaveIntegrations?: string[];
-  budgetNote?: string;
-  timelineNote?: string;
-
-  source?: string;
-  website?: string; // honeypot
-  payload?: unknown;
+  // legacy (ignored but tolerated)
+  website?: unknown;
 };
 
 const FALLBACK_NOTIFY = "nk@infira.in,pcst.ecrocks@gmail.com";
@@ -41,9 +20,8 @@ function s(v: unknown) {
   return typeof v === "string" ? v.trim() : "";
 }
 
-function asStringArray(v: unknown): string[] {
-  if (!Array.isArray(v)) return [];
-  return v.map((x) => s(x)).filter(Boolean);
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function splitEmails(v: string) {
@@ -58,23 +36,35 @@ function getNotifyRecipients(): string[] {
   const requested = splitEmails(raw);
 
   // Safety: recipients must be exactly the two intended inboxes.
-  // If env vars contain anything else, ignore it.
   const filtered = requested.filter((e) => ALLOWED_NOTIFY.has(e));
   if (filtered.length) return filtered;
 
   return splitEmails(FALLBACK_NOTIFY);
 }
 
-function parseSizeBand(v: unknown): BuyerSizeBand | null {
-  const band = s(v);
-  if (!band) return null;
-  if ((Object.values(BuyerSizeBand) as string[]).includes(band)) {
-    return band as BuyerSizeBand;
+function originFrom(req: Request): string {
+  const env = s(process.env.NEXT_PUBLIC_SITE_URL);
+  if (env) return env.replace(/\/+$/, "");
+  try {
+    const u = new URL(req.url);
+    return `${u.protocol}//${u.host}`;
+  } catch {
+    return "https://hrsignal.vercel.app";
   }
-  return null;
 }
 
-async function tryResend(to: string[], subject: string, html: string) {
+function shell(title: string, bodyHtml: string) {
+  return `
+    <div style="font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5">
+      <h2 style="margin:0 0 12px">${title}</h2>
+      ${bodyHtml}
+      <hr style="border:none;border-top:1px solid #e5e7eb;margin:16px 0" />
+      <p style="margin:0;color:#6b7280;font-size:12px">HRSignal is privacy-first. We don’t share your details without consent.</p>
+    </div>
+  `;
+}
+
+async function tryResend(args: { to: string[]; subject: string; html: string }) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM_EMAIL;
 
@@ -83,171 +73,131 @@ async function tryResend(to: string[], subject: string, html: string) {
     return { ok: false as const, skipped: true as const };
   }
 
-  try {
-    const resp = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${apiKey}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ from, to, subject, html }),
-    });
-
-    if (!resp.ok) {
-      const text = await resp.text().catch(() => "");
-      const msg = text.slice(0, 500) || resp.statusText || "Resend error";
-
-      // Testing mode often returns 403; treat as non-fatal.
-      console.error("[leads] Resend failed (non-fatal):", resp.status, msg);
-
-      return {
-        ok: false as const,
-        statusCode: resp.status,
-        error: msg,
-      };
-    }
-
-    const json = (await resp.json().catch(() => null)) as { id?: string } | null;
-    console.log("[leads] Resend OK:", json?.id ?? "(no id)");
-    return { ok: true as const };
-  } catch (e: unknown) {
+  const resp = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${apiKey}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({ from, to: args.to, subject: args.subject, html: args.html }),
+  }).catch((e: unknown) => {
     const msg = e instanceof Error ? e.message : String(e);
-    console.error("[leads] Resend failed (non-fatal):", msg);
-    return { ok: false as const, error: msg };
+    console.error("[leads] Resend request failed:", msg);
+    return null;
+  });
+
+  if (!resp) return { ok: false as const, error: "fetch_failed" };
+
+  if (!resp.ok) {
+    const text = await resp.text().catch(() => "");
+    const msg = text.slice(0, 500) || resp.statusText || "Resend error";
+    console.error("[leads] Resend failed:", resp.status, msg);
+    return { ok: false as const, statusCode: resp.status, error: msg };
   }
+
+  return { ok: true as const };
 }
 
 export async function POST(req: Request) {
-  let body: LeadPayload = {};
+  let body: Payload = {};
   try {
-    body = (await req.json()) as LeadPayload;
+    body = (await req.json()) as Payload;
   } catch {
-    return NextResponse.json(
-      { ok: false, error: "Invalid JSON. Please retry." },
-      { status: 400 }
-    );
+    return NextResponse.json({ success: false, error: "Invalid JSON." }, { status: 400 });
   }
 
-  // Honeypot: treat as success (quietly)
+  // Honeypot (legacy): treat as success quietly.
   if (s(body.website)) {
-    return NextResponse.json({ ok: true, emailSent: false }, { status: 200 });
+    return NextResponse.json({ success: true }, { status: 200 });
   }
 
-  const name = s(body.name) || s(body.contactName);
-  const email = s(body.email) || s(body.contactEmail);
-  const phone = s(body.phone) || s(body.contactPhone);
-  const companyName = s(body.companyName) || s(body.company);
-  const useCase = s(body.useCase) || s(body.message);
+  const typeRaw = s(body.type);
+  const type: LeadType =
+    typeRaw === "shortlist" || typeRaw === "checklist" || typeRaw === "report" || typeRaw === "generic"
+      ? (typeRaw as LeadType)
+      : "generic";
 
-  // Validation: 400 only for truly invalid payloads
-  if (!name && !useCase) {
-    return NextResponse.json(
-      {
-        ok: false,
-        error: "Tell us your name or a short use-case (what you need help with).",
-      },
-      { status: 400 }
-    );
+  const email = s(body.email);
+  if (!email || !isValidEmail(email)) {
+    return NextResponse.json({ success: false, error: "Please enter a valid work email." }, { status: 400 });
   }
 
-  if (!email && !phone) {
-    return NextResponse.json(
-      {
-        ok: false,
-        error: "Please share at least one contact method (email preferred, or phone).",
-      },
-      { status: 400 }
-    );
-  }
+  const metadata = (body.metadata && typeof body.metadata === "object" ? body.metadata : {}) as Record<string, unknown>;
 
-  const recipients = getNotifyRecipients();
-  const source = s(body.source) || "web";
-
-  // 1) Store (best-effort; should never block)
-  let leadId: string | undefined;
+  // 1) DB insert ALWAYS first.
+  // Lead schema requires companyName/contactName/contactEmail.
+  let leadId: string;
   try {
     const created = await prisma.lead.create({
       data: {
-        submissionId: s(body.submissionId) || null,
+        companyName: s(metadata.companyName) || s(metadata.company) || "Unknown",
+        contactName: s(metadata.name) || "Unknown",
+        contactEmail: email,
+        contactPhone: s(metadata.phone) || null,
+        buyerRole: s(metadata.role) || null,
 
-        // DB currently requires these fields; use safe fallbacks.
-        companyName: companyName || "Unknown",
-        contactName: name || "Unknown",
-        contactEmail: email || "unknown@invalid.hrsignal",
-        contactPhone: phone || null,
-        buyerRole: s(body.buyerRole) || null,
+        // Store structured data in timelineNote for now (no JSON column yet).
+        timelineNote: JSON.stringify({ type, metadata }, null, 2).slice(0, 6000),
 
-        sizeBand: parseSizeBand(body.sizeBand),
-        states: asStringArray(body.states),
-        categoriesNeeded: asStringArray(body.categoriesNeeded),
-        budgetNote: s(body.budgetNote) || null,
-        timelineNote: s(body.timelineNote) || useCase || null,
-
-        // keep default status/qualification
+        // Keep submissionId optional if provided.
+        submissionId: s(metadata.submissionId) || null,
       },
       select: { id: true },
     });
     leadId = created.id;
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
-    console.error("[leads] DB insert failed (non-fatal):", msg);
+    console.error("[leads] DB insert failed:", msg);
+    return NextResponse.json({ success: false, error: "Could not save your request. Please retry." }, { status: 500 });
   }
 
-  // 2) Notify (non-blocking)
-  let emailSent = false;
-  let emailError: string | undefined;
+  // 2) Resend (best-effort; never fail the request)
+  const origin = originFrom(req);
+  const internalTo = getNotifyRecipients();
+
   try {
-    const subject = `HRsignal Lead (${source}) — ${name || companyName || email || phone || "New lead"}`;
+    const internalSubject = `HRSignal lead (${type}) — ${email}`;
+    const internalHtml = shell(
+      "New lead",
+      `
+        <p style="margin:0 0 12px">A new lead was submitted.</p>
+        <table style="border-collapse:collapse;font-size:13px">
+          <tr><td style="padding:4px 10px 4px 0;color:#6b7280">Lead ID</td><td style="padding:4px 0">${leadId}</td></tr>
+          <tr><td style="padding:4px 10px 4px 0;color:#6b7280">Type</td><td style="padding:4px 0">${type}</td></tr>
+          <tr><td style="padding:4px 10px 4px 0;color:#6b7280">Email</td><td style="padding:4px 0">${email}</td></tr>
+          <tr><td style="padding:4px 10px 4px 0;color:#6b7280">Metadata</td><td style="padding:4px 0"><pre style="margin:0;white-space:pre-wrap">${escapeHtml(
+            JSON.stringify(metadata, null, 2).slice(0, 5000)
+          )}</pre></td></tr>
+        </table>
+      `,
+    );
 
-    const html = `
-      <h2>New Lead</h2>
-      <ul>
-        <li><b>Lead ID:</b> ${leadId ?? "(not stored)"}</li>
-        <li><b>Source:</b> ${escapeHtml(source)}</li>
-      </ul>
-      <h3>Contact</h3>
-      <ul>
-        <li><b>Name:</b> ${escapeHtml(name || "-")}</li>
-        <li><b>Company:</b> ${escapeHtml(companyName || "-")}</li>
-        <li><b>Email:</b> ${escapeHtml(email || "-")}</li>
-        <li><b>Phone:</b> ${escapeHtml(phone || "-")}</li>
-      </ul>
-      <h3>Use-case</h3>
-      <pre style="white-space:pre-wrap">${escapeHtml(useCase || "-")}</pre>
-      <hr />
-      <details>
-        <summary>Raw payload</summary>
-        <pre style="white-space:pre-wrap">${escapeHtml(JSON.stringify({ ...body, payload: undefined }, null, 2))}</pre>
-      </details>
-    `;
+    await tryResend({ to: internalTo, subject: internalSubject, html: internalHtml });
 
-    const r = await tryResend(recipients, subject, html);
-    emailSent = r.ok;
+    if (type === "checklist") {
+      const downloadUrl = `${origin}/downloads/india-payroll-risk-checklist.pdf`;
+      const buyerSubject = "Your HRSignal Payroll Risk Checklist";
+      const buyerHtml = shell(
+        "India Payroll Risk Checklist",
+        `
+          <p style="margin:0 0 12px">Thanks — here’s your download link:</p>
+          <p style="margin:0 0 16px"><a href="${downloadUrl}">${downloadUrl}</a></p>
+          <p style="margin:0;color:#6b7280;font-size:12px">If the link doesn’t open, copy-paste it into your browser.</p>
+        `,
+      );
 
-    if (!r.ok && !("skipped" in r)) {
-      // Include for client visibility (e.g., Resend testing mode 403)
-      emailError = "statusCode" in r && r.statusCode ? `resend_${r.statusCode}` : "resend_failed";
+      await tryResend({ to: [email], subject: buyerSubject, html: buyerHtml });
     }
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : String(e);
-    console.error("[leads] Email notify failed (non-fatal):", msg);
+    console.error("[leads] Email send failed (non-fatal):", msg);
   }
 
-  // If DB insert succeeds → ALWAYS return 200.
-  // For non-validation failures, still return 200 to keep UX friendly.
-  return NextResponse.json(
-    {
-      ok: true,
-      leadId,
-      emailSent,
-      ...(emailError ? { emailError } : null),
-    },
-    { status: 200 }
-  );
+  return NextResponse.json({ success: true, leadId }, { status: 200 });
 }
 
 function escapeHtml(input: string) {
-  return input
+  return String(input)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
