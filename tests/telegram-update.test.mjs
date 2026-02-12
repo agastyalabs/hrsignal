@@ -5,6 +5,8 @@ import {
   extractChatId,
   extractTelegramText,
   extractUserId,
+  isInfraRelatedText,
+  parseAgentAndTask,
   parseTelegramUpdate,
 } from "../lib/telegram/update.mjs";
 
@@ -71,4 +73,25 @@ test("/whoami is representable as message text", () => {
   assert.equal(extractTelegramText(update), "/whoami");
   assert.equal(extractChatId(update), 321);
   assert.equal(extractUserId(update), 654);
+});
+
+test("parseAgentAndTask: keeps explicit @agent prefix", () => {
+  const p = parseAgentAndTask("@devops restart gateway");
+  assert.equal(p.agent, "devops");
+  assert.equal(p.task, "restart gateway");
+  assert.equal(p.hadExplicitAgent, true);
+});
+
+test("parseAgentAndTask: routes plain English to default agent", () => {
+  const p = parseAgentAndTask("Fix the PDF download link");
+  assert.equal(p.agent, "senior-dev");
+  assert.equal(p.task, "Fix the PDF download link");
+  assert.equal(p.hadExplicitAgent, false);
+});
+
+test("parseAgentAndTask: routes infra-related plain English to infra agent", () => {
+  assert.equal(isInfraRelatedText("Vercel env vars missing"), true);
+  const p = parseAgentAndTask("Vercel env vars missing");
+  assert.equal(p.agent, "devops");
+  assert.equal(p.inferredInfra, true);
 });
