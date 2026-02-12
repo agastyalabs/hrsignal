@@ -234,6 +234,49 @@ export default async function Home() {
           <div className="mt-6">
             <ChecklistDownloadCard sourcePage="homepage" />
           </div>
+
+          <div className="mt-8">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-semibold tracking-tight text-[var(--text)] sm:text-2xl">Decision Guides</h2>
+                <p className="mt-2 max-w-[68ch] text-sm leading-7 text-[var(--text-muted)]">
+                  Buyer-first checklists and timelines to help you evaluate and implement with fewer month-end surprises.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+              {[
+                {
+                  title: "Payroll evaluation checklist (India)",
+                  desc: "Compliance scope, multi-state risk controls, pricing traps, and a comparison framework.",
+                  href: "/payroll-software-evaluation-checklist-india",
+                },
+                {
+                  title: "HRMS implementation timeline (India)",
+                  desc: "Phases, data migration risks, payroll cutover timing, and multi-location rollout strategy.",
+                  href: "/hrms-implementation-timeline-india",
+                },
+                {
+                  title: "India payroll guide",
+                  desc: "Complexity context + what to validate before buying payroll software.",
+                  href: "/categories/payroll-india",
+                },
+              ].map((g) => (
+                <Link
+                  key={g.href}
+                  href={g.href}
+                  className="group rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                >
+                  <div className="text-base font-semibold text-[var(--text)]">{g.title}</div>
+                  <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{g.desc}</div>
+                  <div className="mt-4 text-sm font-semibold text-[var(--primary)] group-hover:text-[var(--primary-hover)]">
+                    Read →
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </HomeSection>
 
