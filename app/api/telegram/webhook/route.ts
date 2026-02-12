@@ -69,26 +69,50 @@ export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
   if (!body) return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
 
-  let update: TelegramUpdate;
+  // Compatibility shim:
+  // - Accept raw Telegram updates.
+  // - Also accept already-forwarded payloads that include forwardedText.
+  // - If forwardedText is missing but message.text exists, synthesize forwardedText.
+  let update: TelegramUpdate | null = null;
+  let text = "";
+  let chatId: number | null = null;
+  let userId: number | null = null;
+
   try {
     update = parseTelegramUpdate(body);
+    text = extractTelegramText(update);
+    chatId = extractChatId(update);
+    userId = extractUserId(update);
   } catch {
-    return NextResponse.json({ ok: false, error: "invalid_update" }, { status: 400 });
+    // Not a Telegram update; fall through to forwarded payload parsing.
   }
 
-  const text = extractTelegramText(update);
-  const chatId = extractChatId(update);
-  const userId = extractUserId(update);
+  const forwardedTextRaw =
+    body && typeof body === "object" && typeof body.forwardedText === "string" ? body.forwardedText.trim() : "";
+
+  // When called with a forwarded payload, default text to forwardedText so downstream parse works.
+  if (!text && forwardedTextRaw) text = forwardedTextRaw;
+
+  // Plain-English Telegram mode: if user didn't type @agent, route to default agent.
+  // Keep explicit @agent working as-is.
+  const normalizedText = String(text ?? "").trim();
+  // Only synthesize a forwardedText string for downstream forwarding.
+  // Parsing should happen on the original text so infra inference and explicit-agent detection stay accurate.
+  const synthesizedForwardedText =
+    !forwardedTextRaw && normalizedText && !normalizedText.startsWith("@")
+      ? `@${DEFAULT_AGENT} ${normalizedText}`
+      : forwardedTextRaw || normalizedText;
+
 
   // Help commands
-  if ((text.trim() === "/start" || text.trim() === "/help") && chatId) {
+  if ((normalizedText === "/start" || normalizedText === "/help") && chatId) {
     await sendTelegramMessage({ chatId, text: helpText() });
     return NextResponse.json({ ok: true });
   }
 
   // Debug command: /whoami
   // Replies with sender user_id + whether it matches TELEGRAM_ALLOWED_USER_ID.
-  if (text.trim() === "/whoami" && chatId && userId) {
+  if (normalizedText === "/whoami" && chatId && userId) {
     const allowed = process.env.TELEGRAM_ALLOWED_USER_ID
       ? Number(process.env.TELEGRAM_ALLOWED_USER_ID)
       : null;
@@ -112,7 +136,8 @@ export async function POST(req: Request) {
 
     const remembered = chatId ? getRememberedAgent(chatId) : null;
 
-    const parsed = parseAgentAndTask(text, {
+    const parseInput = forwardedTextRaw || normalizedText;
+    const parsed = parseAgentAndTask(parseInput, {
       defaultAgent: remembered || DEFAULT_AGENT,
       infraAgent: INFRA_AGENT,
     });
@@ -127,6 +152,16 @@ export async function POST(req: Request) {
 
     const forwardedText = `@${parsed.agent} ${parsed.task}`.trim();
 
+    // Local observability (safe): helps verify routing without relying on downstream logs.
+    console.log("[telegram] routed", {
+      chatId,
+      userId,
+      text: normalizedText,
+      forwardedText,
+      hadExplicitAgent: parsed.hadExplicitAgent,
+      inferredInfra: parsed.inferredInfra,
+    });
+
     await fetch(forwardUrl, {
       method: "POST",
       headers: {
@@ -139,7 +174,7 @@ export async function POST(req: Request) {
         chatId,
         userId,
         // Keep original text for debugging + traceability.
-        text,
+        text: normalizedText,
         forwardedText,
         agent: parsed.agent,
         task: parsed.task,
@@ -152,7 +187,30 @@ export async function POST(req: Request) {
     });
   }
 
-  return NextResponse.json({ ok: true });
+  // Always return ok quickly (Telegram expects fast 200s).
+  // Include routing fields for local verification; Telegram ignores unknown fields.
+  const parsedForResponse = parseAgentAndTask(forwardedTextRaw || normalizedText, {
+    defaultAgent: DEFAULT_AGENT,
+    infraAgent: INFRA_AGENT,
+  });
+
+  const forwardedTextForResponse = `@${parsedForResponse.agent} ${parsedForResponse.task}`.trim();
+
+  // Safe routing log for local verification.
+  console.log("[telegram] webhook", {
+    chatId,
+    userId,
+    text: normalizedText,
+    forwardedText: forwardedTextForResponse,
+    hadExplicitAgent: parsedForResponse.hadExplicitAgent,
+  });
+
+  return NextResponse.json({
+    ok: true,
+    forwardedText: forwardedTextForResponse,
+    agent: parsedForResponse.agent,
+    hadExplicitAgent: parsedForResponse.hadExplicitAgent,
+  });
 }
 
 async function sendTelegramMessage({ chatId, text }: { chatId: number; text: string }) {
