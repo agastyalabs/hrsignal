@@ -289,7 +289,7 @@ export default async function Home() {
           <TrustTile
             label="India payroll context"
             desc="Shortlists consider PF / ESI / PT / TDS scope and multi‑state complexity—not just feature checkboxes."
-            href="/categories/payroll"
+            href="/categories/payroll-india"
             linkLabel="Payroll category →"
           />
           <TrustTile
@@ -390,7 +390,7 @@ export default async function Home() {
                 <li>• Clear “verified” vs “validate” labels</li>
               </ul>
               <div className="mt-5">
-                <ButtonLink href="/categories/payroll" variant="secondary" size="md" className="w-full justify-center">
+                <ButtonLink href="/categories/payroll-india" variant="secondary" size="md" className="w-full justify-center">
                   Read the payroll decision guide
                 </ButtonLink>
               </div>

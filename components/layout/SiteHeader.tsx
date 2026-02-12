@@ -223,7 +223,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                 </MenuGroup>
                 <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
                 <MenuGroup title="Popular categories">
-                  <MenuLink href="/categories/payroll" label="Payroll & compliance" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/categories/payroll-india" label="Payroll & compliance" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/categories/hrms" label="HRMS / Core HR" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/categories/attendance" label="Attendance / Leave" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/categories/ats" label="ATS / Hiring" onClick={() => setOpenMenu(null)} />
@@ -361,7 +361,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                 <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
                   <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Categories</summary>
                   <div className="mt-3 space-y-1">
-                    <MenuLink href="/categories/payroll" label="Payroll & compliance" onClick={() => setMobileOpen(false)} />
+                    <MenuLink href="/categories/payroll-india" label="Payroll & compliance" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/categories/hrms" label="HRMS / Core HR" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/categories/attendance" label="Attendance / Leave" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/categories/ats" label="ATS / Hiring" onClick={() => setMobileOpen(false)} />

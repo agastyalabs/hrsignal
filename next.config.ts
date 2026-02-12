@@ -36,6 +36,17 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_BUILD_TIME: buildTime,
   },
 
+  async redirects() {
+    return [
+      // Canonicalize category slug
+      {
+        source: "/categories/payroll",
+        destination: "/categories/payroll-india",
+        permanent: true,
+      },
+    ];
+  },
+
   async headers() {
     return [
       // Never cache HTML routes/pages (prevents "hard refresh" after deploy)
