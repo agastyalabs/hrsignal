@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="180" viewBox="0 0 720 180" role="img" aria-label="HRSignal logo">
+  <defs>
+    <style>
+      .blue{fill:#1D4ED8}
+      .green{fill:#10B981}
+      .ink{fill:#111827}
+      .paper{fill:#F9FAFB}
+      .muted{fill:#111827;opacity:.78}
+    </style>
+  </defs>
+
+  <!-- Mark: node network + signal dot -->
+  <g transform="translate(28 28)">
+    <rect x="0" y="0" width="124" height="124" rx="28" fill="#F9FAFB"/>
+    <rect x="0" y="0" width="124" height="124" rx="28" fill="none" stroke="#1D4ED8" stroke-width="6"/>
+
+    <!-- Connections -->
+    <path d="M36 44L62 32L88 44L96 72L78 96L46 96L28 72Z" fill="none" stroke="#1D4ED8" stroke-width="6" stroke-linejoin="round"/>
+
+    <!-- Nodes -->
+    <circle cx="36" cy="44" r="7" class="blue"/>
+    <circle cx="62" cy="32" r="7" class="blue"/>
+    <circle cx="88" cy="44" r="7" class="blue"/>
+    <circle cx="96" cy="72" r="7" class="blue"/>
+    <circle cx="78" cy="96" r="7" class="blue"/>
+    <circle cx="46" cy="96" r="7" class="blue"/>
+    <circle cx="28" cy="72" r="7" class="blue"/>
+
+    <!-- Signal highlight node -->
+    <circle cx="96" cy="72" r="12" fill="none" stroke="#10B981" stroke-width="6" opacity=".95"/>
+    <path d="M104 56c8 8 12 18 12 32" fill="none" stroke="#10B981" stroke-width="6" stroke-linecap="round" opacity=".75"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(178 54)">
+    <text x="0" y="48" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="54" font-weight="850" class="ink" letter-spacing="-0.6">HRSignal</text>
+    <rect x="0" y="62" width="110" height="6" rx="3" class="blue" opacity=".95"/>
+    <rect x="118" y="62" width="34" height="6" rx="3" class="green" opacity=".95"/>
+    <text x="0" y="94" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="18" font-weight="600" class="muted">Verified listings • Fit scores • Freshness • Evidence links</text>
+  </g>
+</svg>

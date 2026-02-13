@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="180" viewBox="0 0 720 180" role="img" aria-label="HRSignal logo">
+  <defs>
+    <style>
+      .blue{fill:#1D4ED8}
+      .green{fill:#10B981}
+      .ink{fill:#111827}
+      .paper{fill:#F9FAFB}
+      .muted{fill:#111827;opacity:.78}
+    </style>
+  </defs>
+
+  <!-- Mark: S wave + nodes (AI) -->
+  <g transform="translate(28 28)">
+    <rect x="0" y="0" width="124" height="124" rx="28" class="blue"/>
+
+    <!-- Wave path -->
+    <path d="M28 78c18 18 50 18 68 0 12-12 12-30 0-42-18-18-50-18-68 0" fill="none" stroke="#F9FAFB" stroke-width="10" stroke-linecap="round"/>
+
+    <!-- Nodes on the wave -->
+    <circle cx="28" cy="78" r="7" class="green"/>
+    <circle cx="62" cy="42" r="7" class="green"/>
+    <circle cx="96" cy="78" r="7" class="green"/>
+
+    <!-- Subtle connecting lines (tech) -->
+    <path d="M28 78L62 42L96 78" fill="none" stroke="#10B981" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+
+    <!-- Small pulse accent -->
+    <path d="M100 36c10 6 16 15 16 30s-6 24-16 30" fill="none" stroke="#10B981" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(178 54)">
+    <text x="0" y="48" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="54" font-weight="850" class="ink" letter-spacing="-0.6">HRSignal</text>
+    <text x="0" y="84" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="18" font-weight="600" class="muted">AI-assisted shortlists with evidence and verification freshness</text>
+  </g>
+</svg>
