@@ -11,7 +11,7 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-[var(--primary)] text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] hover:bg-[var(--primary-hover)] hover:-translate-y-0.5 hover:shadow-[0_16px_48px_rgba(124,77,255,0.18)] active:translate-y-0 active:shadow-[0_10px_30px_rgba(0,0,0,0.22)] disabled:bg-[rgba(255,255,255,0.10)] disabled:text-[rgba(247,249,255,0.55)]",
+    "bg-[var(--primary)] text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] hover:bg-[var(--primary-hover)] hover:-translate-y-0.5 hover:shadow-[0_0_12px_#10B98180,0_0_24px_#10B98140] active:translate-y-0 active:shadow-[0_10px_30px_rgba(0,0,0,0.22)] disabled:bg-[rgba(255,255,255,0.10)] disabled:text-[rgba(247,249,255,0.55)]",
   secondary:
     "border border-[var(--border)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.18)] hover:shadow-[0_14px_40px_rgba(0,0,0,0.30)] active:translate-y-0 disabled:text-[var(--text-muted)]",
   tertiary:
@@ -19,9 +19,10 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-10 px-3 text-sm",
-  md: "h-11 px-4 text-sm",
-  lg: "h-12 px-5 text-base",
+  // Larger tap targets on mobile; stable heights on desktop.
+  sm: "h-12 px-6 text-sm",
+  md: "h-12 px-6 text-sm",
+  lg: "h-14 px-8 text-base",
 };
 
 export function Button({

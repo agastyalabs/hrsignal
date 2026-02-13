@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -13,7 +12,7 @@ import { useCompare } from "@/lib/compare/useCompare";
 function navItemClass(active: boolean) {
   return `relative rounded-md px-2 py-1 transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] ${
     active
-      ? "text-[var(--text)]"
+      ? "text-[var(--text)] bg-[rgba(16,185,129,0.20)]"
       : "text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
   }`;
 }
@@ -215,7 +214,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
             {openMenu === "categories" ? (
               <div
                 ref={categoriesMenuRef}
-                className="absolute left-0 mt-2 w-72 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none"
+                className="absolute left-1/2 mt-2 w-72 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200"
                 role="menu"
               >
                 <MenuGroup title="Browse categories">
@@ -247,7 +246,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
             {openMenu === "resources" ? (
               <div
                 ref={resourcesMenuRef}
-                className="absolute right-0 mt-2 w-80 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none"
+                className="absolute left-1/2 mt-2 w-80 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200"
                 role="menu"
               >
                 <MenuGroup title="Buyer guides">

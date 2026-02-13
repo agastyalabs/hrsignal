@@ -19,31 +19,33 @@ export default async function Home() {
 
       {/* 1) Hero + decision snapshot */}
       <HomeSection className="pt-10 sm:pt-14">
-        <div className="rounded-[1.2rem] border border-[var(--border-soft)] bg-[var(--surface-1)]">
+        <div className="rounded-[1.2rem] border border-[var(--border-soft)] bg-[linear-gradient(to_bottom,#000000,#0f172a)]">
           <div className="grid grid-cols-1 gap-8 p-5 sm:p-8 lg:grid-cols-12 lg:gap-10 lg:p-10">
             <div className="lg:col-span-7">
-              <div className="text-xs font-semibold tracking-[0.12em] text-[var(--text-muted)]">DECISION INTELLIGENCE FOR INDIA HR SOFTWARE</div>
+              <div className="mx-auto text-center text-xs font-semibold tracking-[0.12em] text-[var(--text-muted)] lg:text-left">
+                DECISION INTELLIGENCE FOR INDIA HR SOFTWARE
+              </div>
 
-              <h1 className="mt-3 text-5xl font-extrabold leading-[1.02] tracking-[-0.03em] text-[var(--text)] sm:text-6xl lg:text-7xl">
+              <h1 className="mx-auto mt-3 max-w-5xl text-center text-5xl font-extrabold leading-[1.02] tracking-[-0.03em] text-[var(--text)] sm:text-6xl lg:text-left lg:text-7xl">
                 Shortlist India-ready HRMS & Payroll — without month-end surprises.
               </h1>
 
-              <p className="mt-4 max-w-[68ch] text-base leading-7 text-[var(--text-muted)]">
+              <p className="mx-auto mt-4 max-w-5xl text-center text-base leading-7 text-[var(--text-muted)] lg:text-left">
                 Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
               </p>
 
-              <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-start">
-                <div className="flex flex-col gap-3">
+              <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start lg:justify-start">
+                <div className="flex w-full flex-col gap-3 sm:w-auto">
                   <TrackedButtonLink
                     event="primary_cta_click"
                     href="/recommend"
                     size="lg"
-                    className="w-full justify-center sm:w-auto"
+                    className="w-full justify-center"
                   >
                     Get my India-ready shortlist
                   </TrackedButtonLink>
 
-                  <div className="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
+                  <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-[var(--text-muted)] lg:justify-start">
                     <span>Takes 60 seconds</span>
                     <span className="text-[var(--text-muted)]">•</span>
                     <span>No vendor spam</span>
@@ -54,13 +56,13 @@ export default async function Home() {
 
                 <Link
                   href="/tools?category=payroll"
-                  className="pt-1 text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                  className="pt-1 text-center text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 transition-all duration-200 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] sm:text-left"
                 >
                   Browse HRMS & payroll tools →
                 </Link>
               </div>
 
-              <div className="mt-6 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3 text-sm leading-6 text-[var(--text-muted)]">
+              <div className="mx-auto mt-6 max-w-5xl rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3 text-center text-sm leading-6 text-[var(--text-muted)] lg:text-left">
                 Trusted by HR leaders in 20–1000 employee Indian orgs evaluating multi-state compliance risk.
               </div>
 
