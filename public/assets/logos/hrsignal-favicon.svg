@@ -1,8 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="HRSignal favicon">
   <rect x="4" y="4" width="56" height="56" rx="16" fill="#1D4ED8"/>
-  <!-- S-wave signal -->
-  <path d="M16 40c8 8 24 8 32 0 6-6 6-14 0-20-8-8-24-8-32 0" fill="none" stroke="#F9FAFB" stroke-width="6" stroke-linecap="round"/>
-  <circle cx="16" cy="40" r="4" fill="#10B981"/>
-  <circle cx="32" cy="24" r="4" fill="#10B981"/>
-  <circle cx="48" cy="40" r="4" fill="#10B981"/>
+
+  <!-- HR people + signal hint (compact) -->
+  <circle cx="24" cy="26" r="5" fill="#F9FAFB"/>
+  <path d="M16 44c1.5-9 7-13 8-13s6.5 4 8 13" fill="none" stroke="#F9FAFB" stroke-width="5" stroke-linecap="round"/>
+
+  <circle cx="40" cy="30" r="4" fill="#F9FAFB" opacity=".92"/>
+  <path d="M35 44c1-7 4.5-10 5-10s4 3 5 10" fill="none" stroke="#F9FAFB" stroke-width="4" stroke-linecap="round" opacity=".92"/>
+
+  <path d="M44 14c6 5 9 12 9 20s-3 15-9 20" fill="none" stroke="#10B981" stroke-width="4" stroke-linecap="round" opacity=".9"/>
 </svg>
