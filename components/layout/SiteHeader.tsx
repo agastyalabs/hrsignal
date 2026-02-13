@@ -12,7 +12,7 @@ import { useCompare } from "@/lib/compare/useCompare";
 function navItemClass(active: boolean) {
   return `relative rounded-md px-2 py-1 transition-all duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] ${
     active
-      ? "text-[var(--text)]"
+      ? "text-[var(--text)] bg-[var(--surface-2)]"
       : "text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
   }`;
 }
