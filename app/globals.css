@@ -2,6 +2,7 @@
 
 :root {
   /* DESIGN SYSTEM TOKENS (DESIGN_SYSTEM.md) */
+  /* Added: core colors + typography + spacing custom properties */
   --color-primary: #0B5F6F;
   --color-accent: #D4A574;
   --color-verified: #22C55E;
