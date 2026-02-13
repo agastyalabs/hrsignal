@@ -175,7 +175,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
         <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
           <span className="flex items-center whitespace-nowrap">
             <Image
-              src="/assets/logos/hrsignal-logo-option-1.svg"
+              src="/assets/logos/hrsignal-logo-option-2.svg"
               alt="HRSignal AI - India HR Recommendations"
               width={180}
               height={40}
