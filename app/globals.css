@@ -1,6 +1,32 @@
 @import "tailwindcss";
 
 :root {
+  /* DESIGN SYSTEM TOKENS (DESIGN_SYSTEM.md) */
+  --color-primary: #0B5F6F;
+  --color-accent: #D4A574;
+  --color-verified: #22C55E;
+  --color-validate: #F59E0B;
+  --color-neutral: #64748B;
+  --color-light-bg: #F0F9FA;
+  --color-white: #FFFFFF;
+  --color-dark: #1A1A1A;
+
+  --font-family-base: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  --size-h1: 52px;
+  --size-h2: 36px;
+  --size-h3: 24px;
+  --size-body: 16px;
+  --size-small: 14px;
+  --weight-bold: 700;
+  --weight-semibold: 600;
+  --weight-regular: 400;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
   color-scheme: dark;
 
   /* Single, locked theme (dark) — Steve/Elon palette */
