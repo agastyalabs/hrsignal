@@ -74,7 +74,7 @@ export default async function Home() {
       </HomeSection>
 
       {/* 2) HRSignal Coverage Snapshot */}
-      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)] bg-grid-pattern">
         <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6">
           <div className="text-base font-semibold text-[var(--text)]">HRSignal Coverage Snapshot</div>
           <div className="mt-1 text-sm text-[var(--text-muted)]">Static snapshot of marketplace coverage (v1).</div>

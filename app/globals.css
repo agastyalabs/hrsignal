@@ -184,4 +184,11 @@ textarea.input {
   box-shadow: var(--glow);
 }
 
+/* Subtle AI-ish grid pattern */
+.bg-grid-pattern {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(16, 185, 129, 0.05) 0, rgba(16, 185, 129, 0.05) 1px, transparent 1px, transparent 24px),
+    repeating-linear-gradient(90deg, rgba(16, 185, 129, 0.04) 0, rgba(16, 185, 129, 0.04) 1px, transparent 1px, transparent 24px);
+}
+
 /* Theme switching removed for launch: single locked dark theme. */
