@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 
 // Tailwind v4 works without config, but we keep this lightweight file
 // to define brand tokens and ensure consistent UI.
+// DESIGN_SYSTEM.md tokens are mirrored here for Tailwind utilities.
 
 export default {
   content: [
