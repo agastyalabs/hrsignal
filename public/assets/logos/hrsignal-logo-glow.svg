@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="560" height="140" viewBox="0 0 560 140" role="img" aria-label="HRSignal logo (glowing neural HRS)">
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="140" viewBox="0 0 560 140" role="img" aria-label="HRSignal logo (glow v3)">
   <defs>
     <style>
       .w{fill:#F9FAFB}
@@ -9,14 +9,17 @@
     </style>
   </defs>
 
-  <!-- Icon designed for dark/nav backgrounds: halo rings + blue core + green pulses (no filters) -->
+  <!-- Icon: high-contrast glow on dark backgrounds (no filters) -->
   <g transform="translate(18 14)">
-    <!-- Halo stack (reads as glow on black) -->
-    <circle cx="56" cy="56" r="50" fill="none" class="halo" stroke-width="10" opacity=".08"/>
-    <circle cx="56" cy="56" r="46" fill="none" class="halo" stroke-width="6" opacity=".12"/>
+    <!-- Halo stack -->
+    <circle cx="56" cy="56" r="50" fill="none" class="halo" stroke-width="12" opacity=".07"/>
+    <circle cx="56" cy="56" r="46" fill="none" class="halo" stroke-width="7" opacity=".11"/>
     <circle cx="56" cy="56" r="42" fill="none" class="halo" stroke-width="3" opacity=".16"/>
 
-    <!-- Synapse spokes -->
+    <!-- Outer synapse ring -->
+    <path d="M56 18c-21 0-38 17-38 38s17 38 38 38 38-17 38-38-17-38-38-38z" fill="none" class="b" stroke-width="4" opacity=".55"/>
+
+    <!-- Spokes + pulses -->
     <g fill="none" stroke-linecap="round" stroke-width="4" opacity=".96">
       <path class="b" d="M56 18V32"/>
       <path class="b" d="M56 80v14"/>
@@ -40,15 +43,15 @@
       <circle cx="82" cy="82" r="3.5" fill="#10B981"/>
     </g>
 
-    <!-- Core rings (blue core + green pulse) -->
-    <circle cx="56" cy="56" r="22" fill="none" class="b" stroke-width="7" opacity=".98"/>
+    <!-- Core rings -->
+    <circle cx="56" cy="56" r="22" fill="none" class="b" stroke-width="8" opacity=".98"/>
     <circle cx="56" cy="56" r="14" fill="none" class="g" stroke-width="6" opacity=".92"/>
 
-    <!-- Pulse arcs (green) -->
-    <path d="M78 40c9 9 12 18 12 16s-3 11-12 20" fill="none" class="g" stroke-width="5" stroke-linecap="round" opacity=".52"/>
-    <path d="M34 40c-9 9-12 18-12 16s3 11 12 20" fill="none" class="g" stroke-width="5" stroke-linecap="round" opacity=".28"/>
+    <!-- Pulse arcs -->
+    <path d="M78 40c9 9 12 18 12 16s-3 11-12 20" fill="none" class="g" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+    <path d="M34 40c-9 9-12 18-12 16s3 11 12 20" fill="none" class="g" stroke-width="5" stroke-linecap="round" opacity=".26"/>
 
-    <!-- HRS glyph (white, crisp) -->
+    <!-- HRS glyph (crisper geometry) -->
     <g fill="none" class="halo" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".98">
       <!-- H -->
       <path d="M41 48v16M41 56h9M50 48v16"/>
@@ -59,7 +62,7 @@
     </g>
   </g>
 
-  <!-- Wordmark (dark background) -->
+  <!-- Wordmark -->
   <g transform="translate(140 44)">
     <text x="0" y="36" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="42" font-weight="900" letter-spacing="-0.6" class="w">HRSignal</text>
     <text x="0" y="62" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" font-weight="600" class="wm">Evidence • Freshness • Compliance context</text>
