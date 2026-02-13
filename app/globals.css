@@ -38,10 +38,16 @@
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--text);
-  --font-sans: var(--font-inter);
+  /* Prefer SF Pro on Apple platforms; fall back to Inter (Next.js) elsewhere. */
+  --font-sans: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Inter", var(--font-inter);
 }
 
 /* Palette is locked for launch (dark UI). */
+
+/* Global typography defaults (classes can override locally). */
+:where(h1, h2, h3, h4) {
+  font-weight: 900;
+}
 
 body {
   background:
@@ -55,6 +61,7 @@ body {
   font-size: 0.98rem;
   line-height: 1.58;
   letter-spacing: -0.01em;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
