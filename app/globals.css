@@ -28,7 +28,7 @@
   --border-soft: rgba(255, 255, 255, 0.08);
 
   /* Focus */
-  --ring: rgba(29, 78, 216, 0.55);
+  --ring: rgba(16, 185, 129, 0.48);
 
   /* Back-compat aliases (avoid breaking older usage) */
   --background: var(--bg);
@@ -66,9 +66,10 @@
 
 body {
   background:
-    radial-gradient(900px 560px at 18% -10%, rgba(29, 78, 216, 0.12), transparent 60%),
-    radial-gradient(720px 520px at 92% 8%, rgba(16, 185, 129, 0.10), transparent 60%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 22%),
+    radial-gradient(1100px 720px at 18% -14%, rgba(29, 78, 216, 0.10), transparent 62%),
+    radial-gradient(900px 680px at 92% 6%, rgba(16, 185, 129, 0.12), transparent 62%),
+    radial-gradient(900px 680px at 50% 120%, rgba(255, 255, 255, 0.03), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.010), transparent 26%),
     var(--bg);
   color: var(--text);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
@@ -148,8 +149,8 @@ textarea.input {
   --shadow-sm: 0 1px 1px rgba(0, 0, 0, 0.18);
   --shadow-md: 0 16px 46px rgba(0, 0, 0, 0.34);
 
-  /* Subtle hover elevation (keep glow near-zero) */
-  --glow: 0 0 0 1px rgba(255, 255, 255, 0.10), 0 18px 52px rgba(0, 0, 0, 0.55);
+  /* Subtle hover elevation (keep glow controlled; green-tinted for AI vibe) */
+  --glow: 0 0 0 1px rgba(255, 255, 255, 0.10), 0 18px 52px rgba(16, 185, 129, 0.10);
 }
 
 /* Accessible focus ring (keyboard) */
