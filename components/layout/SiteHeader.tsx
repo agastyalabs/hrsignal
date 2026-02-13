@@ -10,7 +10,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { useCompare } from "@/lib/compare/useCompare";
 
 function navItemClass(active: boolean) {
-  return `relative rounded-md px-2 py-1 transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] ${
+  return `relative rounded-md px-2 py-1 transition-all duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] ${
     active
       ? "text-[var(--text)]"
       : "text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
@@ -68,7 +68,7 @@ function MenuLink({
     <Link
       href={href}
       onClick={onClick}
-      className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] transition-all duration-200 hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
       role="menuitem"
     >
       {label}
@@ -167,11 +167,11 @@ function HeaderInner({ pathname }: { pathname: string }) {
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 border-b border-[var(--border-soft)] bg-[var(--header-bg)] transition-shadow motion-reduce:transition-none ${
+      className={`sticky top-0 z-50 border-b border-[var(--border-soft)] bg-[var(--header-bg)] transition-all duration-200 motion-reduce:transition-none ${
         scrolled ? "shadow-sm" : "shadow-none"
       }`}
     >
-      <Container className="flex items-center justify-between gap-4 py-4">
+      <Container className="grid grid-cols-[auto_1fr_auto] items-center gap-4 py-4">
         <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
           <span className="flex items-center whitespace-nowrap">
             <Image
@@ -187,20 +187,21 @@ function HeaderInner({ pathname }: { pathname: string }) {
           </span>
         </Link>
 
-        {/* Header search (non-home pages only) */}
-        {pathname !== "/" ? (
-          <form action="/tools" className="hidden w-full max-w-md lg:flex" onSubmit={() => setOpenMenu(null)}>
-            <input
-              className="h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
-              name="q"
-              placeholder="Search tools (e.g., payroll, attendance, Keka…)"
-              aria-label="Search tools"
-            />
-          </form>
-        ) : null}
+        {/* Desktop center area: search + nav (avoid overlaps; keep centered) */}
+        <div className="hidden min-w-0 items-center justify-center gap-4 lg:flex">
+          {pathname !== "/" ? (
+            <form action="/tools" className="w-full max-w-md" onSubmit={() => setOpenMenu(null)}>
+              <input
+                className="h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                name="q"
+                placeholder="Search tools (e.g., payroll, attendance, Keka…)"
+                aria-label="Search tools"
+              />
+            </form>
+          ) : null}
 
-        {/* Desktop nav */}
-        <nav className="relative hidden shrink-0 items-center gap-1 text-sm lg:flex" aria-label="Primary">
+          {/* Desktop nav */}
+          <nav className="relative flex shrink-0 items-center justify-center gap-1 text-sm" aria-label="Primary">
           <NavLink href="/tools" active={active.tools} onClick={() => setOpenMenu(null)}>
             Tools
           </NavLink>
@@ -293,12 +294,13 @@ function HeaderInner({ pathname }: { pathname: string }) {
               Get a shortlist
             </ButtonLink>
           </div>
-        </nav>
+          </nav>
+        </div>
 
         {/* Mobile trigger */}
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] text-[var(--text)] transition-all duration-200 hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] lg:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           onClick={() => {
@@ -326,7 +328,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
             onClick={() => setMobileOpen(false)}
           />
 
-          <div className="absolute right-0 top-0 h-full w-full max-w-[420px] border-l border-[var(--border-soft)] bg-[var(--bg)]">
+          <div className="absolute right-0 top-0 h-full w-full max-w-[420px] border-l border-[var(--border-soft)] bg-[var(--bg)] transition-all duration-200">
             <div className="flex items-center justify-between border-b border-[var(--border-soft)] px-5 py-4">
               <div className="text-sm font-semibold text-[var(--text)]">Menu</div>
               <button
@@ -357,7 +359,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
 
               <div className="mt-4 space-y-3">
                 <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4" open>
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Browse</summary>
+                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)] transition-all duration-200">Browse</summary>
                   <div className="mt-3 space-y-1">
                     <MenuLink href="/tools" label="Tools" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/vendors" label="Vendors" onClick={() => setMobileOpen(false)} />
@@ -366,7 +368,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                 </details>
 
                 <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Categories</summary>
+                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)] transition-all duration-200">Categories</summary>
                   <div className="mt-3 space-y-1">
                     <MenuLink href="/categories/payroll-india" label="Payroll & compliance" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/categories/hrms" label="HRMS / Core HR" onClick={() => setMobileOpen(false)} />
@@ -378,7 +380,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                 </details>
 
                 <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Learn</summary>
+                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)] transition-all duration-200">Learn</summary>
                   <div className="mt-3 space-y-1">
                     <MenuLink href="/resources" label="Resources" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/methodology" label="Methodology" onClick={() => setMobileOpen(false)} />
@@ -386,7 +388,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                 </details>
 
                 <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Tools to speed evaluation</summary>
+                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)] transition-all duration-200">Tools to speed evaluation</summary>
                   <div className="mt-3 space-y-1">
                     <MenuLink
                       href="/india-payroll-risk-checklist"
@@ -407,7 +409,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                 ) : null}
 
                 <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Legal</summary>
+                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)] transition-all duration-200">Legal</summary>
                   <div className="mt-3 space-y-1">
                     <MenuLink href="/privacy" label="Privacy" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/terms" label="Terms" onClick={() => setMobileOpen(false)} />
