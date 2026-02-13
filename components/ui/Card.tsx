@@ -9,7 +9,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`u-card-hover rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-none motion-reduce:transition-none ${className}`}
+      className={`u-card-hover rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-[0_1px_1px_rgba(0,0,0,0.22)] motion-reduce:transition-none ${className}`}
     >
       {children}
     </div>

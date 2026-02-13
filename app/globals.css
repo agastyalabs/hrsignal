@@ -181,8 +181,16 @@ textarea.input {
 }
 .u-card-hover:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: var(--glow);
+  border-color: rgba(16, 185, 129, 0.45); /* ~green-500 */
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.16), 0 18px 52px rgba(0, 0, 0, 0.55);
+}
+
+/* Hero gradient backdrop */
+.hero-gradient {
+  background:
+    radial-gradient(980px 520px at 20% 0%, rgba(16, 185, 129, 0.16), transparent 62%),
+    radial-gradient(860px 520px at 90% 20%, rgba(29, 78, 216, 0.14), transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.00));
 }
 
 /* Subtle AI-ish grid pattern */
