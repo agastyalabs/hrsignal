@@ -270,7 +270,7 @@ export default async function Home() {
                 >
                   <div className="text-base font-semibold text-[var(--text)]">{g.title}</div>
                   <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{g.desc}</div>
-                  <div className="mt-4 text-sm font-semibold text-[var(--primary)] group-hover:text-[var(--primary-hover)]">
+                  <div className="mt-4 text-sm font-semibold text-[var(--link)] group-hover:text-[var(--link-hover)]">
                     Read →
                   </div>
                 </Link>
@@ -397,7 +397,7 @@ export default async function Home() {
           <ButtonLink href="/recommend" size="md" className="w-full justify-center sm:w-auto">
             Get your shortlist
           </ButtonLink>
-          <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/compare">
+          <Link className="text-sm font-medium text-[var(--link)] hover:text-[var(--link-hover)]" href="/compare">
             Compare tools →
           </Link>
         </div>
@@ -530,7 +530,7 @@ function TrustTile({
       <div className="text-sm font-semibold text-[var(--text)]">{label}</div>
       <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{desc}</div>
       <div className="mt-3">
-        <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href={href}>
+        <Link className="text-sm font-medium text-[var(--link)] hover:text-[var(--link-hover)]" href={href}>
           {linkLabel}
         </Link>
       </div>

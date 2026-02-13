@@ -26,7 +26,7 @@ export function VendorLogoStrip({
           <div className="text-sm font-semibold text-[var(--text)]">{title}</div>
           <div className="mt-1 text-sm text-[var(--text-muted)]">{subtitle}</div>
         </div>
-        <Link className="text-sm font-medium text-[var(--primary)] hover:opacity-90" href="/vendors">
+        <Link className="text-sm font-medium text-[var(--link)] hover:opacity-90" href="/vendors">
           Browse vendors →
         </Link>
       </div>

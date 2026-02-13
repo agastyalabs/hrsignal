@@ -231,7 +231,7 @@ export default async function ComparePage({
                 Compare up to 5 tools side-by-side. Use “differences only” to scan faster.
               </p>
             </div>
-            <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline" href="/tools">
+            <Link className="text-sm font-medium text-[var(--link)] hover:text-[var(--link-hover)] hover:underline" href="/tools">
               Browse tools
             </Link>
           </div>
@@ -250,7 +250,7 @@ export default async function ComparePage({
                       <div className="text-sm font-semibold text-[var(--text)]">{t.name}</div>
                       {t.vendorName ? <div className="mt-1 text-xs text-[var(--text-muted)]">by {t.vendorName}</div> : null}
                       <div className="mt-3">
-                        <Link className="text-xs font-medium text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline" href={`/tools/${t.slug}`}>
+                        <Link className="text-xs font-medium text-[var(--link)] hover:text-[var(--link-hover)] hover:underline" href={`/tools/${t.slug}`}>
                           View details →
                         </Link>
                       </div>

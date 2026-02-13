@@ -141,7 +141,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
 
         <Section className="pt-10 sm:pt-14">
           <div className="mb-6">
-            <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/vendors">
+            <Link className="text-sm font-medium text-[var(--link)] hover:text-[var(--link-hover)]" href="/vendors">
               ← Back to vendors
             </Link>
           </div>
@@ -186,7 +186,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                       Answer a few questions and we’ll shortlist 3–5 tools with match reasons.
                     </div>
                     <div className="mt-4">
-                      <Link className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/recommend">
+                      <Link className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)]" href="/recommend">
                         Get recommendations →
                       </Link>
                     </div>
@@ -449,7 +449,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
 
       <Section className="pt-10 sm:pt-14">
         <div className="mb-6">
-          <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/vendors">
+          <Link className="text-sm font-medium text-[var(--link)] hover:text-[var(--link-hover)]" href="/vendors">
             ← Back to vendors
           </Link>
         </div>
@@ -741,7 +741,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                     <div className="mt-1 text-sm text-[var(--text-muted)]">Common alternatives evaluated alongside {vendor.name}.</div>
                   </div>
                   <Link
-                    className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline"
+                    className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)] hover:underline"
                     href={`/compare/vendors?vendors=${encodeURIComponent(
                       [slug, ...alternatives.slice(0, 2).map((a) => canonicalVendorSlug({ vendorName: a.name }))].join(",")
                     )}`}
@@ -1074,13 +1074,13 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                 <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
                   {vendor.tools.length >= 2 ? (
                     <Link
-                      className="font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]"
+                      className="font-medium text-[var(--link)] hover:text-[var(--link-hover)]"
                       href={`/compare?tools=${encodeURIComponent(vendor.tools.map((t) => t.slug).join(","))}`}
                     >
                       Compare {vendor.name} tools →
                     </Link>
                   ) : null}
-                  <Link className="font-medium text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/tools">
+                  <Link className="font-medium text-[var(--link)] hover:text-[var(--link-hover)]" href="/tools">
                     Browse tools →
                   </Link>
                 </div>
@@ -1159,7 +1159,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
                       <div className="mt-3 text-sm text-[var(--text-muted)]">
                         {t.categories.map((c) => c.category.name).join(" • ")}
                       </div>
-                      <div className="mt-4 text-sm font-medium text-[var(--primary)]">View tool →</div>
+                      <div className="mt-4 text-sm font-medium text-[var(--link)]">View tool →</div>
                     </Card>
                   </Link>
                 ))}

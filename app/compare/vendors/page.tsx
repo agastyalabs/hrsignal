@@ -391,7 +391,7 @@ export default async function VendorComparePage({
 
               <div className="mt-4">
                 <Link
-                  className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline"
+                  className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)] hover:underline"
                   href={`/vendors/${v.slug}`}
                 >
                   View vendor →

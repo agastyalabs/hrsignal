@@ -3,19 +3,23 @@
 :root {
   color-scheme: dark;
 
-  /* Single, locked theme (dark) — premium SaaS */
-  --bg: #0E1A3B; /* deeper enterprise navy (less purple) */
+  /* Single, locked theme (dark) — Steve/Elon palette */
+  --bg: #000000;
 
   /* Depth layers */
-  --surface-1: rgba(255, 255, 255, 0.05); /* surface */
-  --surface-2: rgba(255, 255, 255, 0.08); /* elevated */
-  --surface-3: rgba(255, 255, 255, 0.12); /* popover / emphasis */
-  --header-bg: rgba(18, 31, 82, 0.84);
+  --surface-1: rgba(255, 255, 255, 0.04); /* cards */
+  --surface-2: rgba(255, 255, 255, 0.07); /* raised/sticky */
+  --surface-3: rgba(255, 255, 255, 0.10); /* popover / emphasis */
+  --header-bg: rgba(0, 0, 0, 0.78);
 
-  /* Brand */
-  --primary: #7C4DFF; /* premium violet */
-  --primary-hover: #6A3BFF;
-  --accent: #27D3BC;
+  /* Links */
+  --link: #1D4ED8;
+  --link-hover: #3B82F6;
+
+  /* CTAs / scores */
+  --primary: #10B981; /* green */
+  --primary-hover: #0EA371;
+  --accent: #1D4ED8; /* blue accent */
 
   /* Text + borders */
   --text: #FFFFFF;
@@ -24,7 +28,7 @@
   --border-soft: rgba(255, 255, 255, 0.08);
 
   /* Focus */
-  --ring: rgba(124, 77, 255, 0.42);
+  --ring: rgba(29, 78, 216, 0.55);
 
   /* Back-compat aliases (avoid breaking older usage) */
   --background: var(--bg);
@@ -41,9 +45,9 @@
 
 body {
   background:
-    radial-gradient(1200px 800px at 14% -10%, rgba(124, 77, 255, 0.066), transparent 55%),
-    radial-gradient(900px 700px at 92% 10%, rgba(39, 211, 188, 0.042), transparent 55%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 22%),
+    radial-gradient(900px 560px at 18% -10%, rgba(29, 78, 216, 0.12), transparent 60%),
+    radial-gradient(720px 520px at 92% 8%, rgba(16, 185, 129, 0.10), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent 22%),
     var(--bg);
   color: var(--text);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
@@ -122,8 +126,8 @@ textarea.input {
   --shadow-sm: 0 1px 1px rgba(0, 0, 0, 0.18);
   --shadow-md: 0 16px 46px rgba(0, 0, 0, 0.34);
 
-  /* Subtle glow for hover/focus */
-  --glow: 0 0 0 1px rgba(255, 255, 255, 0.10), 0 14px 48px rgba(124, 77, 255, 0.18);
+  /* Subtle hover elevation (keep glow near-zero) */
+  --glow: 0 0 0 1px rgba(255, 255, 255, 0.10), 0 18px 52px rgba(0, 0, 0, 0.55);
 }
 
 /* Accessible focus ring (keyboard) */

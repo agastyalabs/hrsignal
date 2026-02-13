@@ -236,7 +236,7 @@ export default async function CategoriesPage() {
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-3">
-                      <Link className="text-sm font-medium text-[var(--primary)] hover:opacity-90" href={`/tools?category=${c.slug}`}>
+                      <Link className="text-sm font-medium text-[var(--link)] hover:opacity-90" href={`/tools?category=${c.slug}`}>
                         Browse →
                       </Link>
                       {compareSlugs.length >= 2 ? (
@@ -282,7 +282,7 @@ export default async function CategoriesPage() {
                                   {t.tagline ? (
                                     <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{t.tagline}</div>
                                   ) : null}
-                                  <div className="mt-4 text-sm font-medium text-[var(--primary)]">View details →</div>
+                                  <div className="mt-4 text-sm font-medium text-[var(--link)]">View details →</div>
                                 </Card>
                               </Link>
                             ))}
@@ -300,7 +300,7 @@ export default async function CategoriesPage() {
                             <div className="text-base font-semibold text-[var(--text)]">{t.name}</div>
                             {t.vendorName ? <div className="mt-1 text-sm text-[var(--text-muted)]">by {t.vendorName}</div> : null}
                             {t.tagline ? <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{t.tagline}</div> : null}
-                            <div className="mt-4 text-sm font-medium text-[var(--primary)]">View details →</div>
+                            <div className="mt-4 text-sm font-medium text-[var(--link)]">View details →</div>
                           </Card>
                         </Link>
                       ))}

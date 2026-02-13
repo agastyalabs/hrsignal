@@ -435,7 +435,7 @@ export default async function CategoryDetailPage({
               <div className="text-sm font-semibold text-[var(--text)]">Leaders</div>
               <div className="mt-1 text-sm text-[var(--text-muted)]">Top tools in this category (sorted by recency/verification).</div>
             </div>
-            <Link className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href={compareHref}>
+            <Link className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)]" href={compareHref}>
               Compare →
             </Link>
           </div>
@@ -451,10 +451,10 @@ export default async function CategoryDetailPage({
               <div className="text-sm font-semibold text-[var(--text)]">No tools yet</div>
               <div className="mt-1 text-sm text-[var(--text-muted)]">Try browsing the full directory or request recommendations.</div>
               <div className="mt-4 flex flex-wrap gap-3">
-                <Link className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/tools">
+                <Link className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)]" href="/tools">
                   Browse all tools →
                 </Link>
-                <Link className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/recommend">
+                <Link className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)]" href="/recommend">
                   Get recommendations →
                 </Link>
               </div>
@@ -484,7 +484,7 @@ export default async function CategoryDetailPage({
                 </div>
                 <div className="mt-5">
                   <Link
-                    className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]"
+                    className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)]"
                     href={`/tools?category=${encodeURIComponent(s.cat[0] ?? slug)}`}
                   >
                     Explore →

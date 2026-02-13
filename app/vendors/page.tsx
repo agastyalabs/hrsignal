@@ -263,7 +263,7 @@ export default async function VendorsPage({
             title="Vendors"
             subtitle="Browse companies behind the tools. Filter by size, category, and India readiness."
           />
-          <Link className="text-sm font-medium text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline" href="/tools">
+          <Link className="text-sm font-medium text-[var(--link)] hover:text-[var(--link-hover)] hover:underline" href="/tools">
             Browse tools
           </Link>
         </div>
@@ -392,7 +392,7 @@ export default async function VendorsPage({
           <Card className="mt-6 p-6 shadow-[var(--shadow-sm)]">
             <div className="text-sm font-semibold text-[var(--text)]">No vendors yet</div>
             <p className="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">Seed the catalog from Admin → Seed catalog.</p>
-            <Link className="mt-3 inline-block text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline" href="/admin">
+            <Link className="mt-3 inline-block text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)] hover:underline" href="/admin">
               Go to Admin →
             </Link>
           </Card>
@@ -405,10 +405,10 @@ export default async function VendorsPage({
               Try clearing filters, or broaden India-ready/category constraints.
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
-              <Link className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/vendors">
+              <Link className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)]" href="/vendors">
                 Clear all →
               </Link>
-              <Link className="text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href="/categories">
+              <Link className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)]" href="/categories">
                 Browse categories →
               </Link>
             </div>
