@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon/favicon.ico" },
+      { url: "/assets/logos/favicon-glow.svg", type: "image/svg+xml" },
       { url: "/favicon/icon-32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon/icon-48.png", sizes: "48x48", type: "image/png" },
       { url: "/favicon/icon-192.png", sizes: "192x192", type: "image/png" },
@@ -53,7 +54,7 @@ export default function RootLayout({
     "@type": "Organization",
     name: "HRSignal",
     url: "https://hrsignal.vercel.app",
-    logo: "https://hrsignal.vercel.app/brand/hrsignal-logo.svg",
+    logo: "https://hrsignal.vercel.app/assets/logos/hrsignal-logo-glow.svg",
     sameAs: [],
     contactPoint: [
       {
