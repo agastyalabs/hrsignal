@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewBox="0 0 640 160" role="img" aria-label="HRSignal logo v2C">
+  <defs>
+    <style>
+      .b{stroke:#1D4ED8}
+      .g{stroke:#10B981}
+      .h{stroke:#F9FAFB}
+      .ink{fill:#F9FAFB}
+      .muted{fill:#F9FAFB;opacity:.80}
+    </style>
+  </defs>
+
+  <!-- Icon: futuristic "signal core" with synapse spokes + HRS glyph -->
+  <g transform="translate(22 18)">
+    <!-- Halo (white) -->
+    <circle cx="62" cy="62" r="54" fill="none" class="h" stroke-width="7" opacity=".18"/>
+
+    <!-- Spokes -->
+    <g fill="none" stroke-linecap="round" stroke-width="4" opacity=".92">
+      <path class="b" d="M62 18V34"/>
+      <path class="b" d="M62 90v16"/>
+      <path class="g" d="M18 62h16"/>
+      <path class="g" d="M90 62h16"/>
+      <path class="b" d="M30 30l12 12"/>
+      <path class="b" d="M82 82l12 12"/>
+      <path class="g" d="M94 30L82 42"/>
+      <path class="g" d="M42 82L30 94"/>
+    </g>
+
+    <!-- Core ring -->
+    <circle cx="62" cy="62" r="22" fill="none" class="b" stroke-width="6" opacity=".95"/>
+    <circle cx="62" cy="62" r="14" fill="none" class="g" stroke-width="5" opacity=".85"/>
+
+    <!-- Nodes -->
+    <g>
+      <circle cx="62" cy="18" r="5" fill="#10B981"/>
+      <circle cx="62" cy="106" r="5" fill="#10B981"/>
+      <circle cx="18" cy="62" r="5" fill="#1D4ED8"/>
+      <circle cx="106" cy="62" r="5" fill="#1D4ED8"/>
+      <circle cx="30" cy="30" r="4" fill="#10B981"/>
+      <circle cx="94" cy="30" r="4" fill="#10B981"/>
+      <circle cx="30" cy="94" r="4" fill="#10B981"/>
+      <circle cx="94" cy="94" r="4" fill="#10B981"/>
+    </g>
+
+    <!-- HRS integrated as a single glyph inside core (white) -->
+    <g fill="none" class="h" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".96">
+      <!-- H -->
+      <path d="M52 56v18M52 65h10M62 56v18"/>
+      <!-- R -->
+      <path d="M70 74v-18h7c4 0 7 2 7 6 0 3-2 5-5 6l5 6"/>
+      <!-- S -->
+      <path d="M44 54c-4-3-10-1-10 3 0 7 14 2 14 10 0 6-8 7-12 4"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(170 56)">
+    <text x="0" y="40" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="44" font-weight="850" class="ink" letter-spacing="-0.6">HRSignal</text>
+    <text x="0" y="68" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" font-weight="600" class="muted">Shortlists that show compliance depth, evidence, and freshness</text>
+  </g>
+</svg>

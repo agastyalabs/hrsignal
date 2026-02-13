@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewBox="0 0 640 160" role="img" aria-label="HRSignal logo v2B">
+  <defs>
+    <style>
+      .core{stroke:#1D4ED8}
+      .acc{stroke:#10B981}
+      .halo{stroke:#F9FAFB}
+      .ink{fill:#F9FAFB}
+      .muted{fill:#F9FAFB;opacity:.80}
+    </style>
+  </defs>
+
+  <!-- Icon: compact synapse ring + HRS monogram inside -->
+  <g transform="translate(22 18)">
+    <circle cx="62" cy="62" r="52" fill="none" class="halo" stroke-width="8" opacity=".22"/>
+
+    <!-- Ring nodes -->
+    <g fill="none" stroke-linecap="round" stroke-width="4" opacity=".92">
+      <path class="core" d="M62 14C37 14 14 37 14 62s23 48 48 48 48-23 48-48S87 14 62 14z"/>
+      <path class="acc" d="M30 40L48 54L62 44L76 54L94 40"/>
+      <path class="acc" d="M30 84L48 70L62 80L76 70L94 84"/>
+    </g>
+
+    <!-- Nodes (glow-like via white stroke) -->
+    <g>
+      <circle cx="62" cy="14" r="5" fill="#10B981"/>
+      <circle cx="14" cy="62" r="5" fill="#10B981"/>
+      <circle cx="62" cy="110" r="5" fill="#10B981"/>
+      <circle cx="110" cy="62" r="5" fill="#10B981"/>
+      <circle cx="48" cy="54" r="4" fill="#1D4ED8"/>
+      <circle cx="76" cy="54" r="4" fill="#1D4ED8"/>
+      <circle cx="48" cy="70" r="4" fill="#1D4ED8"/>
+      <circle cx="76" cy="70" r="4" fill="#1D4ED8"/>
+    </g>
+
+    <!-- HRS monogram (white) -->
+    <g fill="#F9FAFB" opacity=".95">
+      <path d="M35 44h6v14h12V44h6v36h-6V64H41v16h-6z"/>
+      <path d="M64 44h13c9 0 14 5 14 12 0 6-3 10-9 12l9 12h-8l-8-11h-5v11h-6V44zm13 21c4 0 7-2 7-6s-3-6-7-6h-7v12h7z" opacity=".92"/>
+      <path d="M99 52c-4-2-9-2-12 1-4 4 1 7 7 9 8 3 11 7 11 12 0 9-10 13-20 9v-7c6 3 12 3 14 0 2-3-1-5-8-7-8-3-12-7-10-14 2-10 14-12 18-10v7z" opacity=".86"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(170 56)">
+    <text x="0" y="40" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="44" font-weight="850" class="ink" letter-spacing="-0.6">HRSignal</text>
+    <text x="0" y="68" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16" font-weight="600" class="muted">AI-assisted recommendations with evidence links and verification freshness</text>
+  </g>
+</svg>
