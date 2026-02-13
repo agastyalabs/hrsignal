@@ -15,12 +15,13 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hrsignal.vercel.app"),
+  metadataBase: new URL("https://hrsignal.in"),
   title: "HRSignal — India-first HR software recommendations",
   description:
     "Get explainable recommendations for HRMS, payroll & compliance, attendance, ATS, and performance tools. Shortlist fast and request pricing/demos without vendor spam.",
   icons: {
     icon: [
+      { url: "/assets/logos/new-hrsignal-favicon.svg", type: "image/svg+xml" },
       { url: "/favicon/favicon.ico" },
       { url: "/favicon/icon-32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon/icon-48.png", sizes: "48x48", type: "image/png" },
@@ -56,8 +57,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "HRSignal",
-    url: "https://hrsignal.vercel.app",
-    logo: "https://hrsignal.vercel.app/brand/hrsignal-logo.svg",
+    url: "https://hrsignal.in",
+    logo: "https://hrsignal.in/assets/logos/new-hrsignal.svg",
     sameAs: [],
     contactPoint: [
       {

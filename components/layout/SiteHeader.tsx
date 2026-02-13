@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { BRAND } from "@/config/brand";
 import { Container } from "@/components/layout/Container";
 import { ButtonLink } from "@/components/ui/Button";
 import { useCompare } from "@/lib/compare/useCompare";
@@ -174,9 +173,17 @@ function HeaderInner({ pathname }: { pathname: string }) {
     >
       <Container className="flex items-center justify-between gap-4 py-4">
         <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
-          <span className="flex items-center gap-3 whitespace-nowrap">
-            <Image src={BRAND.logo} alt={BRAND.name} width={208} height={44} priority className="h-9 w-auto sm:h-10" />
-            <span className="hidden text-base font-semibold tracking-tight text-[var(--text)] sm:inline">{BRAND.name}</span>
+          <span className="flex items-center whitespace-nowrap">
+            <Image
+              src="/assets/logos/new-hrsignal.svg"
+              alt="HRSignal AI - India HR Recommendations"
+              width={180}
+              height={40}
+              priority
+              sizes="(max-width: 640px) 140px, 180px"
+              className="h-8 w-auto sm:h-9"
+              style={{ boxShadow: "0 0 10px rgba(16,185,129,0.5)" }}
+            />
           </span>
         </Link>
 

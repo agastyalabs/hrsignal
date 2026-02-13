@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="HRSignal favicon (dark visibility)">
+  <!-- Transparent background; optimized for black UI -->
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#F9FAFB" stroke-width="6" opacity=".16"/>
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#F9FAFB" stroke-width="3" opacity=".18"/>
+
+  <circle cx="32" cy="32" r="12" fill="none" stroke="#1D4ED8" stroke-width="6"/>
+  <circle cx="32" cy="32" r="7" fill="none" stroke="#10B981" stroke-width="5" opacity=".92"/>
+
+  <circle cx="32" cy="12" r="3" fill="#10B981"/>
+  <circle cx="52" cy="32" r="3" fill="#1D4ED8"/>
+  <circle cx="32" cy="52" r="3" fill="#10B981"/>
+  <circle cx="12" cy="32" r="3" fill="#1D4ED8"/>
+
+  <!-- HRS hint (minimal) -->
+  <path d="M24 28v12M24 34h6M30 28v12" fill="none" stroke="#F9FAFB" stroke-width="3" stroke-linecap="round" opacity=".95"/>
+</svg>
