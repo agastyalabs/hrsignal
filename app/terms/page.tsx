@@ -12,6 +12,7 @@ export default function TermsPage() {
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
+        <h1 className="sr-only">Terms</h1>
         <SectionHeading
           title="Terms"
           subtitle="Basic usage terms for HRSignal v1 (non-legal summary)."

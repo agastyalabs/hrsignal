@@ -96,12 +96,6 @@ export async function POST(req: Request) {
   // Plain-English Telegram mode: if user didn't type @agent, route to default agent.
   // Keep explicit @agent working as-is.
   const normalizedText = String(text ?? "").trim();
-  // Only synthesize a forwardedText string for downstream forwarding.
-  // Parsing should happen on the original text so infra inference and explicit-agent detection stay accurate.
-  const synthesizedForwardedText =
-    !forwardedTextRaw && normalizedText && !normalizedText.startsWith("@")
-      ? `@${DEFAULT_AGENT} ${normalizedText}`
-      : forwardedTextRaw || normalizedText;
 
 
   // Help commands

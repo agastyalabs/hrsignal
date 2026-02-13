@@ -17,6 +17,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrustStrip } from "@/components/marketing/TrustStrip";
 import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
 import { normalizePricingText, pricingTypeFromNote, type PricingType } from "@/lib/pricing/format";
+import { AnalyticsView } from "@/components/analytics/AnalyticsView";
 
 const FALLBACK_TOOLS: ToolCardModel[] = [
   {
@@ -329,12 +330,48 @@ export default async function ToolsPage({
     })),
   };
 
+  const filterApplied = Boolean(
+    q ||
+      category ||
+      sort !== "name" ||
+      indiaOnly ||
+      sizeBucket ||
+      deployment ||
+      pricingMetric ||
+      modules.length ||
+      compliance.length ||
+      region ||
+      evidence
+  );
+
   return (
     <div className="min-h-screen bg-[var(--bg)]">
+      <AnalyticsView event="view_directory" props={{ directory: "tools" }} />
+      {filterApplied ? (
+        <AnalyticsView
+          event="apply_filters"
+          props={{
+            directory: "tools",
+            q: q ?? "",
+            category: category ?? "",
+            sort,
+            india: indiaOnly ? 1 : 0,
+            size: sizeBucket ?? "",
+            deployment: deployment ?? "",
+            pricing: pricingMetric ?? "",
+            modules: modules.join(","),
+            compliance: compliance.join(","),
+            region: region ?? "",
+            evidence: evidence ?? "",
+          }}
+        />
+      ) : null}
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
+        <h1 className="sr-only">Tools directory</h1>
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <SectionHeading
             title="Tools directory"

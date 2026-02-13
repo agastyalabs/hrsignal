@@ -211,25 +211,28 @@ export default async function ReportPage({
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const sp = (await searchParams) ?? {};
-  const rawTier = sp.ct;
-  const tier = (Array.isArray(rawTier) ? rawTier[0] : rawTier) as string | undefined;
+
+  const first = (k: string): string | undefined => {
+    const v = (sp as Record<string, string | string[] | undefined>)[k];
+    return Array.isArray(v) ? v[0] : v;
+  };
+
+  const tier = first("ct");
   const complexityTier = tier === "high" || tier === "medium" || tier === "low" ? tier : null;
 
   const inputs = {
-    headcount: (Array.isArray(sp.headcount) ? sp.headcount[0] : sp.headcount) ?? "—",
-    states: (Array.isArray(sp.states) ? sp.states[0] : sp.states) ?? "—",
-    payrollFrequency: (Array.isArray(sp.freq) ? sp.freq[0] : sp.freq) ?? "—",
-    pfEsiApplicability: (Array.isArray(sp.pfesi) ? sp.pfesi[0] : sp.pfesi) ?? "—",
-    contractWorkers: (Array.isArray(sp.contractors) ? sp.contractors[0] : sp.contractors) ?? "—",
-    timeline: (Array.isArray(sp.timeline) ? sp.timeline[0] : sp.timeline) ?? "—",
+    headcount: first("headcount") ?? "—",
+    states: first("states") ?? "—",
+    payrollFrequency: first("freq") ?? "—",
+    pfEsiApplicability: first("pfesi") ?? "—",
+    contractWorkers: first("contractors") ?? "—",
+    timeline: first("timeline") ?? "—",
   };
 
-  const rawShare = sp.share;
-  const shareVal = (Array.isArray(rawShare) ? rawShare[0] : rawShare) ?? "false";
+  const shareVal = first("share") ?? "false";
   const isShare = shareVal === "true";
 
-  const rawPremium = sp.premium;
-  const premiumVal = (Array.isArray(rawPremium) ? rawPremium[0] : rawPremium) ?? "false";
+  const premiumVal = first("premium") ?? "false";
   const isPremium = isShare ? true : premiumVal === "true";
 
   const ranked = complexityTier ? await computeRankedVendors({ complexityTier }) : [];
@@ -245,7 +248,7 @@ export default async function ReportPage({
               <div>
                 <h1 className="text-2xl font-semibold tracking-tight text-[var(--text)]">Decision report</h1>
                 <p className="mt-1 text-sm text-[var(--text-muted)]">
-                  Print to PDF from your browser. Mobile-friendly, but export works best on desktop.
+                  Generate a printable decision brief from your inputs. When ready, use your browser’s Print → Save as PDF.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">

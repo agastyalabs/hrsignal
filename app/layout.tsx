@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import { UtmCapture } from "@/components/analytics/UtmCapture";
 import { FloatingShortlistCta } from "@/components/marketing/FloatingShortlistCta";
 
 const inter = Inter({
@@ -71,6 +72,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
         {children}
+        <UtmCapture />
         <FloatingShortlistCta />
         <Analytics />
       </body>

@@ -16,6 +16,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { VendorCard } from "@/components/catalog/VendorCard";
 import { Button, ButtonLink } from "@/components/ui/Button";
+import { AnalyticsView } from "@/components/analytics/AnalyticsView";
 
 import { indiaOnlyFromSearchParams } from "@/lib/india/mode";
 import { normalizePricingText, pricingTypeFromNote, type PricingType } from "@/lib/pricing/format";
@@ -252,12 +253,40 @@ export default async function VendorsPage({
     })),
   };
 
+  const filterApplied = Boolean(
+    indiaOnly ||
+      size ||
+      category ||
+      deployment ||
+      pricing ||
+      indiaReady ||
+      (sort && sort !== "recent")
+  );
+
   return (
     <div className="min-h-screen bg-[var(--bg)]">
+      <AnalyticsView event="view_directory" props={{ directory: "vendors" }} />
+      {filterApplied ? (
+        <AnalyticsView
+          event="apply_filters"
+          props={{
+            directory: "vendors",
+            india: indiaOnly ? 1 : 0,
+            size,
+            category,
+            deployment,
+            pricing,
+            indiaReady,
+            sort,
+          }}
+        />
+      ) : null}
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
+        <h1 className="sr-only">Vendors</h1>
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <SectionHeading
             title="Vendors"

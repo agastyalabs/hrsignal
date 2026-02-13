@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -10,6 +10,7 @@ import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { ToastViewport, type ToastModel } from "@/components/ui/Toast";
+import { trackEvent } from "@/components/analytics/track";
 
 const CATEGORY_OPTIONS = [
   { slug: "hrms", label: "HRMS / Core HR" },
@@ -96,6 +97,12 @@ export default function RecommendInner({
     if (!prefill) return null;
     return `You came from tool: ${prefill}`;
   }, [prefill]);
+
+  // Start shortlist tracking
+  useEffect(() => {
+    trackEvent("start_shortlist", { mode, prefill: prefill ?? "" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const content = (
     <>
@@ -188,6 +195,14 @@ export default function RecommendInner({
                       toast({ type: "error", title: "Unexpected server response", description: msg });
                       return;
                     }
+
+                    trackEvent("submit_shortlist", {
+                      mode,
+                      resultId: data.resultId,
+                      categories: categories.join(","),
+                      integrations: integrations.join(","),
+                      sizeBand,
+                    });
 
                     toast({ type: "success", title: "Shortlist ready", description: "Redirecting to your results…", durationMs: 1500 });
                     router.push(`/results/${data.resultId}`);

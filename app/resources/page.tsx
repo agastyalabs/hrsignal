@@ -48,6 +48,7 @@ export default function ResourcesPage() {
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
+        <h1 className="sr-only">Resources</h1>
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <SectionHeading
             title="Resources"

@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { trackEvent } from "@/components/analytics/track";
 import { track } from "@vercel/analytics";
 
 type Submission = {
@@ -718,6 +719,14 @@ export default function ResultsClient({
               e.preventDefault();
               setError(null);
               setSending(true);
+
+              trackEvent("click_request_demo", {
+                from: "results_page",
+                source: "results-cta",
+                runId,
+                submissionId: submission.id,
+              });
+
               try {
                 const res = await fetch("/api/leads", {
                   method: "POST",

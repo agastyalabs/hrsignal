@@ -12,6 +12,7 @@ export default function PrivacyPage() {
       <SiteHeader />
 
       <Section className="pt-10 sm:pt-14">
+        <h1 className="sr-only">Privacy</h1>
         <SectionHeading
           title="Privacy"
           subtitle="A simple, plain-English privacy summary for HRSignal v1."

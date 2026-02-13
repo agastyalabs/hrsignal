@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { useCompare } from "@/lib/compare/useCompare";
 import { clearCompare } from "@/lib/compare/storage";
+import { trackEvent } from "@/components/analytics/track";
 
 type ToolLite = {
   slug: string;
@@ -134,6 +135,9 @@ export function CompareTray() {
             href={href}
             className="inline-flex h-10 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-4 focus:ring-[var(--ring)]"
             aria-label="Open compare page"
+            onClick={() => {
+              trackEvent("click_compare", { from: "compare_tray", count });
+            }}
           >
             Compare now
           </Link>
