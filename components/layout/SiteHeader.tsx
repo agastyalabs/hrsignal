@@ -175,7 +175,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
       <Container className="flex items-center justify-between gap-4 py-4">
         <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
           <span className="flex items-center gap-3 whitespace-nowrap">
-            <Image src={BRAND.logo} alt={BRAND.name} width={208} height={44} priority className="h-9 w-auto sm:h-10" />
+            <div>HRSignal</div>
             <span className="hidden text-base font-semibold tracking-tight text-[var(--text)] sm:inline">{BRAND.name}</span>
           </span>
         </Link>
