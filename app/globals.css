@@ -38,15 +38,30 @@
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--text);
-  /* Prefer SF Pro on Apple platforms; fall back to Inter (Next.js) elsewhere. */
+
+  /* Prefer SF Pro on Apple platforms; fall back to Next.js fonts elsewhere. */
   --font-sans: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Inter", var(--font-inter);
+  --font-display: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Sora", var(--font-sora);
 }
 
 /* Palette is locked for launch (dark UI). */
 
 /* Global typography defaults (classes can override locally). */
 :where(h1, h2, h3, h4) {
-  font-weight: 900;
+  font-family: var(--font-display), var(--font-sans), ui-sans-serif, system-ui;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Match requested baseline sizes */
+:where(h1) {
+  font-size: 2.25rem; /* Tailwind text-4xl */
+  line-height: 2.5rem;
+}
+
+:where(p) {
+  font-size: 1rem; /* Tailwind text-base */
+  line-height: 1.625rem;
 }
 
 body {

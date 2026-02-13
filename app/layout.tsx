@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { FloatingShortlistCta } from "@/components/marketing/FloatingShortlistCta";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
 });
 
@@ -65,7 +70,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" data-theme="dark">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} ${sora.variable} antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
