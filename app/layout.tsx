@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     "Get explainable recommendations for HRMS, payroll & compliance, attendance, ATS, and performance tools. Shortlist fast and request pricing/demos without vendor spam.",
   icons: {
     icon: [
+      { url: "/assets/logos/hrsignal-favicon.svg", type: "image/svg+xml" },
       { url: "/favicon/favicon.ico" },
       { url: "/favicon/icon-32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon/icon-48.png", sizes: "48x48", type: "image/png" },
