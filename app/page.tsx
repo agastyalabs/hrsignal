@@ -19,7 +19,7 @@ export default async function Home() {
 
       {/* 1) Hero + decision snapshot */}
       <HomeSection className="pt-10 sm:pt-14">
-        <div className="rounded-[1.2rem] border border-[var(--border-soft)] bg-[var(--surface-1)]">
+        <div className="bg-node-pattern rounded-[1.2rem] border border-[var(--border-soft)]">
           <div className="grid grid-cols-1 gap-8 p-5 sm:p-8 lg:grid-cols-12 lg:gap-10 lg:p-10">
             <div className="lg:col-span-7">
               <div className="text-xs font-semibold tracking-[0.12em] text-[var(--text-muted)]">DECISION INTELLIGENCE FOR INDIA HR SOFTWARE</div>

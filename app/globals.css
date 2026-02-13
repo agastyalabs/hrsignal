@@ -7,10 +7,10 @@
   --bg: #000000;
 
   /* Depth layers */
-  --surface-1: rgba(255, 255, 255, 0.04); /* cards */
-  --surface-2: rgba(255, 255, 255, 0.07); /* raised/sticky */
+  --surface-1: #1F2937; /* cards */
+  --surface-2: #111827; /* raised/sticky */
   --surface-3: rgba(255, 255, 255, 0.10); /* popover / emphasis */
-  --header-bg: rgba(0, 0, 0, 0.78);
+  --header-bg: #000000;
 
   /* Links */
   --link: #1D4ED8;
@@ -24,8 +24,8 @@
   /* Text + borders */
   --text: #FFFFFF;
   --text-muted: rgba(255, 255, 255, 0.72);
-  --border: rgba(255, 255, 255, 0.11);
-  --border-soft: rgba(255, 255, 255, 0.08);
+  --border: rgba(16, 185, 129, 0.28);
+  --border-soft: rgba(16, 185, 129, 0.18);
 
   /* Focus */
   --ring: rgba(29, 78, 216, 0.55);
@@ -158,8 +158,20 @@ textarea.input {
 }
 .u-card-hover:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: var(--glow);
+  border-color: rgba(16, 185, 129, 0.34);
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.18), 0 18px 52px rgba(0, 0, 0, 0.55);
+}
+
+/* AI-ish node pattern (subtle) */
+.bg-node-pattern {
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(16, 185, 129, 0.14) 1px, transparent 1.2px),
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 1.2px),
+    radial-gradient(900px 560px at 18% -10%, rgba(29, 78, 216, 0.14), transparent 60%),
+    radial-gradient(720px 520px at 92% 8%, rgba(16, 185, 129, 0.12), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 26%);
+  background-size: 24px 24px, 48px 48px, auto, auto, auto;
+  background-position: 0 0, 6px 10px, center, center, center;
 }
 
 /* Theme switching removed for launch: single locked dark theme. */

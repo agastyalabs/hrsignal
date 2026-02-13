@@ -11,7 +11,7 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-[var(--primary)] text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] hover:bg-[var(--primary-hover)] hover:-translate-y-0.5 hover:shadow-[0_16px_48px_rgba(124,77,255,0.18)] active:translate-y-0 active:shadow-[0_10px_30px_rgba(0,0,0,0.22)] disabled:bg-[rgba(255,255,255,0.10)] disabled:text-[rgba(247,249,255,0.55)]",
+    "bg-[var(--primary)] text-white shadow-[0_10px_30px_rgba(0,0,0,0.22)] hover:bg-[var(--primary-hover)] hover:-translate-y-0.5 hover:shadow-[0_0_16px_rgba(16,185,129,0.35),0_16px_48px_rgba(0,0,0,0.30)] active:translate-y-0 active:shadow-[0_10px_30px_rgba(0,0,0,0.22)] disabled:bg-[rgba(255,255,255,0.10)] disabled:text-[rgba(247,249,255,0.55)]",
   secondary:
     "border border-[var(--border)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.18)] hover:shadow-[0_14px_40px_rgba(0,0,0,0.30)] active:translate-y-0 disabled:text-[var(--text-muted)]",
   tertiary:
