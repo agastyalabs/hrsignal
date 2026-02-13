@@ -175,13 +175,14 @@ function HeaderInner({ pathname }: { pathname: string }) {
         <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
           <span className="flex items-center whitespace-nowrap">
             <Image
-              src="/assets/logos/hrsignal-logo-option-2.svg"
+              src="/assets/logos/hrsignal-logo-v2b.svg"
               alt="HRSignal AI - India HR Recommendations"
               width={180}
               height={40}
               priority
               sizes="(max-width: 640px) 140px, 180px"
               className="h-8 w-auto sm:h-9"
+              style={{ boxShadow: "0 0 10px rgba(16,185,129,0.5)" }}
             />
           </span>
         </Link>
