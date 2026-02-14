@@ -40,6 +40,27 @@ export default async function Home() {
 
               <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start lg:justify-start">
                 <div className="flex w-full flex-col gap-3 sm:w-auto">
+                  {/* Inline email CTA (above fold) */}
+                  <form action="/recommend" method="get" className="flex w-full flex-col gap-3 sm:flex-row">
+                    <input type="hidden" name="source" value="hero_email" />
+                    <input
+                      className="h-12 w-full rounded-[var(--radius-sm)] border border-[rgba(16,185,129,0.35)] bg-[rgba(2,6,23,0.55)] px-4 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] shadow-[0_18px_60px_rgba(16,185,129,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(16,185,129,0.55)] sm:min-w-[320px]"
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="Work email (we'll send the shortlist)"
+                      autoComplete="email"
+                      aria-label="Work email"
+                    />
+                    <button
+                      type="submit"
+                      className="inline-flex h-12 w-full items-center justify-center rounded-[var(--radius-sm)] bg-emerald-500 px-5 text-sm font-semibold text-slate-950 shadow-[0_18px_60px_rgba(16,185,129,0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-emerald-400 hover:shadow-[0_22px_70px_rgba(16,185,129,0.32)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 sm:w-auto"
+                    >
+                      Get shortlist
+                    </button>
+                  </form>
+
+                  {/* Keep existing CTA */}
                   <TrackedButtonLink
                     event="primary_cta_click"
                     href="/recommend"
