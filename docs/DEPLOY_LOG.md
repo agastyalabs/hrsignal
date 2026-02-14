@@ -14,6 +14,18 @@
 
 This file tracks production deployments for UX plan work.
 
+## 2026-02-14
+
+- **Deployment URL:** https://hrsignal.vercel.app
+- **Resolved production deployment (Vercel):** https://hrsignal-ln5m5q9mf-agastyalabs-projects.vercel.app
+
+### Final launch redeploy (forced no build cache)
+
+- **Action:** Purged Vercel CDN + data cache; forced redeploy with `VERCEL_FORCE_NO_BUILD_CACHE=1`.
+- **Command:** `vercel deploy --prod --yes --force -b VERCEL_FORCE_NO_BUILD_CACHE=1`
+- **Notes:** HTML is served with `cache-control: private, no-cache, no-store` and `x-vercel-cache: MISS` (verified via curl).
+- **Audit limitation:** Lighthouse + responsive overlap checks require a real Chromium/Chrome binary; this environment does not have one installed.
+
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
