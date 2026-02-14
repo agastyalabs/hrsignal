@@ -30,14 +30,14 @@
 
   color-scheme: dark;
 
-  /* Single, locked theme (dark) — Steve/Elon palette */
-  --bg: #000000;
+  /* Single, locked theme (dark) — architect spec */
+  --bg: #0f172a;
 
-  /* Depth layers */
-  --surface-1: rgba(255, 255, 255, 0.04); /* cards */
-  --surface-2: rgba(255, 255, 255, 0.07); /* raised/sticky */
-  --surface-3: rgba(255, 255, 255, 0.10); /* popover / emphasis */
-  --header-bg: rgba(0, 0, 0, 0.78);
+  /* Depth layers (cards are solid, not glass) */
+  --surface-1: #1e293b; /* cards */
+  --surface-2: rgba(30, 41, 59, 0.88); /* raised/sticky */
+  --surface-3: rgba(30, 41, 59, 0.96); /* popover / emphasis */
+  --header-bg: rgba(15, 23, 42, 0.78);
 
   /* Brand */
   --blue: #1D4ED8;
@@ -54,17 +54,17 @@
   --accent-hover: #0EA371;
 
   /* Text + borders */
-  --text: #FFFFFF;
-  --text-muted: rgba(255, 255, 255, 0.72);
-  --border: rgba(255, 255, 255, 0.11);
-  --border-soft: rgba(255, 255, 255, 0.08);
+  --text: #f8fafc;
+  --text-muted: rgba(248, 250, 252, 0.76);
+  --border: rgba(148, 163, 184, 0.26);
+  --border-soft: rgba(148, 163, 184, 0.18);
 
   /* Focus */
   --ring: rgba(29, 78, 216, 0.55);
 
-  /* Neural background dots (very faint) */
-  --neural-dot: rgba(16, 185, 129, 0.08);
-  --neural-dot-soft: rgba(16, 185, 129, 0.05);
+  /* Neural background dots (spec: emerald 0.05, 20px) */
+  --neural-dot: rgba(16, 185, 129, 0.05);
+  --neural-dot-soft: rgba(16, 185, 129, 0.035);
 
   /* Back-compat aliases (avoid breaking older usage) */
   --background: var(--bg);
@@ -93,18 +93,18 @@
 
 /* Faint neural-dot pattern (optional utility on sections) */
 .bg-neural-dots {
-  background-image: radial-gradient(circle at 1px 1px, var(--neural-dot) 1px, transparent 0);
-  background-size: 22px 22px;
+  background-image: radial-gradient(circle at 1px 1px, var(--neural-dot) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 body {
-  /* Base: subtle dark gradient + faint neural dots */
+  /* Base: slate bg + faint emerald neural dots + subtle brand gradients */
   background:
-    radial-gradient(circle at 1px 1px, var(--neural-dot-soft) 1px, transparent 1.4px),
-    radial-gradient(1100px 720px at 18% -14%, rgba(29, 78, 216, 0.10), transparent 62%),
-    radial-gradient(900px 680px at 92% 6%, rgba(16, 185, 129, 0.10), transparent 62%),
-    linear-gradient(to bottom, #000000, #0f172a);
-  background-size: 22px 22px, auto, auto, auto;
+    radial-gradient(circle at 1px 1px, var(--neural-dot-soft) 1px, transparent 1px),
+    radial-gradient(900px 600px at 18% -14%, rgba(29, 78, 216, 0.10), transparent 62%),
+    radial-gradient(800px 600px at 92% 6%, rgba(16, 185, 129, 0.10), transparent 62%),
+    var(--bg);
+  background-size: 20px 20px, auto, auto, auto;
   background-position: 0 0, center, center, center;
 
   color: var(--text);
@@ -217,7 +217,7 @@ textarea.input {
 }
 .u-card-hover:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.16);
+  border-color: var(--green);
   box-shadow: var(--glow);
 }
 

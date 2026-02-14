@@ -36,10 +36,11 @@ export default {
         glowBlue: "0 18px 52px rgba(29,78,216,0.16)",
       },
       backgroundImage: {
-        "neural-dots": "radial-gradient(circle at 1px 1px, rgba(16,185,129,0.08) 1px, transparent 0)",
+        // Spec: radial-gradient emerald 1px, transparent 1px, size 20px, opacity 0.05
+        "neural-dots": "radial-gradient(circle at 1px 1px, rgba(16,185,129,0.05) 1px, transparent 1px)",
       },
       backgroundSize: {
-        "neural-dots": "22px 22px",
+        "neural-dots": "20px 20px",
       },
       fontSize: {
         h1: ["52px", { lineHeight: "1.1" }],
