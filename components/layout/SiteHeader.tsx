@@ -49,7 +49,7 @@ function NavLink({
 function MenuGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="px-3 py-2 text-xs font-semibold tracking-wide text-[var(--text-muted)]">{title}</div>
+      <div className="px-3 py-2 text-xs font-semibold tracking-wide text-slate-300/80">{title}</div>
       <div className="space-y-1">{children}</div>
     </div>
   );
@@ -68,7 +68,7 @@ function MenuLink({
     <Link
       href={href}
       onClick={onClick}
-      className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      className="block rounded-md px-3 py-2 text-sm leading-5 text-slate-200/90 transition-colors duration-150 hover:bg-slate-800/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
       role="menuitem"
     >
       {label}
@@ -215,13 +215,13 @@ function HeaderInner({ pathname }: { pathname: string }) {
             {openMenu === "categories" ? (
               <div
                 ref={categoriesMenuRef}
-                className="absolute left-1/2 mt-2 w-72 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200"
+                className="absolute left-1/2 z-50 mt-2 w-72 -translate-x-1/2 rounded-[var(--radius-lg)] border border-slate-700 bg-slate-900/95 p-2 shadow-2xl backdrop-blur-md transition-all duration-200"
                 role="menu"
               >
                 <MenuGroup title="Browse categories">
                   <MenuLink href="/categories" label="View all categories" onClick={() => setOpenMenu(null)} />
                 </MenuGroup>
-                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
+                <div className="my-2 h-px w-full bg-slate-700/70" />
                 <MenuGroup title="Popular categories">
                   <MenuLink href="/categories/payroll-india" label="Payroll & compliance" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/categories/hrms" label="HRMS / Core HR" onClick={() => setOpenMenu(null)} />
@@ -247,7 +247,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
             {openMenu === "resources" ? (
               <div
                 ref={resourcesMenuRef}
-                className="absolute left-1/2 mt-2 w-80 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200"
+                className="absolute left-1/2 z-50 mt-2 min-w-64 w-[22rem] -translate-x-1/2 rounded-[var(--radius-lg)] border border-slate-700 bg-slate-900/95 p-2 shadow-2xl backdrop-blur-md transition-all duration-200"
                 role="menu"
               >
                 <MenuGroup title="Buyer guides">
@@ -256,7 +256,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   <MenuLink href="/categories/payroll-india" label="Payroll India guide" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/best-payroll-software-small-business-india" label="Best payroll software (SMBs)" onClick={() => setOpenMenu(null)} />
                 </MenuGroup>
-                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
+                <div className="my-2 h-px w-full bg-slate-700/70" />
                 <MenuGroup title="Compliance guides">
                   <MenuLink href="/compliance" label="Compliance Guides" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/compliance/pf-compliance-guide" label="PF Guide" onClick={() => setOpenMenu(null)} />
@@ -264,7 +264,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   <MenuLink href="/compliance/pt-multi-state-guide" label="PT Multi-State" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/compliance/tds-payroll-guide" label="TDS Guide" onClick={() => setOpenMenu(null)} />
                 </MenuGroup>
-                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
+                <div className="my-2 h-px w-full bg-slate-700/70" />
                 <MenuGroup title="Checklists & tools">
                   <MenuLink href="/india-payroll-risk-checklist" label="India payroll risk checklist" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/payroll-risk-scanner" label="Payroll risk scanner" onClick={() => setOpenMenu(null)} />
