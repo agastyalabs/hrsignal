@@ -93,7 +93,9 @@ export default async function Home() {
             </div>
 
             <div className="lg:col-span-5">
-              <DecisionSnapshotCard />
+              <div className="mx-auto max-w-md">
+                <DecisionSnapshotCard />
+              </div>
             </div>
           </div>
         </div>
@@ -117,7 +119,7 @@ export default async function Home() {
                 key={m.label}
                 className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5"
               >
-                <div className="text-5xl font-extrabold tracking-tight text-[var(--text)] sm:text-6xl">{m.value}</div>
+                <div className="text-5xl font-extrabold tracking-tight text-emerald-200 sm:text-6xl" style={{ textShadow: "0 0 16px rgba(16,185,129,0.25)" }}>{m.value}</div>
                 <div className="mt-2 text-xs font-semibold text-[var(--text-muted)]">{m.label}</div>
               </div>
             ))}
@@ -206,7 +208,7 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {COMPLIANCE_GUIDES.map((g) => (
               <Link
                 key={g.slug}
@@ -215,7 +217,7 @@ export default async function Home() {
               >
                 <div className="text-sm font-semibold text-[var(--text)]">{g.title}</div>
                 <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{g.description}</div>
-                <div className="mt-4 text-sm font-semibold text-emerald-200 group-hover:text-emerald-100">Read →</div>
+                <div className="mt-4 text-sm font-semibold text-emerald-200 transition-all duration-200 group-hover:text-emerald-100 group-hover:[text-shadow:0_0_18px_rgba(16,185,129,0.35)]">Read →</div>
               </Link>
             ))}
           </div>
@@ -685,7 +687,7 @@ function DecisionSnapshotCard() {
 
       <div className="mt-5 flex items-end justify-between gap-3">
         <div className="text-sm font-medium text-[var(--text-muted)]">Fit score</div>
-        <div className="text-5xl font-extrabold tracking-tight text-emerald-200 sm:text-6xl" style={{ textShadow: "0 0 18px rgba(16,185,129,0.35)" }}>92 / 100</div>
+        <div className="text-5xl font-extrabold tracking-tight text-emerald-400 sm:text-6xl" style={{ textShadow: "0 0 22px rgba(16,185,129,0.55)" }}>92 / 100</div>
       </div>
 
       <div className="mt-6 space-y-3 text-sm leading-7 text-[var(--text-muted)]">
