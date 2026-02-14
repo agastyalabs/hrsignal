@@ -25,9 +25,8 @@ export function SiteFooter() {
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {/* Column 1 */}
             <div>
-              <div className="flex items-center gap-2">
-                <Image src={BRAND.logo} alt={BRAND.name} width={150} height={28} className="h-6 w-auto" />
-                <div className="text-base font-semibold text-[var(--text)]">{BRAND.name}</div>
+              <div className="flex items-center gap-3">
+                <Image src="/brand-kit/logo.svg" alt={BRAND.name} width={160} height={32} className="h-8 w-auto" />
               </div>
               <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">
                 India-first HR software discovery for SMEs — compare tools, get explainable recommendations, and request demos without vendor spam.
