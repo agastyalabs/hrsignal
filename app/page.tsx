@@ -40,6 +40,26 @@ export default async function Home() {
 
               <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start lg:justify-start">
                 <div className="flex w-full flex-col gap-3 sm:w-auto">
+                  {/* Above-fold inline email CTA */}
+                  <form action="/recommend" method="get" className="flex w-full flex-col gap-3 sm:flex-row">
+                    <input type="hidden" name="source" value="hero_email" />
+                    <input
+                      className="h-12 w-full rounded-[var(--radius-sm)] border border-[rgba(16,185,129,0.35)] bg-[rgba(2,6,23,0.55)] px-4 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] shadow-[0_18px_60px_rgba(16,185,129,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(16,185,129,0.55)] sm:min-w-[320px]"
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="Work email (we'll send the shortlist)"
+                      autoComplete="email"
+                      aria-label="Work email"
+                    />
+                    <button
+                      type="submit"
+                      className="inline-flex h-12 w-full items-center justify-center rounded-[var(--radius-sm)] bg-emerald-500 px-5 text-sm font-semibold text-slate-950 shadow-md transition-all duration-200 hover:shadow-lg hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 sm:w-auto"
+                    >
+                      Get shortlist
+                    </button>
+                  </form>
+
                   <TrackedButtonLink
                     event="primary_cta_click"
                     href="/recommend"
@@ -180,7 +200,7 @@ export default async function Home() {
             </div>
             <Link
               href="/compliance"
-              className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+              className="text-sm font-semibold text-emerald-200 underline decoration-[rgba(16,185,129,0.30)] underline-offset-4 hover:text-emerald-100 hover:decoration-[rgba(16,185,129,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
             >
               View all guides →
             </Link>
@@ -195,7 +215,7 @@ export default async function Home() {
               >
                 <div className="text-sm font-semibold text-[var(--text)]">{g.title}</div>
                 <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{g.description}</div>
-                <div className="mt-4 text-sm font-semibold text-[var(--link)] group-hover:text-[var(--link-hover)]">Read →</div>
+                <div className="mt-4 text-sm font-semibold text-emerald-200 group-hover:text-emerald-100">Read →</div>
               </Link>
             ))}
           </div>
@@ -659,13 +679,13 @@ function StepCardV5({ icon, title, body }: { icon: string; title: string; body: 
 
 function DecisionSnapshotCard() {
   return (
-    <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-6">
+    <div className="rounded-[var(--radius-lg)] border border-[rgba(148,163,184,0.22)] bg-[rgba(15,23,42,0.78)] p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-500/70 hover:shadow-lg">
       <div className="text-xs font-medium tracking-wide text-[var(--text-muted)]">Decision snapshot · India payroll context</div>
       <div className="mt-2 text-base font-medium text-[var(--text)]">Payroll &amp; Compliance shortlist preview</div>
 
       <div className="mt-5 flex items-end justify-between gap-3">
         <div className="text-sm font-medium text-[var(--text-muted)]">Fit score</div>
-        <div className="text-5xl font-extrabold tracking-tight text-[var(--text)] sm:text-6xl">92 / 100</div>
+        <div className="text-5xl font-extrabold tracking-tight text-emerald-200 sm:text-6xl" style={{ textShadow: "0 0 18px rgba(16,185,129,0.35)" }}>92 / 100</div>
       </div>
 
       <div className="mt-6 space-y-3 text-sm leading-7 text-[var(--text-muted)]">
