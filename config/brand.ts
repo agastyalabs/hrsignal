@@ -1,9 +1,9 @@
 export const BRAND = {
   name: "HRSignal",
 
-  // Active logo (glowing neural v5)
+  // Active logo (glowing neural v6)
   // Files live in /public/assets/logos/*
-  logo: "/assets/logos/hrsignal-logo-glow.svg",
-  logoDark: "/assets/logos/hrsignal-logo-glow.svg",
-  mark: "/assets/logos/favicon-glow.svg",
+  logo: "/assets/logos/hrsignal-logo-v6.svg?v=6",
+  logoDark: "/assets/logos/hrsignal-logo-v6.svg?v=6",
+  mark: "/assets/logos/favicon-v6.svg?v=6",
 } as const;

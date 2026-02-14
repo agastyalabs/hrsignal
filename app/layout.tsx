@@ -54,7 +54,7 @@ export default function RootLayout({
     "@type": "Organization",
     name: "HRSignal",
     url: "https://hrsignal.vercel.app",
-    logo: "https://hrsignal.vercel.app/assets/logos/hrsignal-logo-glow.svg",
+    logo: "https://hrsignal.vercel.app/assets/logos/hrsignal-logo-v6.svg?v=6",
     sameAs: [],
     contactPoint: [
       {
