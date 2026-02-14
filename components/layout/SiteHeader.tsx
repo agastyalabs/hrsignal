@@ -88,6 +88,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
       resources:
         is("/resources") ||
         is("/methodology") ||
+        is("/compliance") ||
         pathname === "/india-payroll-risk-checklist" ||
         pathname === "/payroll-risk-scanner" ||
         pathname === "/hrms-fit-score",
@@ -256,6 +257,14 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   <MenuLink href="/best-payroll-software-small-business-india" label="Best payroll software (SMBs)" onClick={() => setOpenMenu(null)} />
                 </MenuGroup>
                 <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
+                <MenuGroup title="Compliance guides">
+                  <MenuLink href="/compliance" label="Compliance Guides" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/compliance/pf-compliance-guide" label="PF Guide" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/compliance/esi-complete-guide" label="ESI Guide" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/compliance/pt-multi-state-guide" label="PT Multi-State" onClick={() => setOpenMenu(null)} />
+                  <MenuLink href="/compliance/tds-payroll-guide" label="TDS Guide" onClick={() => setOpenMenu(null)} />
+                </MenuGroup>
+                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
                 <MenuGroup title="Checklists & tools">
                   <MenuLink href="/india-payroll-risk-checklist" label="India payroll risk checklist" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/payroll-risk-scanner" label="Payroll risk scanner" onClick={() => setOpenMenu(null)} />
@@ -374,6 +383,13 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   <div className="mt-3 space-y-1">
                     <MenuLink href="/resources" label="Resources" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/methodology" label="Methodology" onClick={() => setMobileOpen(false)} />
+                    <MenuLink href="/compliance" label="Compliance Guides" onClick={() => setMobileOpen(false)} />
+                    <div className="mt-2 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-2">
+                      <MenuLink href="/compliance/pf-compliance-guide" label="PF Guide" onClick={() => setMobileOpen(false)} />
+                      <MenuLink href="/compliance/esi-complete-guide" label="ESI Guide" onClick={() => setMobileOpen(false)} />
+                      <MenuLink href="/compliance/pt-multi-state-guide" label="PT Multi-State" onClick={() => setMobileOpen(false)} />
+                      <MenuLink href="/compliance/tds-payroll-guide" label="TDS Guide" onClick={() => setMobileOpen(false)} />
+                    </div>
                   </div>
                 </details>
 

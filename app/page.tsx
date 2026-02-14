@@ -7,10 +7,14 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ButtonLink } from "@/components/ui/Button";
 import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { HomeSection } from "@/components/marketing/HomeSection";
+import { StatsBar } from "@/components/marketing/StatsBar";
+import { TrustBadges } from "@/components/marketing/TrustBadges";
+import { TestimonialCard } from "@/components/marketing/TestimonialCard";
 import { TalkToPayrollSpecialistSection } from "@/components/conversion/TalkToPayrollSpecialistSection";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { Card } from "@/components/ui/Card";
 import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
+import { COMPLIANCE_GUIDES } from "@/lib/compliance/guides";
 
 export default async function Home() {
   return (
@@ -107,6 +111,93 @@ export default async function Home() {
                 <div className="text-sm text-[var(--text-muted)]">We show verification recency so you can spot what needs re-checking.</div>
               </div>
             </div>
+          </div>
+        </div>
+      </HomeSection>
+
+      {/* 2.5) Trust signals + social proof */}
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <StatsBar
+              items={[
+                { label: "HR leaders", value: 200, suffix: "+", detail: "Using HRSignal checklists + scoring" },
+                { label: "Evidence links", value: 120, suffix: "+", detail: "Docs, pricing pages, compliance notes" },
+                { label: "India-ready listings", value: 25, suffix: "+", detail: "Verified/updated recency shown" },
+                { label: "Categories", value: 8, detail: "Payroll, HRMS, ATS, more" },
+              ]}
+              title="Trusted by 200+ HR leaders"
+              subtitle="Social proof + verification signals (v1)."
+            />
+          </div>
+          <div className="lg:col-span-5">
+            <TrustBadges
+              badges={[
+                { title: "SOC 2", subtitle: "Security posture", tone: "security" },
+                { title: "GDPR-ready", subtitle: "Privacy-by-design", tone: "privacy" },
+                { title: "Evidence links", subtitle: "Verify claims", tone: "process" },
+                { title: "No paid ranking", subtitle: "Buyer-first", tone: "neutral" },
+              ]}
+            />
+          </div>
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <TestimonialCard
+            t={{
+              quote: "The shortlist reasons + demo checklist helped us catch PT/PT slab edge cases early.",
+              name: "HR Ops Lead",
+              title: "Payroll transformation",
+              company: "India mid-market",
+            }}
+          />
+          <TestimonialCard
+            t={{
+              quote: "The ‘verified vs validate’ framing made vendor demos way more productive.",
+              name: "Head of HR",
+              title: "People & compliance",
+              company: "Multi-state services",
+            }}
+          />
+          <TestimonialCard
+            t={{
+              quote: "Finally a directory that shows evidence links instead of just marketing copy.",
+              name: "Founder",
+              title: "Ops",
+              company: "Growing startup",
+            }}
+          />
+        </div>
+      </HomeSection>
+
+      {/* 2.6) Compliance guides */}
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
+        <div>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-xl font-semibold tracking-tight text-[var(--text)] sm:text-2xl">Compliance Guides</h2>
+              <p className="mt-2 text-sm text-[var(--text-muted)]">PF, ESI, PT multi-state, and TDS — with demo validation checklists.</p>
+            </div>
+            <Link
+              href="/compliance"
+              className="text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+            >
+              View all guides →
+            </Link>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {COMPLIANCE_GUIDES.map((g) => (
+              <Link
+                key={g.slug}
+                href={`/compliance/${g.slug}`}
+                className="group rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+              >
+                <div className="text-sm font-semibold text-[var(--text)]">{g.title}</div>
+                <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{g.description}</div>
+                <div className="mt-4 text-sm font-semibold text-[var(--link)] group-hover:text-[var(--link-hover)]">Read →</div>
+              </Link>
+            ))}
           </div>
         </div>
       </HomeSection>
