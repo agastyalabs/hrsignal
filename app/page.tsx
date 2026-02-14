@@ -5,8 +5,8 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ButtonLink } from "@/components/ui/Button";
-import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { HomeSection } from "@/components/marketing/HomeSection";
+import { DualPathHero } from "@/components/marketing/DualPathHero";
 import { TalkToPayrollSpecialistSection } from "@/components/conversion/TalkToPayrollSpecialistSection";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { Card } from "@/components/ui/Card";
@@ -17,62 +17,9 @@ export default async function Home() {
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <SiteHeader />
 
-      {/* 1) Hero + decision snapshot */}
+      {/* 1) Hero + split CTA flow */}
       <HomeSection className="pt-10 sm:pt-14">
-        <div className="rounded-[1.2rem] border border-[var(--border-soft)] bg-[linear-gradient(to_bottom,#000000,#0f172a)]">
-          <div className="grid grid-cols-1 gap-8 p-5 sm:p-8 lg:grid-cols-12 lg:gap-10 lg:p-10">
-            <div className="lg:col-span-7">
-              <div className="mx-auto text-center text-xs font-semibold tracking-[0.12em] text-[var(--text-muted)] lg:text-left">
-                DECISION INTELLIGENCE FOR INDIA HR SOFTWARE
-              </div>
-
-              <h1 className="mx-auto mt-3 max-w-5xl text-center text-5xl font-extrabold leading-[1.02] tracking-[-0.03em] text-[var(--text)] sm:text-6xl lg:text-left lg:text-7xl">
-                Shortlist India-ready HRMS & Payroll — without month-end surprises.
-              </h1>
-
-              <p className="mx-auto mt-4 max-w-5xl text-center text-base leading-7 text-[var(--text-muted)] lg:text-left">
-                Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
-              </p>
-
-              <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start lg:justify-start">
-                <div className="flex w-full flex-col gap-3 sm:w-auto">
-                  <TrackedButtonLink
-                    event="primary_cta_click"
-                    href="/recommend"
-                    size="lg"
-                    className="w-full justify-center"
-                  >
-                    Get my India-ready shortlist
-                  </TrackedButtonLink>
-
-                  <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-[var(--text-muted)] lg:justify-start">
-                    <span>Takes 60 seconds</span>
-                    <span className="text-[var(--text-muted)]">•</span>
-                    <span>No vendor spam</span>
-                    <span className="text-[var(--text-muted)]">•</span>
-                    <span>No paid ranking</span>
-                  </div>
-                </div>
-
-                <Link
-                  href="/tools?category=payroll"
-                  className="pt-1 text-center text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 transition-all duration-200 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] sm:text-left"
-                >
-                  Browse HRMS & payroll tools →
-                </Link>
-              </div>
-
-              <div className="mx-auto mt-6 max-w-5xl rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3 text-center text-sm leading-6 text-[var(--text-muted)] lg:text-left">
-                Trusted by HR leaders in 20–1000 employee Indian orgs evaluating multi-state compliance risk.
-              </div>
-
-            </div>
-
-            <div className="lg:col-span-5">
-              <DecisionSnapshotCard />
-            </div>
-          </div>
-        </div>
+        <DualPathHero />
       </HomeSection>
 
       {/* 2) HRSignal Coverage Snapshot */}
@@ -566,30 +513,3 @@ function StepCardV5({ icon, title, body }: { icon: string; title: string; body: 
   );
 }
 
-function DecisionSnapshotCard() {
-  return (
-    <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-6">
-      <div className="text-xs font-medium tracking-wide text-[var(--text-muted)]">Decision snapshot · India payroll context</div>
-      <div className="mt-2 text-base font-medium text-[var(--text)]">Payroll &amp; Compliance shortlist preview</div>
-
-      <div className="mt-5 flex items-end justify-between gap-3">
-        <div className="text-sm font-medium text-[var(--text-muted)]">Fit score</div>
-        <div className="text-5xl font-extrabold tracking-tight text-[var(--text)] sm:text-6xl">92 / 100</div>
-      </div>
-
-      <div className="mt-6 space-y-3 text-sm leading-7 text-[var(--text-muted)]">
-        <div>• Matches multi-state payroll + branch complexity</div>
-        <div>• Covers PF / ESI / PT / TDS workflows</div>
-        <div>• Claims backed by evidence links (docs + pricing)</div>
-      </div>
-
-      <div className="mt-5 flex flex-wrap gap-2 text-xs font-medium text-[var(--text-muted)]">
-        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">PEPM</span>
-        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">India-ready</span>
-        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">Evidence-backed</span>
-      </div>
-
-      <div className="mt-5 text-sm leading-7 text-[var(--text-muted)]">Privacy-first. No automatic vendor sharing.</div>
-    </div>
-  );
-}
