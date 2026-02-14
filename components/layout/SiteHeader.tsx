@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -173,9 +174,15 @@ function HeaderInner({ pathname }: { pathname: string }) {
     >
       <Container className="flex items-center justify-between gap-4 py-4">
         <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
-          <span className="flex items-center gap-3 whitespace-nowrap">
-            <div>HRSignal</div>
-            <span className="hidden text-base font-semibold tracking-tight text-[var(--text)] sm:inline">{BRAND.name}</span>
+          <span className="flex items-center gap-3">
+            <Image
+              src="/brand-kit/logo.svg"
+              alt={BRAND.name}
+              width={160}
+              height={32}
+              priority
+              className="h-6 w-auto sm:h-8"
+            />
           </span>
         </Link>
 
