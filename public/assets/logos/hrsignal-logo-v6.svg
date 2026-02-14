@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="140" viewBox="0 0 560 140" role="img" aria-label="HRSignal logo v6 (glowing neural HRS)">
+  <defs>
+    <style>
+      .w{fill:#F8FAFC}
+      .wm{fill:#F8FAFC;opacity:.84}
+      .b{stroke:#1D4ED8}
+      .g{stroke:#10B981}
+      .halo{stroke:#F8FAFC}
+    </style>
+  </defs>
+
+  <!-- Icon: high-contrast glow on dark backgrounds (no filters) -->
+  <g transform="translate(18 14)">
+    <!-- Halo stack (white) -->
+    <circle cx="56" cy="56" r="50" fill="none" class="halo" stroke-width="14" opacity=".06"/>
+    <circle cx="56" cy="56" r="46" fill="none" class="halo" stroke-width="8" opacity=".10"/>
+    <circle cx="56" cy="56" r="42" fill="none" class="halo" stroke-width="4" opacity=".14"/>
+
+    <!-- Outer neural ring -->
+    <circle cx="56" cy="56" r="38" fill="none" class="b" stroke-width="4" opacity=".42"/>
+
+    <!-- Synapse spokes -->
+    <g fill="none" stroke-linecap="round" stroke-width="4" opacity=".98">
+      <path class="b" d="M56 18V32"/>
+      <path class="b" d="M56 80v14"/>
+      <path class="g" d="M18 56h14"/>
+      <path class="g" d="M80 56h14"/>
+      <path class="b" d="M30 30l10 10" opacity=".92"/>
+      <path class="b" d="M72 72l10 10" opacity=".92"/>
+      <path class="g" d="M82 30L72 40" opacity=".90"/>
+      <path class="g" d="M40 72L30 82" opacity=".90"/>
+    </g>
+
+    <!-- Nodes -->
+    <g>
+      <circle cx="56" cy="18" r="4" fill="#10B981"/>
+      <circle cx="56" cy="94" r="4" fill="#10B981"/>
+      <circle cx="18" cy="56" r="4" fill="#1D4ED8"/>
+      <circle cx="94" cy="56" r="4" fill="#1D4ED8"/>
+      <circle cx="30" cy="30" r="3.5" fill="#10B981"/>
+      <circle cx="82" cy="30" r="3.5" fill="#10B981"/>
+      <circle cx="30" cy="82" r="3.5" fill="#10B981"/>
+      <circle cx="82" cy="82" r="3.5" fill="#10B981"/>
+    </g>
+
+    <!-- Core rings (blue core + green pulse) -->
+    <circle cx="56" cy="56" r="22" fill="none" class="b" stroke-width="9" opacity=".98"/>
+    <circle cx="56" cy="56" r="14" fill="none" class="g" stroke-width="6" opacity=".94"/>
+
+    <!-- Pulse arcs -->
+    <path d="M79 41c10 10 13 18 13 15s-3 11-13 20" fill="none" class="g" stroke-width="5" stroke-linecap="round" opacity=".58"/>
+    <path d="M33 39c-9 9-12 18-12 17s3 12 12 22" fill="none" class="g" stroke-width="5" stroke-linecap="round" opacity=".22"/>
+
+    <!-- HRS glyph -->
+    <g fill="none" class="halo" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".98">
+      <!-- H -->
+      <path d="M41 48v16M41 56h9M50 48v16"/>
+      <!-- R -->
+      <path d="M55 64V48h7c4 0 7 2 7 5 0 3-2 5-5 6l5 6"/>
+      <!-- S -->
+      <path d="M36 46c-4-3-9-1-9 2 0 6 13 2 13 9 0 5-7 6-11 3"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <g transform="translate(140 44)">
+    <text x="0" y="36" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="42" font-weight="900" letter-spacing="-0.6" class="w">HRSignal</text>
+    <text x="0" y="62" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" font-weight="600" class="wm">Evidence • Freshness • Compliance context</text>
+  </g>
+</svg>
