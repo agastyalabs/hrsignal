@@ -124,7 +124,18 @@ export default async function ComplianceGuidePage({ params }: { params: Promise<
             <aside className="lg:col-span-3">
               <div className="sticky top-20 space-y-4">
                 <Card className="p-5">
-                  <div className="text-sm font-semibold text-[var(--text)]">Table of contents</div>
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-sm font-semibold text-[var(--text)]">Table of contents</div>
+                    {slug === "pf-compliance-guide" ? (
+                      <Link
+                        href="/compliance"
+                        className="text-xs font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                      >
+                        View all guides
+                      </Link>
+                    ) : null}
+                  </div>
+
                   <div className="mt-3 space-y-2">
                     {toc.length ? (
                       toc.map((t) => (

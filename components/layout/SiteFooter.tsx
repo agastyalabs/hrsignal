@@ -81,6 +81,24 @@ export function SiteFooter() {
                 </div>
 
                 <div>
+                  <div className="text-xs font-semibold tracking-wide text-[var(--text-muted)]">Compliance guides</div>
+                  <ul className="mt-2 space-y-2">
+                    <li>
+                      <FooterLink href="/compliance/pf-compliance-guide" label="PF Guide" />
+                    </li>
+                    <li>
+                      <FooterLink href="/compliance/esi-complete-guide" label="ESI Guide" />
+                    </li>
+                    <li>
+                      <FooterLink href="/compliance/pt-multi-state-guide" label="PT Multi-State" />
+                    </li>
+                    <li>
+                      <FooterLink href="/compliance/tds-payroll-guide" label="TDS Guide" />
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
                   <div className="text-xs font-semibold tracking-wide text-[var(--text-muted)]">Checklists & tools</div>
                   <ul className="mt-2 space-y-2">
                     <li>
