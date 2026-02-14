@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="140" viewBox="0 0 560 140" role="img" aria-label="HRSignal logo">
+  <!-- Simple full logo: emerald signal icon + HRSignal wordmark -->
+
+  <!-- Icon -->
+  <g transform="translate(22 36)" fill="none" stroke="#10B981" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M32 34v14" stroke-width="4"/>
+    <path d="M24 50h16" stroke-width="4"/>
+    <path d="M24 30c4-4 12-4 16 0" stroke-width="4" opacity="0.95"/>
+    <path d="M18 24c7-7 21-7 28 0" stroke-width="4" opacity="0.65"/>
+    <path d="M12 18c10-10 30-10 40 0" stroke-width="4" opacity="0.45"/>
+    <circle cx="32" cy="30" r="3" fill="#10B981" stroke="none"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="104" y="86"
+        font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+        font-size="54" font-weight="900" letter-spacing="-0.6"
+        fill="#FFFFFF">HRSignal</text>
+</svg>

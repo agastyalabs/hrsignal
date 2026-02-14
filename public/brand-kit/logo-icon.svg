@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="HRSignal icon">
+  <!-- Simple signal icon (emerald-500) on transparent background -->
+  <g fill="none" stroke="#10B981" stroke-linecap="round" stroke-linejoin="round">
+    <!-- antenna mast -->
+    <path d="M32 34v14" stroke-width="4"/>
+    <!-- base -->
+    <path d="M24 50h16" stroke-width="4"/>
+    <!-- signal waves -->
+    <path d="M24 30c4-4 12-4 16 0" stroke-width="4" opacity="0.95"/>
+    <path d="M18 24c7-7 21-7 28 0" stroke-width="4" opacity="0.65"/>
+    <path d="M12 18c10-10 30-10 40 0" stroke-width="4" opacity="0.45"/>
+    <!-- node -->
+    <circle cx="32" cy="30" r="3" fill="#10B981" stroke="none"/>
+  </g>
+</svg>
