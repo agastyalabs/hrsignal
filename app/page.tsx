@@ -22,19 +22,19 @@ export default async function Home() {
       <SiteHeader />
 
       {/* 1) Hero + decision snapshot */}
-      <HomeSection className="pt-10 sm:pt-14">
-        <div className="mx-auto max-w-5xl rounded-[1.2rem] border border-[var(--border-soft)] bg-gradient-to-b from-slate-900 to-slate-950">
-          <div className="grid grid-cols-1 gap-8 p-5 sm:p-8 lg:grid-cols-12 lg:gap-10 lg:p-10">
+      <HomeSection className="pt-24">
+        <div className="mx-auto max-w-6xl rounded-[1.2rem] border border-[var(--border-soft)] bg-[linear-gradient(to_bottom,#0f172a,#020617)]">
+          <div className="grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-10 lg:p-12">
             <div className="lg:col-span-7">
               <div className="mx-auto text-center text-xs font-semibold tracking-[0.12em] text-[var(--text-muted)] lg:text-left">
                 DECISION INTELLIGENCE FOR INDIA HR SOFTWARE
               </div>
 
-              <h1 className="mx-auto mt-3 max-w-5xl text-center text-5xl font-extrabold leading-[1.02] tracking-[-0.03em] text-[var(--text)] sm:text-6xl lg:text-left lg:text-7xl">
+              <h1 className="mx-auto mt-3 max-w-5xl text-center text-6xl font-bold leading-[1.02] tracking-[-0.03em] text-[var(--text)] lg:text-left">
                 Shortlist India-ready HRMS & Payroll — without month-end surprises.
               </h1>
 
-              <p className="mx-auto mt-4 max-w-5xl text-center text-base leading-7 text-[var(--text-muted)] lg:text-left">
+              <p className="mx-auto mt-4 max-w-5xl text-center text-xl leading-8 text-slate-300 lg:text-left">
                 Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
               </p>
 
@@ -44,7 +44,7 @@ export default async function Home() {
                   <form action="/recommend" method="get" className="flex w-full flex-col gap-3 sm:flex-row">
                     <input type="hidden" name="source" value="hero_email" />
                     <input
-                      className="h-12 w-full rounded-[var(--radius-sm)] border border-[rgba(16,185,129,0.35)] bg-[rgba(2,6,23,0.55)] px-4 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] shadow-[0_18px_60px_rgba(16,185,129,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(16,185,129,0.55)] sm:min-w-[320px]"
+                      className="h-14 w-full rounded-[var(--radius-sm)] border border-[rgba(16,185,129,0.35)] bg-[rgba(2,6,23,0.55)] px-5 text-base text-[var(--text)] placeholder:text-[rgba(148,163,184,0.95)] shadow-[0_18px_60px_rgba(16,185,129,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(16,185,129,0.55)] sm:min-w-[360px]"
                       type="email"
                       name="email"
                       required
@@ -54,7 +54,7 @@ export default async function Home() {
                     />
                     <button
                       type="submit"
-                      className="inline-flex h-12 w-full items-center justify-center rounded-[var(--radius-sm)] bg-emerald-500 px-5 text-sm font-semibold text-slate-950 shadow-md transition-all duration-200 hover:shadow-lg hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 sm:w-auto"
+                      className="inline-flex h-14 w-full items-center justify-center rounded-[var(--radius-sm)] bg-emerald-500 px-8 py-4 text-base font-semibold text-slate-950 shadow-[0_14px_46px_rgba(16,185,129,0.18)] transition-all duration-200 hover:shadow-[0_0_0_1px_rgba(16,185,129,0.25),0_0_18px_rgba(16,185,129,0.35),0_18px_60px_rgba(16,185,129,0.18)] hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 sm:w-auto"
                     >
                       Get shortlist
                     </button>
