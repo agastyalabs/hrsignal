@@ -11,17 +11,16 @@ import { ButtonLink } from "@/components/ui/Button";
 import { useCompare } from "@/lib/compare/useCompare";
 
 function navItemClass(active: boolean) {
-  return `relative rounded-md px-2 py-1 transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] ${
+  return `relative rounded-md px-2 py-1 transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:opacity-0 after:transition-opacity after:duration-200 after:bg-emerald-500 hover:after:opacity-100 ${
     active
-      ? "text-[var(--text)] bg-emerald-500/20"
+      ? "text-[var(--text)] bg-emerald-500/20 after:opacity-100"
       : "text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
   }`;
 }
 
 function activeUnderline(active: boolean) {
-  return active
-    ? "after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:bg-emerald-500"
-    : "";
+  // underline handled in navItemClass (active + hover)
+  return active ? "" : "";
 }
 
 function NavLink({
@@ -179,13 +178,13 @@ function HeaderInner({ pathname }: { pathname: string }) {
             <Image
               src="/assets/logos/hrsignal-logo-v6.svg?v=6"
               alt={BRAND.name}
-              width={180}
-              height={32}
+              width={192}
+              height={192}
               priority
-              className="h-6 w-auto sm:h-8"
+              className="h-12 w-48 sm:h-16"
               style={{
                 filter:
-                  "drop-shadow(0 0 12px rgba(16,185,129,0.35)) drop-shadow(0 10px 34px rgba(16,185,129,0.18))",
+                  "drop-shadow(0 0 18px rgba(16,185,129,0.55)) drop-shadow(0 0 46px rgba(16,185,129,0.22))",
               }}
             />
           </span>
@@ -226,7 +225,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
             {openMenu === "categories" ? (
               <div
                 ref={categoriesMenuRef}
-                className="absolute left-1/2 mt-2 w-72 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200"
+                className="absolute left-1/2 mt-2 w-72 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200 ease-out"
                 role="menu"
               >
                 <MenuGroup title="Browse categories">
@@ -258,7 +257,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
             {openMenu === "resources" ? (
               <div
                 ref={resourcesMenuRef}
-                className="absolute left-1/2 mt-2 w-80 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200"
+                className="absolute left-1/2 mt-2 w-80 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200 ease-out"
                 role="menu"
               >
                 <MenuGroup title="Buyer guides">
