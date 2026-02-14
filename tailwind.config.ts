@@ -13,6 +13,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Sprint token set (DESIGN_SYSTEM.md)
         primary: "#0B5F6F",
         accent: "#D4A574",
         verified: "#22C55E",
@@ -20,12 +21,25 @@ export default {
         neutral: "#64748B",
         light_bg: "#F0F9FA",
 
+        // Runtime UI palette (dark-first)
         brand: {
           blue: "#1D4ED8",
           green: "#10B981",
+          slate: "#0F172A",
           black: "#000000",
           white: "#FFFFFF",
         },
+      },
+      boxShadow: {
+        soft: "0 12px 34px rgba(0,0,0,0.35)",
+        glowGreen: "0 18px 52px rgba(16,185,129,0.18)",
+        glowBlue: "0 18px 52px rgba(29,78,216,0.16)",
+      },
+      backgroundImage: {
+        "neural-dots": "radial-gradient(circle at 1px 1px, rgba(16,185,129,0.08) 1px, transparent 0)",
+      },
+      backgroundSize: {
+        "neural-dots": "22px 22px",
       },
       fontSize: {
         h1: ["52px", { lineHeight: "1.1" }],
