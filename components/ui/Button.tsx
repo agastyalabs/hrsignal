@@ -11,7 +11,7 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-emerald-500 text-slate-950 shadow-[0_14px_46px_rgba(16,185,129,0.18)] hover:bg-emerald-400 hover:shadow-[0_0_0_1px_rgba(16,185,129,0.25),0_0_18px_rgba(16,185,129,0.35),0_18px_60px_rgba(16,185,129,0.18)] hover:scale-[1.02] active:scale-[1.0] disabled:bg-[rgba(255,255,255,0.10)] disabled:text-[rgba(247,249,255,0.55)]",
+    "bg-emerald-500 text-slate-950 shadow-md transition-all duration-200 hover:shadow-lg hover:scale-105 disabled:bg-[rgba(255,255,255,0.10)] disabled:text-[rgba(247,249,255,0.55)]",
   secondary:
     "border border-[var(--border)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.18)] hover:shadow-[0_14px_40px_rgba(0,0,0,0.30)] active:translate-y-0 disabled:text-[var(--text-muted)]",
   tertiary:
@@ -19,10 +19,10 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Size, string> = {
-  // Larger tap targets on mobile; stable heights on desktop.
-  sm: "h-12 px-6 text-sm",
-  md: "h-12 px-6 text-sm",
-  lg: "h-14 px-8 text-base",
+  // Mobile-friendly padding (py-4) and stable sizing.
+  sm: "px-6 py-4 text-sm",
+  md: "px-6 py-4 text-sm",
+  lg: "px-8 py-4 text-base",
 };
 
 export function Button({

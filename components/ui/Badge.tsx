@@ -4,7 +4,7 @@ type Variant = "neutral" | "verified";
 
 const variants: Record<Variant, string> = {
   neutral: "border border-[var(--border)] bg-[var(--surface-2)] text-[var(--text)]",
-  verified: "border border-[rgba(16,185,129,0.35)] bg-[rgba(16,185,129,0.14)] text-emerald-200", 
+  verified: "border border-[rgba(16,185,129,0.30)] bg-emerald-500/20 text-emerald-200",
 };
 
 export function Badge({

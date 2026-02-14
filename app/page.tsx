@@ -23,7 +23,7 @@ export default async function Home() {
 
       {/* 1) Hero + decision snapshot */}
       <HomeSection className="pt-10 sm:pt-14">
-        <div className="rounded-[1.2rem] border border-[var(--border-soft)] bg-[linear-gradient(to_bottom,#000000,#0f172a)]">
+        <div className="mx-auto max-w-5xl rounded-[1.2rem] border border-[var(--border-soft)] bg-gradient-to-b from-slate-900 to-slate-950">
           <div className="grid grid-cols-1 gap-8 p-5 sm:p-8 lg:grid-cols-12 lg:gap-10 lg:p-10">
             <div className="lg:col-span-7">
               <div className="mx-auto text-center text-xs font-semibold tracking-[0.12em] text-[var(--text-muted)] lg:text-left">

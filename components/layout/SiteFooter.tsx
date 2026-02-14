@@ -8,7 +8,7 @@ import { CompareTray } from "@/components/compare/CompareTray";
 function FooterLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
-      className="text-[var(--text-muted)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      className="text-[var(--text-muted)] transition-colors duration-200 hover:text-emerald-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
       href={href}
     >
       {label}

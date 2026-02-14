@@ -12,14 +12,14 @@ import { useCompare } from "@/lib/compare/useCompare";
 function navItemClass(active: boolean) {
   return `relative rounded-md px-2 py-1 transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] ${
     active
-      ? "text-[var(--text)] bg-[rgba(16,185,129,0.20)]"
+      ? "text-[var(--text)] bg-emerald-500/20"
       : "text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
   }`;
 }
 
 function activeUnderline(active: boolean) {
   return active
-    ? "after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:bg-[var(--primary)]"
+    ? "after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:bg-emerald-500"
     : "";
 }
 
