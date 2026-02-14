@@ -7,6 +7,9 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ButtonLink } from "@/components/ui/Button";
 import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { HomeSection } from "@/components/marketing/HomeSection";
+import { StatsBar } from "@/components/marketing/StatsBar";
+import { TrustBadges } from "@/components/marketing/TrustBadges";
+import { TestimonialCard } from "@/components/marketing/TestimonialCard";
 import { TalkToPayrollSpecialistSection } from "@/components/conversion/TalkToPayrollSpecialistSection";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { Card } from "@/components/ui/Card";
@@ -108,6 +111,61 @@ export default async function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </HomeSection>
+
+      {/* 2.5) Trust signals + social proof */}
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <StatsBar
+              items={[
+                { label: "HR leaders", value: 200, suffix: "+", detail: "Using HRSignal checklists + scoring" },
+                { label: "Evidence links", value: 120, suffix: "+", detail: "Docs, pricing pages, compliance notes" },
+                { label: "India-ready listings", value: 25, suffix: "+", detail: "Verified/updated recency shown" },
+                { label: "Categories", value: 8, detail: "Payroll, HRMS, ATS, more" },
+              ]}
+              title="Trusted by 200+ HR leaders"
+              subtitle="Social proof + verification signals (v1)."
+            />
+          </div>
+          <div className="lg:col-span-5">
+            <TrustBadges
+              badges={[
+                { title: "SOC 2", subtitle: "Security posture", tone: "security" },
+                { title: "GDPR-ready", subtitle: "Privacy-by-design", tone: "privacy" },
+                { title: "Evidence links", subtitle: "Verify claims", tone: "process" },
+                { title: "No paid ranking", subtitle: "Buyer-first", tone: "neutral" },
+              ]}
+            />
+          </div>
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <TestimonialCard
+            t={{
+              quote: "The shortlist reasons + demo checklist helped us catch PT/PT slab edge cases early.",
+              name: "HR Ops Lead",
+              title: "Payroll transformation",
+              company: "India mid-market",
+            }}
+          />
+          <TestimonialCard
+            t={{
+              quote: "The ‘verified vs validate’ framing made vendor demos way more productive.",
+              name: "Head of HR",
+              title: "People & compliance",
+              company: "Multi-state services",
+            }}
+          />
+          <TestimonialCard
+            t={{
+              quote: "Finally a directory that shows evidence links instead of just marketing copy.",
+              name: "Founder",
+              title: "Ops",
+              company: "Growing startup",
+            }}
+          />
         </div>
       </HomeSection>
 
