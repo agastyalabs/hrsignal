@@ -26,6 +26,14 @@ This file tracks production deployments for UX plan work.
 - **Notes:** HTML is served with `cache-control: private, no-cache, no-store` and `x-vercel-cache: MISS` (verified via curl).
 - **Audit limitation:** Lighthouse + responsive overlap checks require a real Chromium/Chrome binary; this environment does not have one installed.
 
+### Homepage verification (source-level)
+
+- Hero container includes `mx-auto max-w-5xl` and `text-center` on headline/copy.
+- Hero background uses `bg-gradient-to-b from-slate-900 to-slate-950`.
+- Fade-in / motion markers present as inline styles (`opacity:0; transform: translateY(...)`) on sections/cards.
+- Emerald accents present on primary CTAs (`bg-emerald-500` + glow shadows).
+- Inter font active via `next/font` class on `<body>`.
+
 ## 2026-02-09
 
 - **Deployment URL:** https://hrsignal.vercel.app
