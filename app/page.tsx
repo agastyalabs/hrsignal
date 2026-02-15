@@ -22,10 +22,10 @@ export default async function Home() {
       <SiteHeader />
 
       {/* 1) Hero + decision snapshot */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-24">
+      <HomeSection className="pt-24">
         <div className="mx-auto max-w-6xl rounded-[1.2rem] border border-[var(--border-soft)] bg-[linear-gradient(to_bottom,#0f172a,#020617)]">
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-12">
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoan-7">
+          <div className="grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-10 lg:p-12">
+            <div className="lg:col-span-7">
               <div className="mx-auto text-center text-xs font-semibold tracking-[0.12em] text-[var(--text-muted)] lg:text-left">
                 DECISION INTELLIGENCE FOR INDIA HR SOFTWARE
               </div>
@@ -38,13 +38,13 @@ export default async function Home() {
                 Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
               </p>
 
-              <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 sm:flex-row sm:items-start lg:justify-start">
-                <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-3 sm:w-auto">
+              <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start lg:justify-start">
+                <div className="flex w-full flex-col gap-3 sm:w-auto">
                   {/* Above-fold inline email CTA */}
-                  <form action="/recommend" method="get" className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-3 sm:flex-row">
+                  <form action="/recommend" method="get" className="flex w-full flex-col gap-3 sm:flex-row">
                     <input type="hidden" name="source" value="hero_email" />
                     <input
-                      className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autox]"
+                      className="h-14 w-full rounded-[var(--radius-sm)] border border-[rgba(16,185,129,0.35)] bg-[rgba(2,6,23,0.55)] px-5 text-base text-[var(--text)] placeholder:text-[rgba(148,163,184,0.95)] shadow-[0_18px_60px_rgba(16,185,129,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(16,185,129,0.55)] sm:min-w-[360px]"
                       type="email"
                       name="email"
                       required
@@ -54,7 +54,7 @@ export default async function Home() {
                     />
                     <button
                       type="submit"
-                      className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autox_rgba(16,185,129,0.18)] hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 sm:w-auto"
+                      className="inline-flex h-14 w-full items-center justify-center rounded-[var(--radius-sm)] bg-emerald-500 px-8 py-4 text-base font-semibold text-slate-950 shadow-[0_14px_46px_rgba(16,185,129,0.18)] transition-all duration-200 hover:shadow-[0_0_0_1px_rgba(16,185,129,0.25),0_0_18px_rgba(16,185,129,0.35),0_18px_60px_rgba(16,185,129,0.18)] hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 sm:w-auto"
                     >
                       Get shortlist
                     </button>
@@ -69,7 +69,7 @@ export default async function Home() {
                     Get my India-ready shortlist
                   </TrackedButtonLink>
 
-                  <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-2 text-sm text-[var(--text-muted)] lg:justify-start">
+                  <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-[var(--text-muted)] lg:justify-start">
                     <span>Takes 60 seconds</span>
                     <span className="text-[var(--text-muted)]">•</span>
                     <span>No vendor spam</span>
@@ -80,19 +80,19 @@ export default async function Home() {
 
                 <Link
                   href="/tools?category=payroll"
-                  className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-1 text-center text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 transition-all duration-200 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] sm:text-left"
+                  className="pt-1 text-center text-sm font-semibold text-violet-200 underline decoration-[rgba(124,77,255,0.35)] underline-offset-4 transition-all duration-200 hover:text-violet-100 hover:decoration-[rgba(124,77,255,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] sm:text-left"
                 >
                   Browse HRMS & payroll tools →
                 </Link>
               </div>
 
-              <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoy-3 text-center text-sm leading-6 text-[var(--text-muted)] lg:text-left">
+              <div className="mx-auto mt-6 max-w-5xl rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3 text-center text-sm leading-6 text-[var(--text-muted)] lg:text-left">
                 Trusted by HR leaders in 20–1000 employee Indian orgs evaluating multi-state compliance risk.
               </div>
 
             </div>
 
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoan-5">
+            <div className="lg:col-span-5">
               <div className="mx-auto max-w-md">
                 <DecisionSnapshotCard />
               </div>
@@ -102,13 +102,13 @@ export default async function Home() {
       </HomeSection>
 
       {/* 2) HRSignal Coverage Snapshot */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-0 border-t border-[var(--border-soft)]">
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-6">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
+        <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6">
           <div className="text-base font-semibold text-[var(--text)]">HRSignal Coverage Snapshot</div>
           <div className="mt-1 text-sm text-[var(--text-muted)]">Static snapshot of marketplace coverage (v1).</div>
 
           {/* 2x2 grid + last full-width freshness card */}
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4">
+          <div className="mt-6 grid grid-cols-2 gap-4">
             {[
               { label: "Payroll vendors", value: "12+" },
               { label: "India-verified listings", value: "25+" },
@@ -117,15 +117,15 @@ export default async function Home() {
             ].map((m) => (
               <div
                 key={m.label}
-                className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-5"
+                className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5"
               >
                 <div className="text-5xl font-extrabold tracking-tight text-emerald-200 sm:text-6xl" style={{ textShadow: "0 0 16px rgba(16,185,129,0.25)" }}>{m.value}</div>
                 <div className="mt-2 text-xs font-semibold text-[var(--text-muted)]">{m.label}</div>
               </div>
             ))}
 
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-5">
-              <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-3 sm:flex-row sm:items-end sm:justify-between">
+            <div className="col-span-2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <div className="text-5xl font-extrabold tracking-tight text-[var(--text)] sm:text-6xl">Last verified</div>
                   <div className="mt-2 text-xs font-semibold text-[var(--text-muted)]">Freshness signal</div>
@@ -138,9 +138,9 @@ export default async function Home() {
       </HomeSection>
 
       {/* 2.5) Trust signals + social proof */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-0 border-t border-[var(--border-soft)]">
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 lg:grid-cols-12">
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoan-7">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+          <div className="lg:col-span-7">
             <StatsBar
               items={[
                 { label: "HR leaders", value: 200, suffix: "+", detail: "Using HRSignal checklists + scoring" },
@@ -152,7 +152,7 @@ export default async function Home() {
               subtitle="Social proof + verification signals (v1)."
             />
           </div>
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoan-5">
+          <div className="lg:col-span-5">
             <TrustBadges
               badges={[
                 { title: "SOC 2", subtitle: "Security posture", tone: "security" },
@@ -164,7 +164,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 lg:grid-cols-3">
+        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
           <TestimonialCard
             t={{
               quote: "The shortlist reasons + demo checklist helped us catch PT/PT slab edge cases early.",
@@ -193,9 +193,9 @@ export default async function Home() {
       </HomeSection>
 
       {/* 2.6) Compliance guides */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-0 border-t border-[var(--border-soft)]">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <div>
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-2 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="text-xl font-semibold tracking-tight text-[var(--text)] sm:text-2xl">Compliance Guides</h2>
               <p className="mt-2 text-sm text-[var(--text-muted)]">PF, ESI, PT multi-state, and TDS — with demo validation checklists.</p>
@@ -208,16 +208,16 @@ export default async function Home() {
             </Link>
           </div>
 
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {COMPLIANCE_GUIDES.map((g) => (
               <Link
                 key={g.slug}
                 href={`/compliance/${g.slug}`}
-                className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-6 hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                className="group rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
               >
                 <div className="text-sm font-semibold text-[var(--text)]">{g.title}</div>
                 <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{g.description}</div>
-                <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autox_rgba(16,185,129,0.35)]">Read →</div>
+                <div className="mt-4 text-sm font-semibold text-emerald-200 transition-all duration-200 group-hover:text-emerald-100 group-hover:[text-shadow:0_0_18px_rgba(16,185,129,0.35)]">Read →</div>
               </Link>
             ))}
           </div>
@@ -225,12 +225,12 @@ export default async function Home() {
       </HomeSection>
 
       {/* 3) Who HRSignal is built for */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-0 border-t border-[var(--border-soft)]">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <div>
           <h2 className="text-xl font-semibold tracking-tight text-[var(--text)] sm:text-2xl">Who HRSignal is built for</h2>
           <p className="mt-2 text-sm text-[var(--text-muted)]">Teams evaluating India payroll with multi-state complexity.</p>
 
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 lg:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
             {[
               {
                 title: "Multi-state payroll teams (20–1000 employees)",
@@ -265,9 +265,9 @@ export default async function Home() {
             ].map((c) => (
               <div
                 key={c.title}
-                className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-8"
+                className="h-full rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-8"
               >
-                <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-3">
+                <div className="flex items-start gap-3">
                   <div className="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)]">
                     {c.icon}
                   </div>
@@ -283,12 +283,12 @@ export default async function Home() {
       </HomeSection>
 
       {/* 4) How HRSignal Readiness Score Works */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-0 border-t border-[var(--border-soft)]">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <div>
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 lg:grid-cols-12">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
             {/* Left */}
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoan-6">
-              <Card className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-6 shadow-none">
+            <div className="lg:col-span-6">
+              <Card className="border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none">
                 <h2 className="text-xl font-semibold tracking-tight text-[var(--text)] sm:text-2xl">
                   How HRSignal Readiness Score Works
                 </h2>
@@ -296,7 +296,7 @@ export default async function Home() {
                   A deterministic scoring model for India payroll buyers — designed to highlight what’s verified vs what you should validate.
                 </p>
 
-                <ul className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoace-y-2 text-sm leading-7 text-[var(--text-muted)]">
+                <ul className="mt-5 space-y-2 text-sm leading-7 text-[var(--text-muted)]">
                   <li>• Compliance scope verification</li>
                   <li>• Evidence link depth</li>
                   <li>• Integration visibility</li>
@@ -306,27 +306,27 @@ export default async function Home() {
             </div>
 
             {/* Right */}
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoan-6">
-              <Card className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-6 shadow-none">
+            <div className="lg:col-span-6">
+              <Card className="border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none">
                 <div className="text-sm font-semibold text-[var(--text)]">Model (structured)</div>
                 <div className="mt-1 text-sm text-[var(--text-muted)]">No ML hype — just explainable inputs and weights.</div>
 
-                <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoace-y-4">
-                  <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4">
+                <div className="mt-5 space-y-4">
+                  <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
                     <div className="text-xs font-semibold text-[var(--text-muted)]">Inputs</div>
                     <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
                       Compliance tags • Evidence links • Integrations listed • Verification freshness
                     </div>
                   </div>
 
-                  <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4">
+                  <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
                     <div className="text-xs font-semibold text-[var(--text-muted)]">Weighted deterministic scoring</div>
                     <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
                       Weights prioritize India payroll verification signals. Missing data is treated as “validate”.
                     </div>
                   </div>
 
-                  <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4">
+                  <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
                     <div className="text-xs font-semibold text-[var(--text-muted)]">Output</div>
                     <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
                       0–100 scale, with transparent reasons you can use in demos and internal review.
@@ -351,7 +351,7 @@ export default async function Home() {
           </div>
 
           <div className="mt-8">
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4">
+            <div className="flex items-end justify-between gap-4">
               <div>
                 <h2 className="text-xl font-semibold tracking-tight text-[var(--text)] sm:text-2xl">Decision Guides</h2>
                 <p className="mt-2 max-w-[68ch] text-sm leading-7 text-[var(--text-muted)]">
@@ -360,7 +360,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 lg:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
               {[
                 {
                   title: "Payroll evaluation checklist (India)",
@@ -381,11 +381,11 @@ export default async function Home() {
                 <Link
                   key={g.href}
                   href={g.href}
-                  className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-6 shadow-none hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                  className="group rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
                 >
                   <div className="text-base font-semibold text-[var(--text)]">{g.title}</div>
                   <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">{g.desc}</div>
-                  <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-hover:text-[var(--link-hover)]">
+                  <div className="mt-4 text-sm font-semibold text-[var(--link)] group-hover:text-[var(--link-hover)]">
                     Read →
                   </div>
                 </Link>
@@ -396,15 +396,15 @@ export default async function Home() {
       </HomeSection>
 
       {/* 5) Authority + specialist CTA */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-0 border-t border-[var(--border-soft)]">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <TalkToPayrollSpecialistSection href="/recommend" />
       </HomeSection>
 
       {/* 5) Browse by category */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-0 border-t border-[var(--border-soft)]">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <SectionTitle title="Browse by category" subtitle="Start with the module you need — then shortlist vendors with deterministic reasons." />
 
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {[ 
             { slug: "payroll", name: "Payroll & Compliance", desc: "PF/ESI/PT/TDS workflows and month-end controls" },
             { slug: "hrms", name: "Core HRMS", desc: "Employee master, org, docs, approvals" },
@@ -425,13 +425,13 @@ export default async function Home() {
       </HomeSection>
 
       {/* 6) Trust & proof strip */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-0 border-t border-[var(--border-soft)]">
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
         <SectionTitle
           title="Why trust HRSignal?"
           subtitle="Evidence-backed shortlists for India payroll—freshness, compliance depth, and demo edge cases made explicit."
         />
 
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
           <TrustTile
             label="Evidence links included"
             desc="Key claims are tied to source links (docs, pricing pages, compliance notes) so you can verify fast."
@@ -464,13 +464,13 @@ export default async function Home() {
       </HomeSection>
 
       {/* 3) Problem framing */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autot-0">
+      <HomeSection className="pt-0">
         <SectionTitle
           title="Buying HR software in India is not a feature comparison."
           subtitle="The hard parts are compliance depth, signal quality, and decision risk under incomplete information."
         />
 
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 lg:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
           <InfoCard
             title="Compliance depth"
             body="Payroll breaks at the edges: state rules, exemptions, month-end controls, and multi-entity complexity."
@@ -487,10 +487,10 @@ export default async function Home() {
       </HomeSection>
 
       {/* 3) Structured evaluation layer */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoarent">
+      <HomeSection className="bg-transparent">
         <SectionTitle title="A structured evaluation layer." subtitle="Define constraints, shortlist with reasons, then compare with risk visibility." />
 
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 lg:grid-cols-3">
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3">
           <StepCardV5
             icon="①"
             title="Define constraints"
@@ -508,7 +508,7 @@ export default async function Home() {
           />
         </div>
 
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-3 sm:flex-row sm:items-center">
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           <ButtonLink href="/recommend" size="md" className="w-full justify-center sm:w-auto">
             Get your shortlist
           </ButtonLink>
@@ -525,11 +525,11 @@ export default async function Home() {
           subtitle="We optimize for correctness under state complexity and month-end conditions." 
         />
 
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 lg:grid-cols-12">
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoan-7">
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-5">
+        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
               <div className="text-base font-medium text-[var(--text)]">What we score</div>
-              <ul className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoace-y-3 text-sm leading-relaxed text-[var(--text-muted)]">
+              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-[var(--text-muted)]">
                 <li>• PF / ESI / PT coverage and month-end behavior</li>
                 <li>• LWF applicability and state-specific rules</li>
                 <li>• TDS workflows and audit readiness</li>
@@ -539,10 +539,10 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoan-5">
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-5">
+          <div className="lg:col-span-5">
+            <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5">
               <div className="text-base font-medium text-[var(--text)]">What you receive</div>
-              <ul className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoace-y-3 text-sm leading-relaxed text-[var(--text-muted)]">
+              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-[var(--text-muted)]">
                 <li>• Shortlists aligned to payroll constraints</li>
                 <li>• Decision reasons + what to validate in the demo</li>
                 <li>• Clear “verified” vs “validate” labels</li>
@@ -558,15 +558,15 @@ export default async function Home() {
       </HomeSection>
 
       {/* 5) Methodology transparency */}
-      <HomeSection className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoarent">
+      <HomeSection className="bg-transparent">
         <SectionTitle
           title="Methodology transparency."
           subtitle="What “verified” means, how fit scores are interpreted, and how freshness is used." 
         />
 
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 lg:grid-cols-12">
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoan-7">
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-5">
+        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
               <div className="text-base font-medium text-[var(--text)]">Verified / validate</div>
               <p className="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">
                 Verified reflects evidence and review freshness. If something is not verified, it is labeled as “validate” so you can target it during the demo.
@@ -579,8 +579,8 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoan-5">
-            <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-5">
+          <div className="lg:col-span-5">
+            <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5">
               <div className="text-base font-medium text-[var(--text)]">Freshness</div>
               <p className="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">
                 Verification is time-sensitive. HRSignal surfaces freshness cues so you can prioritize what needs re-checking.
@@ -598,8 +598,8 @@ export default async function Home() {
 
       {/* 6) Final CTA */}
       <HomeSection>
-        <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-8">
-          <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-4 sm:flex-row sm:items-center">
+        <div className="rounded-[1.2rem] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 sm:p-8">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
               <div className="text-[length:var(--h2-size)] font-medium tracking-tight text-[var(--text)]">
                 Start with a structured shortlist.
@@ -641,7 +641,7 @@ function TrustTile({
   linkLabel: string;
 }) {
   return (
-    <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-5">
+    <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
       <div className="text-sm font-semibold text-[var(--text)]">{label}</div>
       <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{desc}</div>
       <div className="mt-3">
@@ -655,7 +655,7 @@ function TrustTile({
 
 function InfoCard({ title, body }: { title: string; body: string }) {
   return (
-    <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-5">
+    <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
       <div className="text-base font-medium text-[var(--text)]">{title}</div>
       <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{body}</div>
     </div>
@@ -664,8 +664,8 @@ function InfoCard({ title, body }: { title: string; body: string }) {
 
 function StepCardV5({ icon, title, body }: { icon: string; title: string; body: string }) {
   return (
-    <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-5">
-      <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-3">
+    <div className="flex h-full flex-col rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+      <div className="flex items-start gap-3">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] text-sm text-[var(--text)]">
           {icon}
         </div>
@@ -681,25 +681,25 @@ function StepCardV5({ icon, title, body }: { icon: string; title: string; body: 
 
 function DecisionSnapshotCard() {
   return (
-    <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-500/70 hover:shadow-lg">
+    <div className="rounded-[var(--radius-lg)] border border-[rgba(148,163,184,0.22)] bg-[rgba(15,23,42,0.78)] p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-500/70 hover:shadow-lg">
       <div className="text-xs font-medium tracking-wide text-[var(--text-muted)]">Decision snapshot · India payroll context</div>
       <div className="mt-2 text-base font-medium text-[var(--text)]">Payroll &amp; Compliance shortlist preview</div>
 
-      <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-3">
+      <div className="mt-5 flex items-end justify-between gap-3">
         <div className="text-sm font-medium text-[var(--text-muted)]">Fit score</div>
         <div className="text-5xl font-extrabold tracking-tight text-emerald-400 sm:text-6xl" style={{ textShadow: "0 0 22px rgba(16,185,129,0.55)" }}>92 / 100</div>
       </div>
 
-      <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoace-y-3 text-sm leading-7 text-[var(--text-muted)]">
+      <div className="mt-6 space-y-3 text-sm leading-7 text-[var(--text-muted)]">
         <div>• Matches multi-state payroll + branch complexity</div>
         <div>• Covers PF / ESI / PT / TDS workflows</div>
         <div>• Claims backed by evidence links (docs + pricing)</div>
       </div>
 
-      <div className="text-2xl text-gray-300 mb-16 max-w-4xl mx-auto-2 text-xs font-medium text-[var(--text-muted)]">
-        <span className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoy-1">PEPM</span>
-        <span className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoy-1">India-ready</span>
-        <span className="text-2xl text-gray-300 mb-16 max-w-4xl mx-autoy-1">Evidence-backed</span>
+      <div className="mt-5 flex flex-wrap gap-2 text-xs font-medium text-[var(--text-muted)]">
+        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">PEPM</span>
+        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">India-ready</span>
+        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">Evidence-backed</span>
       </div>
 
       <div className="mt-5 text-sm leading-7 text-[var(--text-muted)]">Privacy-first. No automatic vendor sharing.</div>
