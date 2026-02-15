@@ -49,8 +49,8 @@ function NavLink({
 function MenuGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="px-3 py-2 text-xs font-semibold tracking-wide text-[var(--text-muted)]">{title}</div>
-      <div className="space-y-1">{children}</div>
+      <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">{title}</div>
+      <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">{children}</div>
     </div>
   );
 }
@@ -68,7 +68,7 @@ function MenuLink({
     <Link
       href={href}
       onClick={onClick}
-      className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300"
       role="menuitem"
     >
       {label}
@@ -172,16 +172,16 @@ function HeaderInner({ pathname }: { pathname: string }) {
         scrolled ? "shadow-sm" : "shadow-none"
       }`}
     >
-      <Container className="flex items-center justify-between gap-4 py-4">
-        <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
-          <span className="flex items-center">
+      <Container className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
+        <Link href="/" className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
+          <span className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
             <Image
               src="/assets/logos/hrsignal-logo-v6.svg?v=6"
               alt={BRAND.name}
-              width={192}
+              width={300} height={100}
               height={192}
               priority
-              className="h-12 w-48 sm:h-16"
+              className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300"
               style={{
                 filter:
                   "drop-shadow(0 0 18px rgba(16,185,129,0.55)) drop-shadow(0 0 46px rgba(16,185,129,0.22))",
@@ -192,9 +192,9 @@ function HeaderInner({ pathname }: { pathname: string }) {
 
         {/* Header search (non-home pages only) */}
         {pathname !== "/" ? (
-          <form action="/tools" className="hidden w-full max-w-md lg:flex" onSubmit={() => setOpenMenu(null)}>
+          <form action="/tools" className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300" onSubmit={() => setOpenMenu(null)}>
             <input
-              className="h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+              className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300"
               name="q"
               placeholder="Search tools (e.g., payroll, attendance, Keka…)"
               aria-label="Search tools"
@@ -203,7 +203,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
         ) : null}
 
         {/* Desktop nav */}
-        <nav className="relative hidden shrink-0 items-center gap-1 text-sm lg:flex" aria-label="Primary">
+        <nav className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300" aria-label="Primary">
           <NavLink href="/tools" active={active.tools} onClick={() => setOpenMenu(null)}>
             Tools
           </NavLink>
@@ -212,7 +212,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
           </NavLink>
 
           {/* Categories menu */}
-          <div className="relative">
+          <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
             <button
               type="button"
               className={`${navItemClass(active.categories)} ${activeUnderline(active.categories)}`}
@@ -225,13 +225,13 @@ function HeaderInner({ pathname }: { pathname: string }) {
             {openMenu === "categories" ? (
               <div
                 ref={categoriesMenuRef}
-                className="absolute left-1/2 mt-2 w-72 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200 ease-out"
+                className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300"
                 role="menu"
               >
                 <MenuGroup title="Browse categories">
                   <MenuLink href="/categories" label="View all categories" onClick={() => setOpenMenu(null)} />
                 </MenuGroup>
-                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
+                <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300" />
                 <MenuGroup title="Popular categories">
                   <MenuLink href="/categories/payroll-india" label="Payroll & compliance" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/categories/hrms" label="HRMS / Core HR" onClick={() => setOpenMenu(null)} />
@@ -244,7 +244,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
           </div>
 
           {/* Resources menu */}
-          <div className="relative">
+          <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
             <button
               type="button"
               className={`${navItemClass(active.resources)} ${activeUnderline(active.resources)}`}
@@ -257,7 +257,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
             {openMenu === "resources" ? (
               <div
                 ref={resourcesMenuRef}
-                className="absolute left-1/2 mt-2 w-80 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200 ease-out"
+                className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300"
                 role="menu"
               >
                 <MenuGroup title="Buyer guides">
@@ -266,7 +266,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   <MenuLink href="/categories/payroll-india" label="Payroll India guide" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/best-payroll-software-small-business-india" label="Best payroll software (SMBs)" onClick={() => setOpenMenu(null)} />
                 </MenuGroup>
-                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
+                <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300" />
                 <MenuGroup title="Compliance guides">
                   <MenuLink href="/compliance" label="Compliance Guides" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/compliance/pf-compliance-guide" label="PF Guide" onClick={() => setOpenMenu(null)} />
@@ -274,7 +274,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   <MenuLink href="/compliance/pt-multi-state-guide" label="PT Multi-State" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/compliance/tds-payroll-guide" label="TDS Guide" onClick={() => setOpenMenu(null)} />
                 </MenuGroup>
-                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
+                <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300" />
                 <MenuGroup title="Checklists & tools">
                   <MenuLink href="/india-payroll-risk-checklist" label="India payroll risk checklist" onClick={() => setOpenMenu(null)} />
                   <MenuLink href="/payroll-risk-scanner" label="Payroll risk scanner" onClick={() => setOpenMenu(null)} />
@@ -293,13 +293,13 @@ function HeaderInner({ pathname }: { pathname: string }) {
               onClick={() => setOpenMenu(null)}
             >
               Compare
-              <span className="ml-2 rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-2 py-0.5 text-xs font-semibold text-[var(--text)]">
+              <span className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
                 {count}
               </span>
             </Link>
           ) : null}
 
-          <div className="ml-2">
+          <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
             <ButtonLink href="/recommend" variant="primary" size="sm" onClick={() => setOpenMenu(null)}>
               Get a shortlist
             </ButtonLink>
@@ -309,7 +309,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
         {/* Mobile trigger */}
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] lg:hidden"
+          className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           onClick={() => {
@@ -317,7 +317,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
             setMobileOpen((v) => !v);
           }}
         >
-          <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300" aria-hidden="true">
             {mobileOpen ? (
               <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
             ) : (
@@ -329,56 +329,56 @@ function HeaderInner({ pathname }: { pathname: string }) {
 
       {/* Mobile menu sheet */}
       {mobileOpen ? (
-        <div className="fixed inset-0 z-[60] lg:hidden" role="dialog" aria-modal="true">
+        <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300" role="dialog" aria-modal="true">
           <button
             type="button"
-            className="absolute inset-0 bg-[rgba(0,0,0,0.55)]"
+            className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300"
             aria-label="Close menu backdrop"
             onClick={() => setMobileOpen(false)}
           />
 
-          <div className="absolute right-0 top-0 h-full w-full max-w-[420px] border-l border-[var(--border-soft)] bg-[var(--bg)]">
-            <div className="flex items-center justify-between border-b border-[var(--border-soft)] px-5 py-4">
-              <div className="text-sm font-semibold text-[var(--text)]">Menu</div>
+          <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
+            <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
+              <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">Menu</div>
               <button
                 type="button"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300"
                 aria-label="Close menu"
                 onClick={() => setMobileOpen(false)}
               >
-                <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300" aria-hidden="true">
                   <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                 </svg>
               </button>
             </div>
 
-            <div className="h-[calc(100%-64px)] overflow-y-auto px-5 py-5">
-              <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
+            <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
+              <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
                 <ButtonLink
                   href="/recommend"
                   variant="primary"
                   size="md"
-                  className="w-full justify-center"
+                  className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300"
                   onClick={() => setMobileOpen(false)}
                 >
                   Get a shortlist
                 </ButtonLink>
-                <div className="mt-2 text-xs text-[var(--text-muted)]">Privacy-first. No automatic vendor sharing.</div>
+                <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">Privacy-first. No automatic vendor sharing.</div>
               </div>
 
-              <div className="mt-4 space-y-3">
-                <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4" open>
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Browse</summary>
-                  <div className="mt-3 space-y-1">
+              <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
+                <details className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300" open>
+                  <summary className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">Browse</summary>
+                  <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
                     <MenuLink href="/tools" label="Tools" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/vendors" label="Vendors" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/categories" label="Categories" onClick={() => setMobileOpen(false)} />
                   </div>
                 </details>
 
-                <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Categories</summary>
-                  <div className="mt-3 space-y-1">
+                <details className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
+                  <summary className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">Categories</summary>
+                  <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
                     <MenuLink href="/categories/payroll-india" label="Payroll & compliance" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/categories/hrms" label="HRMS / Core HR" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/categories/attendance" label="Attendance / Leave" onClick={() => setMobileOpen(false)} />
@@ -388,13 +388,13 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   </div>
                 </details>
 
-                <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Learn</summary>
-                  <div className="mt-3 space-y-1">
+                <details className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
+                  <summary className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">Learn</summary>
+                  <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
                     <MenuLink href="/resources" label="Resources" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/methodology" label="Methodology" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/compliance" label="Compliance Guides" onClick={() => setMobileOpen(false)} />
-                    <div className="mt-2 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-2">
+                    <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
                       <MenuLink href="/compliance/pf-compliance-guide" label="PF Guide" onClick={() => setMobileOpen(false)} />
                       <MenuLink href="/compliance/esi-complete-guide" label="ESI Guide" onClick={() => setMobileOpen(false)} />
                       <MenuLink href="/compliance/pt-multi-state-guide" label="PT Multi-State" onClick={() => setMobileOpen(false)} />
@@ -403,9 +403,9 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   </div>
                 </details>
 
-                <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Tools to speed evaluation</summary>
-                  <div className="mt-3 space-y-1">
+                <details className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
+                  <summary className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">Tools to speed evaluation</summary>
+                  <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
                     <MenuLink
                       href="/india-payroll-risk-checklist"
                       label="India payroll risk checklist"
@@ -418,15 +418,15 @@ function HeaderInner({ pathname }: { pathname: string }) {
                 </details>
 
                 {compareHref ? (
-                  <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
+                  <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
                     <MenuLink href={compareHref} label="Compare" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/compare/vendors" label="Compare vendors" onClick={() => setMobileOpen(false)} />
                   </div>
                 ) : null}
 
-                <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Legal</summary>
-                  <div className="mt-3 space-y-1">
+                <details className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
+                  <summary className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">Legal</summary>
+                  <div className="w-80 h-80 filter drop-shadow-[0_0_20px_rgba(16,185,129,0.8)] hover:drop-shadow-[0_0_30px_rgba(16,185,129,1)] transition-all duration-300">
                     <MenuLink href="/privacy" label="Privacy" onClick={() => setMobileOpen(false)} />
                     <MenuLink href="/terms" label="Terms" onClick={() => setMobileOpen(false)} />
                   </div>
