@@ -21,6 +21,8 @@ export default function VendorClaimPage() {
   const [role, setRole] = React.useState<Role>("Founder");
   const [message, setMessage] = React.useState("");
   const [submitted, setSubmitted] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
+  const [toast, setToast] = React.useState<{ tone: "ok" | "warn" | "error"; text: string } | null>(null);
 
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
@@ -34,13 +36,72 @@ export default function VendorClaimPage() {
           </p>
 
           <Card className="mt-6 border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-none">
+            {toast ? (
+              <div
+                className={
+                  "mb-4 rounded-[var(--radius-lg)] border p-4 text-sm " +
+                  (toast.tone === "ok"
+                    ? "border-[rgba(34,197,94,0.25)] bg-[rgba(34,197,94,0.08)]"
+                    : toast.tone === "warn"
+                      ? "border-[rgba(245,158,11,0.35)] bg-[rgba(245,158,11,0.10)]"
+                      : "border-[rgba(244,63,94,0.35)] bg-[rgba(244,63,94,0.10)]")
+                }
+              >
+                <div className="font-semibold text-[var(--text)]">{toast.text}</div>
+                {toast.tone === "warn" ? (
+                  <div className="mt-1 text-sm leading-7 text-[var(--text-muted)]">
+                    Email delivery may be misconfigured. Check <a className="underline" href="/admin/integrations">Integrations</a>.
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+
             {!submitted ? (
               <form
                 className="grid grid-cols-1 gap-4 lg:grid-cols-12"
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  // No backend yet (v1). Local state only.
-                  setSubmitted(true);
+                  setSubmitting(true);
+                  setToast(null);
+
+                  try {
+                    const r = await fetch("/api/leads", {
+                      method: "POST",
+                      headers: { "content-type": "application/json" },
+                      body: JSON.stringify({
+                        type: "vendor_claim",
+                        email,
+                        metadata: {
+                          vendorSlug: tool || undefined,
+                          role,
+                          message: message || undefined,
+                          companyName: companyName || undefined,
+                          source: "vendor_claim_form",
+                        },
+                      }),
+                    });
+
+                    const j = (await r.json().catch(() => null)) as
+                      | { success: boolean; emailSent?: boolean; errorCode?: string | null }
+                      | null;
+
+                    if (!r.ok || !j?.success) {
+                      setToast({ tone: "error", text: "Could not submit. Please retry." });
+                      return;
+                    }
+
+                    setSubmitted(true);
+
+                    if (j.emailSent === false) {
+                      setToast({ tone: "warn", text: "Saved. Email delivery failed." });
+                    } else {
+                      setToast({ tone: "ok", text: "Submitted." });
+                    }
+                  } catch {
+                    setToast({ tone: "error", text: "Network error. Please retry." });
+                  } finally {
+                    setSubmitting(false);
+                  }
                 }}
               >
                 <div className="lg:col-span-7">
@@ -91,8 +152,8 @@ export default function VendorClaimPage() {
                 </div>
 
                 <div className="lg:col-span-12">
-                  <Button type="submit" variant="primary" className="w-full justify-center sm:w-auto">
-                    Submit
+                  <Button type="submit" variant="primary" className="w-full justify-center sm:w-auto" disabled={submitting}>
+                    {submitting ? "Submitting…" : "Submit"}
                   </Button>
                   <div className="mt-2 text-xs text-[var(--text-muted)]">We only use this to verify ownership and coordinate updates.</div>
                 </div>

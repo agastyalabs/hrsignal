@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 import { prisma } from "@/lib/db";
 
-type LeadType = "shortlist" | "checklist" | "report" | "generic";
+type LeadType = "shortlist" | "checklist" | "report" | "vendor_claim" | "generic";
 
 type Payload = {
   type?: unknown;
@@ -113,7 +113,11 @@ export async function POST(req: Request) {
 
   const typeRaw = s(body.type);
   const type: LeadType =
-    typeRaw === "shortlist" || typeRaw === "checklist" || typeRaw === "report" || typeRaw === "generic"
+    typeRaw === "shortlist" ||
+    typeRaw === "checklist" ||
+    typeRaw === "report" ||
+    typeRaw === "vendor_claim" ||
+    typeRaw === "generic"
       ? (typeRaw as LeadType)
       : "generic";
 
@@ -155,6 +159,10 @@ export async function POST(req: Request) {
   const origin = originFrom(req);
   const internalTo = getNotifyRecipients();
 
+  let notifyEmailSent = false;
+  let notifyErrorCode: string | null = null;
+  let notifyStatusCode: number | null = null;
+
   try {
     const internalSubject = `HRSignal lead (${type}) — ${email}`;
     const internalHtml = shell(
@@ -172,7 +180,17 @@ export async function POST(req: Request) {
       `,
     );
 
-    await tryResend({ to: internalTo, subject: internalSubject, html: internalHtml });
+    const internalSend = await tryResend({ to: internalTo, subject: internalSubject, html: internalHtml });
+
+    notifyEmailSent = internalSend.ok === true;
+    notifyErrorCode = internalSend.ok ? null : internalSend.skipped ? "resend_not_configured" : "resend_failed";
+    notifyStatusCode = "statusCode" in internalSend && internalSend.statusCode ? internalSend.statusCode : null;
+
+    console.log(
+      `[leads] notify type=${type} emailSent=${notifyEmailSent}` +
+        (notifyStatusCode ? ` status=${notifyStatusCode}` : "") +
+        (notifyErrorCode ? ` error=${notifyErrorCode}` : ""),
+    );
 
     if (type === "checklist") {
       const downloadUrl = `${origin}/downloads/india-payroll-risk-checklist.pdf`;
@@ -193,7 +211,17 @@ export async function POST(req: Request) {
     console.error("[leads] Email send failed (non-fatal):", msg);
   }
 
-  return NextResponse.json({ success: true, leadId }, { status: 200 });
+  // Note: Keep response backward compatible for existing forms that only check {success:true}.
+  // We include best-effort email delivery flags for improved UX (e.g., vendor_claim).
+  //
+  // Manual test (vendor_claim):
+  // curl -sS -X POST http://localhost:3000/api/leads \
+  //  -H 'content-type: application/json' \
+  //  -d '{"type":"vendor_claim","email":"you@company.com","metadata":{"vendorSlug":"example","role":"Founder","message":"hello"}}' | jq
+  return NextResponse.json(
+    { success: true, leadId, emailSent: notifyEmailSent, errorCode: notifyErrorCode, resendStatus: notifyStatusCode },
+    { status: 200 },
+  );
 }
 
 function escapeHtml(input: string) {
