@@ -23,98 +23,83 @@ export default async function Home() {
       <SiteHeader />
 
       {/* 1) Hero + decision snapshot */}
-      <HomeSection className="pt-20 sm:pt-24">
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-1)] shadow-[var(--shadow-float)]">
-          <div
-            className="pointer-events-none absolute inset-0"
-            aria-hidden="true"
-            style={{
-              background:
-                "radial-gradient(900px 520px at 18% -10%, rgba(37, 99, 235, 0.16), transparent 62%), radial-gradient(900px 520px at 92% 12%, rgba(37, 99, 235, 0.10), transparent 62%)",
-            }}
-          />
+      <HomeSection className="pt-32 pb-20 lg:pt-40 lg:pb-32 relative overflow-hidden">
+        <div className="bg-blob-blue" aria-hidden="true" />
 
-          <div className="relative grid grid-cols-1 gap-10 p-7 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-14">
-            <div className="lg:col-span-7">
-              <MotionFadeIn delay={0.02}>
-                <div className="text-center text-xs font-semibold tracking-[0.14em] text-[rgba(100,116,139,0.92)] lg:text-left">
-                  DECISION INTELLIGENCE FOR INDIA HR SOFTWARE
-                </div>
-              </MotionFadeIn>
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wide">
+                <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" />
+                Updated for FY 2024-25 Compliance
+              </div>
 
-              <MotionFadeIn delay={0.06}>
-                <h1 className="mt-4 text-center text-4xl font-bold leading-[1.08] tracking-[-0.04em] text-[var(--text-main)] sm:text-5xl lg:text-left">
-                  Shortlist India-ready HRMS &amp; Payroll — without month-end surprises.
-                </h1>
-              </MotionFadeIn>
+              <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
+                Shortlist <span className="text-blue-600">India-Ready</span> HR Tools without the noise.
+              </h1>
 
-              <MotionFadeIn delay={0.10}>
-                <p className="mx-auto mt-5 max-w-2xl text-center text-base leading-7 text-[var(--text-muted-base)] sm:text-lg lg:mx-0 lg:text-left">
-                  Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
-                </p>
-              </MotionFadeIn>
+              <p className="text-lg text-slate-500 leading-relaxed max-w-xl">
+                Stop guessing with generic reviews. Get fit scores, deep compliance analysis (PF/ESI/TDS), and evidence-backed recommendations in seconds.
+              </p>
 
-              <MotionFadeIn delay={0.14}>
-                <div className="mt-7 flex flex-col gap-4">
-                  <form action="/recommend" method="get" className="flex w-full flex-col gap-3 sm:flex-row">
-                    <input type="hidden" name="source" value="hero_email" />
-                    <input
-                      className="input h-12 sm:min-w-[360px]"
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="Work email (we'll send the shortlist)"
-                      autoComplete="email"
-                      aria-label="Work email"
+              <div className="max-w-md relative group">
+                <div className="absolute inset-0 bg-blue-600 rounded-full blur opacity-20 group-hover:opacity-30 transition-opacity" />
+                <form action="/recommend" method="get" className="relative bg-white p-2 rounded-full shadow-soft flex items-center border border-slate-100">
+                  <input type="hidden" name="source" value="hero_email" />
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="work_email@company.com"
+                    autoComplete="email"
+                    aria-label="Work email"
+                    className="flex-1 bg-transparent border-none outline-none px-6 text-slate-700 placeholder-slate-400"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full transition-all"
+                  >
+                    Analyze Fit
+                  </button>
+                </form>
+              </div>
+
+              <div className="flex items-center gap-6 text-xs font-semibold text-slate-500 pt-2">
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
                     />
-                    <button
-                      type="submit"
-                      className="inline-flex h-12 w-full items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary-blue)] px-6 text-sm font-semibold text-white shadow-[var(--shadow-soft)] transition-colors hover:bg-[var(--primary-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] sm:w-auto"
-                    >
-                      Get my shortlist
-                    </button>
-                  </form>
-
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                    <TrackedButtonLink
-                      event="secondary_cta_click"
-                      href="/tools"
-                      variant="secondary"
-                      size="lg"
-                      className="w-full justify-center sm:w-auto"
-                    >
-                      Explore tools
-                    </TrackedButtonLink>
-
-                    <Link
-                      href="/tools?category=payroll"
-                      className="text-center text-sm font-semibold text-[var(--primary-blue)] underline decoration-[rgba(37,99,235,0.28)] underline-offset-4 hover:text-[var(--primary-dark)] hover:decoration-[rgba(37,99,235,0.42)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] sm:text-left"
-                    >
-                      Browse HRMS &amp; payroll tools →
-                    </Link>
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-[var(--text-muted-base)] lg:justify-start">
-                    <span>Takes 60 seconds</span>
-                    <span className="text-[rgba(100,116,139,0.55)]">•</span>
-                    <span>No vendor spam</span>
-                    <span className="text-[rgba(100,116,139,0.55)]">•</span>
-                    <span>No paid ranking</span>
-                  </div>
-                </div>
-              </MotionFadeIn>
-
-              <MotionFadeIn delay={0.18}>
-                <div className="mt-7 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-5 py-4 text-center text-sm leading-6 text-[var(--text-muted-base)] lg:text-left">
-                  Trusted by HR leaders in 20–1000 employee Indian orgs evaluating multi-state compliance risk.
-                </div>
-              </MotionFadeIn>
+                  </svg>
+                  Takes 60 Seconds
+                </span>
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  No Vendor Spam
+                </span>
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Unbiased
+                </span>
+              </div>
             </div>
 
-            <div className="lg:col-span-5">
-              <MotionFadeIn delay={0.16} className="mx-auto max-w-md">
-                <DecisionSnapshotCard />
-              </MotionFadeIn>
+            <div className="relative h-[600px] w-full flex items-center justify-center">
+              <DecisionSnapshotCard />
             </div>
           </div>
         </div>
@@ -122,11 +107,10 @@ export default async function Home() {
 
       {/* 2) HRSignal Coverage Snapshot */}
       <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
-        <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6">
-          <div className="text-base font-semibold text-[var(--text)]">HRSignal Coverage Snapshot</div>
-          <div className="mt-1 text-sm text-[var(--text-muted)]">Static snapshot of marketplace coverage (v1).</div>
+        <div className="radius-card border border-slate-100 bg-white shadow-soft p-8">
+          <div className="text-base font-bold text-slate-900">HRSignal Coverage Snapshot</div>
+          <div className="mt-1 text-sm text-slate-500">Static snapshot of marketplace coverage (v1).</div>
 
-          {/* 2x2 grid + last full-width freshness card */}
           <div className="mt-6 grid grid-cols-2 gap-4">
             {[
               { label: "Payroll vendors", value: "12+" },
@@ -134,22 +118,19 @@ export default async function Home() {
               { label: "Evidence links tracked", value: "120+" },
               { label: "Categories", value: "8" },
             ].map((m) => (
-              <div
-                key={m.label}
-                className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5"
-              >
-                <div className="text-5xl font-extrabold tracking-tight text-[var(--primary-blue)] sm:text-6xl">{m.value}</div>
-                <div className="mt-2 text-xs font-semibold text-[var(--text-muted)]">{m.label}</div>
+              <div key={m.label} className="radius-inner border border-slate-100 bg-[var(--surface-grey)] p-6">
+                <div className="text-5xl font-extrabold tracking-tight text-blue-600 sm:text-6xl">{m.value}</div>
+                <div className="mt-2 text-xs font-bold text-slate-500">{m.label}</div>
               </div>
             ))}
 
-            <div className="col-span-2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-5">
+            <div className="col-span-2 radius-inner border border-slate-100 bg-[var(--surface-grey)] p-6">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <div className="text-5xl font-extrabold tracking-tight text-[var(--text)] sm:text-6xl">Last verified</div>
-                  <div className="mt-2 text-xs font-semibold text-[var(--text-muted)]">Freshness signal</div>
+                  <div className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">Last verified</div>
+                  <div className="mt-2 text-xs font-bold text-slate-500">Freshness signal</div>
                 </div>
-                <div className="text-sm text-[var(--text-muted)]">We show verification recency so you can spot what needs re-checking.</div>
+                <div className="text-sm text-slate-500">We show verification recency so you can spot what needs re-checking.</div>
               </div>
             </div>
           </div>
@@ -700,35 +681,76 @@ function StepCardV5({ icon, title, body }: { icon: string; title: string; body: 
 
 function DecisionSnapshotCard() {
   return (
-    <Card className="u-card-hover p-6">
-      <div className="text-xs font-semibold tracking-wide text-[rgba(100,116,139,0.92)]">
-        Decision snapshot · India payroll context
-      </div>
-      <div className="mt-2 text-base font-semibold text-[var(--text-main)]">Payroll &amp; Compliance shortlist preview</div>
-
-      <div className="mt-5 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4">
-        <div className="flex items-end justify-between gap-3">
-          <div className="text-xs font-semibold text-[rgba(100,116,139,0.92)]">Fit score</div>
-          <div className="text-5xl font-extrabold tracking-tight text-[var(--primary-blue)] sm:text-6xl">92 / 100</div>
+    <>
+      {/* Fit card */}
+      <div className="absolute bg-white p-8 radius-card shadow-float w-80 z-20 animate-float border border-slate-100 left-10 top-20">
+        <div className="flex justify-between items-start mb-6">
+          <div>
+            <h3 className="font-bold text-slate-900 text-lg">Keka HR</h3>
+            <p className="text-xs text-slate-400 font-medium mt-1">Enterprise Plan</p>
+          </div>
+          <div className="w-8 h-8 rounded-full shadow-sm bg-[#FF9933] flex items-center justify-center text-white text-[10px] font-bold">
+            IN
+          </div>
         </div>
-        <div className="mt-2 text-xs leading-5 text-[var(--text-muted-base)]">
-          Based on compliance depth + integration coverage + support signals.
+
+        <div className="mb-6">
+          <div className="flex items-end gap-2 mb-2">
+            <span className="text-5xl font-extrabold text-slate-900 tracking-tighter">92</span>
+            <span className="text-sm font-semibold text-slate-400 mb-2">/100 Fit</span>
+          </div>
+          <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+            <div className="bg-blue-600 h-full rounded-full" style={{ width: "92%" }} />
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-slate-500">Payroll Compl.</span>
+            <span className="text-emerald-600 font-bold bg-emerald-50 px-2 py-1 rounded-md text-xs">Full Match</span>
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-slate-500">Budget</span>
+            <span className="text-slate-900 font-bold">₹120/emp</span>
+          </div>
+        </div>
+
+        <div className="mt-6 flex gap-2">
+          <Link href="/tools" className="flex-1 bg-slate-900 text-white text-xs font-bold py-3 rounded-xl hover:bg-slate-800 transition text-center">
+            View Details
+          </Link>
+          <button type="button" className="bg-slate-100 text-slate-600 p-3 rounded-xl hover:bg-slate-200 transition" aria-label="More">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
         </div>
       </div>
 
-      <div className="mt-5 space-y-2 text-sm leading-7 text-[var(--text-muted-base)]">
-        <div>• Matches multi-state payroll + branch complexity</div>
-        <div>• Covers PF / ESI / PT / TDS workflows</div>
-        <div>• Claims backed by evidence links (docs + pricing)</div>
-      </div>
+      {/* Compliance card */}
+      <div className="absolute bg-slate-900 p-8 radius-card shadow-2xl w-80 z-10 animate-float-delay right-0 bottom-20 opacity-95">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="font-bold text-white text-lg">Compliance Check</h3>
+          <span className="w-2 h-2 bg-emerald-400 rounded-full shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
+        </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-medium text-[var(--text-muted-base)]">
-        <span className="rounded-full border border-[var(--border-soft)] bg-white/70 px-3 py-1">PEPM</span>
-        <span className="rounded-full border border-[var(--border-soft)] bg-white/70 px-3 py-1">India-ready</span>
-        <span className="rounded-full border border-[var(--border-soft)] bg-white/70 px-3 py-1">Evidence-backed</span>
-      </div>
+        <div className="space-y-4">
+          {[
+            "PF Calculation",
+            "Form-16 Auto",
+            "ESI + PT",
+          ].map((label) => (
+            <div key={label} className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50 flex items-center justify-between">
+              <span className="text-slate-300 text-sm">{label}</span>
+              <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+          ))}
+        </div>
 
-      <div className="mt-5 text-sm leading-7 text-[var(--text-muted-base)]">Privacy-first. No automatic vendor sharing.</div>
-    </Card>
+        <div className="mt-6 text-xs text-slate-400">Evidence-backed checks (PF/ESI/PT/TDS) — verify during demos.</div>
+      </div>
+    </>
   );
 }

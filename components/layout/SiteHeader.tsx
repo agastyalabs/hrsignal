@@ -45,11 +45,8 @@ const NAV: NavConfig = {
 };
 
 function navItemClass(active: boolean) {
-  // Light navbar styles (BASE tokens). Keep this isolated to header.
-  return `relative inline-flex h-10 items-center rounded-[var(--radius-pill)] px-4 text-sm font-semibold transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(37,99,235,0.35)] after:absolute after:inset-x-4 after:-bottom-1 after:h-0.5 after:rounded-full after:opacity-0 after:transition-opacity after:duration-200 after:bg-[var(--primary-blue)] hover:after:opacity-100 ${
-    active
-      ? "text-[var(--text-main)] bg-[rgba(37,99,235,0.08)] after:opacity-100"
-      : "text-[rgba(15,23,42,0.72)] hover:bg-[rgba(15,23,42,0.04)] hover:text-[var(--text-main)]"
+  return `relative inline-flex h-10 items-center radius-pill px-4 text-sm font-semibold transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] ${
+    active ? "text-slate-900" : "text-slate-600 hover:text-[var(--primary-blue)]"
   }`;
 }
 
@@ -68,19 +65,11 @@ function MenuLink({
     <Link
       href={href}
       onClick={onClick}
-      className="group relative block rounded-[var(--radius-inner)] px-4 py-3 text-sm text-[var(--text-main)] hover:bg-[rgba(37,99,235,0.06)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(37,99,235,0.30)]"
+      className="group relative block radius-inner px-5 py-4 text-sm text-slate-700 hover:bg-blue-50/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
       role="menuitem"
     >
-      <span
-        className="absolute left-2 top-3 bottom-3 w-[2px] rounded-full bg-[rgba(16,185,129,0.0)] transition-colors duration-200 group-hover:bg-[rgba(16,185,129,0.75)]"
-        aria-hidden="true"
-      />
-      <div className="font-semibold text-[var(--text-main)]">{label}</div>
-      {description ? (
-        <div className="mt-1 text-xs leading-5 text-[var(--text-muted-base)]">
-          {description}
-        </div>
-      ) : null}
+      <div className="font-semibold text-slate-900">{label}</div>
+      {description ? <div className="mt-1 text-xs leading-5 text-slate-500">{description}</div> : null}
     </Link>
   );
 }
@@ -199,21 +188,28 @@ function HeaderInner({ pathname }: { pathname: string }) {
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 border-b border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.82)] backdrop-blur-xl transition-shadow motion-reduce:transition-none ${
-        scrolled ? "shadow-[var(--shadow-soft)]" : "shadow-none"
+      className={`sticky top-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur-md transition-all duration-300 motion-reduce:transition-none ${
+        scrolled ? "shadow-soft" : "shadow-none"
       }`}
     >
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between gap-6 px-6">
         <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
           <span className="flex items-center">
             <Image
+              src="/assets/logos/hrsignal-logo-light.svg"
+              alt={BRAND.name}
+              width={192}
+              height={192}
+              priority
+              className="logo-light h-10 w-auto sm:h-11"
+            />
+            <Image
               src="/assets/logos/hrsignal-logo-v6.svg?v=6"
               alt={BRAND.name}
               width={192}
               height={192}
               priority
-              className="h-10 w-auto sm:h-11"
-              style={{ filter: "drop-shadow(0 8px 22px rgba(37,99,235,0.12))" }}
+              className="logo-dark h-10 w-auto sm:h-11"
             />
           </span>
         </Link>
@@ -272,7 +268,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                 >
                   {label}
                   {key === "compare" && count ? (
-                    <span className="ml-2 rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-2 py-0.5 text-xs font-semibold text-[var(--text)]">
+                    <span className="ml-2 inline-flex items-center justify-center rounded-full bg-slate-100 px-2 py-0.5 text-xs font-bold text-[var(--primary-blue)]">
                       {count}
                     </span>
                   ) : null}
@@ -282,7 +278,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   <div
                     id={panelId}
                     ref={menuRef}
-                    className={`absolute mt-4 rounded-[var(--radius-card)] border border-slate-200/70 bg-white/92 p-4 shadow-[var(--shadow-float)] backdrop-blur-xl ${
+                    className={`absolute mt-4 radius-card glass-panel p-4 shadow-float ${
                       key === "explore"
                         ? "left-0 w-[min(640px,calc(100vw-2rem))]"
                         : "left-1/2 w-[min(840px,calc(100vw-2rem))] -translate-x-1/2"
@@ -296,7 +292,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                         {sections.map(([section, sectionItems]) => (
                           <div key={section || "_"} className="min-w-0">
                             {section ? (
-                              <div className="px-2 py-1 text-xs font-semibold tracking-wide text-[rgba(15,23,42,0.62)]">
+                              <div className="px-2 py-1 text-[11px] font-bold uppercase tracking-wide text-slate-400">
                                 {section}
                               </div>
                             ) : null}
