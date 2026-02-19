@@ -181,10 +181,10 @@ function HeaderInner({ pathname }: { pathname: string }) {
               width={192}
               height={192}
               priority
-              className="h-14 w-56 sm:h-16 sm:w-64"
+              className="h-16 w-60 sm:h-20 sm:w-72"
               style={{
                 filter:
-                  "drop-shadow(0 0 22px rgba(16,185,129,0.65)) drop-shadow(0 0 58px rgba(16,185,129,0.28))",
+                  "drop-shadow(0 0 18px rgba(16,185,129,0.55)) drop-shadow(0 0 64px rgba(16,185,129,0.30))",
               }}
             />
           </span>

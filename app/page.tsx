@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ButtonLink } from "@/components/ui/Button";
 import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
 import { HomeSection } from "@/components/marketing/HomeSection";
+import { MotionFadeIn } from "@/components/marketing/MotionFadeIn";
 import { StatsBar } from "@/components/marketing/StatsBar";
 import { TrustBadges } from "@/components/marketing/TrustBadges";
 import { TestimonialCard } from "@/components/marketing/TestimonialCard";
@@ -23,8 +24,8 @@ export default async function Home() {
 
       {/* 1) Hero + decision snapshot */}
       <HomeSection className="pt-24">
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[1.4rem] border border-[rgba(148,163,184,0.22)] bg-[radial-gradient(900px_520px_at_50%_-12%,rgba(16,185,129,0.22),transparent_64%),radial-gradient(900px_520px_at_12%_12%,rgba(29,78,216,0.14),transparent_62%),linear-gradient(to_bottom,#0b1226,#020617)] shadow-[0_24px_120px_rgba(0,0,0,0.45)]">
-          <div className="pointer-events-none absolute inset-0 opacity-60 mix-blend-screen">
+        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[1.6rem] border border-[rgba(148,163,184,0.20)] bg-[radial-gradient(980px_560px_at_50%_-14%,rgba(16,185,129,0.20),transparent_66%),radial-gradient(980px_560px_at_12%_10%,rgba(29,78,216,0.12),transparent_64%),linear-gradient(to_bottom,#0b1226,#020617)] shadow-[0_28px_140px_rgba(0,0,0,0.46)] ring-1 ring-white/10">
+          <div className="pointer-events-none absolute inset-0 opacity-50 mix-blend-screen">
             <div className="absolute inset-0 bg-neural-dots" />
             <div className="absolute -left-24 top-24 h-72 w-72 rounded-full bg-emerald-400/10 blur-3xl" />
             <div className="absolute -right-24 top-10 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
@@ -32,19 +33,26 @@ export default async function Home() {
 
           <div className="relative grid grid-cols-1 gap-10 p-7 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-14">
             <div className="lg:col-span-7">
-              <div className="mx-auto text-center text-xs font-semibold tracking-[0.14em] text-[rgba(226,232,240,0.78)]">
-                DECISION INTELLIGENCE FOR INDIA HR SOFTWARE
-              </div>
+              <MotionFadeIn delay={0.02}>
+                <div className="mx-auto text-center text-xs font-semibold tracking-[0.14em] text-[rgba(226,232,240,0.78)]">
+                  DECISION INTELLIGENCE FOR INDIA HR SOFTWARE
+                </div>
+              </MotionFadeIn>
 
-              <h1 className="mx-auto mt-4 max-w-5xl text-center text-5xl font-bold leading-[1.02] tracking-[-0.04em] text-[var(--text)] sm:text-6xl">
-                Shortlist India-ready HRMS & Payroll — without month-end surprises.
-              </h1>
+              <MotionFadeIn delay={0.06}>
+                <h1 className="mx-auto mt-4 max-w-5xl text-center text-5xl font-bold leading-[1.02] tracking-[-0.04em] text-[var(--text)] sm:text-6xl">
+                  Shortlist India-ready HRMS & Payroll — without month-end surprises.
+                </h1>
+              </MotionFadeIn>
 
-              <p className="mx-auto mt-5 max-w-4xl text-center text-lg leading-8 text-[rgba(226,232,240,0.86)] sm:text-xl">
-                Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
-              </p>
+              <MotionFadeIn delay={0.10}>
+                <p className="mx-auto mt-5 max-w-4xl text-center text-lg leading-8 text-[rgba(226,232,240,0.86)] sm:text-xl">
+                  Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
+                </p>
+              </MotionFadeIn>
 
-              <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start">
+              <MotionFadeIn delay={0.14}>
+                <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start">
                 <div className="flex w-full flex-col gap-3 sm:w-auto">
                   {/* Above-fold inline email CTA */}
                   <form action="/recommend" method="get" className="flex w-full flex-col gap-3 sm:flex-row">
@@ -91,17 +99,20 @@ export default async function Home() {
                   Browse HRMS & payroll tools →
                 </Link>
               </div>
+              </MotionFadeIn>
 
-              <div className="u-glass-strong mx-auto mt-7 max-w-4xl rounded-[var(--radius-md)] border border-[rgba(148,163,184,0.20)] px-5 py-4 text-center text-sm leading-6 text-[rgba(226,232,240,0.76)]">
-                Trusted by HR leaders in 20–1000 employee Indian orgs evaluating multi-state compliance risk.
-              </div>
+              <MotionFadeIn delay={0.18}>
+                <div className="u-glass-strong mx-auto mt-7 max-w-4xl rounded-[var(--radius-md)] border border-[rgba(148,163,184,0.20)] px-5 py-4 text-center text-sm leading-6 text-[rgba(226,232,240,0.76)]">
+                  Trusted by HR leaders in 20–1000 employee Indian orgs evaluating multi-state compliance risk.
+                </div>
+              </MotionFadeIn>
 
             </div>
 
             <div className="lg:col-span-5">
-              <div className="mx-auto max-w-md">
+              <MotionFadeIn delay={0.16} className="mx-auto max-w-md">
                 <DecisionSnapshotCard />
-              </div>
+              </MotionFadeIn>
             </div>
           </div>
         </div>
