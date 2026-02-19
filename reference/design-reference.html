@@ -1,0 +1,418 @@
+
+<html lang="en" vid="0"><head vid="1">
+    <meta charset="UTF-8" vid="2">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3">
+    <title vid="4">HRSignal - Decision Intelligence for HR Tech</title>
+    <script src="https://cdn.tailwindcss.com" vid="5"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" vid="6">
+    <style vid="7">
+        :root {
+            --primary-blue: #2563EB;
+            --primary-dark: #1E40AF;
+            --surface-grey: #F8FAFC;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            background-color: white;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        
+        .radius-pill { border-radius: 9999px; }
+        .radius-card { border-radius: 32px; }
+        .radius-inner { border-radius: 20px; }
+
+        
+        .shadow-soft { box-shadow: 0 20px 40px -12px rgba(37, 99, 235, 0.08); }
+        .shadow-float { box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.12); }
+        .shadow-glow { box-shadow: 0 0 20px rgba(37, 99, 235, 0.3); }
+
+        
+        .toggle-container {
+            background: #F1F5F9;
+            padding: 4px;
+            border-radius: 9999px;
+            display: inline-flex;
+        }
+        .toggle-btn {
+            padding: 8px 24px;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            color: var(--text-muted);
+        }
+        .toggle-btn.active {
+            background: white;
+            color: var(--primary-blue);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float-delay { animation: float 8s ease-in-out infinite 2s; }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="overflow-x-hidden" vid="8">
+
+    
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 transition-all duration-300" id="navbar" vid="9">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between" vid="10">
+            <div class="flex items-center gap-2" vid="11">
+                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold" vid="12">H</div>
+                <span class="text-xl font-bold tracking-tight text-slate-900" vid="13">HRSignal</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600" vid="14">
+                <a href="#" class="hover:text-blue-600 transition-colors" vid="15">Platform</a>
+                <a href="#" class="hover:text-blue-600 transition-colors" vid="16">Compliance</a>
+                <a href="#" class="hover:text-blue-600 transition-colors" vid="17">Vendors</a>
+                <a href="#" class="hover:text-blue-600 transition-colors" vid="18">Pricing</a>
+            </div>
+
+            <div class="flex items-center gap-4" vid="19">
+                <a href="#" class="text-sm font-semibold text-slate-900 hover:text-blue-600 hidden sm:block" vid="20">Log in</a>
+                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-3 px-6 radius-pill transition-all shadow-lg shadow-blue-600/20" vid="21">
+                    Get Shortlist
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    
+    <section class="pt-32 pb-20 lg:pt-40 lg:pb-32 relative overflow-hidden" vid="22">
+        
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-50 rounded-full blur-3xl opacity-50 -translate-y-1/3 translate-x-1/3 z-0" vid="23"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10" vid="24">
+            <div class="grid lg:grid-cols-2 gap-16 items-center" vid="25">
+                
+                
+                <div class="space-y-8" vid="26">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wide" vid="27">
+                        <span class="w-2 h-2 bg-blue-600 rounded-full animate-pulse" vid="28"></span>
+                        Updated for FY 2024-25 Compliance
+                    </div>
+
+                    <h1 class="text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]" vid="29">
+                        Shortlist <span class="text-blue-600" vid="30">India-Ready</span> HR Tools without the noise.
+                    </h1>
+                    
+                    <p class="text-lg text-slate-500 leading-relaxed max-w-xl" vid="31">
+                        Stop guessing with generic reviews. Get fit scores, deep compliance analysis (PF/ESI/TDS), and evidence-backed recommendations in seconds.
+                    </p>
+
+                    
+                    <div class="max-w-md relative group" vid="32">
+                        <div class="absolute inset-0 bg-blue-600 rounded-full blur opacity-20 group-hover:opacity-30 transition-opacity" vid="33"></div>
+                        <form class="relative bg-white p-2 rounded-full shadow-soft flex items-center border border-slate-100" vid="34">
+                            <input type="email" placeholder="work_email@company.com" class="flex-1 bg-transparent border-none outline-none px-6 text-slate-700 placeholder-slate-400" vid="35">
+                            <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full transition-all" vid="36">
+                                Analyze Fit
+                            </button>
+                        </form>
+                    </div>
+
+                    
+                    <div class="flex items-center gap-6 text-xs font-semibold text-slate-500 pt-2" vid="37">
+                        <span class="flex items-center gap-1" vid="38"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20" vid="39"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" vid="40"></path></svg> Takes 60 Seconds</span>
+                        <span class="flex items-center gap-1" vid="41"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20" vid="42"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" vid="43"></path></svg> No Vendor Spam</span>
+                        <span class="flex items-center gap-1" vid="44"><svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20" vid="45"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" vid="46"></path></svg> Unbiased</span>
+                    </div>
+                </div>
+
+                
+                <div class="relative h-[600px] w-full flex items-center justify-center" vid="47">
+                    
+                    
+                    <div class="absolute bg-white p-8 radius-card shadow-float w-80 z-20 animate-float border border-slate-100 left-10 top-20" vid="48">
+                        <div class="flex justify-between items-start mb-6" vid="49">
+                            <div vid="50">
+                                <h3 class="font-bold text-slate-900 text-lg" vid="51">Keka HR</h3>
+                                <p class="text-xs text-slate-400 font-medium mt-1" vid="52">Enterprise Plan</p>
+                            </div>
+                            <img src="https://ui-avatars.com/api/?name=IN&amp;background=ff9933&amp;color=fff&amp;rounded=true&amp;size=32" alt="India Flag" class="w-8 h-8 rounded-full shadow-sm" vid="53">
+                        </div>
+                        
+                        <div class="mb-6" vid="54">
+                            <div class="flex items-end gap-2 mb-2" vid="55">
+                                <span class="text-5xl font-extrabold text-slate-900 tracking-tighter" vid="56">92</span>
+                                <span class="text-sm font-semibold text-slate-400 mb-2" vid="57">/100 Fit</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden" vid="58">
+                                <div class="bg-blue-600 h-full rounded-full" style="width: 92%" vid="59"></div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3" vid="60">
+                            <div class="flex items-center justify-between text-sm" vid="61">
+                                <span class="text-slate-500" vid="62">Payroll Compl.</span>
+                                <span class="text-emerald-600 font-bold bg-emerald-50 px-2 py-1 rounded-md text-xs" vid="63">Full Match</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm" vid="64">
+                                <span class="text-slate-500" vid="65">Budget</span>
+                                <span class="text-slate-900 font-bold" vid="66">₹120/emp</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 flex gap-2" vid="67">
+                            <button class="flex-1 bg-slate-900 text-white text-xs font-bold py-3 rounded-xl hover:bg-slate-800 transition" vid="68">View Details</button>
+                            <button class="bg-slate-100 text-slate-600 p-3 rounded-xl hover:bg-slate-200 transition" vid="69">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="70"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" vid="71"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    
+                    <div class="absolute bg-slate-900 p-8 radius-card shadow-2xl w-80 z-10 animate-float-delay right-0 bottom-20 opacity-95" vid="72">
+                        <div class="flex justify-between items-center mb-6" vid="73">
+                            <h3 class="font-bold text-white text-lg" vid="74">Compliance Check</h3>
+                            <span class="w-2 h-2 bg-emerald-400 rounded-full shadow-[0_0_10px_rgba(52,211,153,0.8)]" vid="75"></span>
+                        </div>
+                        <div class="space-y-4" vid="76">
+                            <div class="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50 flex items-center justify-between" vid="77">
+                                <span class="text-slate-300 text-sm" vid="78">PF Calculation</span>
+                                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="79"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" vid="80"></path></svg>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50 flex items-center justify-between" vid="81">
+                                <span class="text-slate-300 text-sm" vid="82">Form-16 Auto</span>
+                                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="83"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" vid="84"></path></svg>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50 flex items-center justify-between" vid="85">
+                                <span class="text-slate-300 text-sm" vid="86">PT Multi-state</span>
+                                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="87"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" vid="88"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="relative py-32 bg-slate-900 overflow-hidden" vid="89">
+        
+        <div class="absolute inset-0 z-0 opacity-40" vid="90">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&amp;w=2072&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover grayscale" alt="Data Network" vid="91">
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent" vid="92"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-white" vid="93">
+            <div class="flex flex-col md:flex-row items-end justify-between gap-12 mb-20" vid="94">
+                <div class="max-w-2xl" vid="95">
+                    <div class="flex items-center gap-3 mb-4" vid="96">
+                        <img src="https://ui-avatars.com/api/?name=HR&amp;background=2563EB&amp;color=fff&amp;rounded=true&amp;size=32" class="w-8 h-8 rounded-full border-2 border-slate-800" vid="97">
+                        <span class="font-medium text-slate-300" vid="98">Data-Backed Logic</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold leading-tight" vid="99">
+                        Evidence, not opinions. <br vid="100">
+                        We analyze the <span class="text-blue-400" vid="101">fine print</span> so you don't have to.
+                    </h2>
+                </div>
+                
+                
+                <div class="toggle-container bg-slate-800/80 backdrop-blur border border-slate-700" vid="102">
+                    <button class="toggle-btn active bg-blue-600 text-white shadow-lg" vid="103">Multi-State</button>
+                    <button class="toggle-btn text-slate-400 hover:text-white" vid="104">Local Branch</button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-8" vid="105">
+                <div class="space-y-2 border-l border-slate-700 pl-6" vid="106">
+                    <div class="text-4xl font-bold tracking-tight" vid="107">&lt;20</div>
+                    <p class="text-sm text-slate-400 font-medium" vid="108">Minutes to create a specialized vendor shortlist</p>
+                </div>
+                <div class="space-y-2 border-l border-slate-700 pl-6" vid="109">
+                    <div class="text-4xl font-bold tracking-tight" vid="110">+50k</div>
+                    <p class="text-sm text-slate-400 font-medium" vid="111">Compliance rules checked across 29 states</p>
+                </div>
+                <div class="space-y-2 border-l border-slate-700 pl-6" vid="112">
+                    <div class="text-4xl font-bold tracking-tight" vid="113">24/7</div>
+                    <p class="text-sm text-slate-400 font-medium" vid="114">Automated monitoring of labor law updates</p>
+                </div>
+                <div class="space-y-2 border-l border-slate-700 pl-6" vid="115">
+                    <div class="text-4xl font-bold tracking-tight" vid="116">100%</div>
+                    <p class="text-sm text-slate-400 font-medium" vid="117">Verified vendor capability data</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="py-24 bg-surface-grey" vid="118">
+        <div class="max-w-7xl mx-auto px-6" vid="119">
+            
+            <div class="grid lg:grid-cols-2 gap-16 mb-20" vid="120">
+                
+                <div class="bg-white p-10 radius-card shadow-soft hover:translate-y-[-5px] transition-transform duration-300 cursor-pointer group" vid="121">
+                    <div class="bg-blue-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 transition-colors" vid="122">
+                        <svg class="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="123"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" vid="124"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4" vid="125">Deep Compliance Audit</h3>
+                    <p class="text-slate-500 mb-8 leading-relaxed" vid="126">
+                        We don't just ask if they do "payroll". We verify specialized workflows for PF, ESI, PT, and TDS filing across complex multi-branch organizational structures.
+                    </p>
+                    
+                    
+                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-100" vid="127">
+                        <div class="flex justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4" vid="128">
+                            <span vid="129">Workflow</span>
+                            <span vid="130">Support</span>
+                        </div>
+                        <div class="space-y-3" vid="131">
+                            <div class="flex justify-between items-center" vid="132">
+                                <span class="text-sm font-medium text-slate-700" vid="133">Form 24Q Generation</span>
+                                <div class="w-24 h-2 bg-emerald-100 rounded-full" vid="134"><div class="w-full h-full bg-emerald-500 rounded-full" vid="135"></div></div>
+                            </div>
+                            <div class="flex justify-between items-center" vid="136">
+                                <span class="text-sm font-medium text-slate-700" vid="137">Challan Integration</span>
+                                <div class="w-24 h-2 bg-emerald-100 rounded-full" vid="138"><div class="w-3/4 h-full bg-emerald-500 rounded-full" vid="139"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="bg-white p-10 radius-card shadow-soft hover:translate-y-[-5px] transition-transform duration-300 cursor-pointer group" vid="140">
+                    <div class="bg-blue-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 transition-colors" vid="141">
+                        <svg class="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="142"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" vid="143"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4" vid="144">Implementation Predictability</h3>
+                    <p class="text-slate-500 mb-8 leading-relaxed" vid="145">
+                        Avoid month-end surprises. We analyze vendor support SLAs, implementation timelines, and hidden costs to give you a "True Cost of Ownership" score.
+                    </p>
+
+                    
+                    <div class="grid grid-cols-2 gap-4" vid="146">
+                        <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-100" vid="147">
+                            <div class="text-2xl font-bold text-slate-900" vid="148">14<span class="text-sm text-slate-400 font-normal" vid="149"> Days</span></div>
+                            <div class="text-xs text-slate-500 mt-1" vid="150">Avg. Go-Live</div>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl text-center border border-slate-100" vid="151">
+                            <div class="text-2xl font-bold text-slate-900" vid="152">4hr<span class="text-sm text-slate-400 font-normal" vid="153"> SLA</span></div>
+                            <div class="text-xs text-slate-500 mt-1" vid="154">Support Response</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center" vid="155">
+                        <a href="#" class="text-sm font-bold text-blue-600 hover:text-blue-800 inline-flex items-center gap-1" vid="156">
+                            View Methodology <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="157"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" vid="158"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="grid lg:grid-cols-2 items-center gap-12" vid="159">
+                <div vid="160">
+                    <span class="text-blue-600 font-bold tracking-wide text-sm uppercase" vid="161">Buying Plans</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mt-2 mb-6" vid="162">Start your evaluation today.</h2>
+                    <p class="text-slate-500 mb-8 max-w-md" vid="163">Get instant access to detailed vendor cards, pricing models, and compliance certificates.</p>
+                    <button class="bg-slate-900 text-white font-semibold py-4 px-8 rounded-full shadow-lg hover:bg-slate-800 transition-all flex items-center gap-3" vid="164">
+                        Compare Vendors
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" vid="165"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" vid="166"></path></svg>
+                    </button>
+                </div>
+                
+                
+                <div class="space-y-4" vid="167">
+                    <div class="bg-white p-6 radius-inner shadow-sm border border-slate-100 flex items-center gap-4" vid="168">
+                        <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold" vid="169">K</div>
+                        <div class="flex-1" vid="170">
+                            <div class="font-bold text-slate-900" vid="171">Keka</div>
+                            <div class="text-xs text-slate-500" vid="172">Best for Automation</div>
+                        </div>
+                        <span class="text-emerald-600 font-bold text-sm" vid="173">98% Fit</span>
+                    </div>
+                    <div class="bg-white p-6 radius-inner shadow-sm border border-slate-100 flex items-center gap-4" vid="174">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold" vid="175">G</div>
+                        <div class="flex-1" vid="176">
+                            <div class="font-bold text-slate-900" vid="177">GreytHR</div>
+                            <div class="text-xs text-slate-500" vid="178">Best for Compliance</div>
+                        </div>
+                        <span class="text-emerald-600 font-bold text-sm" vid="179">96% Fit</span>
+                    </div>
+                    <div class="bg-white p-6 radius-inner shadow-sm border border-slate-100 flex items-center gap-4 opacity-70" vid="180">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold" vid="181">Z</div>
+                        <div class="flex-1" vid="182">
+                            <div class="font-bold text-slate-900" vid="183">Zoho People</div>
+                            <div class="text-xs text-slate-500" vid="184">Best for Ecosystem</div>
+                        </div>
+                        <span class="text-emerald-600 font-bold text-sm" vid="185">94% Fit</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer class="bg-white border-t border-slate-100 pt-20 pb-10" vid="186">
+        <div class="max-w-7xl mx-auto px-6" vid="187">
+            <div class="grid md:grid-cols-4 gap-12 mb-16" vid="188">
+                <div class="col-span-1 md:col-span-1" vid="189">
+                    <div class="flex items-center gap-2 mb-6" vid="190">
+                        <div class="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold" vid="191">H</div>
+                        <span class="font-bold text-slate-900" vid="192">HRSignal</span>
+                    </div>
+                    <p class="text-sm text-slate-500 leading-relaxed" vid="193">
+                        Helping Indian enterprises make data-driven HR tech decisions with confidence and compliance assurance.
+                    </p>
+                </div>
+                <div vid="194">
+                    <h4 class="font-bold text-slate-900 mb-6" vid="195">Platform</h4>
+                    <ul class="space-y-4 text-sm text-slate-500" vid="196">
+                        <li vid="197"><a href="#" class="hover:text-blue-600" vid="198">Vendor Shortlist</a></li>
+                        <li vid="199"><a href="#" class="hover:text-blue-600" vid="200">Compliance Audit</a></li>
+                        <li vid="201"><a href="#" class="hover:text-blue-600" vid="202">Pricing Calculator</a></li>
+                    </ul>
+                </div>
+                <div vid="203">
+                    <h4 class="font-bold text-slate-900 mb-6" vid="204">Resources</h4>
+                    <ul class="space-y-4 text-sm text-slate-500" vid="205">
+                        <li vid="206"><a href="#" class="hover:text-blue-600" vid="207">India Payroll Guide</a></li>
+                        <li vid="208"><a href="#" class="hover:text-blue-600" vid="209">Labor Law Updates</a></li>
+                        <li vid="210"><a href="#" class="hover:text-blue-600" vid="211">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div vid="212">
+                    <h4 class="font-bold text-slate-900 mb-6" vid="213">Company</h4>
+                    <ul class="space-y-4 text-sm text-slate-500" vid="214">
+                        <li vid="215"><a href="#" class="hover:text-blue-600" vid="216">About Us</a></li>
+                        <li vid="217"><a href="#" class="hover:text-blue-600" vid="218">Contact</a></li>
+                        <li vid="219"><a href="#" class="hover:text-blue-600" vid="220">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4" vid="221">
+                <p class="text-xs text-slate-400" vid="222">© 2024 HRSignal Intelligence. All rights reserved.</p>
+                <div class="flex gap-6" vid="223">
+                    <a href="#" class="text-slate-400 hover:text-slate-600" vid="224"><span class="sr-only" vid="225">LinkedIn</span><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" vid="226"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" vid="227"></path></svg></a>
+                    <a href="#" class="text-slate-400 hover:text-slate-600" vid="228"><span class="sr-only" vid="229">Twitter</span><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" vid="230"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" vid="231"></path></svg></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body></html>
+
