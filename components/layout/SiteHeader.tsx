@@ -281,31 +281,38 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   <div
                     id={panelId}
                     ref={menuRef}
-                    className="absolute left-1/2 mt-3 w-[min(920px,calc(100vw-2rem))] -translate-x-1/2 rounded-[var(--radius-lg)] border border-[rgba(148,163,184,0.24)] bg-[rgba(2,6,23,0.96)] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.55)]"
+                    className={`absolute mt-3 rounded-[var(--radius-lg)] border border-[rgba(148,163,184,0.24)] bg-[rgba(2,6,23,0.96)] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.55)] ${
+                      key === "explore"
+                        ? "left-0 w-[min(640px,calc(100vw-2rem))]"
+                        : "left-1/2 w-[min(920px,calc(100vw-2rem))] -translate-x-1/2"
+                    }`}
+                    style={{ maxHeight: "70vh" }}
                     role="menu"
                     aria-labelledby={buttonId}
                   >
-                    <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${panelCols(key)}`}>
-                      {sections.map(([section, sectionItems]) => (
-                        <div key={section || "_"} className="min-w-0">
-                          {section ? (
-                            <div className="px-2 py-1 text-xs font-semibold tracking-wide text-[rgba(226,232,240,0.70)]">
-                              {section}
+                    <div className="max-h-[70vh] overflow-auto pr-1">
+                      <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${panelCols(key)}`}>
+                        {sections.map(([section, sectionItems]) => (
+                          <div key={section || "_"} className="min-w-0">
+                            {section ? (
+                              <div className="px-2 py-1 text-xs font-semibold tracking-wide text-[rgba(226,232,240,0.70)]">
+                                {section}
+                              </div>
+                            ) : null}
+                            <div className="mt-1 space-y-1">
+                              {sectionItems.map((item) => (
+                                <MenuLink
+                                  key={item.href}
+                                  href={item.href}
+                                  label={item.title}
+                                  description={item.description}
+                                  onClick={() => setOpenMenu(null)}
+                                />
+                              ))}
                             </div>
-                          ) : null}
-                          <div className="mt-1 space-y-1">
-                            {sectionItems.map((item) => (
-                              <MenuLink
-                                key={item.href}
-                                href={item.href}
-                                label={item.title}
-                                description={item.description}
-                                onClick={() => setOpenMenu(null)}
-                              />
-                            ))}
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   </div>
                 ) : null}
