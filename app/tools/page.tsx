@@ -400,16 +400,8 @@ export default async function ToolsPage({
                   </select>
                 </div>
 
-                <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">Search</label>
-                  <input
-                    className="input mt-1"
-                    name="q"
-                    defaultValue={q}
-                    placeholder="e.g., Keka, payroll, attendance"
-                    aria-label="Search tools"
-                  />
-                </div>
+                {/* Search lives in global header. Preserve any existing query in the filter form submit. */}
+                {q ? <input type="hidden" name="q" value={q} /> : null}
 
                 <div>
                   <label className="text-xs font-medium text-[#CBD5E1]">Company size</label>

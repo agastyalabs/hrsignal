@@ -218,17 +218,15 @@ function HeaderInner({ pathname }: { pathname: string }) {
           </span>
         </Link>
 
-        {/* Header search: show only where there's no dedicated on-page search/filter UI */}
-        {pathname !== "/" && !pathname.startsWith("/tools") && !pathname.startsWith("/vendors") && !pathname.startsWith("/categories") ? (
-          <form action="/tools" className="hidden w-full max-w-md lg:flex" onSubmit={() => setOpenMenu(null)}>
-            <input
-              className="h-11 w-full rounded-[var(--radius-pill)] border border-[rgba(15,23,42,0.12)] bg-white/70 px-4 text-sm text-[var(--text-main)] placeholder:text-[rgba(100,116,139,0.85)] shadow-[0_1px_0_rgba(255,255,255,0.7)_inset] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(37,99,235,0.35)]"
-              name="q"
-              placeholder="Search tools (e.g., payroll, attendance, Keka…)"
-              aria-label="Search tools"
-            />
-          </form>
-        ) : null}
+        {/* Header search (single primary search entry point) */}
+        <form action="/tools" className="hidden w-full max-w-md lg:flex" onSubmit={() => setOpenMenu(null)}>
+          <input
+            className="h-11 w-full rounded-[var(--radius-pill)] border border-[rgba(15,23,42,0.12)] bg-white/70 px-4 text-sm text-[var(--text-main)] placeholder:text-[rgba(100,116,139,0.85)] shadow-[0_1px_0_rgba(255,255,255,0.7)_inset] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(37,99,235,0.35)]"
+            name="q"
+            placeholder="Search tools (e.g., payroll, attendance, Keka…)"
+            aria-label="Search tools"
+          />
+        </form>
 
         {/* Desktop nav */}
         <nav className="relative hidden shrink-0 items-center gap-1 text-sm lg:flex" aria-label="Primary">
