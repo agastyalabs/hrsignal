@@ -418,7 +418,7 @@ export default async function ToolsPage({
                     <option value="smb">SMB (20–200)</option>
                     <option value="mid">Mid‑Market (201–1000)</option>
                     <option value="enterprise" disabled>
-                      Enterprise (1001+) — needs validation
+                      Enterprise (1001+)
                     </option>
                   </select>
                   <div className="mt-1 text-xs text-[#94A3B8]">Selected: {sizeLabelText}</div>
@@ -443,7 +443,7 @@ export default async function ToolsPage({
                     <option value="quote_based">Quote-based</option>
                     <option value="per_company_month">Per company / month</option>
                   </select>
-                  <div className="mt-1 text-xs text-[#94A3B8]">Cloud pricing is typically PEPM. On‑prem is typically one‑time (+ AMC).</div>
+                  <div className="mt-1 text-xs text-[#94A3B8]">Rule of thumb: Cloud pricing is typically PEPM (per employee / month). On‑prem is typically one‑time / annual.</div>
                 </div>
 
                 <div>

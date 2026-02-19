@@ -133,7 +133,7 @@ export default async function CategoriesPage() {
                 <option value="smb">SMB (20–200)</option>
                 <option value="mid">Mid‑Market (201–1000)</option>
                 <option value="enterprise" disabled>
-                  Enterprise (1001+) — needs validation
+                  Enterprise (1001+)
                 </option>
               </select>
             </div>
@@ -144,9 +144,11 @@ export default async function CategoriesPage() {
                 <option value="lt_50">&lt; ₹50k / month</option>
                 <option value="50_100">₹50k–₹1L / month</option>
                 <option value="100_200">₹1L–₹2L / month</option>
-                <option value="quote">Need a quote</option>
+                <option value="quote">Quote-based</option>
               </select>
-              <div className="mt-1 text-xs text-[var(--text-muted)]">Used in recommendations; directory filters are module-focused.</div>
+              <div className="mt-1 text-xs text-[var(--text-muted)]">
+                Budget is optional. Cloud pricing is usually <span className="font-semibold text-[var(--text)]">PEPM</span>; on‑prem is usually <span className="font-semibold text-[var(--text)]">one‑time / annual</span>.
+              </div>
             </div>
             <div className="sm:col-span-1">
               <label className="text-xs font-medium text-[var(--text-muted)]">Key need</label>
