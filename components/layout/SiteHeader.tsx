@@ -68,11 +68,15 @@ function MenuLink({
     <Link
       href={href}
       onClick={onClick}
-      className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      className="group block rounded-md px-3 py-2 text-sm text-[rgba(226,232,240,0.82)] hover:bg-[rgba(30,41,59,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
       role="menuitem"
     >
-      <div className="font-medium text-[var(--text)]">{label}</div>
-      {description ? <div className="mt-0.5 text-xs leading-5 text-[var(--text-muted)]">{description}</div> : null}
+      <div className="font-medium text-[var(--text)] group-hover:text-[var(--text)]">{label}</div>
+      {description ? (
+        <div className="mt-0.5 text-xs leading-5 text-[rgba(226,232,240,0.64)] group-hover:text-[rgba(226,232,240,0.74)]">
+          {description}
+        </div>
+      ) : null}
     </Link>
   );
 }
@@ -84,6 +88,16 @@ function groupBySection(items: NavItem[]) {
     out.set(key, [...(out.get(key) ?? []), item]);
   }
   return out;
+}
+
+function groupLabel(key: NavGroupKey) {
+  return key === "explore" ? "Explore" : key === "compare" ? "Compare" : key === "guides" ? "Guides" : "For Vendors";
+}
+
+function panelCols(key: NavGroupKey) {
+  if (key === "guides") return "lg:grid-cols-3";
+  if (key === "explore") return "lg:grid-cols-2";
+  return "lg:grid-cols-2";
 }
 
 function HeaderInner({ pathname }: { pathname: string }) {
@@ -123,6 +137,12 @@ function HeaderInner({ pathname }: { pathname: string }) {
   const [openMenu, setOpenMenu] = useState<null | NavGroupKey>(null);
   const headerRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const hoverCloseTimer = useRef<number | null>(null);
+
+  const allowHoverOpen = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia?.("(hover: hover) and (pointer: fine)")?.matches ?? false;
+  }, []);
 
   useEffect(() => {
     if (!openMenu) return;
@@ -211,18 +231,43 @@ function HeaderInner({ pathname }: { pathname: string }) {
         {/* Desktop nav */}
         <nav className="relative hidden shrink-0 items-center gap-1 text-sm lg:flex" aria-label="Primary">
           {(Object.keys(NAV) as NavGroupKey[]).map((key) => {
-            const label =
-              key === "explore" ? "Explore" : key === "compare" ? "Compare" : key === "guides" ? "Guides" : "For Vendors";
+            const label = groupLabel(key);
 
-            const isActive = key === "explore" ? active.explore : key === "compare" ? active.compare : key === "guides" ? active.guides : active.vendors;
+            const isActive =
+              key === "explore" ? active.explore : key === "compare" ? active.compare : key === "guides" ? active.guides : active.vendors;
+
+            const panelId = `nav-panel-${key}`;
+            const buttonId = `nav-button-${key}`;
+
+            const items =
+              key === "compare" && count
+                ? [{ title: "Compare (selected)", href: compareHref, description: "Open compare with your selected tools." }, ...NAV[key]]
+                : NAV[key];
+
+            const sections = Array.from(groupBySection(items).entries());
 
             return (
-              <div key={key} className="relative">
+              <div
+                key={key}
+                className="relative"
+                onMouseEnter={() => {
+                  if (!allowHoverOpen) return;
+                  if (hoverCloseTimer.current) window.clearTimeout(hoverCloseTimer.current);
+                  setOpenMenu(key);
+                }}
+                onMouseLeave={() => {
+                  if (!allowHoverOpen) return;
+                  if (hoverCloseTimer.current) window.clearTimeout(hoverCloseTimer.current);
+                  hoverCloseTimer.current = window.setTimeout(() => setOpenMenu(null), 120);
+                }}
+              >
                 <button
+                  id={buttonId}
                   type="button"
                   className={navItemClass(isActive)}
                   aria-haspopup="menu"
                   aria-expanded={openMenu === key}
+                  aria-controls={panelId}
                   onClick={() => setOpenMenu((v) => (v === key ? null : key))}
                 >
                   {label}
@@ -235,32 +280,34 @@ function HeaderInner({ pathname }: { pathname: string }) {
 
                 {openMenu === key ? (
                   <div
+                    id={panelId}
                     ref={menuRef}
-                    className="absolute left-1/2 mt-2 w-80 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none"
+                    className="absolute left-1/2 mt-3 w-[min(920px,calc(100vw-2rem))] -translate-x-1/2 rounded-[var(--radius-lg)] border border-[rgba(148,163,184,0.24)] bg-[rgba(2,6,23,0.96)] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.55)]"
                     role="menu"
+                    aria-labelledby={buttonId}
                   >
-                    {/* Dropdown container shell; items are driven by NAV config */}
-                    {Array.from(groupBySection(
-                      key === "compare" && count ? [{ title: "Compare (selected)", href: compareHref, description: "Open compare with your selected tools." }, ...NAV[key]] : NAV[key]
-                    ).entries()).map(([section, items], idx, arr) => (
-                      <div key={section || "_"}>
-                        {section ? (
-                          <div className="px-3 py-2 text-xs font-semibold tracking-wide text-[var(--text-muted)]">{section}</div>
-                        ) : null}
-                        <div className="space-y-1">
-                          {items.map((item) => (
-                            <MenuLink
-                              key={item.href}
-                              href={item.href}
-                              label={item.title}
-                              description={item.description}
-                              onClick={() => setOpenMenu(null)}
-                            />
-                          ))}
+                    <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${panelCols(key)}`}>
+                      {sections.map(([section, sectionItems]) => (
+                        <div key={section || "_"} className="min-w-0">
+                          {section ? (
+                            <div className="px-2 py-1 text-xs font-semibold tracking-wide text-[rgba(226,232,240,0.70)]">
+                              {section}
+                            </div>
+                          ) : null}
+                          <div className="mt-1 space-y-1">
+                            {sectionItems.map((item) => (
+                              <MenuLink
+                                key={item.href}
+                                href={item.href}
+                                label={item.title}
+                                description={item.description}
+                                onClick={() => setOpenMenu(null)}
+                              />
+                            ))}
+                          </div>
                         </div>
-                        {idx < arr.length - 1 ? <div className="my-2 h-px w-full bg-[var(--border-soft)]" /> : null}
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 ) : null}
               </div>
@@ -336,12 +383,12 @@ function HeaderInner({ pathname }: { pathname: string }) {
 
               <div className="mt-4 space-y-3">
                 {(Object.keys(NAV) as NavGroupKey[]).map((key) => {
-                  const label =
-                    key === "explore" ? "Explore" : key === "compare" ? "Compare" : key === "guides" ? "Guides" : "For Vendors";
+                  const label = groupLabel(key);
 
-                  const items = key === "compare" && count
-                    ? [{ title: "Compare (selected)", href: compareHref, description: "Open compare with your selected tools." }, ...NAV[key]]
-                    : NAV[key];
+                  const items =
+                    key === "compare" && count
+                      ? [{ title: "Compare (selected)", href: compareHref, description: "Open compare with your selected tools." }, ...NAV[key]]
+                      : NAV[key];
 
                   return (
                     <details
