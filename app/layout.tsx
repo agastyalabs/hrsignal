@@ -71,7 +71,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en" data-theme="light">
       <body className={`${inter.variable} ${jakarta.variable} antialiased`}>
         <script
           type="application/ld+json"

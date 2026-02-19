@@ -1,85 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  /* DESIGN SYSTEM TOKENS (DESIGN_SYSTEM.md) */
-  /* Added: core colors + typography + spacing custom properties */
-  --color-primary: #0B5F6F;
-  --color-accent: #D4A574;
-  --color-verified: #22C55E;
-  --color-validate: #F59E0B;
-  --color-neutral: #64748B;
-  --color-light-bg: #F0F9FA;
-  --color-white: #FFFFFF;
-  --color-dark: #1A1A1A;
+  /* === Global foundation tokens (Batch 3) ===
+     Source: DESIGN_SYSTEM.md + provided header/navbar HTML direction.
+     Intent: Plus Jakarta + light surfaces + primary blue (#2563EB).
+  */
 
-  --font-family-base: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  --size-h1: 52px;
-  --size-h2: 36px;
-  --size-h3: 24px;
-  --size-body: 16px;
-  --size-small: 14px;
-  --weight-bold: 700;
-  --weight-semibold: 600;
-  --weight-regular: 400;
-
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-
-  color-scheme: dark;
-
-  /* Single, locked theme (dark) — architect spec */
-  --bg: #0f172a;
-
-  /* Depth layers (premium glass) */
-  --surface-1: rgba(30, 41, 59, 0.52); /* cards */
-  --surface-2: rgba(30, 41, 59, 0.72); /* raised/sticky */
-  --surface-3: rgba(15, 23, 42, 0.88); /* popover / emphasis */
-  --header-bg: rgba(15, 23, 42, 0.62);
+  color-scheme: light;
 
   /* Brand */
-  --blue: #1D4ED8;
-  --green: #10B981;
+  --primary-blue: #2563eb;
+  --primary-dark: #1e40af;
 
-  /* === BASE TOKENS (navbar/dropdowns batch) === */
-  --primary-blue: #2563EB;
-  --primary-dark: #1E40AF;
-  --surface-grey: #F8FAFC;
-  --text-main: #0F172A;
-  --text-muted-base: #64748B;
+  /* Surfaces */
+  --bg: #ffffff;
+  --surface-0: rgba(255, 255, 255, 0.72); /* sticky header glass */
+  --surface-1: rgba(255, 255, 255, 0.92); /* cards / panels */
+  --surface-2: rgba(248, 250, 252, 0.92); /* subtle raised */
+  --surface-grey: #f8fafc;
 
+  /* Text */
+  --text-main: #0f172a;
+  --text: var(--text-main);
+  --text-muted-base: #64748b;
+  --text-muted: rgba(100, 116, 139, 0.86);
+  --surface-3: rgba(255, 255, 255, 0.96);
+
+  /* Borders / ring */
+  --border-soft: rgba(15, 23, 42, 0.12);
+  --border: rgba(15, 23, 42, 0.16);
+  --ring: rgba(37, 99, 235, 0.38);
+
+  /* Radius */
   --radius-pill: 9999px;
   --radius-card: 24px;
   --radius-inner: 16px;
+  --radius-sm: 0.75rem; /* 12px */
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
 
-  --shadow-soft: 0 1px 1px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.08);
-  --shadow-float: 0 18px 50px rgba(15, 23, 42, 0.12);
-  --shadow-glow: 0 0 0 1px rgba(37, 99, 235, 0.16), 0 18px 52px rgba(37, 99, 235, 0.14);
-
-  /* Links */
-  --link: var(--blue);
-  --link-hover: #3B82F6;
-
-  /* CTAs / scores */
-  --primary: var(--blue);
-  --primary-hover: #1E40AF;
-  --accent: var(--green);
-  --accent-hover: #0EA371;
-
-  /* Text + borders */
-  --text: #f8fafc;
-  --text-muted: rgba(248, 250, 252, 0.76);
-  --border: rgba(148, 163, 184, 0.26);
-  --border-soft: rgba(148, 163, 184, 0.18);
-
-  /* Focus */
-  --ring: rgba(29, 78, 216, 0.55);
-
-  /* Neural background dots (spec: emerald 0.05, 20px) */
-  --neural-dot: rgba(16, 185, 129, 0.05);
-  --neural-dot-soft: rgba(16, 185, 129, 0.035);
+  /* Shadows */
+  --shadow-soft: 0 1px 1px rgba(15, 23, 42, 0.06), 0 10px 28px rgba(15, 23, 42, 0.08);
+  --shadow-float: 0 22px 60px rgba(15, 23, 42, 0.14);
+  --shadow-glow: 0 0 0 1px rgba(37, 99, 235, 0.14), 0 22px 60px rgba(37, 99, 235, 0.16);
 
   /* Back-compat aliases (avoid breaking older usage) */
   --background: var(--bg);
@@ -88,12 +51,11 @@
 
 @theme inline {
   --color-background: var(--bg);
-  --color-foreground: var(--text);
+  --color-foreground: var(--text-main);
+
   /* Prefer SF Pro on Apple platforms; fall back to Plus Jakarta Sans/Inter elsewhere. */
   --font-sans: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, var(--font-jakarta), "Plus Jakarta Sans", "Inter", var(--font-inter);
 }
-
-/* Palette is locked for launch (dark UI). */
 
 /* Global typography defaults (classes can override locally). */
 :where(h1, h2, h3, h4) {
@@ -113,20 +75,16 @@
 }
 
 body {
-  /* Base: slate bg + faint emerald neural dots + subtle brand gradients */
   background:
-    radial-gradient(circle at 1px 1px, var(--neural-dot-soft) 1px, transparent 1px),
-    radial-gradient(900px 600px at 18% -14%, rgba(29, 78, 216, 0.10), transparent 62%),
-    radial-gradient(800px 600px at 92% 6%, rgba(16, 185, 129, 0.10), transparent 62%),
-    var(--bg);
-  background-size: 20px 20px, auto, auto, auto;
-  background-position: 0 0, center, center, center;
+    radial-gradient(900px 520px at 20% -10%, rgba(37, 99, 235, 0.12), transparent 62%),
+    radial-gradient(800px 520px at 90% 10%, rgba(37, 99, 235, 0.08), transparent 62%),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 55%, #ffffff 100%);
 
-  color: var(--text);
+  color: var(--text-main);
   font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji";
-  font-size: 0.98rem;
-  line-height: 1.58;
+  font-size: 1rem;
+  line-height: 1.6;
   letter-spacing: -0.01em;
   font-weight: 450;
   -webkit-font-smoothing: antialiased;
@@ -138,18 +96,18 @@ body {
   height: 2.75rem; /* 44px */
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-soft);
-  background: var(--surface-1);
-  padding: 0.625rem 0.9rem; /* 10px vertical for consistent centering */
+  background: rgba(255, 255, 255, 0.92);
+  padding: 0.625rem 0.9rem;
   font-size: 0.95rem;
   line-height: 1.1; /* Safari/iPad: avoid baseline drift */
-  color: var(--text);
+  color: var(--text-main);
   outline: none;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset;
 }
 
 /* Search/input readability */
 .input::placeholder {
-  color: var(--text-muted);
+  color: rgba(100, 116, 139, 0.9);
   opacity: 1;
 }
 
@@ -168,13 +126,13 @@ select.input {
 }
 
 select.input option {
-  background: var(--bg);
-  color: var(--text);
+  background: #ffffff;
+  color: var(--text-main);
 }
 
 .input:focus {
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 0 0 2px rgba(15, 24, 66, 0.92), 0 0 0 4px var(--ring);
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
 }
 
 textarea.input {
@@ -183,38 +141,18 @@ textarea.input {
   padding-bottom: 0.75rem;
 }
 
-/* === 2026 premium polish (tokens + micro-interactions) === */
+/* === Motion + focus defaults === */
 
 :root {
-  /* Typography scale */
-  --h1-size: clamp(2.25rem, 3.2vw, 3rem);
-  --h2-size: clamp(1.5rem, 2.2vw, 2rem);
-  --body-size: 1rem;
-
-  /* Spacing / radius */
-  --radius-sm: 0.65rem;
-  --radius-md: 0.9rem;
-  --radius-lg: 1.1rem;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 1px rgba(0, 0, 0, 0.18);
-  --shadow-md: 0 16px 46px rgba(0, 0, 0, 0.34);
-
-  /* Subtle hover elevation (controlled, slight green tint) */
-  --glow: 0 0 0 1px rgba(255, 255, 255, 0.10), 0 18px 52px rgba(16, 185, 129, 0.10);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 120ms;
+  --dur-2: 200ms;
 }
 
 /* Accessible focus ring (keyboard) */
 :where(a, button, input, select, textarea):focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(15, 24, 66, 0.94), 0 0 0 4px var(--ring);
-}
-
-/* Premium motion defaults */
-:root {
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-1: 120ms;
-  --dur-2: 200ms;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14), 0 0 0 1px rgba(37, 99, 235, 0.28);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -244,8 +182,6 @@ textarea.input {
 }
 .u-card-hover:hover {
   transform: translateY(-2px);
-  border-color: var(--green);
-  box-shadow: var(--glow);
+  border-color: rgba(37, 99, 235, 0.28);
+  box-shadow: var(--shadow-glow);
 }
-
-/* Theme switching removed for launch: single locked dark theme. */

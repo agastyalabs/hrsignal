@@ -13,34 +13,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Sprint token set (DESIGN_SYSTEM.md)
-        primary: "#0B5F6F",
-        accent: "#D4A574",
-        verified: "#22C55E",
-        validate: "#F59E0B",
-        neutral: "#64748B",
-        light_bg: "#F0F9FA",
-
-        // Runtime UI palette (dark-first)
-        brand: {
-          blue: "#1D4ED8",
-          green: "#10B981",
-          slate: "#0F172A",
-          black: "#000000",
-          white: "#FFFFFF",
+        // Global tokens (prefer CSS vars so components can evolve without churn)
+        primary: "var(--primary-blue)",
+        primaryDark: "var(--primary-dark)",
+        surface: {
+          bg: "var(--bg)",
+          0: "var(--surface-0)",
+          1: "var(--surface-1)",
+          2: "var(--surface-2)",
+          grey: "var(--surface-grey)",
+        },
+        text: {
+          main: "var(--text-main)",
+          muted: "var(--text-muted-base)",
+        },
+        border: {
+          soft: "var(--border-soft)",
         },
       },
       boxShadow: {
-        soft: "0 12px 34px rgba(0,0,0,0.35)",
-        glowGreen: "0 18px 52px rgba(16,185,129,0.18)",
-        glowBlue: "0 18px 52px rgba(29,78,216,0.16)",
-      },
-      backgroundImage: {
-        // Spec: radial-gradient emerald 1px, transparent 1px, size 20px, opacity 0.05
-        "neural-dots": "radial-gradient(circle at 1px 1px, rgba(16,185,129,0.05) 1px, transparent 1px)",
-      },
-      backgroundSize: {
-        "neural-dots": "20px 20px",
+        soft: "var(--shadow-soft)",
+        float: "var(--shadow-float)",
+        glow: "var(--shadow-glow)",
       },
       fontSize: {
         h1: ["52px", { lineHeight: "1.1" }],

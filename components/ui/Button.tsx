@@ -7,22 +7,21 @@ type Variant = "primary" | "secondary" | "tertiary";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center rounded-[var(--radius-sm)] font-semibold leading-none whitespace-nowrap select-none transition-all duration-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none";
+  "inline-flex items-center justify-center rounded-[var(--radius-sm)] font-semibold leading-none whitespace-nowrap select-none transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-gradient-to-b from-emerald-400 to-emerald-500 text-slate-950 shadow-[0_14px_46px_rgba(16,185,129,0.18)] hover:shadow-[0_0_0_1px_rgba(16,185,129,0.28),0_0_22px_rgba(16,185,129,0.42),0_18px_60px_rgba(16,185,129,0.18)] hover:scale-[1.02] active:scale-[1.0] disabled:bg-[rgba(255,255,255,0.10)] disabled:text-[rgba(247,249,255,0.55)]",
+    "bg-[var(--primary-blue)] text-white shadow-[var(--shadow-soft)] hover:bg-[var(--primary-dark)] hover:shadow-[var(--shadow-glow)] active:translate-y-px",
   secondary:
-    "border border-[var(--border)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)] hover:-translate-y-0.5 hover:border-[rgba(255,255,255,0.18)] hover:shadow-[0_14px_40px_rgba(0,0,0,0.30)] active:translate-y-0 disabled:text-[var(--text-muted)]",
+    "border border-[var(--border-soft)] bg-white/70 text-[var(--text-main)] shadow-[0_1px_0_rgba(255,255,255,0.7)_inset] hover:bg-white hover:border-[rgba(15,23,42,0.18)]",
   tertiary:
-    "text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] active:bg-[var(--surface-2)]",
+    "text-[rgba(15,23,42,0.72)] hover:bg-[rgba(37,99,235,0.06)] hover:text-[var(--text-main)]",
 };
 
 const sizes: Record<Size, string> = {
-  // Mobile-friendly padding (py-4) and stable sizing.
-  sm: "px-6 py-4 text-sm",
-  md: "px-6 py-4 text-sm",
-  lg: "px-8 py-4 text-base",
+  sm: "h-10 px-4 text-sm",
+  md: "h-11 px-5 text-sm",
+  lg: "h-12 px-6 text-base",
 };
 
 export function Button({
