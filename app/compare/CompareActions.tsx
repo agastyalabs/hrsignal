@@ -65,7 +65,7 @@ export function CompareActions({ tools }: { tools: string[] }) {
     <div className="mt-6 flex flex-wrap items-center gap-3">
       <button
         type="button"
-        className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 focus:outline-none focus:ring-4 focus:ring-indigo-500/20"
+        className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-medium text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
         onClick={() => setDiff(!diffOnly)}
         aria-pressed={diffOnly}
         aria-label={diffOnly ? "Show all rows" : "Show differences only"}
@@ -75,7 +75,7 @@ export function CompareActions({ tools }: { tools: string[] }) {
 
       <button
         type="button"
-        className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-800 hover:bg-zinc-50 focus:outline-none focus:ring-4 focus:ring-indigo-500/20"
+        className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-medium text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
         onClick={copyLink}
         aria-label="Copy compare link"
       >
@@ -84,7 +84,7 @@ export function CompareActions({ tools }: { tools: string[] }) {
 
       <button
         type="button"
-        className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 focus:outline-none focus:ring-4 focus:ring-indigo-500/20"
+        className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-medium text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
         onClick={share}
         aria-label="Share compare link"
       >

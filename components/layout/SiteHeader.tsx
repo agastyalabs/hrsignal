@@ -220,7 +220,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
         {pathname !== "/" && !pathname.startsWith("/tools") && !pathname.startsWith("/vendors") && !pathname.startsWith("/categories") ? (
           <form action="/tools" className="hidden w-full max-w-md lg:flex" onSubmit={() => setOpenMenu(null)}>
             <input
-              className="h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+              className="h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[rgba(226,232,240,0.62)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
               name="q"
               placeholder="Search tools (e.g., payroll, attendance, Keka…)"
               aria-label="Search tools"

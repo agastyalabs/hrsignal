@@ -46,7 +46,7 @@ export default async function ComparePage({
                   Add tools to compare from the directory or tool pages.
                 </p>
               </div>
-              <Link className="text-sm font-medium text-indigo-700 hover:underline" href="/tools">
+              <Link className="text-sm font-medium text-[var(--link)] hover:text-[var(--link-hover)] hover:underline" href="/tools">
                 Browse tools
               </Link>
             </div>
