@@ -66,12 +66,13 @@ function MenuLink({
     <Link
       href={href}
       onClick={onClick}
-      className="group block rounded-md px-3 py-2 text-sm text-[rgba(226,232,240,0.82)] hover:bg-[rgba(30,41,59,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      className="group relative block rounded-md px-3 py-2 text-sm text-[rgba(226,232,240,0.90)] hover:bg-[rgba(16,185,129,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
       role="menuitem"
     >
-      <div className="font-medium text-[var(--text)] group-hover:text-[var(--text)]">{label}</div>
+      <span className="absolute left-0 top-2 bottom-2 w-[2px] rounded-full bg-emerald-400/0 transition-colors duration-200 group-hover:bg-emerald-400/70" aria-hidden="true" />
+      <div className="font-semibold text-[rgba(248,250,252,0.96)]">{label}</div>
       {description ? (
-        <div className="mt-0.5 text-xs leading-5 text-[rgba(226,232,240,0.64)] group-hover:text-[rgba(226,232,240,0.74)]">
+        <div className="mt-0.5 text-xs leading-5 text-[rgba(226,232,240,0.72)]">
           {description}
         </div>
       ) : null}
@@ -281,7 +282,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   <div
                     id={panelId}
                     ref={menuRef}
-                    className={`absolute mt-3 rounded-[var(--radius-lg)] border border-[rgba(148,163,184,0.24)] bg-[rgba(2,6,23,0.96)] p-4 shadow-[0_18px_60px_rgba(0,0,0,0.55)] ${
+                    className={`absolute mt-3 rounded-[var(--radius-lg)] border border-white/10 bg-[rgba(15,23,42,0.72)] p-3 shadow-[0_16px_46px_rgba(0,0,0,0.40)] backdrop-blur-xl ${
                       key === "explore"
                         ? "left-0 w-[min(640px,calc(100vw-2rem))]"
                         : "left-1/2 w-[min(920px,calc(100vw-2rem))] -translate-x-1/2"
@@ -290,12 +291,12 @@ function HeaderInner({ pathname }: { pathname: string }) {
                     role="menu"
                     aria-labelledby={buttonId}
                   >
-                    <div className="max-h-[70vh] overflow-auto pr-1">
+                    <div className="max-h-[70vh] overflow-auto p-1">
                       <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 ${panelCols(key)}`}>
                         {sections.map(([section, sectionItems]) => (
                           <div key={section || "_"} className="min-w-0">
                             {section ? (
-                              <div className="px-2 py-1 text-xs font-semibold tracking-wide text-[rgba(226,232,240,0.70)]">
+                              <div className="px-2 py-1 text-xs font-semibold tracking-wide text-[rgba(226,232,240,0.78)]">
                                 {section}
                               </div>
                             ) : null}
