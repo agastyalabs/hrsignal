@@ -12,6 +12,12 @@
   --primary-blue: #2563eb;
   --primary-dark: #1e40af;
 
+  /* Back-compat button/link aliases (older components still reference these) */
+  --primary: var(--primary-blue);
+  --primary-hover: var(--primary-dark);
+  --link: var(--primary-blue);
+  --link-hover: #3b82f6;
+
   /* Surfaces */
   --bg: #ffffff;
   --surface-0: rgba(255, 255, 255, 0.72); /* sticky header glass */

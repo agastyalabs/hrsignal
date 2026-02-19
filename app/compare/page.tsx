@@ -33,7 +33,7 @@ export default async function ComparePage({
 
   if (!slugs.length) {
     return (
-      <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
+      <div className="min-h-screen bg-[var(--bg)] text-[var(--text-main)]">
         <SiteHeader />
         <CompareHydrate />
 
@@ -51,7 +51,7 @@ export default async function ComparePage({
               </Link>
             </div>
 
-            <Card className="mt-6">
+            <Card className="mt-6 p-6">
               <div className="text-base font-semibold text-[var(--text)]">No tools selected</div>
               <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">
                 Use the “Compare” button on tool cards to build a shortlist (up to 5).
@@ -73,11 +73,11 @@ export default async function ComparePage({
 
   if (!process.env.DATABASE_URL) {
     return (
-      <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
+      <div className="min-h-screen bg-[var(--bg)] text-[var(--text-main)]">
         <SiteHeader />
         <main className="py-10 sm:py-14">
           <Container>
-            <Card>
+            <Card className="p-6">
               <div className="text-base font-semibold text-[var(--text)]">Catalog not configured</div>
               <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">Set DATABASE_URL to use compare in production.</p>
             </Card>
@@ -220,7 +220,7 @@ export default async function ComparePage({
     .filter((s) => s.rows.length > 0);
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text-main)]">
       <SiteHeader />
       <main className="py-10 sm:py-14">
         <Container>

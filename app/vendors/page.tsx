@@ -264,7 +264,7 @@ export default async function VendorsPage({
   );
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text-main)]">
       <AnalyticsView event="view_directory" props={{ directory: "vendors" }} />
       {filterApplied ? (
         <AnalyticsView

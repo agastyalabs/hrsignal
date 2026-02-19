@@ -345,7 +345,7 @@ export default async function ToolsPage({
   );
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text-main)]">
       <AnalyticsView event="view_directory" props={{ directory: "tools" }} />
       {filterApplied ? (
         <AnalyticsView
