@@ -75,12 +75,13 @@ export default async function Home() {
                   </form>
 
                   <TrackedButtonLink
-                    event="primary_cta_click"
-                    href="/recommend"
+                    event="secondary_cta_click"
+                    href="/tools"
+                    variant="secondary"
                     size="lg"
                     className="w-full justify-center"
                   >
-                    Get my shortlist
+                    Explore tools
                   </TrackedButtonLink>
 
                   <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-[rgba(226,232,240,0.74)]">

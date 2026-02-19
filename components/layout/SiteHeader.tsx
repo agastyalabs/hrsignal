@@ -32,16 +32,14 @@ const NAV: NavConfig = {
     { title: "Compare vendors", href: "/compare/vendors", description: "Compare vendors across categories." },
   ],
   guides: [
-    { title: "Resources", href: "/resources", description: "Buyer-first evaluation guides and checklists.", section: "Buyer guides" },
-    { title: "Methodology", href: "/methodology", description: "How fit scores and verification work.", section: "Buyer guides" },
-    { title: "Compliance Guides", href: "/compliance", description: "PF, ESI, PT multi-state, TDS.", section: "Compliance" },
-    { title: "India payroll risk checklist", href: "/india-payroll-risk-checklist", section: "Tools" },
-    { title: "Payroll risk scanner", href: "/payroll-risk-scanner", section: "Tools" },
-    { title: "HRMS fit score", href: "/hrms-fit-score", section: "Tools" },
-    { title: "Decision report", href: "/report", section: "Tools" },
+    { title: "Resources", href: "/resources", description: "Buyer-first evaluation guides and checklists." },
+    { title: "Methodology", href: "/methodology", description: "How fit scores and verification work." },
+    { title: "India payroll risk checklist", href: "/india-payroll-risk-checklist", description: "Printable checklist to carry into demos." },
+    { title: "Payroll risk scanner", href: "/payroll-risk-scanner", description: "Quick risk tier + targeted validation questions." },
+    { title: "HRMS fit score", href: "/hrms-fit-score", description: "Structured fit snapshot for HRMS buyers." },
   ],
   vendors: [
-    { title: "Claim your vendor profile", href: "/vendors/claim", description: "Verify listings and add evidence links." },
+    { title: "Claim your vendor profile", href: "/vendors/claim", description: "Verify your listing and add evidence links." },
   ],
 };
 
@@ -95,8 +93,9 @@ function groupLabel(key: NavGroupKey) {
 }
 
 function panelCols(key: NavGroupKey) {
-  if (key === "guides") return "lg:grid-cols-3";
+  // Keep panels compact to avoid clutter/overflow.
   if (key === "explore") return "lg:grid-cols-2";
+  if (key === "guides") return "lg:grid-cols-2";
   return "lg:grid-cols-2";
 }
 
