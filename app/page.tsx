@@ -23,28 +23,34 @@ export default async function Home() {
 
       {/* 1) Hero + decision snapshot */}
       <HomeSection className="pt-24">
-        <div className="mx-auto max-w-6xl rounded-[1.2rem] border border-[var(--border-soft)] bg-[linear-gradient(to_bottom,#0f172a,#020617)]">
-          <div className="grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:gap-10 lg:p-12">
+        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[1.4rem] border border-[rgba(148,163,184,0.22)] bg-[radial-gradient(900px_520px_at_50%_-12%,rgba(16,185,129,0.22),transparent_64%),radial-gradient(900px_520px_at_12%_12%,rgba(29,78,216,0.14),transparent_62%),linear-gradient(to_bottom,#0b1226,#020617)] shadow-[0_24px_120px_rgba(0,0,0,0.45)]">
+          <div className="pointer-events-none absolute inset-0 opacity-60 mix-blend-screen">
+            <div className="absolute inset-0 bg-neural-dots" />
+            <div className="absolute -left-24 top-24 h-72 w-72 rounded-full bg-emerald-400/10 blur-3xl" />
+            <div className="absolute -right-24 top-10 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+          </div>
+
+          <div className="relative grid grid-cols-1 gap-10 p-7 sm:p-10 lg:grid-cols-12 lg:gap-12 lg:p-14">
             <div className="lg:col-span-7">
-              <div className="mx-auto text-center text-xs font-semibold tracking-[0.12em] text-[var(--text-muted)] lg:text-left">
+              <div className="mx-auto text-center text-xs font-semibold tracking-[0.14em] text-[rgba(226,232,240,0.78)]">
                 DECISION INTELLIGENCE FOR INDIA HR SOFTWARE
               </div>
 
-              <h1 className="mx-auto mt-3 max-w-5xl text-center text-6xl font-bold leading-[1.02] tracking-[-0.03em] text-[var(--text)] lg:text-left">
+              <h1 className="mx-auto mt-4 max-w-5xl text-center text-5xl font-bold leading-[1.02] tracking-[-0.04em] text-[var(--text)] sm:text-6xl">
                 Shortlist India-ready HRMS & Payroll — without month-end surprises.
               </h1>
 
-              <p className="mx-auto mt-4 max-w-5xl text-center text-xl leading-8 text-slate-300 lg:text-left">
+              <p className="mx-auto mt-5 max-w-4xl text-center text-lg leading-8 text-[rgba(226,232,240,0.86)] sm:text-xl">
                 Get 3–5 best-fit tools based on headcount, modules, integrations, and multi-state compliance — with fit scores, evidence links, and a demo checklist that catches PF/ESI/PT/TDS edge cases.
               </p>
 
-              <div className="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start lg:justify-start">
+              <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start">
                 <div className="flex w-full flex-col gap-3 sm:w-auto">
                   {/* Above-fold inline email CTA */}
                   <form action="/recommend" method="get" className="flex w-full flex-col gap-3 sm:flex-row">
                     <input type="hidden" name="source" value="hero_email" />
                     <input
-                      className="h-14 w-full rounded-[var(--radius-sm)] border border-[rgba(16,185,129,0.35)] bg-[rgba(2,6,23,0.55)] px-5 text-base text-[var(--text)] placeholder:text-[rgba(148,163,184,0.95)] shadow-[0_18px_60px_rgba(16,185,129,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(16,185,129,0.55)] sm:min-w-[360px]"
+                      className="h-14 w-full rounded-[var(--radius-sm)] border border-[rgba(16,185,129,0.35)] bg-[rgba(2,6,23,0.38)] px-5 text-base text-[var(--text)] placeholder:text-[rgba(148,163,184,0.95)] shadow-[0_18px_60px_rgba(16,185,129,0.10)] backdrop-blur-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(16,185,129,0.55)] sm:min-w-[360px]"
                       type="email"
                       name="email"
                       required
@@ -54,7 +60,7 @@ export default async function Home() {
                     />
                     <button
                       type="submit"
-                      className="inline-flex h-14 w-full items-center justify-center rounded-[var(--radius-sm)] bg-emerald-500 px-8 py-4 text-base font-semibold text-slate-950 shadow-[0_14px_46px_rgba(16,185,129,0.18)] transition-all duration-200 hover:shadow-[0_0_0_1px_rgba(16,185,129,0.25),0_0_18px_rgba(16,185,129,0.35),0_18px_60px_rgba(16,185,129,0.18)] hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 sm:w-auto"
+                      className="inline-flex h-14 w-full items-center justify-center rounded-[var(--radius-sm)] bg-gradient-to-b from-emerald-400 to-emerald-500 px-8 py-4 text-base font-semibold text-slate-950 shadow-[0_14px_46px_rgba(16,185,129,0.18)] transition-all duration-200 hover:shadow-[0_0_0_1px_rgba(16,185,129,0.28),0_0_22px_rgba(16,185,129,0.42),0_18px_60px_rgba(16,185,129,0.18)] hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 sm:w-auto"
                     >
                       Get shortlist
                     </button>
@@ -69,7 +75,7 @@ export default async function Home() {
                     Get my India-ready shortlist
                   </TrackedButtonLink>
 
-                  <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-[var(--text-muted)] lg:justify-start">
+                  <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-[rgba(226,232,240,0.74)]">
                     <span>Takes 60 seconds</span>
                     <span className="text-[var(--text-muted)]">•</span>
                     <span>No vendor spam</span>
@@ -86,7 +92,7 @@ export default async function Home() {
                 </Link>
               </div>
 
-              <div className="mx-auto mt-6 max-w-5xl rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 py-3 text-center text-sm leading-6 text-[var(--text-muted)] lg:text-left">
+              <div className="u-glass-strong mx-auto mt-7 max-w-4xl rounded-[var(--radius-md)] border border-[rgba(148,163,184,0.20)] px-5 py-4 text-center text-sm leading-6 text-[rgba(226,232,240,0.76)]">
                 Trusted by HR leaders in 20–1000 employee Indian orgs evaluating multi-state compliance risk.
               </div>
 
@@ -681,7 +687,7 @@ function StepCardV5({ icon, title, body }: { icon: string; title: string; body: 
 
 function DecisionSnapshotCard() {
   return (
-    <div className="rounded-[var(--radius-lg)] border border-[rgba(148,163,184,0.22)] bg-[rgba(15,23,42,0.78)] p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-500/70 hover:shadow-lg">
+    <div className="u-glass-strong u-card-hover rounded-[var(--radius-lg)] border border-[rgba(148,163,184,0.22)] p-6 shadow-[0_14px_60px_rgba(0,0,0,0.35)]">
       <div className="text-xs font-medium tracking-wide text-[var(--text-muted)]">Decision snapshot · India payroll context</div>
       <div className="mt-2 text-base font-medium text-[var(--text)]">Payroll &amp; Compliance shortlist preview</div>
 
