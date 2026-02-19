@@ -43,6 +43,21 @@
   --blue: #1D4ED8;
   --green: #10B981;
 
+  /* === BASE TOKENS (navbar/dropdowns batch) === */
+  --primary-blue: #2563EB;
+  --primary-dark: #1E40AF;
+  --surface-grey: #F8FAFC;
+  --text-main: #0F172A;
+  --text-muted-base: #64748B;
+
+  --radius-pill: 9999px;
+  --radius-card: 24px;
+  --radius-inner: 16px;
+
+  --shadow-soft: 0 1px 1px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-float: 0 18px 50px rgba(15, 23, 42, 0.12);
+  --shadow-glow: 0 0 0 1px rgba(37, 99, 235, 0.16), 0 18px 52px rgba(37, 99, 235, 0.14);
+
   /* Links */
   --link: var(--blue);
   --link-hover: #3B82F6;
@@ -74,8 +89,8 @@
 @theme inline {
   --color-background: var(--bg);
   --color-foreground: var(--text);
-  /* Prefer SF Pro on Apple platforms; fall back to Inter (Next.js) elsewhere. */
-  --font-sans: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Inter", var(--font-inter);
+  /* Prefer SF Pro on Apple platforms; fall back to Plus Jakarta Sans/Inter elsewhere. */
+  --font-sans: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, var(--font-jakarta), "Plus Jakarta Sans", "Inter", var(--font-inter);
 }
 
 /* Palette is locked for launch (dark UI). */

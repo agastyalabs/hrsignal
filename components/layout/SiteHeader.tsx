@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { BRAND } from "@/config/brand";
+// Note: header uses its own max-width (7xl) to match BASE navbar spec.
 import { Container } from "@/components/layout/Container";
 import { ButtonLink } from "@/components/ui/Button";
 import { useCompare } from "@/lib/compare/useCompare";
@@ -44,10 +45,11 @@ const NAV: NavConfig = {
 };
 
 function navItemClass(active: boolean) {
-  return `relative rounded-md px-2 py-1 transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:opacity-0 after:transition-opacity after:duration-200 after:bg-emerald-500 hover:after:opacity-100 ${
+  // Light navbar styles (BASE tokens). Keep this isolated to header.
+  return `relative inline-flex h-10 items-center rounded-[var(--radius-pill)] px-4 text-sm font-semibold transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(37,99,235,0.35)] after:absolute after:inset-x-4 after:-bottom-1 after:h-0.5 after:rounded-full after:opacity-0 after:transition-opacity after:duration-200 after:bg-[var(--primary-blue)] hover:after:opacity-100 ${
     active
-      ? "text-[var(--text)] bg-emerald-500/20 after:opacity-100"
-      : "text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
+      ? "text-[var(--text-main)] bg-[rgba(37,99,235,0.08)] after:opacity-100"
+      : "text-[rgba(15,23,42,0.72)] hover:bg-[rgba(15,23,42,0.04)] hover:text-[var(--text-main)]"
   }`;
 }
 
@@ -66,13 +68,16 @@ function MenuLink({
     <Link
       href={href}
       onClick={onClick}
-      className="group relative block rounded-md px-3 py-2 text-sm text-[rgba(226,232,240,0.90)] hover:bg-[rgba(16,185,129,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      className="group relative block rounded-[var(--radius-inner)] px-4 py-3 text-sm text-[var(--text-main)] hover:bg-[rgba(37,99,235,0.06)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(37,99,235,0.30)]"
       role="menuitem"
     >
-      <span className="absolute left-0 top-2 bottom-2 w-[2px] rounded-full bg-emerald-400/0 transition-colors duration-200 group-hover:bg-emerald-400/70" aria-hidden="true" />
-      <div className="font-semibold text-[rgba(248,250,252,0.96)]">{label}</div>
+      <span
+        className="absolute left-2 top-3 bottom-3 w-[2px] rounded-full bg-[rgba(16,185,129,0.0)] transition-colors duration-200 group-hover:bg-[rgba(16,185,129,0.75)]"
+        aria-hidden="true"
+      />
+      <div className="font-semibold text-[var(--text-main)]">{label}</div>
       {description ? (
-        <div className="mt-0.5 text-xs leading-5 text-[rgba(226,232,240,0.72)]">
+        <div className="mt-1 text-xs leading-5 text-[var(--text-muted-base)]">
           {description}
         </div>
       ) : null}
@@ -194,11 +199,11 @@ function HeaderInner({ pathname }: { pathname: string }) {
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 border-b border-[var(--border-soft)] bg-[var(--header-bg)] transition-shadow motion-reduce:transition-none ${
-        scrolled ? "shadow-sm" : "shadow-none"
+      className={`sticky top-0 z-50 border-b border-[rgba(15,23,42,0.10)] bg-[rgba(255,255,255,0.82)] backdrop-blur-xl transition-shadow motion-reduce:transition-none ${
+        scrolled ? "shadow-[var(--shadow-soft)]" : "shadow-none"
       }`}
     >
-      <Container className="flex items-center justify-between gap-4 py-4">
+      <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between gap-6 px-6">
         <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
           <span className="flex items-center">
             <Image
@@ -207,11 +212,8 @@ function HeaderInner({ pathname }: { pathname: string }) {
               width={192}
               height={192}
               priority
-              className="h-16 w-60 sm:h-20 sm:w-72"
-              style={{
-                filter:
-                  "drop-shadow(0 0 18px rgba(16,185,129,0.55)) drop-shadow(0 0 64px rgba(16,185,129,0.30))",
-              }}
+              className="h-10 w-auto sm:h-11"
+              style={{ filter: "drop-shadow(0 8px 22px rgba(37,99,235,0.12))" }}
             />
           </span>
         </Link>
@@ -220,7 +222,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
         {pathname !== "/" && !pathname.startsWith("/tools") && !pathname.startsWith("/vendors") && !pathname.startsWith("/categories") ? (
           <form action="/tools" className="hidden w-full max-w-md lg:flex" onSubmit={() => setOpenMenu(null)}>
             <input
-              className="h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[rgba(226,232,240,0.62)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+              className="h-11 w-full rounded-[var(--radius-pill)] border border-[rgba(15,23,42,0.12)] bg-white/70 px-4 text-sm text-[var(--text-main)] placeholder:text-[rgba(100,116,139,0.85)] shadow-[0_1px_0_rgba(255,255,255,0.7)_inset] focus:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(37,99,235,0.35)]"
               name="q"
               placeholder="Search tools (e.g., payroll, attendance, Keka…)"
               aria-label="Search tools"
@@ -282,10 +284,10 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   <div
                     id={panelId}
                     ref={menuRef}
-                    className={`absolute mt-3 rounded-[var(--radius-lg)] border border-white/10 bg-[rgba(15,23,42,0.72)] p-3 shadow-[0_16px_46px_rgba(0,0,0,0.40)] backdrop-blur-xl ${
+                    className={`absolute mt-4 rounded-[var(--radius-card)] border border-slate-200/70 bg-white/92 p-4 shadow-[var(--shadow-float)] backdrop-blur-xl ${
                       key === "explore"
                         ? "left-0 w-[min(640px,calc(100vw-2rem))]"
-                        : "left-1/2 w-[min(920px,calc(100vw-2rem))] -translate-x-1/2"
+                        : "left-1/2 w-[min(840px,calc(100vw-2rem))] -translate-x-1/2"
                     }`}
                     style={{ maxHeight: "70vh" }}
                     role="menu"
@@ -296,7 +298,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                         {sections.map(([section, sectionItems]) => (
                           <div key={section || "_"} className="min-w-0">
                             {section ? (
-                              <div className="px-2 py-1 text-xs font-semibold tracking-wide text-[rgba(226,232,240,0.78)]">
+                              <div className="px-2 py-1 text-xs font-semibold tracking-wide text-[rgba(15,23,42,0.62)]">
                                 {section}
                               </div>
                             ) : null}
@@ -321,8 +323,14 @@ function HeaderInner({ pathname }: { pathname: string }) {
             );
           })}
 
-          <div className="ml-2">
-            <ButtonLink href="/recommend" variant="primary" size="sm" onClick={() => setOpenMenu(null)}>
+          <div className="ml-3">
+            <ButtonLink
+              href="/recommend"
+              variant="primary"
+              size="sm"
+              onClick={() => setOpenMenu(null)}
+              className="rounded-[var(--radius-pill)] px-5 py-3"
+            >
               Get my shortlist
             </ButtonLink>
           </div>
@@ -331,7 +339,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
         {/* Mobile trigger */}
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-pill)] border border-[rgba(15,23,42,0.12)] bg-white/70 text-[var(--text-main)] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(37,99,235,0.35)] lg:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           onClick={() => {
@@ -347,7 +355,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
             )}
           </svg>
         </button>
-      </Container>
+      </div>
 
       {/* Mobile menu sheet */}
       {mobileOpen ? (

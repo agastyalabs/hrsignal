@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { UtmCapture } from "@/components/analytics/UtmCapture";
@@ -7,6 +7,11 @@ import { FloatingShortlistCta } from "@/components/marketing/FloatingShortlistCt
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
 });
 
@@ -67,7 +72,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" data-theme="dark">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} ${jakarta.variable} antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
