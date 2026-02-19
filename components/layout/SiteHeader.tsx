@@ -10,6 +10,41 @@ import { Container } from "@/components/layout/Container";
 import { ButtonLink } from "@/components/ui/Button";
 import { useCompare } from "@/lib/compare/useCompare";
 
+type NavGroupKey = "explore" | "compare" | "guides" | "vendors";
+
+type NavItem = {
+  title: string;
+  href: string;
+  description?: string;
+  section?: string;
+};
+
+type NavConfig = Record<NavGroupKey, NavItem[]>;
+
+const NAV: NavConfig = {
+  explore: [
+    { title: "Tools", href: "/tools", description: "Browse verified HRMS & payroll tools." },
+    { title: "Vendors", href: "/vendors", description: "Vendor profiles + evidence links." },
+    { title: "Categories", href: "/categories", description: "Start from a module (Payroll, HRMS, ATS…)." },
+  ],
+  compare: [
+    { title: "Compare tools", href: "/compare", description: "Side-by-side comparison with risk visibility." },
+    { title: "Compare vendors", href: "/compare/vendors", description: "Compare vendors across categories." },
+  ],
+  guides: [
+    { title: "Resources", href: "/resources", description: "Buyer-first evaluation guides and checklists.", section: "Buyer guides" },
+    { title: "Methodology", href: "/methodology", description: "How fit scores and verification work.", section: "Buyer guides" },
+    { title: "Compliance Guides", href: "/compliance", description: "PF, ESI, PT multi-state, TDS.", section: "Compliance" },
+    { title: "India payroll risk checklist", href: "/india-payroll-risk-checklist", section: "Tools" },
+    { title: "Payroll risk scanner", href: "/payroll-risk-scanner", section: "Tools" },
+    { title: "HRMS fit score", href: "/hrms-fit-score", section: "Tools" },
+    { title: "Decision report", href: "/report", section: "Tools" },
+  ],
+  vendors: [
+    { title: "Claim your vendor profile", href: "/vendors/claim", description: "Verify listings and add evidence links." },
+  ],
+};
+
 function navItemClass(active: boolean) {
   return `relative rounded-md px-2 py-1 transition-colors duration-200 motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] after:absolute after:inset-x-2 after:-bottom-2 after:h-0.5 after:rounded-full after:opacity-0 after:transition-opacity after:duration-200 after:bg-emerald-500 hover:after:opacity-100 ${
     active
@@ -18,50 +53,15 @@ function navItemClass(active: boolean) {
   }`;
 }
 
-function activeUnderline(active: boolean) {
-  // underline handled in navItemClass (active + hover)
-  return active ? "" : "";
-}
-
-function NavLink({
-  href,
-  active,
-  children,
-  onClick,
-}: {
-  href: string;
-  active: boolean;
-  children: React.ReactNode;
-  onClick?: () => void;
-}) {
-  return (
-    <Link
-      className={`${navItemClass(active)} ${activeUnderline(active)}`}
-      href={href}
-      aria-current={active ? "page" : undefined}
-      onClick={onClick}
-    >
-      {children}
-    </Link>
-  );
-}
-
-function MenuGroup({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <div className="px-3 py-2 text-xs font-semibold tracking-wide text-[var(--text-muted)]">{title}</div>
-      <div className="space-y-1">{children}</div>
-    </div>
-  );
-}
-
 function MenuLink({
   href,
   label,
+  description,
   onClick,
 }: {
   href: string;
   label: string;
+  description?: string;
   onClick?: () => void;
 }) {
   return (
@@ -71,9 +71,19 @@ function MenuLink({
       className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
       role="menuitem"
     >
-      {label}
+      <div className="font-medium text-[var(--text)]">{label}</div>
+      {description ? <div className="mt-0.5 text-xs leading-5 text-[var(--text-muted)]">{description}</div> : null}
     </Link>
   );
+}
+
+function groupBySection(items: NavItem[]) {
+  const out = new Map<string, NavItem[]>();
+  for (const item of items) {
+    const key = item.section ?? "";
+    out.set(key, [...(out.get(key) ?? []), item]);
+  }
+  return out;
 }
 
 function HeaderInner({ pathname }: { pathname: string }) {
@@ -82,22 +92,22 @@ function HeaderInner({ pathname }: { pathname: string }) {
   const active = useMemo(() => {
     const is = (prefix: string) => pathname === prefix || pathname.startsWith(prefix + "/");
     return {
-      tools: is("/tools"),
-      vendors: is("/vendors"),
-      categories: is("/categories"),
-      resources:
+      explore: is("/tools") || is("/vendors") || is("/categories"),
+      compare: is("/compare"),
+      guides:
         is("/resources") ||
         is("/methodology") ||
         is("/compliance") ||
         pathname === "/india-payroll-risk-checklist" ||
         pathname === "/payroll-risk-scanner" ||
-        pathname === "/hrms-fit-score",
-      compare: is("/compare"),
+        pathname === "/hrms-fit-score" ||
+        pathname === "/report",
+      vendors: pathname === "/vendors/claim",
       recommend: is("/recommend"),
     };
   }, [pathname]);
 
-  const compareHref = count ? `/compare?tools=${encodeURIComponent(slugs.join(","))}` : null;
+  const compareHref = count ? `/compare?tools=${encodeURIComponent(slugs.join(","))}` : "/compare";
 
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -109,11 +119,10 @@ function HeaderInner({ pathname }: { pathname: string }) {
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Desktop controlled menus (prevents overlap + improves stability)
-  const [openMenu, setOpenMenu] = useState<null | "categories" | "resources">(null);
+  // Desktop controlled menus
+  const [openMenu, setOpenMenu] = useState<null | NavGroupKey>(null);
   const headerRef = useRef<HTMLElement | null>(null);
-  const categoriesMenuRef = useRef<HTMLDivElement | null>(null);
-  const resourcesMenuRef = useRef<HTMLDivElement | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!openMenu) return;
@@ -121,9 +130,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
     const onDocMouseDown = (e: MouseEvent) => {
       const t = e.target as Node | null;
       const inHeader = headerRef.current?.contains(t as Node) ?? false;
-      const inMenu =
-        (categoriesMenuRef.current?.contains(t as Node) ?? false) ||
-        (resourcesMenuRef.current?.contains(t as Node) ?? false);
+      const inMenu = menuRef.current?.contains(t as Node) ?? false;
       if (!inHeader && !inMenu) setOpenMenu(null);
     };
 
@@ -131,7 +138,6 @@ function HeaderInner({ pathname }: { pathname: string }) {
       if (e.key === "Escape") setOpenMenu(null);
     };
 
-    // Close on scroll to avoid jitter/misalignment.
     const onScrollClose = () => setOpenMenu(null);
 
     document.addEventListener("mousedown", onDocMouseDown);
@@ -204,100 +210,62 @@ function HeaderInner({ pathname }: { pathname: string }) {
 
         {/* Desktop nav */}
         <nav className="relative hidden shrink-0 items-center gap-1 text-sm lg:flex" aria-label="Primary">
-          <NavLink href="/tools" active={active.tools} onClick={() => setOpenMenu(null)}>
-            Tools
-          </NavLink>
-          <NavLink href="/vendors" active={active.vendors} onClick={() => setOpenMenu(null)}>
-            Vendors
-          </NavLink>
+          {(Object.keys(NAV) as NavGroupKey[]).map((key) => {
+            const label =
+              key === "explore" ? "Explore" : key === "compare" ? "Compare" : key === "guides" ? "Guides" : "For Vendors";
 
-          {/* Categories menu */}
-          <div className="relative">
-            <button
-              type="button"
-              className={`${navItemClass(active.categories)} ${activeUnderline(active.categories)}`}
-              aria-haspopup="menu"
-              aria-expanded={openMenu === "categories"}
-              onClick={() => setOpenMenu((v) => (v === "categories" ? null : "categories"))}
-            >
-              Categories
-            </button>
-            {openMenu === "categories" ? (
-              <div
-                ref={categoriesMenuRef}
-                className="absolute left-1/2 mt-2 w-72 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200 ease-out"
-                role="menu"
-              >
-                <MenuGroup title="Browse categories">
-                  <MenuLink href="/categories" label="View all categories" onClick={() => setOpenMenu(null)} />
-                </MenuGroup>
-                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
-                <MenuGroup title="Popular categories">
-                  <MenuLink href="/categories/payroll-india" label="Payroll & compliance" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/categories/hrms" label="HRMS / Core HR" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/categories/attendance" label="Attendance / Leave" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/categories/ats" label="ATS / Hiring" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/categories/performance" label="Performance / OKR" onClick={() => setOpenMenu(null)} />
-                </MenuGroup>
+            const isActive = key === "explore" ? active.explore : key === "compare" ? active.compare : key === "guides" ? active.guides : active.vendors;
+
+            return (
+              <div key={key} className="relative">
+                <button
+                  type="button"
+                  className={navItemClass(isActive)}
+                  aria-haspopup="menu"
+                  aria-expanded={openMenu === key}
+                  onClick={() => setOpenMenu((v) => (v === key ? null : key))}
+                >
+                  {label}
+                  {key === "compare" && count ? (
+                    <span className="ml-2 rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-2 py-0.5 text-xs font-semibold text-[var(--text)]">
+                      {count}
+                    </span>
+                  ) : null}
+                </button>
+
+                {openMenu === key ? (
+                  <div
+                    ref={menuRef}
+                    className="absolute left-1/2 mt-2 w-80 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none"
+                    role="menu"
+                  >
+                    {/* Dropdown container shell; items are driven by NAV config */}
+                    {Array.from(groupBySection(
+                      key === "compare" && count ? [{ title: "Compare (selected)", href: compareHref, description: "Open compare with your selected tools." }, ...NAV[key]] : NAV[key]
+                    ).entries()).map(([section, items], idx, arr) => (
+                      <div key={section || "_"}>
+                        {section ? (
+                          <div className="px-3 py-2 text-xs font-semibold tracking-wide text-[var(--text-muted)]">{section}</div>
+                        ) : null}
+                        <div className="space-y-1">
+                          {items.map((item) => (
+                            <MenuLink
+                              key={item.href}
+                              href={item.href}
+                              label={item.title}
+                              description={item.description}
+                              onClick={() => setOpenMenu(null)}
+                            />
+                          ))}
+                        </div>
+                        {idx < arr.length - 1 ? <div className="my-2 h-px w-full bg-[var(--border-soft)]" /> : null}
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
-            ) : null}
-          </div>
-
-          {/* Resources menu */}
-          <div className="relative">
-            <button
-              type="button"
-              className={`${navItemClass(active.resources)} ${activeUnderline(active.resources)}`}
-              aria-haspopup="menu"
-              aria-expanded={openMenu === "resources"}
-              onClick={() => setOpenMenu((v) => (v === "resources" ? null : "resources"))}
-            >
-              Resources
-            </button>
-            {openMenu === "resources" ? (
-              <div
-                ref={resourcesMenuRef}
-                className="absolute left-1/2 mt-2 w-80 -translate-x-1/2 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-2 shadow-none transition-all duration-200 ease-out"
-                role="menu"
-              >
-                <MenuGroup title="Buyer guides">
-                  <MenuLink href="/resources" label="Browse all resources" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/methodology" label="Methodology" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/categories/payroll-india" label="Payroll India guide" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/best-payroll-software-small-business-india" label="Best payroll software (SMBs)" onClick={() => setOpenMenu(null)} />
-                </MenuGroup>
-                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
-                <MenuGroup title="Compliance guides">
-                  <MenuLink href="/compliance" label="Compliance Guides" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/compliance/pf-compliance-guide" label="PF Guide" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/compliance/esi-complete-guide" label="ESI Guide" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/compliance/pt-multi-state-guide" label="PT Multi-State" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/compliance/tds-payroll-guide" label="TDS Guide" onClick={() => setOpenMenu(null)} />
-                </MenuGroup>
-                <div className="my-2 h-px w-full bg-[var(--border-soft)]" />
-                <MenuGroup title="Checklists & tools">
-                  <MenuLink href="/india-payroll-risk-checklist" label="India payroll risk checklist" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/payroll-risk-scanner" label="Payroll risk scanner" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/hrms-fit-score" label="HRMS fit score" onClick={() => setOpenMenu(null)} />
-                  <MenuLink href="/report" label="Decision report" onClick={() => setOpenMenu(null)} />
-                </MenuGroup>
-              </div>
-            ) : null}
-          </div>
-
-          {compareHref ? (
-            <Link
-              className={`${navItemClass(active.compare)} ${activeUnderline(active.compare)}`}
-              href={compareHref}
-              aria-current={active.compare ? "page" : undefined}
-              onClick={() => setOpenMenu(null)}
-            >
-              Compare
-              <span className="ml-2 rounded-full border border-[var(--border-soft)] bg-[var(--surface-2)] px-2 py-0.5 text-xs font-semibold text-[var(--text)]">
-                {count}
-              </span>
-            </Link>
-          ) : null}
+            );
+          })}
 
           <div className="ml-2">
             <ButtonLink href="/recommend" variant="primary" size="sm" onClick={() => setOpenMenu(null)}>
@@ -367,68 +335,54 @@ function HeaderInner({ pathname }: { pathname: string }) {
               </div>
 
               <div className="mt-4 space-y-3">
-                <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4" open>
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Browse</summary>
-                  <div className="mt-3 space-y-1">
-                    <MenuLink href="/tools" label="Tools" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/vendors" label="Vendors" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/categories" label="Categories" onClick={() => setMobileOpen(false)} />
-                  </div>
-                </details>
+                {(Object.keys(NAV) as NavGroupKey[]).map((key) => {
+                  const label =
+                    key === "explore" ? "Explore" : key === "compare" ? "Compare" : key === "guides" ? "Guides" : "For Vendors";
 
-                <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Categories</summary>
-                  <div className="mt-3 space-y-1">
-                    <MenuLink href="/categories/payroll-india" label="Payroll & compliance" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/categories/hrms" label="HRMS / Core HR" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/categories/attendance" label="Attendance / Leave" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/categories/ats" label="ATS / Hiring" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/categories/performance" label="Performance / OKR" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/categories/payroll-india" label="Payroll India guide" onClick={() => setMobileOpen(false)} />
-                  </div>
-                </details>
+                  const items = key === "compare" && count
+                    ? [{ title: "Compare (selected)", href: compareHref, description: "Open compare with your selected tools." }, ...NAV[key]]
+                    : NAV[key];
 
-                <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Learn</summary>
-                  <div className="mt-3 space-y-1">
-                    <MenuLink href="/resources" label="Resources" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/methodology" label="Methodology" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/compliance" label="Compliance Guides" onClick={() => setMobileOpen(false)} />
-                    <div className="mt-2 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-2">
-                      <MenuLink href="/compliance/pf-compliance-guide" label="PF Guide" onClick={() => setMobileOpen(false)} />
-                      <MenuLink href="/compliance/esi-complete-guide" label="ESI Guide" onClick={() => setMobileOpen(false)} />
-                      <MenuLink href="/compliance/pt-multi-state-guide" label="PT Multi-State" onClick={() => setMobileOpen(false)} />
-                      <MenuLink href="/compliance/tds-payroll-guide" label="TDS Guide" onClick={() => setMobileOpen(false)} />
-                    </div>
-                  </div>
-                </details>
-
-                <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                  <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Tools to speed evaluation</summary>
-                  <div className="mt-3 space-y-1">
-                    <MenuLink
-                      href="/india-payroll-risk-checklist"
-                      label="India payroll risk checklist"
-                      onClick={() => setMobileOpen(false)}
-                    />
-                    <MenuLink href="/payroll-risk-scanner" label="Payroll risk scanner" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/hrms-fit-score" label="HRMS fit score" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/report" label="Decision report" onClick={() => setMobileOpen(false)} />
-                  </div>
-                </details>
-
-                {compareHref ? (
-                  <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
-                    <MenuLink href={compareHref} label="Compare" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/compare/vendors" label="Compare vendors" onClick={() => setMobileOpen(false)} />
-                  </div>
-                ) : null}
+                  return (
+                    <details
+                      key={key}
+                      className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4"
+                      open={key === "explore"}
+                    >
+                      <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">{label}</summary>
+                      <div className="mt-3 space-y-1">
+                        {items.map((item) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                          >
+                            {item.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </details>
+                  );
+                })}
 
                 <details className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4">
                   <summary className="cursor-pointer list-none text-sm font-semibold text-[var(--text)]">Legal</summary>
                   <div className="mt-3 space-y-1">
-                    <MenuLink href="/privacy" label="Privacy" onClick={() => setMobileOpen(false)} />
-                    <MenuLink href="/terms" label="Terms" onClick={() => setMobileOpen(false)} />
+                    <Link
+                      href="/privacy"
+                      onClick={() => setMobileOpen(false)}
+                      className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Privacy
+                    </Link>
+                    <Link
+                      href="/terms"
+                      onClick={() => setMobileOpen(false)}
+                      className="block rounded-md px-3 py-2 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    >
+                      Terms
+                    </Link>
                   </div>
                 </details>
               </div>
