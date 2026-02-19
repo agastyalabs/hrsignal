@@ -20,7 +20,7 @@ export function FloatingShortlistCta() {
 
   const hidden = useMemo(() => {
     if (!pathname) return false;
-    return pathname.startsWith("/recommend") || pathname.startsWith("/admin");
+    return pathname === "/" || pathname.startsWith("/recommend") || pathname.startsWith("/admin");
   }, [pathname]);
 
   useEffect(() => {

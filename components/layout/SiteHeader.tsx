@@ -216,8 +216,8 @@ function HeaderInner({ pathname }: { pathname: string }) {
           </span>
         </Link>
 
-        {/* Header search (non-home pages only) */}
-        {pathname !== "/" ? (
+        {/* Header search: show only where there's no dedicated on-page search/filter UI */}
+        {pathname !== "/" && !pathname.startsWith("/tools") && !pathname.startsWith("/vendors") && !pathname.startsWith("/categories") ? (
           <form action="/tools" className="hidden w-full max-w-md lg:flex" onSubmit={() => setOpenMenu(null)}>
             <input
               className="h-11 w-full rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
