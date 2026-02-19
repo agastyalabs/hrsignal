@@ -698,28 +698,42 @@ function StepCardV5({ icon, title, body }: { icon: string; title: string; body: 
 
 function DecisionSnapshotCard() {
   return (
-    <div className="u-glass-strong u-card-hover rounded-[var(--radius-lg)] border border-[rgba(148,163,184,0.22)] p-6 shadow-[0_14px_60px_rgba(0,0,0,0.35)]">
-      <div className="text-xs font-medium tracking-wide text-[var(--text-muted)]">Decision snapshot · India payroll context</div>
-      <div className="mt-2 text-base font-medium text-[var(--text)]">Payroll &amp; Compliance shortlist preview</div>
+    <div className="u-glass-strong u-card-hover rounded-[var(--radius-lg)] border border-[var(--border-soft)] p-6 shadow-[0_10px_40px_rgba(0,0,0,0.34)]">
+      <div className="text-xs font-semibold tracking-wide text-[rgba(226,232,240,0.68)]">
+        Decision snapshot · India payroll context
+      </div>
+      <div className="mt-2 text-base font-semibold text-[var(--text)]">Payroll &amp; Compliance shortlist preview</div>
 
-      <div className="mt-5 flex items-end justify-between gap-3">
-        <div className="text-sm font-medium text-[var(--text-muted)]">Fit score</div>
-        <div className="text-5xl font-extrabold tracking-tight text-emerald-400 sm:text-6xl" style={{ textShadow: "0 0 22px rgba(16,185,129,0.55)" }}>92 / 100</div>
+      <div className="mt-5 rounded-[var(--radius-md)] border border-[rgba(148,163,184,0.18)] bg-[rgba(2,6,23,0.35)] p-4">
+        <div className="flex items-end justify-between gap-3">
+          <div className="text-xs font-semibold text-[rgba(226,232,240,0.66)]">Fit score</div>
+          <div
+            className="text-5xl font-extrabold tracking-tight text-emerald-300 sm:text-6xl"
+            style={{ textShadow: "0 0 18px rgba(16,185,129,0.38)" }}
+          >
+            92 / 100
+          </div>
+        </div>
+        <div className="mt-2 text-xs leading-5 text-[rgba(226,232,240,0.62)]">
+          Based on compliance depth + integration coverage + support signals.
+        </div>
       </div>
 
-      <div className="mt-6 space-y-3 text-sm leading-7 text-[var(--text-muted)]">
+      <div className="mt-5 space-y-3 text-sm leading-7 text-[rgba(226,232,240,0.70)]">
         <div>• Matches multi-state payroll + branch complexity</div>
         <div>• Covers PF / ESI / PT / TDS workflows</div>
         <div>• Claims backed by evidence links (docs + pricing)</div>
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-2 text-xs font-medium text-[var(--text-muted)]">
-        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">PEPM</span>
-        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">India-ready</span>
-        <span className="rounded-[999px] border border-[var(--border-soft)] bg-[var(--surface-1)] px-3 py-1">Evidence-backed</span>
+      <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs font-medium text-[rgba(226,232,240,0.60)]">
+        <span>PEPM</span>
+        <span className="h-1 w-1 rounded-full bg-[rgba(148,163,184,0.40)]" aria-hidden="true" />
+        <span>India-ready</span>
+        <span className="h-1 w-1 rounded-full bg-[rgba(148,163,184,0.40)]" aria-hidden="true" />
+        <span>Evidence-backed</span>
       </div>
 
-      <div className="mt-5 text-sm leading-7 text-[var(--text-muted)]">Privacy-first. No automatic vendor sharing.</div>
+      <div className="mt-5 text-sm leading-7 text-[rgba(226,232,240,0.66)]">Privacy-first. No automatic vendor sharing.</div>
     </div>
   );
 }
