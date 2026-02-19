@@ -316,7 +316,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
 
           <div className="ml-2">
             <ButtonLink href="/recommend" variant="primary" size="sm" onClick={() => setOpenMenu(null)}>
-              Get a shortlist
+              Get my shortlist
             </ButtonLink>
           </div>
         </nav>
@@ -376,7 +376,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
                   className="w-full justify-center"
                   onClick={() => setMobileOpen(false)}
                 >
-                  Get a shortlist
+                  Get my shortlist
                 </ButtonLink>
                 <div className="mt-2 text-xs text-[var(--text-muted)]">Privacy-first. No automatic vendor sharing.</div>
               </div>

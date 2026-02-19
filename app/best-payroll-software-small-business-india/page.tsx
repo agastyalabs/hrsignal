@@ -24,7 +24,7 @@ export default function Page() {
             multi-state edge cases, and month-end control. This guide gives you a buyer-first checklist and a deterministic way to shortlist.
           </>
         }
-        primaryCTA={{ label: "Get my India-ready shortlist", href: "/recommend" }}
+        primaryCTA={{ label: "Get my shortlist", href: "/recommend" }}
         secondaryCTA={{ label: "Read methodology", href: "/methodology" }}
         sections={[
           {

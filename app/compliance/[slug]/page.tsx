@@ -158,7 +158,7 @@ export default async function ComplianceGuidePage({ params }: { params: Promise<
                 <Card className="p-5">
                   <div className="text-sm font-semibold text-[var(--text)]">Ask a question</div>
                   <div className="mt-2 text-sm leading-7 text-[var(--text-muted)]">
-                    Get a shortlist + validation checklist for your payroll setup.
+                    Get my shortlist + validation checklist for your payroll setup.
                   </div>
                   <div className="mt-4">
                     <Link

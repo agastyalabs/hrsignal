@@ -70,7 +70,7 @@ export default async function Home() {
                       type="submit"
                       className="inline-flex h-14 w-full items-center justify-center rounded-[var(--radius-sm)] bg-gradient-to-b from-emerald-400 to-emerald-500 px-8 py-4 text-base font-semibold text-slate-950 shadow-[0_14px_46px_rgba(16,185,129,0.18)] transition-all duration-200 hover:shadow-[0_0_0_1px_rgba(16,185,129,0.28),0_0_22px_rgba(16,185,129,0.42),0_18px_60px_rgba(16,185,129,0.18)] hover:scale-[1.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 sm:w-auto"
                     >
-                      Get shortlist
+                      Get my shortlist
                     </button>
                   </form>
 
@@ -80,7 +80,7 @@ export default async function Home() {
                     size="lg"
                     className="w-full justify-center"
                   >
-                    Get my India-ready shortlist
+                    Get my shortlist
                   </TrackedButtonLink>
 
                   <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-[rgba(226,232,240,0.74)]">
@@ -471,7 +471,7 @@ export default async function Home() {
             label="Demo checklist for edge cases"
             desc="We surface what to validate (arrears, reversals, cutoffs, exports) so demos focus on risk."
             href="/recommend"
-            linkLabel="Get shortlist →"
+            linkLabel="Get my shortlist →"
           />
         </div>
 

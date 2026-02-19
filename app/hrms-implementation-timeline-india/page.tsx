@@ -50,7 +50,7 @@ export default function HrmsImplementationTimelineIndiaPage() {
 
             <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center">
               <ButtonLink href="/recommend" size="lg" className="w-full justify-center sm:w-auto">
-                Get my India-ready shortlist
+                Get my shortlist
               </ButtonLink>
               <Link
                 href="/categories/hrms"
@@ -251,7 +251,7 @@ export default function HrmsImplementationTimelineIndiaPage() {
               </p>
               <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
                 <ButtonLink href="/recommend" size="md" className="w-full justify-center sm:w-auto">
-                  Get my India-ready shortlist
+                  Get my shortlist
                 </ButtonLink>
                 <Link
                   href="/vendors"

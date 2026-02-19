@@ -99,7 +99,7 @@ export default function ResourcesPage() {
                     Read featured →
                   </ButtonLink>
                   <ButtonLink href="/recommend" variant="secondary" size="md">
-                    Get a shortlist
+                    Get my shortlist
                   </ButtonLink>
                 </div>
               </div>

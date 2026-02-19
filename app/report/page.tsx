@@ -277,7 +277,7 @@ export default async function ReportPage({
                 </p>
                 <div className="mt-4">
                   <ButtonLink href="/recommend" variant="primary" size="md" className="w-full justify-center sm:w-auto">
-                    Get a shortlist
+                    Get my shortlist
                   </ButtonLink>
                 </div>
               </Card>

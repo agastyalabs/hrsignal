@@ -59,7 +59,7 @@ export function SiteFooter() {
                   <FooterLink href="/compare" label="Compare" />
                 </li>
                 <li>
-                  <FooterLink href="/recommend" label="Get a shortlist" />
+                  <FooterLink href="/recommend" label="Get my shortlist" />
                 </li>
               </ul>
             </div>
