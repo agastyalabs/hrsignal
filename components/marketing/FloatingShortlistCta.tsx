@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
+import { useCompare } from "@/lib/compare/useCompare";
+
 function getScrollProgress() {
   const doc = document.documentElement;
   const scrollTop = doc.scrollTop || document.body.scrollTop || 0;
@@ -16,12 +18,14 @@ function getScrollProgress() {
 
 export function FloatingShortlistCta() {
   const pathname = usePathname();
+  const { count: compareCount } = useCompare();
   const [visible, setVisible] = useState(false);
 
   const hidden = useMemo(() => {
     if (!pathname) return false;
+    if (compareCount > 0) return true;
     return pathname === "/" || pathname.startsWith("/recommend") || pathname.startsWith("/admin");
-  }, [pathname]);
+  }, [pathname, compareCount]);
 
   useEffect(() => {
     if (hidden) return;

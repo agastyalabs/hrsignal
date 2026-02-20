@@ -115,7 +115,7 @@ export function CompareTray() {
                 </span>
                 <button
                   type="button"
-                  className="rounded-full px-1 text-[var(--text-muted)] hover:text-[var(--text)] focus:outline-none focus:ring-4 focus:ring-[var(--ring)]"
+                  className="rounded-full px-1 text-[var(--text-muted)] hover:text-[var(--text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
                   onClick={() => set(slugs.filter((s) => s !== t.slug))}
                   aria-label={`Remove ${t.name} from compare`}
                 >
@@ -133,7 +133,7 @@ export function CompareTray() {
         <div className="flex shrink-0 items-center gap-2">
           <Link
             href={href}
-            className="inline-flex h-10 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-4 focus:ring-[var(--ring)]"
+            className="inline-flex h-10 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
             aria-label="Open compare page"
             onClick={() => {
               trackEvent("click_compare", { from: "compare_tray", count });
@@ -143,7 +143,7 @@ export function CompareTray() {
           </Link>
           <button
             type="button"
-            className="inline-flex h-10 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus:outline-none focus:ring-4 focus:ring-[var(--ring)]"
+            className="inline-flex h-10 items-center justify-center rounded-[var(--radius-sm)] border border-[var(--border-soft)] bg-[var(--surface-1)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
             onClick={() => {
               setDismissedKey(selectionKey);
             }}
