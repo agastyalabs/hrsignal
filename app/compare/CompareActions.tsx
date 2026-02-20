@@ -50,7 +50,7 @@ export function CompareActions({ tools }: { tools: string[] }) {
     if (typeof navigator !== "undefined" && "share" in navigator) {
       try {
         await (navigator as unknown as { share: (d: { title?: string; url?: string }) => Promise<void> }).share({
-          title: "HRSignal – Compare tools",
+          title: "HR Signal – Compare tools",
           url: toShare,
         });
       } catch {

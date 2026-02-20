@@ -9,7 +9,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
 
 export const metadata: Metadata = {
-  title: "HRMS Implementation Timeline (India) — Phases, Payroll Cutover, Multi‑Location Rollout | HRSignal",
+  title: "HRMS Implementation Timeline (India) — Phases, Payroll Cutover, Multi‑Location Rollout | HR Signal",
   description:
     "A practical, India-context guide to HRMS implementation timelines: phases, data migration risks, payroll cutover timing, multi-location rollout, common delays, and budget planning.",
   alternates: { canonical: "https://hrsignal.vercel.app/hrms-implementation-timeline-india" },

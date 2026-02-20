@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const base = guideBySlug(slug);
   const loaded = await loadGuide(slug);
 
-  const title = loaded?.title ? `${loaded.title} | HRSignal` : `${base.title} | HRSignal`;
+  const title = loaded?.title ? `${loaded.title} | HR Signal` : `${base.title} | HR Signal`;
   const description = loaded?.description ?? base.description;
 
   return {

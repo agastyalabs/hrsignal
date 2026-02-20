@@ -9,7 +9,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
 
 export const metadata: Metadata = {
-  title: "Payroll Software Evaluation Checklist (India) — Compliance, Multi‑State Risk & Pricing | HRSignal",
+  title: "Payroll Software Evaluation Checklist (India) — Compliance, Multi‑State Risk & Pricing | HR Signal",
   description:
     "A buyer-first payroll software evaluation checklist for India: PF/ESI/PT/TDS compliance, multi-state risk controls, pricing traps, and a vendor comparison framework.",
   alternates: { canonical: "https://hrsignal.vercel.app/payroll-software-evaluation-checklist-india" },

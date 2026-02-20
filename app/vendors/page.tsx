@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "HR Vendors in India — Directory | HRSignal",
+  title: "HR Vendors in India — Directory | HR Signal",
   description: "Browse HR software vendors. Filter by category, size, India readiness, and pricing metric.",
   alternates: { canonical: "https://hrsignal.vercel.app/vendors" },
 };

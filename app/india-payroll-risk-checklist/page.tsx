@@ -3,7 +3,7 @@ import { Container } from "@/components/layout/Container";
 import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
 
 export const metadata = {
-  title: "Free India Payroll Risk Checklist (20–1000 Employees) | HRSignal",
+  title: "Free India Payroll Risk Checklist (20–1000 Employees) | HR Signal",
   description:
     "Download a practical India payroll risk checklist for 20–1000 employee orgs. Validate PF/ESI/PT/TDS scope, month-end controls, and audit signals before you buy.",
 };

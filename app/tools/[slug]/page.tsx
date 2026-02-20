@@ -17,7 +17,7 @@ import { absUrl } from "@/lib/seo/url";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const title = `${slug} — Tool details | HRSignal`;
+  const title = `${slug} — Tool details | HR Signal`;
   const description = `Research and compare ${slug}. See fit notes, trust signals, and request demos without vendor spam.`;
   const url = absUrl(`/tools/${slug}`);
 

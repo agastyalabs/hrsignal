@@ -9,7 +9,7 @@ import { Card } from "@/components/ui/Card";
 import { COMPLIANCE_GUIDES } from "@/lib/compliance/guides";
 
 export const metadata: Metadata = {
-  title: "Compliance Guides | HRSignal",
+  title: "Compliance Guides | HR Signal",
   description: "PF, ESI, PT multi-state, and TDS guides for India payroll buyers — with demo validation checklists.",
   alternates: { canonical: "/compliance" },
 };

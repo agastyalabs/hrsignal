@@ -125,7 +125,7 @@ const PRICING_OPTIONS = [
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const title = `${slug} — Category shortlist | HRSignal`;
+  const title = `${slug} — Category shortlist | HR Signal`;
   const description = `Compare and shortlist ${slug} tools for Indian teams. See verification signals, fit notes, and request demos.`;
   const url = absUrl(`/categories/${slug}`);
 

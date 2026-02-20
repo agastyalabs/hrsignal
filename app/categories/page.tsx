@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "HR Software Categories | HRSignal",
+  title: "HR Software Categories | HR Signal",
   description: "Browse HR software by category: payroll & compliance, HRMS, ATS, attendance, performance and more.",
   alternates: { canonical: "https://hrsignal.vercel.app/categories" },
 };

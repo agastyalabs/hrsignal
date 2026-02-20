@@ -37,7 +37,7 @@ function slugify(name: string) {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug: rawSlug } = await params;
   const slug = normalizeVendorSlug(rawSlug);
-  const title = `${slug} — Vendor profile | HRSignal`;
+  const title = `${slug} — Vendor profile | HR Signal`;
   const description = `Evidence-first vendor profile for ${slug}. Compare modules, India readiness, implementation notes, and sources.`;
   const url = absUrl(`/vendors/${slug}`);
 

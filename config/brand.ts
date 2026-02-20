@@ -1,5 +1,5 @@
 export const BRAND = {
-  name: "HRSignal",
+  name: "HR Signal",
 
   // Active logo (glowing neural v6)
   // Files live in /public/assets/logos/*

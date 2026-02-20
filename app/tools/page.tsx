@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "HR Tools Directory (India) | HRSignal",
+  title: "HR Tools Directory (India) | HR Signal",
   description: "Browse and compare HRMS, payroll & compliance, attendance, ATS and performance tools. Evidence-first shortlists.",
   alternates: { canonical: "https://hrsignal.vercel.app/tools" },
 };

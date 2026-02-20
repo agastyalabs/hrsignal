@@ -11,7 +11,7 @@ import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "India Payroll Software (2026) — Complexity, Compliance & Shortlisting | HRSignal",
+  title: "India Payroll Software (2026) — Complexity, Compliance & Shortlisting | HR Signal",
   description:
     "Understand India payroll complexity (multi-state compliance, PF/ESI/PT/TDS) and compare top payroll vendors. Get a deterministic shortlist with HRSignal Readiness Score™.",
   alternates: { canonical: "https://hrsignal.vercel.app/categories/payroll-india" },

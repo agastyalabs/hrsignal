@@ -68,7 +68,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = getResourceArticle(slug);
 
-  const title = article ? `${article.title} | HRSignal Resources` : `Resource | HRSignal`;
+  const title = article ? `${article.title} | HR Signal Resources` : `Resource | HR Signal`;
   const description = article?.summary ?? "Buyer guides and playbooks for Indian SME HR teams.";
   const url = absUrl(`/resources/${slug}`);
 

@@ -193,7 +193,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
       }`}
     >
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between gap-6 px-6">
-        <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
+        <Link href="/" className="shrink-0" aria-label="HR Signal home" onClick={() => setOpenMenu(null)}>
           <span className="flex items-center">
             <Image
               src="/assets/logos/hrsignal-logo-light.svg"

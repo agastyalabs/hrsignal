@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SEOArticleTemplate } from "@/components/seo/SEOArticleTemplate";
 
 export const metadata: Metadata = {
-  title: "Best Payroll Software for Small Business in India (2026) | HRSignal",
+  title: "Best Payroll Software for Small Business in India (2026) | HR Signal",
   description:
     "A practical guide to choosing payroll software for small businesses in India — with compliance checklist, evaluation criteria, and India-ready shortlist CTA.",
 };

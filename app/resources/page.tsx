@@ -21,7 +21,7 @@ function formatDate(date: string) {
 }
 
 export const metadata = {
-  title: "Resources — HR Software Buyer Guides (India) | HRSignal",
+  title: "Resources — HR Software Buyer Guides (India) | HR Signal",
   description: "Buyer guides, checklists, and playbooks for Indian SME HR teams.",
   alternates: { canonical: "https://hrsignal.vercel.app/resources" },
 };
