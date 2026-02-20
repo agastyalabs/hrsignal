@@ -566,11 +566,18 @@ export default async function ToolsPage({
                 </div>
               </div>
 
-              <div className="lg:sticky lg:top-[96px] lg:self-start">
+              <div className="hidden lg:block lg:sticky lg:top-[96px] lg:self-start">
                 {/* server component */}
                 <HotThisWeek />
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Mobile fixed leaderboard bar */}
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/85 backdrop-blur-md p-3 lg:hidden">
+          <div className="mx-auto max-w-6xl">
+            <HotThisWeek />
           </div>
         </div>
 
