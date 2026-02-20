@@ -333,7 +333,7 @@ function HeaderInner({ pathname }: { pathname: string }) {
         {/* Mobile trigger */}
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-pill)] border border-[rgba(15,23,42,0.12)] bg-white/70 text-[var(--text-main)] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(37,99,235,0.35)] lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-pill)] border border-slate-200 bg-white text-slate-900 shadow-soft hover:scale-[1.03] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] lg:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           onClick={() => {
@@ -361,8 +361,8 @@ function HeaderInner({ pathname }: { pathname: string }) {
             onClick={() => setMobileOpen(false)}
           />
 
-          <div className="absolute right-0 top-0 h-full w-full max-w-[420px] border-l border-[var(--border-soft)] bg-[var(--bg)]">
-            <div className="flex items-center justify-between border-b border-[var(--border-soft)] px-5 py-4">
+          <div className="absolute inset-0 h-full w-full bg-white/70 backdrop-blur-md">
+            <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
               <div className="text-sm font-semibold text-[var(--text)]">Menu</div>
               <button
                 type="button"
