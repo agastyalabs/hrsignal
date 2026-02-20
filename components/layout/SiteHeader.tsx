@@ -7,7 +7,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import { BRAND } from "@/config/brand";
 // Note: header uses its own max-width (7xl) to match BASE navbar spec.
-import { Container } from "@/components/layout/Container";
 import { ButtonLink } from "@/components/ui/Button";
 import { useCompare } from "@/lib/compare/useCompare";
 
@@ -193,23 +192,15 @@ function HeaderInner({ pathname }: { pathname: string }) {
       }`}
     >
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between gap-6 px-6">
-        <Link href="/" className="shrink-0" aria-label="HR Signal home" onClick={() => setOpenMenu(null)}>
+        <Link href="/" className="shrink-0" aria-label="HRSignal home" onClick={() => setOpenMenu(null)}>
           <span className="flex items-center">
             <Image
-              src="/assets/logos/hrsignal-logo-light.svg"
+              src={BRAND.logo}
               alt={BRAND.name}
               width={192}
-              height={192}
+              height={40}
               priority
-              className="logo-light h-10 w-auto sm:h-11"
-            />
-            <Image
-              src="/assets/logos/hrsignal-logo-v6.svg?v=6"
-              alt={BRAND.name}
-              width={192}
-              height={192}
-              priority
-              className="logo-dark h-10 w-auto sm:h-11"
+              className="h-10 w-auto sm:h-11"
             />
           </span>
         </Link>

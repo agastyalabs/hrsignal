@@ -5,9 +5,8 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ButtonLink } from "@/components/ui/Button";
-import { TrackedButtonLink } from "@/components/analytics/TrackedButtonLink";
-import { HomeSection } from "@/components/marketing/HomeSection";
 import { MotionFadeIn } from "@/components/marketing/MotionFadeIn";
+import { HomeSection } from "@/components/marketing/HomeSection";
 import { StatsBar } from "@/components/marketing/StatsBar";
 import { TrustBadges } from "@/components/marketing/TrustBadges";
 import { TestimonialCard } from "@/components/marketing/TestimonialCard";
@@ -103,6 +102,95 @@ export default async function Home() {
             </div>
           </div>
         </div>
+      </HomeSection>
+
+      {/* 1.5) Evidence-first narrative (revamp block) */}
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
+        <MotionFadeIn className="rounded-[var(--radius-card)] bg-slate-900 px-6 py-12 text-white sm:px-8 lg:px-12">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center rounded-full border border-slate-700 bg-slate-800 px-3 py-1 text-xs font-semibold text-slate-300">
+                Data-Backed Logic
+              </div>
+              <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                Evidence, not opinions. We analyze the fine print so you don&apos;t have to.
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-slate-300 sm:text-base">
+                HRSignal is built for HR discovery and shortlisting in India. Every recommendation is grounded in verifiable
+                compliance depth, implementation signals, and visible unknowns.
+              </p>
+            </div>
+
+            <div className="grid w-full max-w-md grid-cols-2 gap-3">
+              <button type="button" className="rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg">
+                Multi-State
+              </button>
+              <button type="button" className="rounded-full border border-slate-700 bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-300">
+                Local Branch
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {[
+              { value: "<20", label: "Minutes to a tailored shortlist" },
+              { value: "50k+", label: "Compliance checks mapped" },
+              { value: "24/7", label: "Signal monitoring cadence" },
+              { value: "100%", label: "Explainable scoring model" },
+            ].map((item) => (
+              <div key={item.label} className="border-l border-slate-700 pl-4">
+                <div className="text-2xl font-bold sm:text-3xl">{item.value}</div>
+                <p className="mt-1 text-xs text-slate-400 sm:text-sm">{item.label}</p>
+              </div>
+            ))}
+          </div>
+        </MotionFadeIn>
+      </HomeSection>
+
+      {/* 1.6) Lead-magnet value cards + CTA */}
+      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
+        <MotionFadeIn className="grid gap-4 lg:grid-cols-2">
+          <Card className="u-card-hover border border-[var(--border-soft)] bg-[var(--surface-1)] p-7 shadow-soft">
+            <h3 className="text-2xl font-bold text-[var(--text)]">Deep Compliance Audit</h3>
+            <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
+              We don&apos;t stop at vendor claims. HRSignal maps critical payroll workflows (PF, ESI, PT, TDS) into a practical
+              validation checklist your team can use in demos.
+            </p>
+            <div className="mt-5 rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-4 text-sm text-[var(--text-muted)]">
+              Includes month-end edge cases, multi-state mapping checks, and audit-readiness prompts.
+            </div>
+          </Card>
+
+          <Card className="u-card-hover border border-[var(--border-soft)] bg-[var(--surface-1)] p-7 shadow-soft">
+            <h3 className="text-2xl font-bold text-[var(--text)]">Implementation Predictability</h3>
+            <p className="mt-3 text-sm leading-7 text-[var(--text-muted)]">
+              Reduce go-live surprises with clarity on support expectations, rollout complexity, and integration readiness.
+            </p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-3 text-center">
+                <div className="text-xl font-bold text-[var(--text)]">14d</div>
+                <div className="text-xs text-[var(--text-muted)]">Typical shortlist cycle</div>
+              </div>
+              <div className="rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] p-3 text-center">
+                <div className="text-xl font-bold text-[var(--text)]">4h</div>
+                <div className="text-xs text-[var(--text-muted)]">Response SLA benchmark</div>
+              </div>
+            </div>
+          </Card>
+        </MotionFadeIn>
+
+        <MotionFadeIn delay={0.06} className="mt-6 rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-white p-6 shadow-soft sm:p-8">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-wide text-[var(--primary-blue)]">Buying plans</div>
+              <h3 className="mt-1 text-2xl font-bold tracking-tight text-[var(--text)]">Start your evaluation today.</h3>
+              <p className="mt-2 text-sm text-[var(--text-muted)]">Compare vendors with compliance risks visible from day one.</p>
+            </div>
+            <ButtonLink href="/compare/vendors" size="md" className="w-full justify-center sm:w-auto">
+              Compare Vendors
+            </ButtonLink>
+          </div>
+        </MotionFadeIn>
       </HomeSection>
 
       {/* 2) HRSignal Coverage Snapshot */}
@@ -527,7 +615,7 @@ export default async function Home() {
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+            <div className="u-card-hover rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-soft">
               <div className="text-base font-medium text-[var(--text)]">What we score</div>
               <ul className="mt-4 space-y-3 text-sm leading-relaxed text-[var(--text-muted)]">
                 <li>• PF / ESI / PT coverage and month-end behavior</li>
@@ -566,7 +654,7 @@ export default async function Home() {
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+            <div className="u-card-hover rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-soft">
               <div className="text-base font-medium text-[var(--text)]">Verified / validate</div>
               <p className="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">
                 Verified reflects evidence and review freshness. If something is not verified, it is labeled as “validate” so you can target it during the demo.
@@ -641,7 +729,7 @@ function TrustTile({
   linkLabel: string;
 }) {
   return (
-    <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+    <div className="u-card-hover rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-soft">
       <div className="text-sm font-semibold text-[var(--text)]">{label}</div>
       <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{desc}</div>
       <div className="mt-3">
@@ -655,7 +743,7 @@ function TrustTile({
 
 function InfoCard({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+    <div className="u-card-hover rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-soft">
       <div className="text-base font-medium text-[var(--text)]">{title}</div>
       <div className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{body}</div>
     </div>
@@ -664,7 +752,7 @@ function InfoCard({ title, body }: { title: string; body: string }) {
 
 function StepCardV5({ icon, title, body }: { icon: string; title: string; body: string }) {
   return (
-    <div className="flex h-full flex-col rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5">
+    <div className="u-card-hover flex h-full flex-col rounded-[var(--radius-lg)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-soft">
       <div className="flex items-start gap-3">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] text-sm text-[var(--text)]">
           {icon}

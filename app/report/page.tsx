@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { CopyShareableLinkButton } from "@/components/ui/CopyShareableLinkButton";
+import { PrintButton } from "./PrintButton";
 
 import { prisma } from "@/lib/db";
 import { canonicalVendorSlug } from "@/lib/vendors/slug";
@@ -256,16 +257,7 @@ export default async function ReportPage({
                 <ButtonLink href="/recommend" variant="secondary" size="md">
                   Back
                 </ButtonLink>
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] bg-[var(--primary)] px-4 text-sm font-semibold text-white transition-all duration-200 hover:bg-[var(--primary-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
-                  disabled={!complexityTier}
-                  aria-disabled={!complexityTier}
-                  title={!complexityTier ? "Generate a report first" : ""}
-                >
-                  Print / Save as PDF
-                </button>
+                <PrintButton disabled={!complexityTier} />
               </div>
             </div>
 

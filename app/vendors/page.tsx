@@ -17,6 +17,7 @@ import { Card } from "@/components/ui/Card";
 import { VendorCard } from "@/components/catalog/VendorCard";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { AnalyticsView } from "@/components/analytics/AnalyticsView";
+import { MotionFadeIn } from "@/components/marketing/MotionFadeIn";
 
 import { indiaOnlyFromSearchParams } from "@/lib/india/mode";
 import { normalizePricingText, pricingTypeFromNote, type PricingType } from "@/lib/pricing/format";
@@ -287,17 +288,19 @@ export default async function VendorsPage({
 
       <Section className="pt-10 sm:pt-14">
         <h1 className="sr-only">Vendors</h1>
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-          <SectionHeading
-            title="Vendors"
-            subtitle="Browse companies behind the tools. Filter by size, category, and India readiness."
-          />
-          <Link className="text-sm font-medium text-[var(--link)] hover:text-[var(--link-hover)] hover:underline" href="/tools">
-            Browse tools
-          </Link>
-        </div>
+        <MotionFadeIn className="rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_62%,#eff6ff_100%)] p-6 shadow-soft sm:p-8">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <SectionHeading
+              title="Vendors"
+              subtitle="Browse companies behind the tools. Filter by size, category, and India readiness."
+            />
+            <Link className="text-sm font-medium text-[var(--link)] hover:text-[var(--link-hover)] hover:underline" href="/tools">
+              Browse tools
+            </Link>
+          </div>
+        </MotionFadeIn>
 
-        <div className="mt-6 border-b border-[var(--border-soft)] pb-4">
+        <div className="mt-6 rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4 shadow-soft">
           <form method="get" action="/vendors" className="flex flex-wrap items-end gap-3">
             <div className="min-w-[180px] flex-1 sm:flex-none">
               <label className="text-xs font-semibold text-[var(--text-muted)]" htmlFor="sort">

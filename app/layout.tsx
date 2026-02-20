@@ -17,7 +17,7 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hrsignal.vercel.app"),
-  title: "HR Signal — India-first HR software recommendations",
+  title: "HRSignal — India-first HR software recommendations",
   description:
     "Get explainable recommendations for HRMS, payroll & compliance, attendance, ATS, and performance tools. Shortlist fast and request pricing/demos without vendor spam.",
   icons: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
-    title: "HR Signal — India-first HR software recommendations",
+    title: "HRSignal — India-first HR software recommendations",
     description:
       "Get explainable recommendations for HRMS, payroll & compliance, attendance, ATS, and performance tools.",
     images: [
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "HR Signal",
+        alt: "HRSignal",
       },
     ],
   },
@@ -57,7 +57,7 @@ export default function RootLayout({
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "HR Signal",
+    name: "HRSignal",
     url: "https://hrsignal.vercel.app",
     logo: "https://hrsignal.vercel.app/assets/logos/hrsignal-logo-v6.svg?v=6",
     sameAs: [],

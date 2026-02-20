@@ -13,6 +13,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { MotionFadeIn } from "@/components/marketing/MotionFadeIn";
 import { Card } from "@/components/ui/Card";
 import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { getToolCountsByCategorySafe } from "./get-tool-counts";
@@ -110,17 +111,19 @@ export default async function CategoriesPage() {
 
       <Section className="pt-10 sm:pt-14">
         <h1 className="sr-only">Categories</h1>
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-          <SectionHeading
-            title="Categories"
-            subtitle="Start with the module you need. Each category opens a directory view you can filter and compare."
-          />
-          <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED]" href="/tools">
-            Browse all tools
-          </Link>
-        </div>
+        <MotionFadeIn className="rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_62%,#eef2ff_100%)] p-6 shadow-soft sm:p-8">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <SectionHeading
+              title="Categories"
+              subtitle="Start with the module you need. Each category opens a directory view you can filter and compare."
+            />
+            <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED]" href="/tools">
+              Browse all tools
+            </Link>
+          </div>
+        </MotionFadeIn>
 
-        <div className="mt-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-1)] p-5 shadow-sm">
+        <div className="u-card-hover mt-4 rounded-2xl border border-[var(--border)] bg-[var(--surface-1)] p-5 shadow-soft">
           <div className="text-sm font-semibold text-[var(--text)]">Intent filters</div>
           <p className="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">
             Start broad, then narrow. These filters jump you straight into the directory with a sensible starting view.

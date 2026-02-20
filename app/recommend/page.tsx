@@ -6,6 +6,7 @@ import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { CopyShareableLinkButton } from "@/components/ui/CopyShareableLinkButton";
+import { MotionFadeIn } from "@/components/marketing/MotionFadeIn";
 import { TalkToPayrollSpecialistSection } from "@/components/conversion/TalkToPayrollSpecialistSection";
 
 import { prisma } from "@/lib/db";
@@ -228,18 +229,20 @@ export default async function RecommendPage({
       <main className="py-10 sm:py-14">
         <Container>
           <div className="mx-auto max-w-2xl">
-            <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">Find my payroll-ready vendor</h1>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)]">
-              Answer a few questions. HRSignal recommends 3–5 best‑fit tools with clear match reasons.
-            </p>
+            <MotionFadeIn className="rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_62%,#eef2ff_100%)] p-6 shadow-soft sm:p-8">
+              <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">Find my payroll-ready vendor</h1>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)]">
+                Answer a few questions. HRSignal recommends 3–5 best‑fit tools with clear match reasons.
+              </p>
 
-            <div className="mt-6">
-              <TalkToPayrollSpecialistSection href="/recommend" />
-            </div>
+              <div className="mt-6">
+                <TalkToPayrollSpecialistSection href="/recommend" />
+              </div>
+            </MotionFadeIn>
 
             {showRanking ? (
               <div className="mt-6">
-                <Card className="p-5">
+                <Card className="u-card-hover p-5 shadow-soft">
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       <div className="text-sm font-semibold text-[var(--text)]">HRSignal Readiness Score™ (no ML)</div>
