@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { absUrl } from "@/lib/seo/url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
@@ -23,7 +24,7 @@ function formatDate(date: string) {
 export const metadata = {
   title: "Resources — HR Software Buyer Guides (India) | HR Signal",
   description: "Buyer guides, checklists, and playbooks for Indian SME HR teams.",
-  alternates: { canonical: "https://hrsignal.vercel.app/resources" },
+  alternates: { canonical: "/resources" },
 };
 
 export default function ResourcesPage() {
@@ -38,7 +39,7 @@ export default function ResourcesPage() {
       "@type": "ListItem",
       position: idx + 1,
       name: a.title,
-      url: `https://hrsignal.vercel.app/resources/${a.slug}`,
+      url: absUrl(`/resources/${a.slug}`),
     })),
   };
 

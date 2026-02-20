@@ -3,12 +3,13 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "HR Software Categories | HR Signal",
   description: "Browse HR software by category: payroll & compliance, HRMS, ATS, attendance, performance and more.",
-  alternates: { canonical: "https://hrsignal.vercel.app/categories" },
+  alternates: { canonical: "/categories" },
 };
 
 import Link from "next/link";
 
 import { prisma } from "@/lib/db";
+import { absUrl } from "@/lib/seo/url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
@@ -99,7 +100,7 @@ export default async function CategoriesPage() {
       "@type": "ListItem",
       position: idx + 1,
       name: c.name,
-      url: `https://hrsignal.vercel.app/categories/${c.slug}`,
+      url: absUrl(`/categories/${c.slug}`),
     })),
   };
 

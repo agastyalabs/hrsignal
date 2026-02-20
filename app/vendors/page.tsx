@@ -3,12 +3,13 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "HR Vendors in India — Directory | HR Signal",
   description: "Browse HR software vendors. Filter by category, size, India readiness, and pricing metric.",
-  alternates: { canonical: "https://hrsignal.vercel.app/vendors" },
+  alternates: { canonical: "/vendors" },
 };
 
 import Link from "next/link";
 
 import { prisma } from "@/lib/db";
+import { absUrl } from "@/lib/seo/url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
@@ -249,7 +250,7 @@ export default async function VendorsPage({
       "@type": "ListItem",
       position: idx + 1,
       name: v.name,
-      url: `https://hrsignal.vercel.app/vendors/${v.slug}`,
+      url: absUrl(`/vendors/${v.slug}`),
     })),
   };
 

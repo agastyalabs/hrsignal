@@ -425,7 +425,7 @@ export default async function VendorDetailPage({ params }: { params: Promise<{ s
     name: vendor.name,
     applicationCategory: "Human Resources",
     operatingSystem: "Web",
-    url: `https://hrsignal.vercel.app/vendors/${canon}`,
+    url: absUrl(`/vendors/${canon}`),
     description: profile?.overview ?? `Vendor profile for ${vendor.name}.`,
   };
 

@@ -3,12 +3,13 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   title: "HR Tools Directory (India) | HR Signal",
   description: "Browse and compare HRMS, payroll & compliance, attendance, ATS and performance tools. Evidence-first shortlists.",
-  alternates: { canonical: "https://hrsignal.vercel.app/tools" },
+  alternates: { canonical: "/tools" },
 };
 
 import Link from "next/link";
 
 import { prisma } from "@/lib/db";
+import { absUrl } from "@/lib/seo/url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Section } from "@/components/layout/Section";
@@ -326,7 +327,7 @@ export default async function ToolsPage({
       "@type": "ListItem",
       position: idx + 1,
       name: t.name,
-      url: `https://hrsignal.vercel.app/tools/${t.slug}`,
+      url: absUrl(`/tools/${t.slug}`),
     })),
   };
 

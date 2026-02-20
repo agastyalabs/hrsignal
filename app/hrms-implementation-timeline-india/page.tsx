@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { SITE_URL } from "@/lib/seo/url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Container } from "@/components/layout/Container";
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   title: "HRMS Implementation Timeline (India) — Phases, Payroll Cutover, Multi‑Location Rollout | HR Signal",
   description:
     "A practical, India-context guide to HRMS implementation timelines: phases, data migration risks, payroll cutover timing, multi-location rollout, common delays, and budget planning.",
-  alternates: { canonical: "https://hrsignal.vercel.app/hrms-implementation-timeline-india" },
+  alternates: { canonical: "/hrms-implementation-timeline-india" },
 };
 
 export default function HrmsImplementationTimelineIndiaPage() {
@@ -22,13 +23,13 @@ export default function HrmsImplementationTimelineIndiaPage() {
     headline: "HRMS Implementation Timeline (India)",
     description:
       "A practical, India-context guide to HRMS implementation timelines: phases, data migration risks, payroll cutover timing, multi-location rollout, common delays, and budget planning.",
-    author: { "@type": "Organization", name: "HRSignal" },
+    author: { "@type": "Organization", name: "HR Signal" },
     publisher: {
       "@type": "Organization",
-      name: "HRSignal",
-      logo: { "@type": "ImageObject", url: "https://hrsignal.vercel.app/brand/hrsignal-logo.svg" },
+      name: "HR Signal",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/brand/hrsignal-logo.svg` },
     },
-    mainEntityOfPage: "https://hrsignal.vercel.app/hrms-implementation-timeline-india",
+    mainEntityOfPage: `${SITE_URL}/hrms-implementation-timeline-india`,
   };
 
   return (

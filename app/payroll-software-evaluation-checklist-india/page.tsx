@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { SITE_URL } from "@/lib/seo/url";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Container } from "@/components/layout/Container";
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   title: "Payroll Software Evaluation Checklist (India) — Compliance, Multi‑State Risk & Pricing | HR Signal",
   description:
     "A buyer-first payroll software evaluation checklist for India: PF/ESI/PT/TDS compliance, multi-state risk controls, pricing traps, and a vendor comparison framework.",
-  alternates: { canonical: "https://hrsignal.vercel.app/payroll-software-evaluation-checklist-india" },
+  alternates: { canonical: "/payroll-software-evaluation-checklist-india" },
 };
 
 export default function PayrollEvaluationChecklistIndiaPage() {
@@ -22,13 +23,13 @@ export default function PayrollEvaluationChecklistIndiaPage() {
     headline: "Payroll Software Evaluation Checklist (India)",
     description:
       "A buyer-first payroll software evaluation checklist for India: PF/ESI/PT/TDS compliance, multi-state risk controls, pricing traps, and a vendor comparison framework.",
-    author: { "@type": "Organization", name: "HRSignal" },
+    author: { "@type": "Organization", name: "HR Signal" },
     publisher: {
       "@type": "Organization",
-      name: "HRSignal",
-      logo: { "@type": "ImageObject", url: "https://hrsignal.vercel.app/brand/hrsignal-logo.svg" },
+      name: "HR Signal",
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/brand/hrsignal-logo.svg` },
     },
-    mainEntityOfPage: "https://hrsignal.vercel.app/payroll-software-evaluation-checklist-india",
+    mainEntityOfPage: `${SITE_URL}/payroll-software-evaluation-checklist-india`,
   };
 
   return (
