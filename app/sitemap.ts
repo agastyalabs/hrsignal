@@ -3,8 +3,9 @@ import type { MetadataRoute } from "next";
 import { prisma } from "@/lib/db";
 import { canonicalVendorSlug } from "@/lib/vendors/slug";
 import { listResourceArticles } from "@/lib/resources/articles";
+import { SITE_URL } from "@/lib/seo/url";
 
-const BASE = "https://hrsignal.vercel.app";
+const BASE = SITE_URL;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
