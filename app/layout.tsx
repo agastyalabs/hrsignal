@@ -4,6 +4,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { UtmCapture } from "@/components/analytics/UtmCapture";
 import { FloatingShortlistCta } from "@/components/marketing/FloatingShortlistCta";
+import { SITE_URL } from "@/lib/seo/url";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,7 +17,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hrsignal.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: "HR Signal — India-first HR software recommendations",
   description:
     "Get explainable recommendations for HRMS, payroll & compliance, attendance, ATS, and performance tools. Shortlist fast and request pricing/demos without vendor spam.",
@@ -58,8 +59,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "HR Signal",
-    url: "https://hrsignal.vercel.app",
-    logo: "https://hrsignal.vercel.app/assets/logos/hrsignal-logo-v6.svg?v=6",
+    url: SITE_URL,
+    logo: `${SITE_URL}/assets/logos/hrsignal-logo-v6.svg?v=6`,
     sameAs: [],
     contactPoint: [
       {
