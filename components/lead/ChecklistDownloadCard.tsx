@@ -108,7 +108,7 @@ export function ChecklistDownloadCard({
           </div>
 
           <div className="lg:col-span-12">
-            {error ? <div className="text-sm text-red-300">{error}</div> : null}
+            {error ? <div className="text-sm font-medium text-red-600">{error}</div> : null}
 
             <Button type="submit" variant="primary" className="w-full justify-center sm:w-auto" disabled={loading}>
               {loading ? "Sending…" : "Email me the checklist"}
