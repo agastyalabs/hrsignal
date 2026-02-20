@@ -17,6 +17,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TrustStrip } from "@/components/marketing/TrustStrip";
 import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
+import { HotThisWeek } from "@/components/leaderboard/HotThisWeek";
 import { normalizePricingText, pricingTypeFromNote, type PricingType } from "@/lib/pricing/format";
 import { AnalyticsView } from "@/components/analytics/AnalyticsView";
 
@@ -271,6 +272,9 @@ export default async function ToolsPage({
           const pricing = pricingMeta(t.name, t.pricingPlans, t.deployment);
 
           return {
+            id: t.id,
+            upvotes: (t as unknown as { upvotes?: number }).upvotes ?? 0,
+            upvotesWeek: (t as unknown as { upvotesWeek?: number }).upvotesWeek ?? 0,
             slug: t.slug,
             name: t.name,
             vendorName: t.vendor?.name ?? undefined,
@@ -523,14 +527,16 @@ export default async function ToolsPage({
 
           {/* Results */}
           <div className="min-w-0 lg:col-span-8">
-            <div className="flex items-center justify-between gap-4">
-              <div className="text-sm text-[var(--text-muted)]">
-                Showing <span className="font-semibold text-[var(--text)]">{tools.length}</span> tools
-              </div>
-              <Link className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)] hover:underline" href="/recommend">
-                Prefer a guided shortlist? →
-              </Link>
-            </div>
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
+              <div className="min-w-0">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="text-sm text-[var(--text-muted)]">
+                    Showing <span className="font-semibold text-[var(--text)]">{tools.length}</span> tools
+                  </div>
+                  <Link className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)] hover:underline" href="/recommend">
+                    Prefer a guided shortlist? →
+                  </Link>
+                </div>
 
             {mode === "fallback" ? (
               <div className="mt-4 rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-[var(--shadow-soft)]">
@@ -553,10 +559,17 @@ export default async function ToolsPage({
               </div>
             ) : null}
 
-            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {tools.map((t) => (
-                <ToolCard key={t.slug} tool={t} />
-              ))}
+                <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {tools.map((t) => (
+                    <ToolCard key={t.slug} tool={t} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="lg:sticky lg:top-[96px] lg:self-start">
+                {/* server component */}
+                <HotThisWeek />
+              </div>
             </div>
           </div>
         </div>

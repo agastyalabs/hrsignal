@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "India Payroll Software (2026) — Complexity, Compliance & Shortlisting | HR Signal",
   description:
     "Understand India payroll complexity (multi-state compliance, PF/ESI/PT/TDS) and compare top payroll vendors. Get a deterministic shortlist with HRSignal Readiness Score™.",
-  alternates: { canonical: "https://hrsignal.vercel.app/categories/payroll-india" },
+  alternates: { canonical: "/categories/payroll-india" },
 };
 
 const TOP_VENDORS = [

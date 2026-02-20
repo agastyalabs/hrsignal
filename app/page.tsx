@@ -29,17 +29,17 @@ export default async function Home() {
         <div className="relative mx-auto max-w-7xl px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wide">
-                <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" />
-                Updated for FY 2024-25 Compliance
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wide">
+                <span className="w-2 h-2 bg-[var(--primary-blue)] rounded-full animate-pulse" />
+                Curated for Indian teams
               </div>
 
-              <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
-                Shortlist <span className="text-blue-600">India-Ready</span> HR Tools without the noise.
+              <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.05]">
+                Stop Guessing. <span className="text-[var(--primary-blue)]">Discover HR Tools That Actually Work in India.</span>
               </h1>
 
-              <p className="text-lg text-slate-500 leading-relaxed max-w-xl">
-                Stop guessing with generic reviews. Get fit scores, deep compliance analysis (PF/ESI/TDS), and evidence-backed recommendations in seconds.
+              <p className="text-lg text-slate-600 leading-relaxed max-w-xl">
+                Curated &amp; battle-tested by 300+ Indian HR leaders
               </p>
 
               <div className="max-w-md relative group">

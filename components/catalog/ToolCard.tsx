@@ -7,8 +7,13 @@ import { CompareToggle } from "@/components/compare/CompareToggle";
 import { VendorLogo } from "@/components/VendorLogo";
 import { domainFromUrl } from "@/lib/brand/logo";
 import { pricingTypeLabel } from "@/lib/pricing/format";
+import { UpvoteButton } from "@/components/upvote/UpvoteButton";
 
 export type ToolCardModel = {
+  id?: string;
+  upvotes?: number;
+  upvotesWeek?: number;
+
   slug: string;
   name: string;
   vendorName?: string;
@@ -32,8 +37,7 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
   const trustLevel = tool.trustLevel ?? (tool.verified ? "verified" : "unverified");
 
   return (
-    <Link href={`/tools/${tool.slug}`} className="block">
-      <Card className="h-full p-5">
+    <Card className="h-full p-5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 items-start gap-3">
             <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-2)]">
@@ -46,12 +50,16 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
               />
             </div>
             <div className="min-w-0">
-              <div className="truncate text-base font-semibold text-[var(--text)]">{tool.name}</div>
+              <Link href={`/tools/${tool.slug}`} className="truncate text-base font-semibold text-[var(--text)] hover:underline">
+                {tool.name}
+              </Link>
               {tool.vendorName ? (
                 <div className="mt-1 truncate text-sm text-[var(--text-muted)]">by {tool.vendorName}</div>
               ) : null}
             </div>
           </div>
+
+          {tool.id ? <UpvoteButton toolId={tool.id} initial={tool.upvotes ?? 0} /> : null}
         </div>
 
         <div className="mt-3">
@@ -110,13 +118,15 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
           <CompareToggle slug={tool.slug} />
           <div className="inline-flex items-center gap-2">
             <span className="hidden text-xs font-semibold text-[var(--text-muted)] sm:inline">Need pricing?</span>
-            <span className="inline-flex h-11 items-center rounded-lg bg-[var(--primary)] px-4 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-hover)] hover:shadow-[0_12px_36px_rgba(111,66,193,0.22)] motion-reduce:transition-none">
+            <Link
+              href={`/vendors/${tool.vendorSlug ?? tool.slug}`}
+              className="inline-flex h-11 items-center radius-pill bg-[var(--primary-blue)] px-4 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-dark)] motion-reduce:transition-none"
+            >
               Request demo
-            </span>
+            </Link>
           </div>
         </div>
       </Card>
-    </Link>
   );
 }
 

@@ -108,12 +108,17 @@ model Tool {
   deployment           ToolDeployment?
   indiaComplianceTags  String[]        @default([]) // e.g. PF, ESI, PT, LWF, TDS, Form16, 24Q
 
+  // Launch signals
+  upvotes      Int @default(0)
+  upvotesWeek  Int @default(0)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   categories   ToolCategory[]
   integrations ToolIntegration[]
   pricingPlans PricingPlan[]
+  reviews      ToolReview[]
 }
 
 model ToolCategory {
@@ -236,4 +241,30 @@ model LeadDelivery {
   error       String?
 
   lead Lead @relation(fields: [leadId], references: [id])
+}
+
+model ToolReview {
+  id        String   @id @default(cuid())
+  toolId    String   @map("tool_id")
+  tool      Tool     @relation(fields: [toolId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at")
+
+  authorRole String? @map("author_role")
+  rating     Int? // 1-5 (optional)
+  body       String
+
+  @@map("reviews")
+}
+
+model PendingTool {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+
+  name     String
+  website  String
+  category String
+  email    String
+  notes    String?
+
+  @@map("pending_tools")
 }

@@ -9,8 +9,9 @@
   color-scheme: light;
 
   /* Brand */
-  --primary-blue: #2563eb;
-  --primary-dark: #1e40af;
+  --primary-blue: #4f46e5; /* indigo-600 */
+  --primary-dark: #4338ca; /* indigo-700 */
+  --accent-emerald: #10b981; /* emerald-500 */
 
   /* Back-compat button/link aliases (older components still reference these) */
   --primary: var(--primary-blue);
@@ -24,6 +25,10 @@
   --surface-1: rgba(255, 255, 255, 0.92); /* cards / panels */
   --surface-2: rgba(248, 250, 252, 0.92); /* subtle raised */
   --surface-grey: #f8fafc;
+
+  /* Neutral gradient backing */
+  --bg-grad-1: #ffffff;
+  --bg-grad-2: #f8fafc;
 
   /* Text */
   --text-main: #0f172a;
@@ -87,8 +92,8 @@
 
 body {
   background:
-    radial-gradient(900px 520px at 20% -10%, rgba(37, 99, 235, 0.12), transparent 62%),
-    radial-gradient(800px 520px at 90% 10%, rgba(37, 99, 235, 0.08), transparent 62%),
+    radial-gradient(1100px 640px at 18% -10%, rgba(79, 70, 229, 0.14), transparent 62%),
+    radial-gradient(900px 600px at 92% 10%, rgba(16, 185, 129, 0.10), transparent 62%),
     linear-gradient(180deg, #ffffff 0%, #f8fafc 55%, #ffffff 100%);
 
   color: var(--text-main);
