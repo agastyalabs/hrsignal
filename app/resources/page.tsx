@@ -6,6 +6,7 @@ import { Section } from "@/components/layout/Section";
 import { ButtonLink } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { MotionFadeIn } from "@/components/marketing/MotionFadeIn";
 import { listResourceArticles } from "@/lib/resources/articles";
 
 function formatDate(date: string) {
@@ -49,18 +50,20 @@ export default function ResourcesPage() {
 
       <Section className="pt-10 sm:pt-14">
         <h1 className="sr-only">Resources</h1>
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-          <SectionHeading
-            title="Resources"
-            subtitle="Buyer guides, checklists and playbooks for Indian SME HR teams."
-          />
-          <ButtonLink href="/recommend" variant="primary" size="md">
-            Get recommendations
-          </ButtonLink>
-        </div>
+        <MotionFadeIn className="rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_62%,#eef2ff_100%)] p-6 shadow-soft sm:p-8">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <SectionHeading
+              title="Resources"
+              subtitle="Buyer guides, checklists and playbooks for Indian SME HR teams."
+            />
+            <ButtonLink href="/recommend" variant="primary" size="md">
+              Get recommendations
+            </ButtonLink>
+          </div>
+        </MotionFadeIn>
 
         {featured ? (
-          <Card className="mt-6 overflow-hidden">
+          <Card className="u-card-hover mt-6 overflow-hidden shadow-soft">
             <div className="flex flex-col gap-6 md:flex-row">
               <div className="flex-1 p-6">
                 <div className="inline-flex items-center gap-2 rounded-full border border-[#1F2937] bg-[#0F172A] px-3 py-1 text-xs font-semibold text-[#CBD5E1]">
@@ -126,7 +129,7 @@ export default function ResourcesPage() {
 
         <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
           {rest.map((a) => (
-            <Card key={a.slug} className="h-full">
+            <Card key={a.slug} className="u-card-hover h-full shadow-soft">
               <div className="flex h-full flex-col">
                 <div>
                   <div className="text-sm font-medium text-[#94A3B8]">{formatDate(a.date)}</div>

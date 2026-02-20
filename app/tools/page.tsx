@@ -18,6 +18,7 @@ import { TrustStrip } from "@/components/marketing/TrustStrip";
 import { ToolCard, type ToolCardModel } from "@/components/catalog/ToolCard";
 import { normalizePricingText, pricingTypeFromNote, type PricingType } from "@/lib/pricing/format";
 import { AnalyticsView } from "@/components/analytics/AnalyticsView";
+import { MotionFadeIn } from "@/components/marketing/MotionFadeIn";
 
 const FALLBACK_TOOLS: ToolCardModel[] = [
   {
@@ -372,20 +373,22 @@ export default async function ToolsPage({
 
       <Section className="pt-10 sm:pt-14">
         <h1 className="sr-only">Tools directory</h1>
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-          <SectionHeading
-            title="Tools directory"
-            subtitle="Browse HRMS, payroll & compliance, attendance, ATS and performance tools. Use filters to narrow quickly."
-          />
-          <ButtonLink href="/recommend" variant="primary" size="md">
-            Get recommendations
-          </ButtonLink>
-        </div>
+        <MotionFadeIn className="rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_60%,#eef2ff_100%)] p-6 shadow-soft sm:p-8">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <SectionHeading
+              title="Tools directory"
+              subtitle="Browse HRMS, payroll & compliance, attendance, ATS and performance tools. Use filters to narrow quickly."
+            />
+            <ButtonLink href="/recommend" variant="primary" size="md">
+              Get recommendations
+            </ButtonLink>
+          </div>
+        </MotionFadeIn>
 
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
           {/* Filters */}
           <aside className="lg:col-span-4">
-            <div className="rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4 shadow-[var(--shadow-soft)]">
+            <div className="u-card-hover rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4 shadow-[var(--shadow-soft)]">
               <div className="text-sm font-semibold text-[var(--text)]">Search & filters</div>
               <p className="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">
                 India-first mode is ON by default. Turn it off to browse all listings.
