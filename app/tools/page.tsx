@@ -385,15 +385,15 @@ export default async function ToolsPage({
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
           {/* Filters */}
           <aside className="lg:col-span-4">
-            <div className="rounded-2xl border border-[#1F2937] bg-[#111827] p-4 shadow-sm">
-              <div className="text-sm font-semibold text-[#F9FAFB]">Search & filters</div>
-              <p className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">
+            <div className="rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-4 shadow-[var(--shadow-soft)]">
+              <div className="text-sm font-semibold text-[var(--text)]">Search & filters</div>
+              <p className="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">
                 India-first mode is ON by default. Turn it off to browse all listings.
               </p>
 
               <form className="mt-4 space-y-4" method="get" action="/tools">
                 <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">India-first mode</label>
+                  <label className="text-xs font-medium text-[var(--text-muted)]">India-first mode</label>
                   <select className="input mt-1" name="india" defaultValue={indiaOnly ? "1" : "0"} aria-label="India-first mode">
                     <option value="1">On (India-verified vendors only)</option>
                     <option value="0">Off (show all vendors)</option>
@@ -404,7 +404,7 @@ export default async function ToolsPage({
                 {q ? <input type="hidden" name="q" value={q} /> : null}
 
                 <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">Company size</label>
+                  <label className="text-xs font-medium text-[var(--text-muted)]">Company size</label>
                   <select className="input mt-1" name="size" defaultValue={sizeBucket ?? ""} aria-label="Company size">
                     <option value="">Any</option>
                     <option value="smb">SMB (20–200)</option>
@@ -413,11 +413,11 @@ export default async function ToolsPage({
                       Enterprise (1001+)
                     </option>
                   </select>
-                  <div className="mt-1 text-xs text-[#94A3B8]">Selected: {sizeLabelText}</div>
+                  <div className="mt-1 text-xs text-[var(--text-muted)]">Selected: {sizeLabelText}</div>
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">Deployment</label>
+                  <label className="text-xs font-medium text-[var(--text-muted)]">Deployment</label>
                   <select className="input mt-1" name="deployment" defaultValue={deployment ?? ""} aria-label="Deployment">
                     <option value="">Any</option>
                     <option value="cloud">Cloud / SaaS</option>
@@ -427,7 +427,7 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">Pricing metric</label>
+                  <label className="text-xs font-medium text-[var(--text-muted)]">Pricing metric</label>
                   <select className="input mt-1" name="pricing" defaultValue={pricingMetric ?? ""} aria-label="Pricing metric">
                     <option value="">Any</option>
                     <option value="pepm">PEPM</option>
@@ -435,11 +435,11 @@ export default async function ToolsPage({
                     <option value="quote_based">Quote-based</option>
                     <option value="per_company_month">Per company / month</option>
                   </select>
-                  <div className="mt-1 text-xs text-[#94A3B8]">Rule of thumb: Cloud pricing is typically PEPM (per employee / month). On‑prem is typically one‑time / annual.</div>
+                  <div className="mt-1 text-xs text-[var(--text-muted)]">Rule of thumb: Cloud pricing is typically PEPM (per employee / month). On‑prem is typically one‑time / annual.</div>
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">Evidence</label>
+                  <label className="text-xs font-medium text-[var(--text-muted)]">Evidence</label>
                   <select className="input mt-1" name="evidence" defaultValue={evidence ?? ""} aria-label="Evidence">
                     <option value="">Any</option>
                     <option value="verified">Verified</option>
@@ -448,7 +448,7 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">Modules</label>
+                  <label className="text-xs font-medium text-[var(--text-muted)]">Modules</label>
                   <select className="input mt-1" name="modules" defaultValue={modules.join(",")} aria-label="Modules">
                     <option value="">Any</option>
                     <option value="hrms">HRMS</option>
@@ -459,11 +459,11 @@ export default async function ToolsPage({
                     <option value="lms">LMS</option>
                     <option value="bgv">BGV</option>
                   </select>
-                  <div className="mt-1 text-xs text-[#94A3B8]">Tip: choose the primary module in v1.</div>
+                  <div className="mt-1 text-xs text-[var(--text-muted)]">Tip: choose the primary module in v1.</div>
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">India compliance</label>
+                  <label className="text-xs font-medium text-[var(--text-muted)]">India compliance</label>
                   <select className="input mt-1" name="compliance" defaultValue={compliance.join(",")} aria-label="India compliance">
                     <option value="">Any</option>
                     <option value="PF">PF</option>
@@ -477,7 +477,7 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">Region fit</label>
+                  <label className="text-xs font-medium text-[var(--text-muted)]">Region fit</label>
                   <select className="input mt-1" name="region" defaultValue={region} aria-label="Region fit">
                     <option value="">Any</option>
                     <option value="multi">Multi-state support</option>
@@ -485,7 +485,7 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">Category</label>
+                  <label className="text-xs font-medium text-[var(--text-muted)]">Category</label>
                   <select className="input mt-1" name="category" defaultValue={category ?? ""} aria-label="Category">
                     <option value="">All categories</option>
                     <option value="hrms">HRMS</option>
@@ -499,19 +499,19 @@ export default async function ToolsPage({
                 </div>
 
                 <div>
-                  <label className="text-xs font-medium text-[#CBD5E1]">Sort</label>
+                  <label className="text-xs font-medium text-[var(--text-muted)]">Sort</label>
                   <select className="input mt-1" name="sort" defaultValue={sort} aria-label="Sort">
                     <option value="name">Name</option>
                     <option value="recent">Recently verified</option>
                   </select>
                 </div>
 
-                <button className="h-11 w-full rounded-lg bg-[#8B5CF6] text-sm font-medium text-[#0B1220] hover:bg-[#7C3AED]">
+                <button className="h-11 w-full rounded-[var(--radius-sm)] bg-[var(--primary)] text-sm font-semibold text-white transition-colors hover:bg-[var(--primary-hover)]">
                   Apply
                 </button>
 
                 <Link
-                  className="block text-center text-sm font-medium text-[#CBD5E1] hover:text-[#F9FAFB]"
+                  className="block text-center text-sm font-semibold text-[var(--text-muted)] hover:text-[var(--text)]"
                   href="/tools"
                 >
                   Reset filters
@@ -523,30 +523,30 @@ export default async function ToolsPage({
           {/* Results */}
           <div className="min-w-0 lg:col-span-8">
             <div className="flex items-center justify-between gap-4">
-              <div className="text-sm text-[#CBD5E1]">
-                Showing <span className="font-medium text-[#F9FAFB]">{tools.length}</span> tools
+              <div className="text-sm text-[var(--text-muted)]">
+                Showing <span className="font-semibold text-[var(--text)]">{tools.length}</span> tools
               </div>
-              <Link className="text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED] hover:underline" href="/recommend">
+              <Link className="text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)] hover:underline" href="/recommend">
                 Prefer a guided shortlist? →
               </Link>
             </div>
 
             {mode === "fallback" ? (
-              <div className="mt-4 rounded-2xl border border-[#1F2937] bg-[#111827] p-5 shadow-sm">
-                <div className="text-sm font-semibold text-[#F9FAFB]">Showing sample tools</div>
-                <p className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">
+              <div className="mt-4 rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-[var(--shadow-soft)]">
+                <div className="text-sm font-semibold text-[var(--text)]">Showing sample tools</div>
+                <p className="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">
                   The database/catalog is not connected. Connect DB + run migrations/seed to see the real marketplace catalog.
                 </p>
               </div>
             ) : null}
 
             {mode === "empty" ? (
-              <div className="mt-4 rounded-2xl border border-[#1F2937] bg-[#111827] p-5 shadow-sm">
-                <div className="text-sm font-semibold text-[#F9FAFB]">No tools match yet</div>
-                <p className="mt-1 text-sm leading-relaxed text-[#CBD5E1]">
+              <div className="mt-4 rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-5 shadow-[var(--shadow-soft)]">
+                <div className="text-sm font-semibold text-[var(--text)]">No tools match yet</div>
+                <p className="mt-1 text-sm leading-relaxed text-[var(--text-muted)]">
                   Try removing filters, or seed/publish more tools from Admin.
                 </p>
-                <Link className="mt-3 inline-block text-sm font-medium text-[#8B5CF6] hover:text-[#7C3AED]" href="/admin">
+                <Link className="mt-3 inline-block text-sm font-semibold text-[var(--link)] hover:text-[var(--link-hover)]" href="/admin">
                   Go to Admin →
                 </Link>
               </div>
@@ -562,7 +562,7 @@ export default async function ToolsPage({
 
         {/* Results + empty/fallback states are rendered in the right column above. */}
 
-        <div className="mt-10 rounded-2xl border border-[#1F2937] bg-[#111827] p-6 shadow-sm">
+        <div className="mt-10 rounded-[var(--radius-card)] border border-[var(--border-soft)] bg-[var(--surface-1)] p-6 shadow-[var(--shadow-soft)]">
           <SectionHeading
             title="Why trust these listings?"
             subtitle="We prioritize transparent metadata (categories, integrations, last verified) and keep recommendations explainable."
