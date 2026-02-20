@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { UtmCapture } from "@/components/analytics/UtmCapture";
 import { FloatingShortlistCta } from "@/components/marketing/FloatingShortlistCta";
 import { LeadMagnetPopup } from "@/components/lead/LeadMagnetPopup";
+import { MobileBottomNav } from "@/components/navigation/MobileBottomNav";
 import { SITE_URL } from "@/lib/seo/url";
 
 const inter = Inter({
@@ -83,6 +84,7 @@ export default function RootLayout({
         <UtmCapture />
         <FloatingShortlistCta />
         <LeadMagnetPopup />
+        <MobileBottomNav />
         <Analytics />
       </body>
     </html>

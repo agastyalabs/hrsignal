@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 import { useCompare } from "@/lib/compare/useCompare";
+import { ShortlistModal } from "@/components/shortlist/ShortlistModal";
 
 function getScrollProgress() {
   const doc = document.documentElement;
@@ -47,17 +47,25 @@ export function FloatingShortlistCta() {
 
   if (hidden || !visible) return null;
 
+  const [open, setOpen] = useState(false);
+
   return (
-    <div
-      className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] z-50"
-      aria-hidden={false}
-    >
-      <Link
-        href="/recommend"
-        className="inline-flex h-11 items-center justify-center rounded-[var(--radius-md)] border border-[var(--border-soft)] bg-[var(--surface-2)] px-4 text-sm font-semibold text-[var(--text)] hover:bg-[var(--surface-3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+    <>
+      <div
+        className="fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] z-50"
+        aria-hidden={false}
       >
-        Get my shortlist
-      </Link>
-    </div>
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="group inline-flex h-12 w-12 items-center justify-center radius-pill bg-[#6F42C1] text-white shadow-[0_18px_52px_rgba(111,66,193,0.22)] transition-all hover:-translate-y-0.5 hover:shadow-[0_0_0_1px_rgba(16,185,129,0.18),0_18px_52px_rgba(111,66,193,0.26)]"
+          aria-label="Get my shortlist"
+        >
+          <span className="text-lg font-extrabold">+</span>
+        </button>
+      </div>
+
+      <ShortlistModal open={open} onClose={() => setOpen(false)} />
+    </>
   );
 }
