@@ -49,7 +49,8 @@ function originFrom(req: Request): string {
     const u = new URL(req.url);
     return `${u.protocol}//${u.host}`;
   } catch {
-    return "https://hrsignal.vercel.app";
+    // Last-resort fallback (keeps behavior stable if req.url is malformed)
+    return s(process.env.NEXT_PUBLIC_SITE_URL) || "https://hrsignal.vercel.app";
   }
 }
 
