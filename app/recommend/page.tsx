@@ -228,8 +228,8 @@ export default async function RecommendPage({
       <main className="py-10 sm:py-14">
         <Container>
           <div className="mx-auto max-w-2xl">
-            <h1 className="text-3xl font-semibold tracking-tight text-[#F9FAFB]">Find my payroll-ready vendor</h1>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#CBD5E1]">
+            <h1 className="text-3xl font-semibold tracking-tight text-[var(--text)]">Find my payroll-ready vendor</h1>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--text-muted)]">
               Answer a few questions. HRSignal recommends 3–5 best‑fit tools with clear match reasons.
             </p>
 
