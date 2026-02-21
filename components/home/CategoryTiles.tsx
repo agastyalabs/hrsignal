@@ -15,7 +15,7 @@ export function CategoryTiles() {
       {TILES.map((t) => (
         <Link
           key={t.slug}
-          href={t.slug === "compliance" ? "/compliance" : `/tools?modules=${encodeURIComponent(t.slug)}`}
+          href={`/categories/${encodeURIComponent(t.slug)}`}
           className={`group radius-card border border-slate-200 bg-gradient-to-br ${t.tone} p-7 shadow-soft transition-all hover:-translate-y-1 hover:shadow-float`}
         >
           <div className="flex items-center justify-between">
