@@ -105,92 +105,11 @@ export default async function Home() {
         </div>
       </HomeSection>
 
-      {/* 2) HRSignal Coverage Snapshot */}
-      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
-        <div className="radius-card border border-slate-100 bg-white shadow-soft p-8">
-          <div className="text-base font-bold text-slate-900">HRSignal Coverage Snapshot</div>
-          <div className="mt-1 text-sm text-slate-500">Static snapshot of marketplace coverage (v1).</div>
-
-          <div className="mt-6 grid grid-cols-2 gap-4">
-            {[
-              { label: "Payroll vendors", value: "12+" },
-              { label: "India-verified listings", value: "25+" },
-              { label: "Evidence links tracked", value: "120+" },
-              { label: "Categories", value: "8" },
-            ].map((m) => (
-              <div key={m.label} className="radius-inner border border-slate-100 bg-[var(--surface-grey)] p-6">
-                <div className="text-5xl font-extrabold tracking-tight text-blue-600 sm:text-6xl">{m.value}</div>
-                <div className="mt-2 text-xs font-bold text-slate-500">{m.label}</div>
-              </div>
-            ))}
-
-            <div className="col-span-2 radius-inner border border-slate-100 bg-[var(--surface-grey)] p-6">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <div className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">Last verified</div>
-                  <div className="mt-2 text-xs font-bold text-slate-500">Freshness signal</div>
-                </div>
-                <div className="text-sm text-slate-500">We show verification recency so you can spot what needs re-checking.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </HomeSection>
-
-      {/* 2.5) Trust signals + social proof */}
-      <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <StatsBar
-              items={[
-                { label: "HR leaders", value: 200, suffix: "+", detail: "Using HRSignal checklists + scoring" },
-                { label: "Evidence links", value: 120, suffix: "+", detail: "Docs, pricing pages, compliance notes" },
-                { label: "India-ready listings", value: 25, suffix: "+", detail: "Verified/updated recency shown" },
-                { label: "Categories", value: 8, detail: "Payroll, HRMS, ATS, more" },
-              ]}
-              title="Trusted by 200+ HR leaders"
-              subtitle="Social proof + verification signals (v1)."
-            />
-          </div>
-          <div className="lg:col-span-5">
-            <TrustBadges
-              badges={[
-                { title: "SOC 2", subtitle: "Security posture", tone: "security" },
-                { title: "GDPR-ready", subtitle: "Privacy-by-design", tone: "privacy" },
-                { title: "Evidence links", subtitle: "Verify claims", tone: "process" },
-                { title: "No paid ranking", subtitle: "Buyer-first", tone: "neutral" },
-              ]}
-            />
-          </div>
-        </div>
-
-        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <TestimonialCard
-            t={{
-              quote: "The shortlist reasons + demo checklist helped us catch PT/PT slab edge cases early.",
-              name: "HR Ops Lead",
-              title: "Payroll transformation",
-              company: "India mid-market",
-            }}
-          />
-          <TestimonialCard
-            t={{
-              quote: "The ‘verified vs validate’ framing made vendor demos way more productive.",
-              name: "Head of HR",
-              title: "People & compliance",
-              company: "Multi-state services",
-            }}
-          />
-          <TestimonialCard
-            t={{
-              quote: "Finally a directory that shows evidence links instead of just marketing copy.",
-              name: "Founder",
-              title: "Ops",
-              company: "Growing startup",
-            }}
-          />
-        </div>
-      </HomeSection>
+      {/* Premium hydration-safe middle section */}
+      {(() => {
+        const HomeMiddleSection = require("@/app/components/HomeMiddleSection").default;
+        return <HomeMiddleSection />;
+      })()}
 
       {/* 2.6) Compliance guides */}
       <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
