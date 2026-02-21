@@ -63,7 +63,49 @@ function TrustChip({ icon: Icon, label }) {
   );
 }
 
-export default function HomeMiddleSection() {
+export default function HomeMiddleSection({
+  snapshot = {
+    toolCount: 0,
+    vendorCount: 0,
+    categoryCount: 0,
+    verifiedToolCount: 0,
+    upvotesWeekTotal: 0,
+    reviewCount: 0,
+  },
+}) {
+  const tiles = [
+    {
+      title: "Tools indexed",
+      value: snapshot.toolCount,
+      note: "Published tools with filterable metadata.",
+    },
+    {
+      title: "Categories covered",
+      value: snapshot.categoryCount,
+      note: "Core HR modules mapped for discovery.",
+    },
+    {
+      title: "Vendors profiled",
+      value: snapshot.vendorCount,
+      note: "Active vendor profiles (with India-fit flags where available).",
+    },
+    {
+      title: "Listings verified",
+      value: snapshot.verifiedToolCount,
+      note: "Tools with a visible “Last verified” date.",
+    },
+    {
+      title: "Weekly signals",
+      value: snapshot.upvotesWeekTotal,
+      note: "Upvotes captured in the last 7 days.",
+    },
+    {
+      title: "Reviews captured",
+      value: snapshot.reviewCount,
+      note: "Short notes from HR/Finance users (when submitted).",
+    },
+  ];
+
   return (
     <section className="border-t border-[var(--border-soft)]">
       <div className="mx-auto max-w-7xl px-6 py-10 lg:py-12">
@@ -94,22 +136,19 @@ export default function HomeMiddleSection() {
               </div>
 
               <div className="mt-4 radius-inner glass-panel border border-[var(--border-soft)] bg-[rgba(248,250,252,0.8)] p-6">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="text-sm font-extrabold text-slate-800">Coverage Snapshot Chart Coming Soon</div>
-                  <span className="text-xs font-semibold text-slate-500">Launch placeholder</span>
-                </div>
-                <div className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Placeholder chart block for launch — will show categories, verification freshness, and evidence depth.
-                </div>
-
-                <div className="mt-5 grid grid-cols-3 gap-3">
-                  {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="h-10 radius-inner border border-[rgba(15,23,42,0.08)] bg-white/80 shadow-soft" />
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {tiles.map((t) => (
+                    <div
+                      key={t.title}
+                      className="radius-inner border border-[rgba(15,23,42,0.08)] bg-white/80 p-4 shadow-soft"
+                    >
+                      <div className="text-xs font-extrabold tracking-tight text-slate-600">{t.title}</div>
+                      <div className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900">
+                        {typeof t.value === "number" ? t.value.toLocaleString() : String(t.value)}
+                      </div>
+                      <div className="mt-1 text-xs leading-relaxed text-slate-600">{t.note}</div>
+                    </div>
                   ))}
-                </div>
-
-                <div className="mt-4 h-2 w-full rounded-full bg-white/60">
-                  <div className="h-2 w-[62%] rounded-full bg-[rgba(79,70,229,0.35)]" />
                 </div>
               </div>
             </div>
