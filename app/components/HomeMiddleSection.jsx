@@ -12,39 +12,41 @@ function CollapsibleCard({ icon: Icon, title, subtitle, children, defaultOpen = 
   const [open, setOpen] = useState(false);
 
   return (
-    <Collapsible.Root open={open} onOpenChange={setOpen} className="radius-card border border-slate-200 bg-white shadow-soft">
+    <Collapsible.Root
+      open={open}
+      onOpenChange={setOpen}
+      className={cn(
+        "radius-card glass-panel u-card-hover border border-[var(--border-soft)] bg-white/80 shadow-soft",
+      )}
+    >
       <Collapsible.Trigger asChild>
         <button
           type="button"
           className={cn(
-            "flex w-full items-center justify-between gap-4 px-6 py-5 text-left",
-            "transition-all hover:-translate-y-0.5 hover:shadow-glow",
+            "flex w-full items-center justify-between gap-4 px-6 py-6 text-left",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]",
           )}
           aria-expanded={open}
         >
           <div className="flex min-w-0 items-start gap-4">
-            <span className="mt-0.5 inline-flex h-11 w-11 items-center justify-center radius-pill border border-slate-200 bg-slate-50">
+            <span className="mt-0.5 inline-flex h-11 w-11 items-center justify-center radius-pill border border-[var(--border-soft)] bg-white/70 shadow-soft">
               <Icon className="h-5 w-5 text-[var(--primary-blue)]" aria-hidden="true" />
             </span>
             <span className="min-w-0">
               <div className="truncate text-base font-extrabold tracking-tight text-slate-900">{title}</div>
-              <div className="mt-1 text-sm text-slate-600">{subtitle}</div>
+              <div className="mt-1 text-sm leading-relaxed text-slate-600">{subtitle}</div>
             </span>
           </div>
 
           <ChevronDown
-            className={cn(
-              "h-5 w-5 shrink-0 text-slate-400 transition-transform",
-              open ? "rotate-180" : "rotate-0",
-            )}
+            className={cn("h-5 w-5 shrink-0 text-slate-400 transition-transform", open ? "rotate-180" : "rotate-0")}
             aria-hidden="true"
           />
         </button>
       </Collapsible.Trigger>
 
       <Collapsible.Content className="px-6 pb-6">
-        <div className="radius-inner border border-slate-200 bg-slate-50 p-5 text-sm leading-relaxed text-slate-700">
+        <div className="radius-inner border border-[var(--border-soft)] bg-[rgba(248,250,252,0.8)] p-5 text-sm leading-relaxed text-slate-700">
           {children}
         </div>
       </Collapsible.Content>
@@ -54,7 +56,7 @@ function CollapsibleCard({ icon: Icon, title, subtitle, children, defaultOpen = 
 
 function TrustChip({ icon: Icon, label }) {
   return (
-    <div className="inline-flex items-center gap-2 radius-pill border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 shadow-soft">
+    <div className="inline-flex items-center gap-2 radius-pill border border-[var(--border-soft)] bg-white/80 px-3.5 py-2 text-xs font-extrabold tracking-tight text-slate-700 shadow-soft">
       <Icon className="h-4 w-4 text-emerald-600" aria-hidden="true" />
       {label}
     </div>
@@ -64,37 +66,50 @@ function TrustChip({ icon: Icon, label }) {
 export default function HomeMiddleSection() {
   return (
     <section className="border-t border-[var(--border-soft)]">
-      <div className="mx-auto max-w-7xl px-6 py-14">
+      <div className="mx-auto max-w-7xl px-6 py-10 lg:py-12">
         {/* Snapshot row (must exist for QA string checks) */}
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <div className="radius-card border border-slate-200 bg-white p-6 shadow-soft">
+            <div className={cn("radius-card glass-panel u-card-hover p-7 shadow-soft", "border border-[var(--border-soft)]")}
+            >
               <div className="flex items-center justify-between gap-3">
-                <div className="text-sm font-extrabold text-slate-900">Keka Fit Score</div>
+                <div className="text-sm font-extrabold tracking-tight text-slate-900">Keka Fit Score</div>
                 <span className="radius-pill bg-emerald-50 px-2.5 py-1 text-xs font-extrabold text-emerald-700">92/100</span>
               </div>
-              <div className="mt-3 h-2 w-full rounded-full bg-slate-100">
-                <div className="h-2 rounded-full bg-[var(--primary-blue)]" style={{ width: "92%" }} />
+              <div className="mt-4 h-2.5 w-full rounded-full bg-slate-100">
+                <div className="h-2.5 rounded-full bg-[var(--primary-blue)]" style={{ width: "92%" }} />
               </div>
-              <div className="mt-3 text-sm text-slate-600">A fast signal — validate edge cases in demo.</div>
+              <div className="mt-4 text-sm text-slate-600">A fast signal — validate edge cases in demo.</div>
             </div>
           </div>
 
           <div className="lg:col-span-7">
-            <div className="radius-card border border-slate-200 bg-white p-6 shadow-soft">
+            <div className={cn("radius-card glass-panel u-card-hover p-7 shadow-soft", "border border-[var(--border-soft)]")}
+            >
               <div className="flex items-center justify-between gap-3">
-                <div className="text-sm font-extrabold text-slate-900">Coverage Snapshot</div>
-                <span className="text-xs font-bold text-slate-500">v1</span>
+                <div className="text-sm font-extrabold tracking-tight text-slate-900">Coverage Snapshot</div>
+                <span className="radius-pill border border-[var(--border-soft)] bg-white/70 px-2.5 py-1 text-[11px] font-extrabold text-slate-500">
+                  v1
+                </span>
               </div>
-              <div className="mt-3 radius-inner border border-slate-200 bg-slate-50 p-5">
-                <div className="text-sm font-semibold text-slate-700">Coverage Snapshot Chart Coming Soon</div>
-                <div className="mt-2 text-sm text-slate-600">
+
+              <div className="mt-4 radius-inner glass-panel border border-[var(--border-soft)] bg-[rgba(248,250,252,0.8)] p-6">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-sm font-extrabold text-slate-800">Coverage Snapshot Chart Coming Soon</div>
+                  <span className="text-xs font-semibold text-slate-500">Launch placeholder</span>
+                </div>
+                <div className="mt-2 text-sm leading-relaxed text-slate-600">
                   Placeholder chart block for launch — will show categories, verification freshness, and evidence depth.
                 </div>
-                <div className="mt-4 grid grid-cols-3 gap-3">
+
+                <div className="mt-5 grid grid-cols-3 gap-3">
                   {Array.from({ length: 6 }).map((_, i) => (
-                    <div key={i} className="h-10 rounded bg-white shadow-soft" />
+                    <div key={i} className="h-10 radius-inner border border-[rgba(15,23,42,0.08)] bg-white/80 shadow-soft" />
                   ))}
+                </div>
+
+                <div className="mt-4 h-2 w-full rounded-full bg-white/60">
+                  <div className="h-2 w-[62%] rounded-full bg-[rgba(79,70,229,0.35)]" />
                 </div>
               </div>
             </div>

@@ -24,7 +24,7 @@ export default async function Home() {
       <SiteHeader />
 
       {/* 1) Hero + decision snapshot */}
-      <HomeSection className="pt-32 pb-20 lg:pt-40 lg:pb-32 relative overflow-hidden">
+      <HomeSection className="pt-32 pb-16 lg:pt-40 lg:pb-28 relative overflow-hidden">
         <div className="bg-blob-blue" aria-hidden="true" />
 
         <div className="relative mx-auto max-w-7xl px-6">

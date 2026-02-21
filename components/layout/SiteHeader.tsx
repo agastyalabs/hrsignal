@@ -193,23 +193,28 @@ function HeaderInner({ pathname }: { pathname: string }) {
       }`}
     >
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between gap-6 px-6">
-        <Link href="/" className="shrink-0" aria-label="HR Signal home" onClick={() => setOpenMenu(null)}>
+        <Link
+          href="/"
+          className="shrink-0 rounded-[var(--radius-sm)] px-1 py-1"
+          aria-label="HR Signal home"
+          onClick={() => setOpenMenu(null)}
+        >
           <span className="flex items-center">
             <Image
               src="/assets/logos/hrsignal-logo-light.svg"
               alt={BRAND.name}
-              width={192}
-              height={192}
+              width={176}
+              height={44}
               priority
-              className="logo-light h-10 w-auto sm:h-11"
+              className="logo-light h-10 w-auto"
             />
             <Image
               src="/assets/logos/hrsignal-logo-v6.svg?v=6"
               alt={BRAND.name}
-              width={192}
-              height={192}
+              width={176}
+              height={44}
               priority
-              className="logo-dark h-10 w-auto sm:h-11"
+              className="logo-dark h-10 w-auto"
             />
           </span>
         </Link>
