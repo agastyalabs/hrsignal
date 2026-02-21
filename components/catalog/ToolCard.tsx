@@ -37,7 +37,7 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
   const trustLevel = tool.trustLevel ?? (tool.verified ? "verified" : "unverified");
 
   return (
-    <Card className="h-full p-5">
+    <Card className="h-full p-6">
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 items-start gap-3">
             <div className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-2)]">
@@ -54,7 +54,16 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
                 {tool.name}
               </Link>
               {tool.vendorName ? (
-                <div className="mt-1 truncate text-sm text-[var(--text-muted)]">by {tool.vendorName}</div>
+                <div className="mt-1 flex flex-wrap items-center gap-2 truncate text-sm text-[var(--text-muted)]">
+                  <span>by {tool.vendorName}</span>
+                  {tool.verified ? (
+                    <span className="radius-pill bg-indigo-50 px-2 py-0.5 text-xs font-bold text-indigo-700">Verified</span>
+                  ) : null}
+                </div>
+              ) : tool.verified ? (
+                <div className="mt-1">
+                  <span className="radius-pill bg-indigo-50 px-2 py-0.5 text-xs font-bold text-indigo-700">Verified</span>
+                </div>
               ) : null}
             </div>
           </div>
@@ -62,8 +71,11 @@ export function ToolCard({ tool }: { tool: ToolCardModel }) {
           {tool.id ? <UpvoteButton toolId={tool.id} initial={tool.upvotes ?? 0} /> : null}
         </div>
 
-        <div className="mt-3">
+        <div className="mt-3 flex items-center justify-between gap-3">
           <TrustRatingRow level={trustLevel} sourcesCount={tool.sourcesCount} lastCheckedAt={tool.lastCheckedAt} />
+          {typeof tool.upvotesWeek === "number" ? (
+            <span className="radius-pill bg-emerald-50 px-2.5 py-1 text-xs font-extrabold text-emerald-700">+{tool.upvotesWeek} this week</span>
+          ) : null}
         </div>
 
         {tool.tagline ? (
