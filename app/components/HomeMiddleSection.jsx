@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useState } from "react";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { ShieldCheck, Link as LinkIcon, Sparkles, CheckCircle2, ChevronDown } from "lucide-react";
 
@@ -8,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 function CollapsibleCard({ icon: Icon, title, subtitle, children, defaultOpen = false }) {
   // Critical: correct state hook syntax (fixes the common Card bug)
-  const [open, setOpen] = React.useState(defaultOpen);
+  const [open, setOpen] = useState(false);
 
   return (
     <Collapsible.Root open={open} onOpenChange={setOpen} className="radius-card border border-slate-200 bg-white shadow-soft">

@@ -16,6 +16,7 @@ import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { Card } from "@/components/ui/Card";
 import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
 import { COMPLIANCE_GUIDES } from "@/lib/compliance/guides";
+import HomeMiddleSection from "@/app/components/HomeMiddleSection";
 
 export default async function Home() {
   return (
@@ -106,10 +107,7 @@ export default async function Home() {
       </HomeSection>
 
       {/* Premium hydration-safe middle section */}
-      {(() => {
-        const HomeMiddleSection = require("@/app/components/HomeMiddleSection").default;
-        return <HomeMiddleSection />;
-      })()}
+      <HomeMiddleSection />
 
       {/* 2.6) Compliance guides */}
       <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
