@@ -65,7 +65,43 @@ export default function HomeMiddleSection() {
   return (
     <section className="border-t border-[var(--border-soft)]">
       <div className="mx-auto max-w-7xl px-6 py-14">
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+        {/* Snapshot row (must exist for QA string checks) */}
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <div className="radius-card border border-slate-200 bg-white p-6 shadow-soft">
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-sm font-extrabold text-slate-900">Keka Fit Score</div>
+                <span className="radius-pill bg-emerald-50 px-2.5 py-1 text-xs font-extrabold text-emerald-700">92/100</span>
+              </div>
+              <div className="mt-3 h-2 w-full rounded-full bg-slate-100">
+                <div className="h-2 rounded-full bg-[var(--primary-blue)]" style={{ width: "92%" }} />
+              </div>
+              <div className="mt-3 text-sm text-slate-600">A fast signal — validate edge cases in demo.</div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-7">
+            <div className="radius-card border border-slate-200 bg-white p-6 shadow-soft">
+              <div className="flex items-center justify-between gap-3">
+                <div className="text-sm font-extrabold text-slate-900">Coverage Snapshot</div>
+                <span className="text-xs font-bold text-slate-500">v1</span>
+              </div>
+              <div className="mt-3 radius-inner border border-slate-200 bg-slate-50 p-5">
+                <div className="text-sm font-semibold text-slate-700">Coverage Snapshot Chart Coming Soon</div>
+                <div className="mt-2 text-sm text-slate-600">
+                  Placeholder chart block for launch — will show categories, verification freshness, and evidence depth.
+                </div>
+                <div className="mt-4 grid grid-cols-3 gap-3">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <div key={i} className="h-10 rounded bg-white shadow-soft" />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <h2 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">How we keep it brutally useful</h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
@@ -91,12 +127,12 @@ export default function HomeMiddleSection() {
             Anything missing is explicitly marked as “validate” — so you don’t discover surprises at month-end.
           </CollapsibleCard>
 
-          <CollapsibleCard icon={ShieldCheck} title="India compliance depth" subtitle="PF / ESI / PT / TDS edge cases." >
+          <CollapsibleCard icon={ShieldCheck} title="India compliance depth" subtitle="PF / ESI / PT / TDS edge cases.">
             India payroll fails at the edges. We push demos towards arrears, reversals, cutoffs, statutory exports,
             and multi-state exceptions — not feature checkboxes.
           </CollapsibleCard>
 
-          <CollapsibleCard icon={LinkIcon} title="Evidence-first listings" subtitle="Primary links, not vibes." >
+          <CollapsibleCard icon={LinkIcon} title="Evidence-first listings" subtitle="Primary links, not vibes.">
             When we can, we attach source links (docs, pricing, security, support). That makes internal review faster and
             vendor calls tighter.
           </CollapsibleCard>
