@@ -3,7 +3,19 @@
 import * as React from "react";
 import { useState } from "react";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { ShieldCheck, Link as LinkIcon, Sparkles, CheckCircle2, ChevronDown } from "lucide-react";
+import {
+  ShieldCheck,
+  Link as LinkIcon,
+  Sparkles,
+  CheckCircle2,
+  ChevronDown,
+  Building2,
+  Layers,
+  Grid3X3,
+  MessageSquareText,
+  BadgeCheck,
+  TrendingUp,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -63,46 +75,55 @@ function TrustChip({ icon: Icon, label }) {
   );
 }
 
-export default function HomeMiddleSection({
-  snapshot = {
-    toolCount: 0,
-    vendorCount: 0,
-    categoryCount: 0,
-    verifiedToolCount: 0,
-    upvotesWeekTotal: 0,
-    reviewCount: 0,
-  },
-}) {
+function fmt(n) {
+  if (n === null || n === undefined) return "—";
+  if (typeof n !== "number") return "—";
+  return new Intl.NumberFormat("en-IN").format(n);
+}
+
+export default function HomeMiddleSection({ coverageStats }) {
   const tiles = [
     {
-      title: "Tools indexed",
-      value: snapshot.toolCount,
-      note: "Published tools with filterable metadata.",
+      title: "Tools",
+      value: coverageStats?.toolsPublished ?? null,
+      note: "Published listings",
+      icon: Layers,
+      tooltip: "Count of tools with status=PUBLISHED",
     },
     {
-      title: "Categories covered",
-      value: snapshot.categoryCount,
-      note: "Core HR modules mapped for discovery.",
+      title: "Vendors",
+      value: coverageStats?.vendorsActive ?? null,
+      note: "Active vendors",
+      icon: Building2,
+      tooltip: "Count of vendors where isActive=true",
     },
     {
-      title: "Vendors profiled",
-      value: snapshot.vendorCount,
-      note: "Active vendor profiles (with India-fit flags where available).",
+      title: "Categories",
+      value: coverageStats?.categories ?? null,
+      note: "Modules covered",
+      icon: Grid3X3,
+      tooltip: "Count of categories",
     },
     {
-      title: "Listings verified",
-      value: snapshot.verifiedToolCount,
-      note: "Tools with a visible “Last verified” date.",
+      title: "Reviews",
+      value: coverageStats?.reviews ?? null,
+      note: "Buyer notes",
+      icon: MessageSquareText,
+      tooltip: "Count of ToolReview rows",
     },
     {
-      title: "Weekly signals",
-      value: snapshot.upvotesWeekTotal,
-      note: "Upvotes captured in the last 7 days.",
+      title: "Verified",
+      value: coverageStats?.verifiedTools ?? null,
+      note: "Has verification date",
+      icon: BadgeCheck,
+      tooltip: "Count of tools where lastVerifiedAt is set",
     },
     {
-      title: "Reviews captured",
-      value: snapshot.reviewCount,
-      note: "Short notes from HR/Finance users (when submitted).",
+      title: "Upvotes",
+      value: coverageStats?.upvotesWeek ?? null,
+      note: "This week (sum)",
+      icon: TrendingUp,
+      tooltip: "Sum of Tool.upvotesWeek",
     },
   ];
 
@@ -112,7 +133,11 @@ export default function HomeMiddleSection({
         {/* Snapshot row (must exist for QA string checks) */}
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <div className={cn("radius-card glass-panel u-card-hover p-7 shadow-soft", "border border-[var(--border-soft)]")}
+            <div
+              className={cn(
+                "radius-card glass-panel border border-[var(--border-soft)] bg-white/80 p-7 shadow-soft",
+                "transition-transform duration-200 motion-reduce:transition-none hover:-translate-y-0.5 hover:shadow-float",
+              )}
             >
               <div className="flex items-center justify-between gap-3">
                 <div className="text-sm font-extrabold tracking-tight text-slate-900">Keka Fit Score</div>
@@ -126,29 +151,48 @@ export default function HomeMiddleSection({
           </div>
 
           <div className="lg:col-span-7">
-            <div className={cn("radius-card glass-panel u-card-hover p-7 shadow-soft", "border border-[var(--border-soft)]")}
+            <div
+              className={cn(
+                "radius-card glass-panel border border-[var(--border-soft)] bg-white/80 p-7 shadow-soft",
+                "transition-transform duration-200 motion-reduce:transition-none hover:-translate-y-0.5 hover:shadow-float",
+              )}
             >
               <div className="flex items-center justify-between gap-3">
                 <div className="text-sm font-extrabold tracking-tight text-slate-900">Coverage Snapshot</div>
-                <span className="radius-pill border border-[var(--border-soft)] bg-white/70 px-2.5 py-1 text-[11px] font-extrabold text-slate-500">
-                  v1
-                </span>
               </div>
 
-              <div className="mt-4 radius-inner glass-panel border border-[var(--border-soft)] bg-[rgba(248,250,252,0.8)] p-6">
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {tiles.map((t) => (
-                    <div
-                      key={t.title}
-                      className="radius-inner border border-[rgba(15,23,42,0.08)] bg-white/80 p-4 shadow-soft"
-                    >
-                      <div className="text-xs font-extrabold tracking-tight text-slate-600">{t.title}</div>
-                      <div className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900">
-                        {typeof t.value === "number" ? t.value.toLocaleString() : String(t.value)}
+              <div className="mt-4 radius-inner glass-panel border border-[var(--border-soft)] bg-[rgba(248,250,252,0.82)] p-6">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  {tiles.map((t) => {
+                    const Icon = t.icon;
+                    return (
+                      <div
+                        key={t.title}
+                        className={cn(
+                          "radius-inner border border-[rgba(15,23,42,0.10)] bg-white/80 p-4 shadow-soft",
+                          "transition-transform duration-200 motion-reduce:transition-none hover:-translate-y-0.5 hover:shadow-float",
+                        )}
+                        title={t.tooltip}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <div className="text-xs font-extrabold uppercase tracking-wide text-slate-500">{t.title}</div>
+                            <div className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+                              {fmt(t.value)}
+                            </div>
+                          </div>
+                          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center radius-pill border border-[var(--border-soft)] bg-slate-50 text-[var(--primary-blue)]">
+                            <Icon className="h-4 w-4" aria-hidden="true" />
+                          </span>
+                        </div>
+                        <div className="mt-2 text-xs leading-5 text-slate-600">{t.note}</div>
                       </div>
-                      <div className="mt-1 text-xs leading-relaxed text-slate-600">{t.note}</div>
-                    </div>
-                  ))}
+                    );
+                  })}
+                </div>
+
+                <div className="mt-3 text-xs text-slate-500">
+                  Stats are computed from our live database. If you see “—”, stats aren’t available in this environment.
                 </div>
               </div>
             </div>

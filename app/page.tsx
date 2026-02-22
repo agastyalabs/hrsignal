@@ -16,9 +16,12 @@ import { CategoryCard } from "@/components/catalog/CategoryCard";
 import { Card } from "@/components/ui/Card";
 import { ChecklistDownloadCard } from "@/components/lead/ChecklistDownloadCard";
 import { COMPLIANCE_GUIDES } from "@/lib/compliance/guides";
+import { getHomeCoverageStats } from "@/lib/homeStats";
 import HomeMiddleSection from "@/app/components/HomeMiddleSection";
 
 export default async function Home() {
+  const coverageStats = await getHomeCoverageStats();
+
   return (
     <div className="min-h-screen bg-[var(--bg)] text-[var(--text-main)]">
       <SiteHeader />
@@ -107,7 +110,7 @@ export default async function Home() {
       </HomeSection>
 
       {/* Premium hydration-safe middle section */}
-      <HomeMiddleSection />
+      <HomeMiddleSection coverageStats={coverageStats} />
 
       {/* 2.6) Compliance guides */}
       <HomeSection className="pt-0 border-t border-[var(--border-soft)]">
