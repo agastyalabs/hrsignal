@@ -129,13 +129,13 @@ export default function HomeMiddleSection({ coverageStats }) {
 
   return (
     <section className="border-t border-[var(--border-soft)]">
-      <div className="mx-auto max-w-7xl px-6 py-10 lg:py-12">
+      <div className="mx-auto max-w-7xl px-6 py-8 lg:py-10">
         {/* Snapshot row (must exist for QA string checks) */}
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div
               className={cn(
-                "radius-card glass-panel border border-[var(--border-soft)] bg-white/80 p-7 shadow-soft",
+                "radius-card glass-panel border border-[var(--border-soft)] bg-[var(--surface-1)] p-7 shadow-soft",
                 "transition-transform duration-200 motion-reduce:transition-none hover:-translate-y-0.5 hover:shadow-float",
               )}
             >
@@ -153,7 +153,7 @@ export default function HomeMiddleSection({ coverageStats }) {
           <div className="lg:col-span-7">
             <div
               className={cn(
-                "radius-card glass-panel border border-[var(--border-soft)] bg-white/80 p-7 shadow-soft",
+                "radius-card glass-panel border border-[var(--border-soft)] bg-[var(--surface-1)] p-7 shadow-soft",
                 "transition-transform duration-200 motion-reduce:transition-none hover:-translate-y-0.5 hover:shadow-float",
               )}
             >
